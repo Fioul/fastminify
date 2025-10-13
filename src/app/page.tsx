@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import CodeEditor from '@/components/CodeEditor'
 import {
     Select,
     SelectTrigger,
@@ -223,13 +224,13 @@ export default function Page() {
                 {/* INPUT AREA */}
                 <div className="lg:col-span-5 xl:col-span-4">
                     <div className="h-[600px] flex flex-col">
-                        <Label htmlFor="code" className="text-sm font-medium mb-2">Your code</Label>
-                        <Textarea
-                            id="code"
-                            placeholder="Paste or drop your JS / CSS code here..."
+                        <Label className="text-sm font-medium mb-2">Your code</Label>
+                        <CodeEditor
                             value={code}
-                            onChange={(e) => setCode(e.target.value)}
-                            className="flex-1 font-mono text-sm resize-none"
+                            onChange={(value) => setCode(value || '')}
+                            language={options.type === 'js' ? 'javascript' : 'css'}
+                            placeholder="Paste or drop your JS / CSS code here..."
+                            height="100%"
                         />
                     </div>
                 </div>
@@ -238,22 +239,25 @@ export default function Page() {
                 <div className="lg:col-span-5 xl:col-span-4">
                     <div className="h-[600px] flex flex-col">
                         <Label className="text-sm font-medium mb-2">Result</Label>
-                        <Card className="border flex-1">
-                            <CardContent className="p-4 h-full">
-                                {result ? (
-                                    <pre className="bg-muted p-3 rounded-md overflow-x-auto text-sm font-mono h-full whitespace-pre-wrap">
-                                        {result}
-                                    </pre>
-                                ) : (
-                                    <div className="h-full flex items-center justify-center text-muted-foreground">
-                                        <div className="text-center">
-                                            <div className="text-4xl mb-2">⚡</div>
-                                            <p>Minified result will appear here</p>
-                                        </div>
+                        <div className="flex-1">
+                            {result ? (
+                                <CodeEditor
+                                    value={result}
+                                    onChange={() => {}} // Read-only
+                                    language={options.type === 'js' ? 'javascript' : 'css'}
+                                    placeholder="Minified result will appear here"
+                                    height="100%"
+                                    readOnly={true}
+                                />
+                            ) : (
+                                <div className="h-full flex items-center justify-center text-muted-foreground border rounded-md bg-muted/30">
+                                    <div className="text-center">
+                                        <div className="text-4xl mb-2">⚡</div>
+                                        <p>Minified result will appear here</p>
                                     </div>
-                                )}
-                            </CardContent>
-                        </Card>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
