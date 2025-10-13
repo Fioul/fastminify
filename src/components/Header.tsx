@@ -66,7 +66,7 @@ export default function Header() {
             <button
               onClick={() => setLanguage('en')}
               className={cn(
-                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium',
+                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium cursor-pointer',
                 language === 'en'
                   ? 'bg-background shadow-sm text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
@@ -77,7 +77,7 @@ export default function Header() {
             <button
               onClick={() => setLanguage('fr')}
               className={cn(
-                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium',
+                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium cursor-pointer',
                 language === 'fr'
                   ? 'bg-background shadow-sm text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
