@@ -7,10 +7,10 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
 
-// (Optionnel) Si tu veux utiliser la police Inter
+// Inter font configuration
 const inter = Inter({subsets: ['latin']})
 
-// 🧠 SEO / META DE BASE
+// SEO / Meta configuration
 export const metadata: Metadata = {
     title: 'FastMinify — Online JS & CSS Minifier',
     description:
@@ -67,7 +67,7 @@ export default function RootLayout({
             </div>
         </ThemeProvider>
 
-        {/* ✅ Composant Sonner pour les notifications */}
+        {/* Sonner toast notifications */}
         <Toaster
             position="top-right"
             richColors

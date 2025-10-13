@@ -19,17 +19,20 @@ import { minifyJS } from '@/lib/minify-js'
 import { minifyCSS } from '@/lib/minify-css'
 
 export default function Page() {
+    // State for code input and minified result
     const [code, setCode] = useState('')
     const [result, setResult] = useState('')
     const [stats, setStats] = useState<{ original: number; minified: number } | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
+    // Minification options configuration
     const [options, setOptions] = useState({
         type: 'js',
         aggressive: false,
         compatibility: 'es6',
     })
 
+    // Main minification handler
     const handleMinify = async () => {
         if (!code.trim()) {
             toast.error('Please paste some code first.')
@@ -40,6 +43,7 @@ export default function Page() {
 
         try {
             let minified = ''
+            // Choose minifier based on selected type
             if (options.type === 'js') {
                 minified = await minifyJS(code, options.aggressive)
             } else {
@@ -61,6 +65,7 @@ export default function Page() {
         }
     }
 
+    // Fallback copy method for older browsers
     const fallbackCopy = (text: string) => {
         const textarea = document.createElement('textarea')
         textarea.value = text
@@ -77,6 +82,7 @@ export default function Page() {
         document.body.removeChild(textarea)
     }
 
+    // Copy result to clipboard with fallback
     const handleCopy = async () => {
         if (!result) return
         if (navigator?.clipboard) {

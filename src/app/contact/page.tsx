@@ -20,13 +20,13 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Validation basique
+    // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       toast.error('Please fill in all required fields.')
       return
     }
 
-    // Simuler l'envoi (dans un vrai projet, vous utiliseriez une API)
+    // Simulate form submission (in a real project, you would use an API)
     toast.success('Thank you for your message! We\'ll get back to you soon.')
     setFormData({ name: '', email: '', subject: '', message: '', type: 'bug' })
   }

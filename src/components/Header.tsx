@@ -14,7 +14,7 @@ export default function Header() {
   const [language, setLanguage] = useState('en')
   const pathname = usePathname()
 
-  // Éviter l'hydratation mismatch
+  // Prevent hydration mismatch
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -23,6 +23,7 @@ export default function Header() {
     return null
   }
 
+  // Navigation items configuration
   const navItems = [
     { href: '/', label: 'JS/CSS Minifier' },
     { href: '/about', label: 'About' },
@@ -32,7 +33,7 @@ export default function Header() {
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo and brand */}
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-sm">FM</span>
@@ -40,9 +41,9 @@ export default function Header() {
           <span className="font-bold text-xl">FastMinify</span>
         </div>
 
-        {/* Navigation droite */}
+        {/* Right navigation section */}
         <div className="flex items-center space-x-6">
-          {/* Navigation */}
+          {/* Main navigation menu */}
           <nav className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <Link
@@ -60,7 +61,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Sélecteur de langue - Segmented Control */}
+          {/* Language selector - Segmented Control */}
           <div className="flex bg-muted rounded-lg p-1">
             <button
               onClick={() => setLanguage('en')}
@@ -86,7 +87,7 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Toggle de thème */}
+          {/* Theme toggle button */}
           <Button
             variant="ghost"
             size="icon"
