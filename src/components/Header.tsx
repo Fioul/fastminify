@@ -5,19 +5,13 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select'
 import { Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function Header() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [language, setLanguage] = useState('en')
   const pathname = usePathname()
 
   // Éviter l'hydratation mismatch
@@ -66,16 +60,31 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Sélecteur de langue */}
-          <Select defaultValue="en">
-            <SelectTrigger className="w-[100px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Sélecteur de langue - Segmented Control */}
+          <div className="flex bg-muted rounded-lg p-1">
+            <button
+              onClick={() => setLanguage('en')}
+              className={cn(
+                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium',
+                language === 'en'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage('fr')}
+              className={cn(
+                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium',
+                language === 'fr'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              FR
+            </button>
+          </div>
 
           {/* Toggle de thème */}
           <Button
