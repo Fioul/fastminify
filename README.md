@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡️ FastMinify
 
-## Getting Started
+> Free online tool to minify JavaScript and CSS instantly — fast, modern, and privacy-friendly.
 
-First, run the development server:
+![FastMinify Screenshot](public/preview.png)
+
+---
+
+## 🧠 Overview
+
+**FastMinify** is a minimalist web app built with **Next.js**, designed to provide instant JS and CSS minification directly in the browser.  
+It focuses on **speed**, **UX clarity**, and **modern web performance**, without collecting any user data.
+
+---
+
+## 🚀 Features
+
+- 🧩 **Instant minification** for JavaScript and CSS (client-side, no upload)
+- ⚙️ **Options**:
+    - Safe / Aggressive compression
+    - ES5 / ES6 compatibility
+- 🎨 **Modern UI** with [Shadcn/UI](https://ui.shadcn.com/)
+- 🌙 **Dark mode** automatically supported
+- 📊 **Statistics** showing size saved and compression rate
+- 📋 **Copy & Download** results easily
+- 🔔 **Toast notifications** via [Sonner](https://sonner.emilkowal.ski/)
+- 💻 100% static — no backend, fully privacy-safe
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| Framework | [Next.js 15 (App Router)](https://nextjs.org/) |
+| Language | TypeScript |
+| Styling | [TailwindCSS](https://tailwindcss.com/) |
+| UI Library | [Shadcn/UI](https://ui.shadcn.com/) |
+| Notifications | [Sonner](https://sonner.emilkowal.ski/) |
+| JS Minification | [Terser](https://github.com/terser/terser) |
+| CSS Minification | [CSSO](https://github.com/css/csso) |
+| Hosting | [Vercel](https://vercel.com/) |
+
+---
+
+## ⚙️ Installation & Development
+
+### 1️⃣ Clone the repo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/<yourusername>/fastminify.git
+cd fastminify
