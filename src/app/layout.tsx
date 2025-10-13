@@ -2,6 +2,9 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import './globals.css'
 import {Toaster} from '@/components/ui/sonner'
+import {ThemeProvider} from '@/components/ThemeProvider'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
 
 // (Optionnel) Si tu veux utiliser la police Inter
@@ -54,7 +57,15 @@ export default function RootLayout({
                 inter.className
             )}
         >
-        {children}
+        <ThemeProvider>
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <main className="flex-1">
+                    {children}
+                </main>
+                <Footer />
+            </div>
+        </ThemeProvider>
 
         {/* ✅ Composant Sonner pour les notifications */}
         <Toaster

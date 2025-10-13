@@ -92,10 +92,10 @@ export default function Page() {
     }
 
     return (
-        <div className="container max-w-3xl mx-auto py-10 space-y-8">
-            {/* HEADER */}
+        <div className="container max-w-3xl mx-auto px-4 py-10 space-y-8">
+            {/* HERO SECTION */}
             <div className="text-center space-y-2">
-                <h1 className="text-3xl font-bold">FastMinify</h1>
+                <h1 className="text-3xl font-bold">Minify Your Code</h1>
                 <p className="text-muted-foreground">
                     Minify your JavaScript or CSS instantly — free, fast, and private.
                 </p>
