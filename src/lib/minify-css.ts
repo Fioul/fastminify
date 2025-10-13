@@ -10,7 +10,6 @@ export async function minifyCSS(code: string) {
         
         // CSSO retourne un objet avec une propriété 'css'
         if (!result || typeof result !== 'object' || !('css' in result)) {
-            console.error('CSSO invalid result structure:', result)
             throw new Error('CSSO returned invalid result')
         }
         

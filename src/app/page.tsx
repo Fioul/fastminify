@@ -18,6 +18,7 @@ import { Progress } from '@/components/ui/progress'
 import { toast } from 'sonner'
 import { minifyJS } from '@/lib/minify-js'
 import { minifyCSS } from '@/lib/minify-css'
+import { detectCodeLanguage } from '@/lib/detect-language'
 
 export default function Page() {
     // State for code input and minified result
@@ -29,9 +30,9 @@ export default function Page() {
 
     // Minification options configuration
     const [options, setOptions] = useState({
-        type: 'js',
+        type: 'js' as 'js' | 'css',
         aggressive: false,
-        compatibility: 'es6',
+        compatibility: 'es6' as 'es5' | 'es6',
     })
 
     // Main minification handler
@@ -82,6 +83,20 @@ export default function Page() {
             toast.error('Unable to copy.')
         }
         document.body.removeChild(textarea)
+    }
+
+    // Auto-detect language when code changes
+    const handleCodeChange = (value: string) => {
+        setCode(value)
+        
+        // Auto-detect language if code is not empty
+        if (value.trim()) {
+            const detectedLanguage = detectCodeLanguage(value)
+            if (detectedLanguage !== options.type) {
+                setOptions(prev => ({ ...prev, type: detectedLanguage }))
+                toast.success(`Language auto-detected: ${detectedLanguage === 'js' ? 'JavaScript' : 'CSS'}`)
+            }
+        }
     }
 
     // Copy result to clipboard with fallback
@@ -153,21 +168,21 @@ export default function Page() {
                 <Card className="p-4 bg-muted/30 w-full max-w-4xl">
                     <div className="flex flex-wrap gap-4 items-center justify-between">
                         <div className="flex flex-wrap gap-4 items-center">
-                            <div>
-                                <Label className="text-sm font-medium">Type</Label>
-                                <Select
-                                    value={options.type}
-                                    onValueChange={(v) => setOptions({ ...options, type: v })}
-                                >
-                                    <SelectTrigger className="w-[120px] h-9">
-                                        <SelectValue placeholder="Select" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="js">JavaScript</SelectItem>
-                                        <SelectItem value="css">CSS</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
+                        <div>
+                            <Label className="text-sm font-medium">Code</Label>
+                            <Select
+                                value={options.type}
+                                onValueChange={(v) => setOptions({ ...options, type: v as 'js' | 'css' })}
+                            >
+                                <SelectTrigger className="w-[120px] h-9">
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="js">JavaScript</SelectItem>
+                                    <SelectItem value="css">CSS</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
 
                             <div>
                                 <Label className="text-sm font-medium">Compatibility</Label>
@@ -227,7 +242,7 @@ export default function Page() {
                         <Label className="text-sm font-medium mb-2">Your code</Label>
                         <CodeEditor
                             value={code}
-                            onChange={(value) => setCode(value || '')}
+                            onChange={handleCodeChange}
                             language={options.type === 'js' ? 'javascript' : 'css'}
                             placeholder="Paste or drop your JS / CSS code here..."
                             height="100%"
