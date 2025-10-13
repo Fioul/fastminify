@@ -24,6 +24,7 @@ export default function Page() {
     const [result, setResult] = useState('')
     const [stats, setStats] = useState<{ original: number; minified: number } | null>(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [showFloatingAd, setShowFloatingAd] = useState(true)
 
     // Minification options configuration
     const [options, setOptions] = useState({
@@ -97,117 +98,257 @@ export default function Page() {
         }
     }
 
+    // Beautify minified code
+    const handleBeautify = () => {
+        if (!result) return
+        
+        try {
+            // Simple beautify for demonstration (in real app, use a proper beautifier)
+            const beautified = result
+                .replace(/;/g, ';\n')
+                .replace(/\{/g, '{\n  ')
+                .replace(/\}/g, '\n}')
+                .replace(/,\s*/g, ',\n  ')
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0)
+                .join('\n')
+            
+            setResult(beautified)
+            toast.success('Code beautified!')
+        } catch (err) {
+            toast.error('Failed to beautify code')
+        }
+    }
+
+    // Download result as file
+    const handleDownload = () => {
+        if (!result) return
+        
+        const blob = new Blob([result], { type: 'text/plain' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `minified.${options.type}`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+        toast.success('File downloaded!')
+    }
+
     return (
-        <div className="container max-w-3xl mx-auto px-4 py-10 space-y-8">
+        <div className="container max-w-[1440px] mx-auto px-4 py-10">
             {/* HERO SECTION */}
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-2 mb-8">
                 <h1 className="text-3xl font-bold">Minify Your Code</h1>
                 <p className="text-muted-foreground">
                     Minify your JavaScript or CSS instantly — free, fast, and private.
                 </p>
             </div>
 
-            {/* CODE INPUT */}
-            <div className="space-y-2">
-                <Label htmlFor="code">Your code</Label>
-                <Textarea
-                    id="code"
-                    placeholder="Paste or drop your JS / CSS code here..."
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    className="min-h-[200px] font-mono text-sm"
-                />
+            {/* TOOLBAR - Centered with max width */}
+            <div className="flex justify-center mb-6">
+                <Card className="p-4 bg-muted/30 w-full max-w-4xl">
+                    <div className="flex flex-wrap gap-4 items-center justify-between">
+                        <div className="flex flex-wrap gap-4 items-center">
+                            <div>
+                                <Label className="text-sm font-medium">Type</Label>
+                                <Select
+                                    value={options.type}
+                                    onValueChange={(v) => setOptions({ ...options, type: v })}
+                                >
+                                    <SelectTrigger className="w-[120px] h-9">
+                                        <SelectValue placeholder="Select" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="js">JavaScript</SelectItem>
+                                        <SelectItem value="css">CSS</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div>
+                                <Label className="text-sm font-medium">Compatibility</Label>
+                                <Select
+                                    value={options.compatibility}
+                                    onValueChange={(v) => setOptions({ ...options, compatibility: v })}
+                                >
+                                    <SelectTrigger className="w-[120px] h-9">
+                                        <SelectValue placeholder="Select" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="es5">ES5</SelectItem>
+                                        <SelectItem value="es6">ES6+</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <Switch
+                                    checked={options.aggressive}
+                                    onCheckedChange={(v) => setOptions({ ...options, aggressive: v })}
+                                />
+                                <Label className="text-sm font-medium">Aggressive</Label>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2">
+                            <Button onClick={handleMinify} disabled={isLoading} size="sm">
+                                {isLoading ? 'Minifying…' : 'Minify'}
+                            </Button>
+                            <Button variant="outline" onClick={handleBeautify} disabled={!result} size="sm">
+                                Beautify
+                            </Button>
+                        </div>
+                    </div>
+                </Card>
             </div>
 
-            {/* OPTIONS */}
-            <Card className="p-4 bg-muted/30">
-                <div className="flex flex-wrap gap-6 items-center">
-                    <div>
-                        <Label>Type</Label>
-                        <Select
-                            value={options.type}
-                            onValueChange={(v) => setOptions({ ...options, type: v })}
-                        >
-                            <SelectTrigger className="w-[120px]">
-                                <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="js">JavaScript</SelectItem>
-                                <SelectItem value="css">CSS</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div>
-                        <Label>Compatibility</Label>
-                        <Select
-                            value={options.compatibility}
-                            onValueChange={(v) => setOptions({ ...options, compatibility: v })}
-                        >
-                            <SelectTrigger className="w-[120px]">
-                                <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="es5">ES5</SelectItem>
-                                <SelectItem value="es6">ES6+</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                        <Switch
-                            checked={options.aggressive}
-                            onCheckedChange={(v) => setOptions({ ...options, aggressive: v })}
-                        />
-                        <Label>Aggressive mode</Label>
+            {/* MAIN CONTENT - 2 COLUMNS LAYOUT */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* LEFT AD PLACEHOLDER */}
+                <div className="hidden xl:block xl:col-span-2">
+                    <div className="sticky top-24">
+                        <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
+                            <div className="text-muted-foreground text-sm">
+                                <div className="w-[160px] h-[600px] mx-auto bg-muted/30 rounded flex items-center justify-center">
+                                    <span className="text-xs">Ad Space<br/>160x600</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </Card>
 
-            {/* ACTIONS */}
-            <div className="flex gap-3">
-                <Button onClick={handleMinify} disabled={isLoading}>
-                    {isLoading ? 'Minifying…' : 'Minify'}
-                </Button>
-                <Button variant="outline" onClick={handleCopy} disabled={!result}>
-                    Copy result
-                </Button>
+                {/* INPUT AREA */}
+                <div className="lg:col-span-5 xl:col-span-4">
+                    <div className="h-[600px] flex flex-col">
+                        <Label htmlFor="code" className="text-sm font-medium mb-2">Your code</Label>
+                        <Textarea
+                            id="code"
+                            placeholder="Paste or drop your JS / CSS code here..."
+                            value={code}
+                            onChange={(e) => setCode(e.target.value)}
+                            className="flex-1 font-mono text-sm resize-none"
+                        />
+                    </div>
+                </div>
+
+                {/* RESULT AREA */}
+                <div className="lg:col-span-5 xl:col-span-4">
+                    <div className="h-[600px] flex flex-col">
+                        <Label className="text-sm font-medium mb-2">Result</Label>
+                        <Card className="border flex-1">
+                            <CardContent className="p-4 h-full">
+                                {result ? (
+                                    <pre className="bg-muted p-3 rounded-md overflow-x-auto text-sm font-mono h-full whitespace-pre-wrap">
+                                        {result}
+                                    </pre>
+                                ) : (
+                                    <div className="h-full flex items-center justify-center text-muted-foreground">
+                                        <div className="text-center">
+                                            <div className="text-4xl mb-2">⚡</div>
+                                            <p>Minified result will appear here</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+
+                {/* RIGHT AD PLACEHOLDER */}
+                <div className="hidden xl:block xl:col-span-2">
+                    <div className="sticky top-24">
+                        <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
+                            <div className="text-muted-foreground text-sm">
+                                <div className="w-[160px] h-[600px] mx-auto bg-muted/30 rounded flex items-center justify-center">
+                                    <span className="text-xs">Ad Space<br/>160x600</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* RESULT */}
-            {result && (
-                <Card className="border mt-4">
-                    <CardHeader>
-                        <h2 className="font-semibold text-lg">Result</h2>
-                    </CardHeader>
-                    <CardContent>
-            <pre className="bg-muted p-3 rounded-md overflow-x-auto text-sm font-mono">
-              {result}
-            </pre>
-
-                        {stats && (
-                            <div className="mt-3 space-y-1">
-                                <p>
-                                    <span className="text-muted-foreground">Original:</span>{' '}
-                                    {stats.original} chars
-                                </p>
-                                <p>
-                                    <span className="text-muted-foreground">Minified:</span>{' '}
-                                    {stats.minified} chars
-                                </p>
-                                <p className="text-green-600 font-medium">
-                                    Saved:{' '}
-                                    {((1 - stats.minified / stats.original) * 100).toFixed(1)}%
-                                </p>
+            {/* STATS AND ACTIONS - Below the main content */}
+            {stats && (
+                <Card className="border mt-8">
+                    <CardContent className="p-6">
+                        <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span className="text-muted-foreground">Original:</span>
+                                    <span className="ml-2 font-medium">{stats.original} chars</span>
+                                </div>
+                                <div>
+                                    <span className="text-muted-foreground">Minified:</span>
+                                    <span className="ml-2 font-medium">{stats.minified} chars</span>
+                                </div>
+                            </div>
+                            <div className="text-center">
+                                <span className="text-green-600 font-semibold text-lg">
+                                    Saved: {((1 - stats.minified / stats.original) * 100).toFixed(1)}%
+                                </span>
                                 <Progress
                                     value={Number(((1 - stats.minified / stats.original) * 100).toFixed(1))}
-                                    className="h-2"
+                                    className="h-2 mt-2"
                                 />
                             </div>
-                        )}
+                            <div className="flex gap-2">
+                                <Button onClick={handleCopy} className="flex-1" size="sm">
+                                    Copy Result
+                                </Button>
+                                <Button variant="outline" onClick={handleDownload} className="flex-1" size="sm">
+                                    Download
+                                </Button>
+                            </div>
+                        </div>
                     </CardContent>
                 </Card>
             )}
+
+            {/* BOTTOM BANNER AD - Static version for mobile */}
+            <div className="mt-8 flex justify-center xl:hidden">
+                <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
+                    <div className="text-muted-foreground text-sm">
+                        <div className="w-[320px] h-[50px] mx-auto bg-muted/30 rounded flex items-center justify-center">
+                            <span className="text-xs">Ad Space<br/>320x50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* FLOATING BANNER AD - Desktop only */}
+            {showFloatingAd && (
+                <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t shadow-lg hidden xl:block">
+                    <div className="container max-w-[1440px] mx-auto px-4 py-3">
+                        <div className="flex items-center justify-between">
+                            <div className="flex-1 flex justify-center">
+                                <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-3 text-center">
+                                    <div className="text-muted-foreground text-sm">
+                                        <div className="w-[728px] h-[90px] mx-auto bg-muted/30 rounded flex items-center justify-center">
+                                            <span className="text-xs">Floating Ad Space<br/>728x90</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setShowFloatingAd(false)}
+                                className="ml-4 text-muted-foreground hover:text-foreground"
+                                aria-label="Close floating ad"
+                            >
+                                ✕
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Add bottom padding to prevent content from being hidden behind floating ad */}
+            <div className="h-24 xl:block hidden"></div>
         </div>
     )
 }
