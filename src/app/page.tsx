@@ -21,6 +21,7 @@ import { minifyCSS } from '@/lib/minify-css'
 import { minifyJSON } from '@/lib/minify-json'
 import { serializePHP, unserializePHP } from '@/lib/php-serializer'
 import { minifyJavaScript, defaultJavaScriptOptions, type JavaScriptOptions } from '@/lib/javascript-options'
+import { minifyCSSWithOptions, defaultCSSOptions, type CSSOptions } from '@/lib/css-options'
 import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
 import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
@@ -46,6 +47,9 @@ export default function Page() {
     
     // JavaScript options
     const [jsOptions, setJsOptions] = useState<JavaScriptOptions>(defaultJavaScriptOptions)
+    
+    // CSS options
+    const [cssOptions, setCssOptions] = useState<CSSOptions>(defaultCSSOptions)
 
     // Process code from left to right (minify)
     const processMinify = async () => {
@@ -64,7 +68,7 @@ export default function Page() {
             if (type === 'js') {
                 processed = await minifyJavaScript(sourceCode, jsOptions)
             } else if (type === 'css') {
-                processed = await minifyCSS(sourceCode)
+                processed = await minifyCSSWithOptions(sourceCode, cssOptions)
             } else if (type === 'json') {
                 processed = minifyJSON(sourceCode)
             } else if (type === 'php') {
@@ -404,6 +408,94 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="remove-console" className="text-xs">Remove console</Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {leftType === 'css' && (
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Compression</Label>
+                                        <Select
+                                            value={cssOptions.compressionLevel}
+                                            onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
+                                                setCssOptions(prev => ({ ...prev, compressionLevel: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-36 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="conservative">Conservative</SelectItem>
+                                                <SelectItem value="normal">Normal</SelectItem>
+                                                <SelectItem value="aggressive">Aggressive</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Browser</Label>
+                                        <Select
+                                            value={cssOptions.browserSupport}
+                                            onValueChange={(value: 'modern' | 'ie11' | 'ie9') => 
+                                                setCssOptions(prev => ({ ...prev, browserSupport: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-32 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="modern">Modern</SelectItem>
+                                                <SelectItem value="ie11">IE11+</SelectItem>
+                                                <SelectItem value="ie9">IE9+</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="remove-comments"
+                                                checked={cssOptions.removeComments}
+                                                onCheckedChange={(checked) => 
+                                                    setCssOptions(prev => ({ ...prev, removeComments: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="remove-comments" className="text-xs">Remove comments</Label>
+                                        </div>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="convert-colors"
+                                                checked={cssOptions.convertColors}
+                                                onCheckedChange={(checked) => 
+                                                    setCssOptions(prev => ({ ...prev, convertColors: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="convert-colors" className="text-xs">Convert colors</Label>
+                                        </div>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="merge-rules"
+                                                checked={cssOptions.mergeRules}
+                                                onCheckedChange={(checked) => 
+                                                    setCssOptions(prev => ({ ...prev, mergeRules: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="merge-rules" className="text-xs">Merge rules</Label>
+                                        </div>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="minify-selectors"
+                                                checked={cssOptions.minifySelectors}
+                                                onCheckedChange={(checked) => 
+                                                    setCssOptions(prev => ({ ...prev, minifySelectors: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="minify-selectors" className="text-xs">Minify selectors</Label>
                                         </div>
                                     </div>
                                 </div>
