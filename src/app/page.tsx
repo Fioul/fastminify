@@ -23,6 +23,7 @@ import { serializePHP, unserializePHP } from '@/lib/php-serializer'
 import { minifyJavaScript, defaultJavaScriptOptions, type JavaScriptOptions } from '@/lib/javascript-options'
 import { minifyCSSWithOptions, defaultCSSOptions, type CSSOptions } from '@/lib/css-options'
 import { minifyJSONWithOptions, defaultJSONOptions, type JSONOptions } from '@/lib/json-options'
+import { serializePHPWithOptions, unserializePHPWithOptions, defaultPHPOptions, type PHPOptions } from '@/lib/php-options'
 import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
 import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
@@ -54,6 +55,9 @@ export default function Page() {
     
     // JSON options
     const [jsonOptions, setJsonOptions] = useState<JSONOptions>(defaultJSONOptions)
+    
+    // PHP options
+    const [phpOptions, setPhpOptions] = useState<PHPOptions>(defaultPHPOptions)
 
     // Process code from left to right (minify)
     const processMinify = async () => {
@@ -79,7 +83,7 @@ export default function Page() {
                 // Pour sérialiser, on doit parser le JSON/JS d'abord
                 try {
                     const parsed = JSON.parse(sourceCode)
-                    processed = serializePHP(parsed)
+                    processed = serializePHPWithOptions(parsed, phpOptions)
                 } catch {
                     throw new Error('Invalid JSON/JavaScript object for PHP serialization')
                 }
@@ -145,7 +149,7 @@ export default function Page() {
             } else if (type === 'json') {
                 processed = unminifyJSON(sourceCode)
             } else if (type === 'php') {
-                const parsed = unserializePHP(sourceCode)
+                const parsed = unserializePHPWithOptions(sourceCode, phpOptions)
                 processed = JSON.stringify(parsed, null, 2)
             }
 
@@ -211,7 +215,8 @@ export default function Page() {
         setLeftCode(code)
         
         // Auto-detect language if enabled and code is not empty
-        if (autoDetectLeft && code.trim()) {
+        // But don't override if user has manually selected PHP Serialized
+        if (autoDetectLeft && code.trim() && leftType !== 'php') {
             const detectedLanguage = detectCodeLanguage(code)
             if (detectedLanguage !== leftType) {
                 setLeftType(detectedLanguage)
@@ -232,7 +237,8 @@ export default function Page() {
         setRightCode(code)
         
         // Auto-detect language if enabled and code is not empty
-        if (autoDetectRight && code.trim()) {
+        // But don't override if user has manually selected PHP Serialized
+        if (autoDetectRight && code.trim() && rightType !== 'php') {
             const detectedLanguage = detectCodeLanguage(code)
             if (detectedLanguage !== rightType) {
                 setRightType(detectedLanguage)
@@ -624,6 +630,94 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="fix-errors" className="text-sm">Fix common errors</Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {leftType === 'php' && (
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Level</Label>
+                                        <Select
+                                            value={phpOptions.serializationLevel}
+                                            onValueChange={(value: 'basic' | 'deep' | 'custom') => 
+                                                setPhpOptions(prev => ({ ...prev, serializationLevel: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-32 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="basic">Basic</SelectItem>
+                                                <SelectItem value="deep">Deep</SelectItem>
+                                                <SelectItem value="custom">Custom</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Compression</Label>
+                                        <Select
+                                            value={phpOptions.compression}
+                                            onValueChange={(value: 'none' | 'minimal' | 'aggressive') => 
+                                                setPhpOptions(prev => ({ ...prev, compression: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-32 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="none">None</SelectItem>
+                                                <SelectItem value="minimal">Minimal</SelectItem>
+                                                <SelectItem value="aggressive">Aggressive</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="preserve-types"
+                                                checked={phpOptions.preserveTypes}
+                                                onCheckedChange={(checked) => 
+                                                    setPhpOptions(prev => ({ ...prev, preserveTypes: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="preserve-types" className="text-sm">Preserve types</Label>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="include-null"
+                                                checked={phpOptions.includeNullValues}
+                                                onCheckedChange={(checked) => 
+                                                    setPhpOptions(prev => ({ ...prev, includeNullValues: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="include-null" className="text-sm">Include null</Label>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="readable"
+                                                checked={phpOptions.readable}
+                                                onCheckedChange={(checked) => 
+                                                    setPhpOptions(prev => ({ ...prev, readable: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="readable" className="text-sm">Readable</Label>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="strict-mode"
+                                                checked={phpOptions.strictMode}
+                                                onCheckedChange={(checked) => 
+                                                    setPhpOptions(prev => ({ ...prev, strictMode: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="strict-mode" className="text-sm">Strict mode</Label>
                                         </div>
                                     </div>
                                 </div>
