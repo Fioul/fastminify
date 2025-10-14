@@ -26,7 +26,7 @@ export default function Header() {
 
   // Navigation items configuration
   const navItems = [
-    { href: '/', label: 'JS/CSS Minifier' },
+    { href: '/', label: 'Code Minifier' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ]

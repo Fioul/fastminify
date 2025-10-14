@@ -22,6 +22,7 @@ import { minifyJSON } from '@/lib/minify-json'
 import { serializePHP, unserializePHP } from '@/lib/php-serializer'
 import { minifyJavaScript, defaultJavaScriptOptions, type JavaScriptOptions } from '@/lib/javascript-options'
 import { minifyCSSWithOptions, defaultCSSOptions, type CSSOptions } from '@/lib/css-options'
+import { minifyJSONWithOptions, defaultJSONOptions, type JSONOptions } from '@/lib/json-options'
 import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
 import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
@@ -50,6 +51,9 @@ export default function Page() {
     
     // CSS options
     const [cssOptions, setCssOptions] = useState<CSSOptions>(defaultCSSOptions)
+    
+    // JSON options
+    const [jsonOptions, setJsonOptions] = useState<JSONOptions>(defaultJSONOptions)
 
     // Process code from left to right (minify)
     const processMinify = async () => {
@@ -70,7 +74,7 @@ export default function Page() {
             } else if (type === 'css') {
                 processed = await minifyCSSWithOptions(sourceCode, cssOptions)
             } else if (type === 'json') {
-                processed = minifyJSON(sourceCode)
+                processed = minifyJSONWithOptions(sourceCode, jsonOptions)
             } else if (type === 'php') {
                 // Pour sérialiser, on doit parser le JSON/JS d'abord
                 try {
@@ -540,6 +544,86 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="minify-selectors" className="text-xs">Minify selectors</Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {leftType === 'json' && (
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Compression</Label>
+                                        <Select
+                                            value={jsonOptions.compressionLevel}
+                                            onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
+                                                setJsonOptions(prev => ({ ...prev, compressionLevel: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-36 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="conservative">Conservative</SelectItem>
+                                                <SelectItem value="normal">Normal</SelectItem>
+                                                <SelectItem value="aggressive">Aggressive</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        <Switch
+                                            id="optimize-numbers"
+                                            checked={jsonOptions.optimizeNumbers}
+                                            onCheckedChange={(checked) => 
+                                                setJsonOptions(prev => ({ ...prev, optimizeNumbers: checked }))
+                                            }
+                                        />
+                                        <Label htmlFor="optimize-numbers" className="text-sm">Optimize numbers</Label>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        <Switch
+                                            id="scientific-notation"
+                                            checked={jsonOptions.useScientificNotation}
+                                            onCheckedChange={(checked) => 
+                                                setJsonOptions(prev => ({ ...prev, useScientificNotation: checked }))
+                                            }
+                                        />
+                                        <Label htmlFor="scientific-notation" className="text-sm">Scientific notation</Label>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="remove-empty-keys"
+                                                checked={jsonOptions.removeEmptyKeys}
+                                                onCheckedChange={(checked) => 
+                                                    setJsonOptions(prev => ({ ...prev, removeEmptyKeys: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="remove-empty-keys" className="text-sm">Remove empty keys</Label>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="remove-null-values"
+                                                checked={jsonOptions.removeNullValues}
+                                                onCheckedChange={(checked) => 
+                                                    setJsonOptions(prev => ({ ...prev, removeNullValues: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="remove-null-values" className="text-sm">Remove null values</Label>
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="fix-errors"
+                                                checked={jsonOptions.fixCommonErrors}
+                                                onCheckedChange={(checked) => 
+                                                    setJsonOptions(prev => ({ ...prev, fixCommonErrors: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="fix-errors" className="text-sm">Fix common errors</Label>
                                         </div>
                                     </div>
                                 </div>
