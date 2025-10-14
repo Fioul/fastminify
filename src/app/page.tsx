@@ -92,7 +92,29 @@ export default function Page() {
             toast.success('Code minified successfully!')
         } catch (err) {
             console.error(err)
-            toast.error('An error occurred during minification.')
+            
+            // Messages d'erreur spécifiques selon le type et l'erreur
+            let errorMessage = 'An error occurred during minification.'
+            
+            if (err instanceof Error) {
+                if (err.message.includes('JSON')) {
+                    if (leftType === 'json') {
+                        errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
+                    } else {
+                        errorMessage = `Invalid ${leftType.toUpperCase()} code. Please ensure the code matches the selected type.`
+                    }
+                } else if (err.message.includes('CSS')) {
+                    errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
+                } else if (err.message.includes('JavaScript') || err.message.includes('JS')) {
+                    errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
+                } else if (err.message.includes('PHP')) {
+                    errorMessage = 'Invalid data for PHP serialization. Please provide valid JSON/JavaScript object.'
+                } else {
+                    errorMessage = `Minification failed: ${err.message}`
+                }
+            }
+            
+            toast.error(errorMessage)
         } finally {
             setIsLoading(false)
         }
@@ -134,7 +156,29 @@ export default function Page() {
             toast.success('Code unminified successfully!')
         } catch (err) {
             console.error(err)
-            toast.error('An error occurred during unminification.')
+            
+            // Messages d'erreur spécifiques selon le type et l'erreur
+            let errorMessage = 'An error occurred during unminification.'
+            
+            if (err instanceof Error) {
+                if (err.message.includes('JSON')) {
+                    if (rightType === 'json') {
+                        errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
+                    } else {
+                        errorMessage = `Invalid ${rightType.toUpperCase()} code. Please ensure the code matches the selected type.`
+                    }
+                } else if (err.message.includes('CSS')) {
+                    errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
+                } else if (err.message.includes('JavaScript') || err.message.includes('JS')) {
+                    errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
+                } else if (err.message.includes('PHP')) {
+                    errorMessage = 'Invalid PHP serialized data. Please provide valid PHP serialized string.'
+                } else {
+                    errorMessage = `Unminification failed: ${err.message}`
+                }
+            }
+            
+            toast.error(errorMessage)
         } finally {
             setIsLoading(false)
         }
