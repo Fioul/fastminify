@@ -19,53 +19,111 @@ import { toast } from 'sonner'
 import { minifyJS } from '@/lib/minify-js'
 import { minifyCSS } from '@/lib/minify-css'
 import { minifyJSON } from '@/lib/minify-json'
+import { serializePHP, unserializePHP } from '@/lib/php-serializer'
+import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
+import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
 
 export default function Page() {
-    // State for code input and minified result
-    const [code, setCode] = useState('')
-    const [result, setResult] = useState('')
-    const [stats, setStats] = useState<{ original: number; minified: number } | null>(null)
+    // State for code input and result
+    const [leftCode, setLeftCode] = useState('')
+    const [rightCode, setRightCode] = useState('')
+    const [stats, setStats] = useState<{ original: number; result: number } | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [showFloatingAd, setShowFloatingAd] = useState(true)
+    const [leftType, setLeftType] = useState<'js' | 'css' | 'json' | 'php'>('js')
+    const [rightType, setRightType] = useState<'js' | 'css' | 'json' | 'php'>('js')
+    const [autoDetectLeft, setAutoDetectLeft] = useState(true)
+    const [autoDetectRight, setAutoDetectRight] = useState(true)
 
-    // Minification options configuration
+    // Options configuration
     const [options, setOptions] = useState({
-        type: 'js' as 'js' | 'css' | 'json',
         aggressive: false,
         compatibility: 'es6' as 'es5' | 'es6',
     })
 
-    // Main minification handler
-    const handleMinify = async () => {
-        if (!code.trim()) {
-            toast.error('Please paste some code first.')
+    // Process code from left to right (minify)
+    const processMinify = async () => {
+        const sourceCode = leftCode.trim()
+        if (!sourceCode) {
+            toast.error('Please paste some code in the left editor first.')
             return
         }
 
         setIsLoading(true)
 
         try {
-            let minified = ''
-            // Choose minifier based on selected type
-            if (options.type === 'js') {
-                minified = await minifyJS(code, options.aggressive)
-            } else if (options.type === 'css') {
-                minified = await minifyCSS(code)
-            } else if (options.type === 'json') {
-                minified = minifyJSON(code)
+            let processed = ''
+            const type = leftType
+
+            if (type === 'js') {
+                processed = await minifyJS(sourceCode, options.aggressive)
+            } else if (type === 'css') {
+                processed = await minifyCSS(sourceCode)
+            } else if (type === 'json') {
+                processed = minifyJSON(sourceCode)
+            } else if (type === 'php') {
+                // Pour sérialiser, on doit parser le JSON/JS d'abord
+                try {
+                    const parsed = JSON.parse(sourceCode)
+                    processed = serializePHP(parsed)
+                } catch {
+                    throw new Error('Invalid JSON/JavaScript object for PHP serialization')
+                }
             }
 
-            setResult(minified)
+            setRightCode(processed)
+            setRightType(type) // Même type que l'input
             setStats({
-                original: code.length,
-                minified: minified.length,
+                original: sourceCode.length,
+                result: processed.length,
             })
 
             toast.success('Code minified successfully!')
         } catch (err) {
             console.error(err)
             toast.error('An error occurred during minification.')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    // Process code from right to left (unminify)
+    const processUnminify = async () => {
+        const sourceCode = rightCode.trim()
+        if (!sourceCode) {
+            toast.error('Please paste some code in the right editor first.')
+            return
+        }
+
+        setIsLoading(true)
+
+        try {
+            let processed = ''
+            const type = rightType
+
+            if (type === 'js') {
+                processed = unminifyJS(sourceCode)
+            } else if (type === 'css') {
+                processed = unminifyCSS(sourceCode)
+            } else if (type === 'json') {
+                processed = unminifyJSON(sourceCode)
+            } else if (type === 'php') {
+                const parsed = unserializePHP(sourceCode)
+                processed = JSON.stringify(parsed, null, 2)
+            }
+
+            setLeftCode(processed)
+            setLeftType(type) // Même type que l'input
+            setStats({
+                original: sourceCode.length,
+                result: processed.length,
+            })
+
+            toast.success('Code unminified successfully!')
+        } catch (err) {
+            console.error(err)
+            toast.error('An error occurred during unminification.')
         } finally {
             setIsLoading(false)
         }
@@ -88,72 +146,85 @@ export default function Page() {
         document.body.removeChild(textarea)
     }
 
-    // Auto-detect language when code changes
-    const handleCodeChange = (value: string) => {
-        setCode(value)
+    // Handle left code changes with optional auto-detection
+    const handleLeftCodeChange = (value: string) => {
+        setLeftCode(value)
         
-        // Auto-detect language if code is not empty
-        if (value.trim()) {
+        // Auto-detect language if enabled and code is not empty
+        if (autoDetectLeft && value.trim()) {
             const detectedLanguage = detectCodeLanguage(value)
-            if (detectedLanguage !== options.type) {
-                setOptions(prev => ({ ...prev, type: detectedLanguage }))
+            if (detectedLanguage !== leftType) {
+                setLeftType(detectedLanguage)
                 const languageNames = {
                     'js': 'JavaScript',
                     'css': 'CSS',
-                    'json': 'JSON'
+                    'json': 'JSON',
+                    'php': 'PHP Serialized'
                 }
-                toast.success(`Language auto-detected: ${languageNames[detectedLanguage]}`)
+                toast.success(`Left language auto-detected: ${languageNames[detectedLanguage]}`)
             }
         }
     }
 
-    // Copy result to clipboard with fallback
+    // Handle right code changes with optional auto-detection
+    const handleRightCodeChange = (value: string) => {
+        setRightCode(value)
+        
+        // Auto-detect language if enabled and code is not empty
+        if (autoDetectRight && value.trim()) {
+            const detectedLanguage = detectCodeLanguage(value)
+            if (detectedLanguage !== rightType) {
+                setRightType(detectedLanguage)
+                const languageNames = {
+                    'js': 'JavaScript',
+                    'css': 'CSS',
+                    'json': 'JSON',
+                    'php': 'PHP Serialized'
+                }
+                toast.success(`Right language auto-detected: ${languageNames[detectedLanguage]}`)
+            }
+        }
+    }
+
+    // Copy right code to clipboard with fallback
     const handleCopy = async () => {
-        if (!result) return
+        if (!rightCode) return
         if (navigator?.clipboard) {
             try {
-                await navigator.clipboard.writeText(result)
+                await navigator.clipboard.writeText(rightCode)
                 toast.success('Copied to clipboard!')
             } catch {
-                fallbackCopy(result)
+                fallbackCopy(rightCode)
             }
         } else {
-            fallbackCopy(result)
+            fallbackCopy(rightCode)
         }
     }
 
-    // Beautify minified code
-    const handleBeautify = () => {
-        if (!result) return
-        
-        try {
-            // Simple beautify for demonstration (in real app, use a proper beautifier)
-            const beautified = result
-                .replace(/;/g, ';\n')
-                .replace(/\{/g, '{\n  ')
-                .replace(/\}/g, '\n}')
-                .replace(/,\s*/g, ',\n  ')
-                .split('\n')
-                .map(line => line.trim())
-                .filter(line => line.length > 0)
-                .join('\n')
-            
-            setResult(beautified)
-            toast.success('Code beautified!')
-        } catch (err) {
-            toast.error('Failed to beautify code')
-        }
+    // Swap left and right code
+    const handleSwap = () => {
+        const temp = leftCode
+        setLeftCode(rightCode)
+        setRightCode(temp)
+        toast.success('Code swapped!')
     }
 
-    // Download result as file
+    // Download right code as file
     const handleDownload = () => {
-        if (!result) return
+        if (!rightCode) return
         
-        const blob = new Blob([result], { type: 'text/plain' })
+        const extensions = {
+            'js': 'js',
+            'css': 'css', 
+            'json': 'json',
+            'php': 'php'
+        }
+        
+        const blob = new Blob([rightCode], { type: 'text/plain' })
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
-        a.download = `minified.${options.type === 'js' ? 'js' : options.type === 'css' ? 'css' : 'json'}`
+        a.download = `processed.${extensions[rightType]}`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
@@ -165,38 +236,77 @@ export default function Page() {
         <div className="container max-w-[1440px] mx-auto px-4 py-10">
             {/* HERO SECTION */}
             <div className="text-center space-y-2 mb-8">
-                <h1 className="text-3xl font-bold">Minify Your Code</h1>
+                <h1 className="text-3xl font-bold">Code Minifier</h1>
                 <p className="text-muted-foreground">
-                    Minify your JavaScript, CSS or JSON instantly — free, fast, and private.
+                    Minify your code from left to right, unminify from right to left — free, fast, and private.
                 </p>
             </div>
 
-            {/* TOOLBAR - Centered with max width */}
+            {/* TOOLBAR - Action buttons */}
             <div className="flex justify-center mb-6">
                 <Card className="p-4 bg-muted/30 w-full max-w-4xl">
                     <div className="flex flex-wrap gap-4 items-center justify-between">
                         <div className="flex flex-wrap gap-4 items-center">
-                        <div>
-                            <Label className="text-sm font-medium">Code</Label>
-                            <Select
-                                value={options.type}
-                                onValueChange={(v) => setOptions({ ...options, type: v as 'js' | 'css' | 'json' })}
-                            >
-                                <SelectTrigger className="w-[120px] h-9">
-                                    <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="js">JavaScript</SelectItem>
-                                    <SelectItem value="css">CSS</SelectItem>
-                                    <SelectItem value="json">JSON</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+                            <div className="flex items-end gap-2">
+                                <div>
+                                    <Label className="text-sm font-medium mb-2 block">Normal Code</Label>
+                                    <Select
+                                        value={leftType}
+                                        onValueChange={(value: 'js' | 'css' | 'json' | 'php') => setLeftType(value)}
+                                    >
+                                        <SelectTrigger className="w-[140px] h-9">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="js">JavaScript</SelectItem>
+                                            <SelectItem value="css">CSS</SelectItem>
+                                            <SelectItem value="json">JSON</SelectItem>
+                                            <SelectItem value="php">PHP Serialized</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Switch
+                                        checked={autoDetectLeft}
+                                        onCheckedChange={setAutoDetectLeft}
+                                        size="sm"
+                                    />
+                                    <Label className="text-xs text-muted-foreground">Auto</Label>
+                                </div>
+                            </div>
 
-                            {options.type === 'js' && (
+                            <div className="flex items-end gap-2">
+                                <div>
+                                    <Label className="text-sm font-medium mb-2 block">Minified Code</Label>
+                                    <Select
+                                        value={rightType}
+                                        onValueChange={(value: 'js' | 'css' | 'json' | 'php') => setRightType(value)}
+                                    >
+                                        <SelectTrigger className="w-[140px] h-9">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="js">JavaScript</SelectItem>
+                                            <SelectItem value="css">CSS</SelectItem>
+                                            <SelectItem value="json">JSON</SelectItem>
+                                            <SelectItem value="php">PHP Serialized</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Switch
+                                        checked={autoDetectRight}
+                                        onCheckedChange={setAutoDetectRight}
+                                        size="sm"
+                                    />
+                                    <Label className="text-xs text-muted-foreground">Auto</Label>
+                                </div>
+                            </div>
+
+                            {leftType === 'js' && (
                                 <>
                                     <div>
-                                        <Label className="text-sm font-medium">Compatibility</Label>
+                                        <Label className="text-sm font-medium mb-2 block">Compatibility</Label>
                                         <Select
                                             value={options.compatibility}
                                             onValueChange={(v) => setOptions({ ...options, compatibility: v })}
@@ -222,12 +332,30 @@ export default function Page() {
                             )}
                         </div>
 
-                        <div className="flex gap-2">
-                            <Button onClick={handleMinify} disabled={isLoading} size="sm">
-                                {isLoading ? 'Minifying…' : 'Minify'}
+                        <div className="flex gap-2 flex-wrap">
+                            <Button 
+                                onClick={processMinify} 
+                                disabled={isLoading || !leftCode.trim()} 
+                                size="sm"
+                                className="bg-primary text-primary-foreground"
+                            >
+                                {isLoading ? 'Processing…' : 'Process →'}
                             </Button>
-                            <Button variant="outline" onClick={handleBeautify} disabled={!result} size="sm">
-                                Beautify
+                            <Button 
+                                variant="outline" 
+                                onClick={processUnminify} 
+                                disabled={isLoading || !rightCode.trim()} 
+                                size="sm"
+                            >
+                                ← Unminify
+                            </Button>
+                            <Button 
+                                variant="secondary" 
+                                onClick={handleSwap} 
+                                disabled={!leftCode.trim() || !rightCode.trim()} 
+                                size="sm"
+                            >
+                                Swap
                             </Button>
                         </div>
                     </div>
@@ -249,43 +377,35 @@ export default function Page() {
                     </div>
                 </div>
 
-                {/* INPUT AREA */}
+                {/* LEFT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[600px] flex flex-col">
-                        <Label className="text-sm font-medium mb-2">Your code</Label>
+                    <div className="h-[440px] flex flex-col">
+                        <Label className="text-sm font-medium mb-2">Normal Code</Label>
                         <CodeEditor
-                            value={code}
-                            onChange={handleCodeChange}
-                            language={options.type === 'js' ? 'javascript' : options.type === 'css' ? 'css' : 'json'}
-                            placeholder="Paste or drop your JS / CSS / JSON code here..."
+                            value={leftCode}
+                            onChange={handleLeftCodeChange}
+                            language={leftType === 'js' ? 'javascript' : 
+                                     leftType === 'css' ? 'css' : 
+                                     leftType === 'json' ? 'json' : 'php'}
+                            placeholder="Paste your normal code here..."
                             height="100%"
                         />
                     </div>
                 </div>
 
-                {/* RESULT AREA */}
+                {/* RIGHT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[600px] flex flex-col">
-                        <Label className="text-sm font-medium mb-2">Result</Label>
-                        <div className="flex-1">
-                            {result ? (
-                                <CodeEditor
-                                    value={result}
-                                    onChange={() => {}} // Read-only
-                                    language={options.type === 'js' ? 'javascript' : options.type === 'css' ? 'css' : 'json'}
-                                    placeholder="Minified result will appear here"
-                                    height="100%"
-                                    readOnly={true}
-                                />
-                            ) : (
-                                <div className="h-full flex items-center justify-center text-muted-foreground border rounded-md bg-muted/30">
-                                    <div className="text-center">
-                                        <div className="text-4xl mb-2">⚡</div>
-                                        <p>Minified result will appear here</p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                    <div className="h-[440px] flex flex-col">
+                        <Label className="text-sm font-medium mb-2">Minified Code</Label>
+                        <CodeEditor
+                            value={rightCode}
+                            onChange={handleRightCodeChange}
+                            language={rightType === 'js' ? 'javascript' : 
+                                     rightType === 'css' ? 'css' : 
+                                     rightType === 'json' ? 'json' : 'php'}
+                            placeholder="Paste your minified code here..."
+                            height="100%"
+                        />
                     </div>
                 </div>
 
@@ -310,26 +430,40 @@ export default function Page() {
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4 text-sm">
                                 <div>
-                                    <span className="text-muted-foreground">Original:</span>
+                                    <span className="text-muted-foreground">Input:</span>
                                     <span className="ml-2 font-medium">{stats.original} chars</span>
                                 </div>
                                 <div>
-                                    <span className="text-muted-foreground">Minified:</span>
-                                    <span className="ml-2 font-medium">{stats.minified} chars</span>
+                                    <span className="text-muted-foreground">Output:</span>
+                                    <span className="ml-2 font-medium">{stats.result} chars</span>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <span className="text-green-600 font-semibold text-lg">
-                                    Saved: {((1 - stats.minified / stats.original) * 100).toFixed(1)}%
+                                <span className={`font-semibold text-lg ${
+                                    stats.result < stats.original ? 'text-green-600' : 
+                                    stats.result > stats.original ? 'text-blue-600' : 
+                                    'text-muted-foreground'
+                                }`}>
+                                    {stats.result < stats.original ? 
+                                        `Saved: ${((1 - stats.result / stats.original) * 100).toFixed(1)}%` :
+                                        stats.result > stats.original ?
+                                        `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%` :
+                                        'No change'
+                                    }
                                 </span>
                                 <Progress
-                                    value={Number(((1 - stats.minified / stats.original) * 100).toFixed(1))}
+                                    value={stats.result < stats.original ? 
+                                        Number(((1 - stats.result / stats.original) * 100).toFixed(1)) :
+                                        stats.result > stats.original ?
+                                        Number(((stats.result / stats.original - 1) * 100).toFixed(1)) :
+                                        0
+                                    }
                                     className="h-2 mt-2"
                                 />
                             </div>
                             <div className="flex gap-2">
                                 <Button onClick={handleCopy} className="flex-1" size="sm">
-                                    Copy Result
+                                    Copy Output
                                 </Button>
                                 <Button variant="outline" onClick={handleDownload} className="flex-1" size="sm">
                                     Download

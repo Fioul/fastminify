@@ -1,7 +1,7 @@
 /**
- * Détecte le type de code (JavaScript, CSS ou JSON) basé sur le contenu
+ * Détecte le type de code (JavaScript, CSS, JSON ou PHP) basé sur le contenu
  */
-export function detectCodeLanguage(code: string): 'js' | 'css' | 'json' {
+export function detectCodeLanguage(code: string): 'js' | 'css' | 'json' | 'php' {
     if (!code || typeof code !== 'string') {
         return 'js' // Par défaut
     }
@@ -24,6 +24,18 @@ export function detectCodeLanguage(code: string): 'js' | 'css' | 'json' {
         /#[0-9a-fA-F]{3,6}\b|rgb\(|rgba\(|hsl\(|hsla\(/,
         // Propriétés CSS communes
         /\b(margin|padding|border|width|height|color|background|font|display|position|float|clear|overflow|z-index|opacity|transform|transition|animation)\s*:/,
+    ]
+
+    // Détection PHP sérialisé
+    const phpPatterns = [
+        // Types de base PHP
+        /^[bids]:[^;]+;$/,
+        // Arrays PHP
+        /^a:\d+:\{.*\}$/,
+        // Objets PHP
+        /^O:\d+:"[^"]+":\d+:\{.*\}$/,
+        // Null PHP
+        /^N;$/
     ]
 
     // Détection JSON
@@ -65,11 +77,19 @@ export function detectCodeLanguage(code: string): 'js' | 'css' | 'json' {
     let cssScore = 0
     let jsScore = 0
     let jsonScore = 0
+    let phpScore = 0
 
     // Compter les patterns CSS
     cssPatterns.forEach(pattern => {
         if (pattern.test(trimmedCode)) {
             cssScore++
+        }
+    })
+
+    // Compter les patterns PHP
+    phpPatterns.forEach(pattern => {
+        if (pattern.test(trimmedCode)) {
+            phpScore++
         }
     })
 
@@ -88,8 +108,15 @@ export function detectCodeLanguage(code: string): 'js' | 'css' | 'json' {
     })
 
     // Retourner le langage avec le score le plus élevé
-    if (jsonScore > cssScore && jsonScore > jsScore) {
-        return 'json'
-    }
-    return cssScore > jsScore ? 'css' : 'js'
+    const scores = [
+        { lang: 'php', score: phpScore },
+        { lang: 'json', score: jsonScore },
+        { lang: 'css', score: cssScore },
+        { lang: 'js', score: jsScore }
+    ]
+    
+    const maxScore = Math.max(...scores.map(s => s.score))
+    const winner = scores.find(s => s.score === maxScore)
+    
+    return winner?.lang as 'js' | 'css' | 'json' | 'php' || 'js'
 }

@@ -45,8 +45,8 @@ export default function CodeEditor({
     placeholder: placeholder,
     padding: { top: 16, bottom: 16 },
     scrollbar: {
-      vertical: 'auto',
-      horizontal: 'auto',
+      vertical: 'auto' as const,
+      horizontal: 'auto' as const,
       verticalScrollbarSize: 8,
       horizontalScrollbarSize: 8
     },
@@ -57,10 +57,22 @@ export default function CodeEditor({
       indentation: true
     },
     // Cursor and selection
-    cursorBlinking: 'blink',
-    cursorSmoothCaretAnimation: 'on',
+    cursorBlinking: 'blink' as const,
+    cursorSmoothCaretAnimation: 'on' as const,
     // Accessibility
-    accessibilitySupport: 'auto'
+    accessibilitySupport: 'auto' as const,
+    // Supprimer les bordures internes
+    renderLineHighlight: 'none' as const,
+    hideCursorInOverviewRuler: true,
+    overviewRulerBorder: false,
+    contextmenu: false,
+    // Supprimer les décorations de validation et bordures
+    renderValidationDecorations: 'off' as const,
+    renderWhitespace: 'none' as const,
+    // Supprimer les bordures de focus
+    outline: 'none',
+    // Supprimer les bordures de sélection
+    selectionHighlight: false
   }), [placeholder, readOnly])
 
   // Theme mapping
