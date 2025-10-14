@@ -27,6 +27,7 @@ import { serializePHPWithOptions, unserializePHPWithOptions, defaultPHPOptions, 
 import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
 import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
+import { TooltipInfo } from '@/components/TooltipInfo'
 
 export default function Page() {
     // State for code input and result
@@ -339,6 +340,7 @@ export default function Page() {
                                         onCheckedChange={setAutoDetectLeft}
                                     />
                                     <Label className="text-xs text-muted-foreground">Auto</Label>
+                                    <TooltipInfo content="Automatically detect the code language when you paste or type code in the editor." />
                                 </div>
                             </div>
 
@@ -366,6 +368,7 @@ export default function Page() {
                                         onCheckedChange={setAutoDetectRight}
                                     />
                                     <Label className="text-xs text-muted-foreground">Auto</Label>
+                                    <TooltipInfo content="Automatically detect the code language when you paste or type code in the editor." />
                                 </div>
                             </div>
 
@@ -373,6 +376,7 @@ export default function Page() {
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">ECMAScript</Label>
+                                        <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers)." />
                                         <Select
                                             value={jsOptions.ecmaVersion}
                                             onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
@@ -394,6 +398,7 @@ export default function Page() {
                                     
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Compression</Label>
+                                        <TooltipInfo content="Optimization level. Conservative = safe and readable, Normal = balanced, Aggressive = maximum compression." />
                                         <Select
                                             value={jsOptions.compressionLevel}
                                             onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
@@ -413,6 +418,7 @@ export default function Page() {
                                     
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Browser</Label>
+                                        <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers." />
                                         <Select
                                             value={jsOptions.browserSupport}
                                             onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
@@ -441,6 +447,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
+                                            <TooltipInfo content="Preserves CSS class names in JavaScript code (e.g., className='my-class')." />
                                         </div>
                                         
                                         <div className="flex items-center gap-2">
@@ -452,6 +459,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
+                                            <TooltipInfo content="Preserves function names to facilitate debugging and stack traces." />
                                         </div>
                                         
                                         <div className="flex items-center gap-2">
@@ -463,6 +471,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="remove-console" className="text-xs">Remove console</Label>
+                                            <TooltipInfo content="Removes all console.log(), console.warn(), etc. calls from the final code." />
                                         </div>
                                     </div>
                                 </div>
@@ -472,6 +481,7 @@ export default function Page() {
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Compression</Label>
+                                        <TooltipInfo content="CSS optimization level. Conservative = safe, Normal = balanced, Aggressive = maximum compression." />
                                         <Select
                                             value={cssOptions.compressionLevel}
                                             onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
@@ -491,6 +501,7 @@ export default function Page() {
                                     
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Browser</Label>
+                                        <TooltipInfo content="CSS browser compatibility. Modern = recent, IE11+ = Internet Explorer 11+, IE9+ = very old browsers." />
                                         <Select
                                             value={cssOptions.browserSupport}
                                             onValueChange={(value: 'modern' | 'ie11' | 'ie9') => 
@@ -518,6 +529,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="remove-comments" className="text-xs">Remove comments</Label>
+                                            <TooltipInfo content="Removes all CSS comments (/* comment */) from the final code." />
                                         </div>
                                         
                                         <div className="flex items-center gap-2">
@@ -529,6 +541,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="convert-colors" className="text-xs">Convert colors</Label>
+                                            <TooltipInfo content="Converts color names to hexadecimal codes (blue → #0000ff) to reduce size." />
                                         </div>
                                         
                                         <div className="flex items-center gap-2">
@@ -540,6 +553,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="merge-rules" className="text-xs">Merge rules</Label>
+                                            <TooltipInfo content="Merges identical CSS rules to reduce code duplication." />
                                         </div>
                                         
                                         <div className="flex items-center gap-2">
@@ -551,6 +565,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="minify-selectors" className="text-xs">Minify selectors</Label>
+                                            <TooltipInfo content="Optimizes CSS selectors by removing unnecessary spaces and shortening properties." />
                                         </div>
                                     </div>
                                 </div>
@@ -560,6 +575,7 @@ export default function Page() {
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Compression</Label>
+                                        <TooltipInfo content="JSON optimization level. Conservative = safe, Normal = balanced, Aggressive = maximum compression." />
                                         <Select
                                             value={jsonOptions.compressionLevel}
                                             onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
@@ -586,6 +602,7 @@ export default function Page() {
                                             }
                                         />
                                         <Label htmlFor="optimize-numbers" className="text-sm">Optimize numbers</Label>
+                                        <TooltipInfo content="Removes unnecessary zeros from numbers (1.00 → 1, 0.50 → 0.5)." />
                                     </div>
 
                                     <div className="flex items-center gap-2">
@@ -597,6 +614,7 @@ export default function Page() {
                                             }
                                         />
                                         <Label htmlFor="scientific-notation" className="text-sm">Scientific notation</Label>
+                                        <TooltipInfo content="Uses scientific notation for very large numbers (1000000 → 1e6)." />
                                     </div>
 
                                     <div className="flex items-center gap-4">
@@ -609,6 +627,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="remove-empty-keys" className="text-sm">Remove empty keys</Label>
+                                            <TooltipInfo content="Removes keys with empty values (key: '') from JSON." />
                                         </div>
 
                                         <div className="flex items-center gap-2">
@@ -620,6 +639,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="remove-null-values" className="text-sm">Remove null values</Label>
+                                            <TooltipInfo content="Removes null values from JSON to reduce size." />
                                         </div>
 
                                         <div className="flex items-center gap-2">
@@ -631,6 +651,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="fix-errors" className="text-sm">Fix common errors</Label>
+                                            <TooltipInfo content="Automatically fixes common JSON errors (missing quotes, commas, etc.)." />
                                         </div>
                                     </div>
                                 </div>
@@ -640,6 +661,7 @@ export default function Page() {
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Level</Label>
+                                        <TooltipInfo content="PHP serialization level. Basic = simple, Deep = complex structures, Custom = advanced." />
                                         <Select
                                             value={phpOptions.serializationLevel}
                                             onValueChange={(value: 'basic' | 'deep' | 'custom') => 
@@ -659,6 +681,7 @@ export default function Page() {
 
                                     <div className="flex items-center gap-2">
                                         <Label className="text-sm font-medium">Compression</Label>
+                                        <TooltipInfo content="PHP compression level. None = readable, Minimal = optimized, Aggressive = maximum." />
                                         <Select
                                             value={phpOptions.compression}
                                             onValueChange={(value: 'none' | 'minimal' | 'aggressive') => 
@@ -686,6 +709,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="preserve-types" className="text-sm">Preserve types</Label>
+                                            <TooltipInfo content="Preserves PHP data types (string, int, array) during serialization." />
                                         </div>
 
                                         <div className="flex items-center gap-2">
@@ -697,6 +721,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="include-null" className="text-sm">Include null</Label>
+                                            <TooltipInfo content="Includes null values in PHP serialization." />
                                         </div>
 
                                         <div className="flex items-center gap-2">
@@ -708,6 +733,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="readable" className="text-sm">Readable</Label>
+                                            <TooltipInfo content="Formats PHP serialization in a readable way with spaces and line breaks." />
                                         </div>
 
                                         <div className="flex items-center gap-2">
@@ -719,6 +745,7 @@ export default function Page() {
                                                 }
                                             />
                                             <Label htmlFor="strict-mode" className="text-sm">Strict mode</Label>
+                                            <TooltipInfo content="Strict mode: validates data before serialization and rejects unsupported types." />
                                         </div>
                                     </div>
                                 </div>
