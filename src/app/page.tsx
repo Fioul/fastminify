@@ -20,6 +20,7 @@ import { minifyJS } from '@/lib/minify-js'
 import { minifyCSS } from '@/lib/minify-css'
 import { minifyJSON } from '@/lib/minify-json'
 import { serializePHP, unserializePHP } from '@/lib/php-serializer'
+import { minifyJavaScript, defaultJavaScriptOptions, type JavaScriptOptions } from '@/lib/javascript-options'
 import { beautifyJS, beautifyCSS, beautifyJSON, beautifyPHP } from '@/lib/beautify'
 import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
@@ -42,6 +43,9 @@ export default function Page() {
         aggressive: false,
         compatibility: 'es6' as 'es5' | 'es6',
     })
+    
+    // JavaScript options
+    const [jsOptions, setJsOptions] = useState<JavaScriptOptions>(defaultJavaScriptOptions)
 
     // Process code from left to right (minify)
     const processMinify = async () => {
@@ -58,7 +62,7 @@ export default function Page() {
             const type = leftType
 
             if (type === 'js') {
-                processed = await minifyJS(sourceCode, options.aggressive)
+                processed = await minifyJavaScript(sourceCode, jsOptions)
             } else if (type === 'css') {
                 processed = await minifyCSS(sourceCode)
             } else if (type === 'json') {
@@ -150,12 +154,13 @@ export default function Page() {
     }
 
     // Handle left code changes with optional auto-detection
-    const handleLeftCodeChange = (value: string) => {
-        setLeftCode(value)
+    const handleLeftCodeChange = (value: string | undefined) => {
+        const code = value || ''
+        setLeftCode(code)
         
         // Auto-detect language if enabled and code is not empty
-        if (autoDetectLeft && value.trim()) {
-            const detectedLanguage = detectCodeLanguage(value)
+        if (autoDetectLeft && code.trim()) {
+            const detectedLanguage = detectCodeLanguage(code)
             if (detectedLanguage !== leftType) {
                 setLeftType(detectedLanguage)
                 const languageNames = {
@@ -170,12 +175,13 @@ export default function Page() {
     }
 
     // Handle right code changes with optional auto-detection
-    const handleRightCodeChange = (value: string) => {
-        setRightCode(value)
+    const handleRightCodeChange = (value: string | undefined) => {
+        const code = value || ''
+        setRightCode(code)
         
         // Auto-detect language if enabled and code is not empty
-        if (autoDetectRight && value.trim()) {
-            const detectedLanguage = detectCodeLanguage(value)
+        if (autoDetectRight && code.trim()) {
+            const detectedLanguage = detectCodeLanguage(code)
             if (detectedLanguage !== rightType) {
                 setRightType(detectedLanguage)
                 const languageNames = {
@@ -272,7 +278,6 @@ export default function Page() {
                                     <Switch
                                         checked={autoDetectLeft}
                                         onCheckedChange={setAutoDetectLeft}
-                                        size="sm"
                                     />
                                     <Label className="text-xs text-muted-foreground">Auto</Label>
                                 </div>
@@ -300,38 +305,108 @@ export default function Page() {
                                     <Switch
                                         checked={autoDetectRight}
                                         onCheckedChange={setAutoDetectRight}
-                                        size="sm"
                                     />
                                     <Label className="text-xs text-muted-foreground">Auto</Label>
                                 </div>
                             </div>
 
                             {leftType === 'js' && (
-                                <>
-                                    <div>
-                                        <Label className="text-sm font-medium mb-2 block">Compatibility</Label>
+                                <div className="flex flex-wrap items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">ECMAScript</Label>
                                         <Select
-                                            value={options.compatibility}
-                                            onValueChange={(v) => setOptions({ ...options, compatibility: v })}
+                                            value={jsOptions.ecmaVersion}
+                                            onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
+                                                setJsOptions(prev => ({ ...prev, ecmaVersion: value }))
+                                            }
                                         >
-                                            <SelectTrigger className="w-[120px] h-9">
-                                                <SelectValue placeholder="Select" />
+                                            <SelectTrigger className="w-36 h-9">
+                                                <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="es5">ES5</SelectItem>
-                                                <SelectItem value="es6">ES6+</SelectItem>
+                                                <SelectItem value="es2015">ES2015</SelectItem>
+                                                <SelectItem value="es2017">ES2017</SelectItem>
+                                                <SelectItem value="es2020">ES2020</SelectItem>
+                                                <SelectItem value="es2022">ES2022</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
-
+                                    
                                     <div className="flex items-center gap-2">
-                                        <Switch
-                                            checked={options.aggressive}
-                                            onCheckedChange={(v) => setOptions({ ...options, aggressive: v })}
-                                        />
-                                        <Label className="text-sm font-medium">Aggressive</Label>
+                                        <Label className="text-sm font-medium">Compression</Label>
+                                        <Select
+                                            value={jsOptions.compressionLevel}
+                                            onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
+                                                setJsOptions(prev => ({ ...prev, compressionLevel: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-36 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="conservative">Conservative</SelectItem>
+                                                <SelectItem value="normal">Normal</SelectItem>
+                                                <SelectItem value="aggressive">Aggressive</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
-                                </>
+                                    
+                                    <div className="flex items-center gap-2">
+                                        <Label className="text-sm font-medium">Browser</Label>
+                                        <Select
+                                            value={jsOptions.browserSupport}
+                                            onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
+                                                setJsOptions(prev => ({ ...prev, browserSupport: value }))
+                                            }
+                                        >
+                                            <SelectTrigger className="w-32 h-9">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="modern">Modern</SelectItem>
+                                                <SelectItem value="ie11">IE11+</SelectItem>
+                                                <SelectItem value="ie9">IE9+</SelectItem>
+                                                <SelectItem value="all">All</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="preserve-classnames"
+                                                checked={jsOptions.preserveClassNames}
+                                                onCheckedChange={(checked) => 
+                                                    setJsOptions(prev => ({ ...prev, preserveClassNames: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
+                                        </div>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="preserve-functions"
+                                                checked={jsOptions.preserveFunctionNames}
+                                                onCheckedChange={(checked) => 
+                                                    setJsOptions(prev => ({ ...prev, preserveFunctionNames: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
+                                        </div>
+                                        
+                                        <div className="flex items-center gap-2">
+                                            <Switch
+                                                id="remove-console"
+                                                checked={jsOptions.removeConsole}
+                                                onCheckedChange={(checked) => 
+                                                    setJsOptions(prev => ({ ...prev, removeConsole: checked }))
+                                                }
+                                            />
+                                            <Label htmlFor="remove-console" className="text-xs">Remove console</Label>
+                                        </div>
+                                    </div>
+                                </div>
                             )}
                         </div>
 
@@ -342,7 +417,7 @@ export default function Page() {
                                 size="sm"
                                 className="bg-primary text-primary-foreground"
                             >
-                                {isLoading ? 'Processing…' : 'Process →'}
+                                {isLoading ? 'Processing…' : 'Minify →'}
                             </Button>
                             <Button 
                                 variant="outline" 
@@ -389,7 +464,7 @@ export default function Page() {
                             onChange={handleLeftCodeChange}
                             language={leftType === 'js' ? 'javascript' : 
                                      leftType === 'css' ? 'css' : 
-                                     leftType === 'json' ? 'json' : 'php'}
+                                     leftType === 'json' ? 'json' : 'javascript'}
                             placeholder="Paste your normal code here..."
                             height="100%"
                         />
@@ -485,7 +560,7 @@ export default function Page() {
                             onChange={handleRightCodeChange}
                             language={rightType === 'js' ? 'javascript' : 
                                      rightType === 'css' ? 'css' : 
-                                     rightType === 'json' ? 'json' : 'php'}
+                                     rightType === 'json' ? 'json' : 'javascript'}
                             placeholder="Paste your minified code here..."
                             height="100%"
                         />
