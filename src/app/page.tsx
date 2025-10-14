@@ -18,6 +18,7 @@ import { Progress } from '@/components/ui/progress'
 import { toast } from 'sonner'
 import { minifyJS } from '@/lib/minify-js'
 import { minifyCSS } from '@/lib/minify-css'
+import { minifyJSON } from '@/lib/minify-json'
 import { detectCodeLanguage } from '@/lib/detect-language'
 
 export default function Page() {
@@ -30,7 +31,7 @@ export default function Page() {
 
     // Minification options configuration
     const [options, setOptions] = useState({
-        type: 'js' as 'js' | 'css',
+        type: 'js' as 'js' | 'css' | 'json',
         aggressive: false,
         compatibility: 'es6' as 'es5' | 'es6',
     })
@@ -49,8 +50,10 @@ export default function Page() {
             // Choose minifier based on selected type
             if (options.type === 'js') {
                 minified = await minifyJS(code, options.aggressive)
-            } else {
+            } else if (options.type === 'css') {
                 minified = await minifyCSS(code)
+            } else if (options.type === 'json') {
+                minified = minifyJSON(code)
             }
 
             setResult(minified)
@@ -94,7 +97,12 @@ export default function Page() {
             const detectedLanguage = detectCodeLanguage(value)
             if (detectedLanguage !== options.type) {
                 setOptions(prev => ({ ...prev, type: detectedLanguage }))
-                toast.success(`Language auto-detected: ${detectedLanguage === 'js' ? 'JavaScript' : 'CSS'}`)
+                const languageNames = {
+                    'js': 'JavaScript',
+                    'css': 'CSS',
+                    'json': 'JSON'
+                }
+                toast.success(`Language auto-detected: ${languageNames[detectedLanguage]}`)
             }
         }
     }
@@ -145,7 +153,7 @@ export default function Page() {
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
-        a.download = `minified.${options.type}`
+        a.download = `minified.${options.type === 'js' ? 'js' : options.type === 'css' ? 'css' : 'json'}`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
@@ -159,7 +167,7 @@ export default function Page() {
             <div className="text-center space-y-2 mb-8">
                 <h1 className="text-3xl font-bold">Minify Your Code</h1>
                 <p className="text-muted-foreground">
-                    Minify your JavaScript or CSS instantly — free, fast, and private.
+                    Minify your JavaScript, CSS or JSON instantly — free, fast, and private.
                 </p>
             </div>
 
@@ -172,7 +180,7 @@ export default function Page() {
                             <Label className="text-sm font-medium">Code</Label>
                             <Select
                                 value={options.type}
-                                onValueChange={(v) => setOptions({ ...options, type: v as 'js' | 'css' })}
+                                onValueChange={(v) => setOptions({ ...options, type: v as 'js' | 'css' | 'json' })}
                             >
                                 <SelectTrigger className="w-[120px] h-9">
                                     <SelectValue placeholder="Select" />
@@ -180,33 +188,38 @@ export default function Page() {
                                 <SelectContent>
                                     <SelectItem value="js">JavaScript</SelectItem>
                                     <SelectItem value="css">CSS</SelectItem>
+                                    <SelectItem value="json">JSON</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
 
-                            <div>
-                                <Label className="text-sm font-medium">Compatibility</Label>
-                                <Select
-                                    value={options.compatibility}
-                                    onValueChange={(v) => setOptions({ ...options, compatibility: v })}
-                                >
-                                    <SelectTrigger className="w-[120px] h-9">
-                                        <SelectValue placeholder="Select" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="es5">ES5</SelectItem>
-                                        <SelectItem value="es6">ES6+</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
+                            {options.type === 'js' && (
+                                <>
+                                    <div>
+                                        <Label className="text-sm font-medium">Compatibility</Label>
+                                        <Select
+                                            value={options.compatibility}
+                                            onValueChange={(v) => setOptions({ ...options, compatibility: v })}
+                                        >
+                                            <SelectTrigger className="w-[120px] h-9">
+                                                <SelectValue placeholder="Select" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="es5">ES5</SelectItem>
+                                                <SelectItem value="es6">ES6+</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
 
-                            <div className="flex items-center gap-2">
-                                <Switch
-                                    checked={options.aggressive}
-                                    onCheckedChange={(v) => setOptions({ ...options, aggressive: v })}
-                                />
-                                <Label className="text-sm font-medium">Aggressive</Label>
-                            </div>
+                                    <div className="flex items-center gap-2">
+                                        <Switch
+                                            checked={options.aggressive}
+                                            onCheckedChange={(v) => setOptions({ ...options, aggressive: v })}
+                                        />
+                                        <Label className="text-sm font-medium">Aggressive</Label>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className="flex gap-2">
@@ -243,8 +256,8 @@ export default function Page() {
                         <CodeEditor
                             value={code}
                             onChange={handleCodeChange}
-                            language={options.type === 'js' ? 'javascript' : 'css'}
-                            placeholder="Paste or drop your JS / CSS code here..."
+                            language={options.type === 'js' ? 'javascript' : options.type === 'css' ? 'css' : 'json'}
+                            placeholder="Paste or drop your JS / CSS / JSON code here..."
                             height="100%"
                         />
                     </div>
@@ -259,7 +272,7 @@ export default function Page() {
                                 <CodeEditor
                                     value={result}
                                     onChange={() => {}} // Read-only
-                                    language={options.type === 'js' ? 'javascript' : 'css'}
+                                    language={options.type === 'js' ? 'javascript' : options.type === 'css' ? 'css' : 'json'}
                                     placeholder="Minified result will appear here"
                                     height="100%"
                                     readOnly={true}
