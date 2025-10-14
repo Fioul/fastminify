@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import Logo from '@/components/Logo'
 
 export default function Header() {
   const { theme, setTheme } = useTheme()
@@ -34,11 +35,8 @@ export default function Header() {
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo and brand */}
-        <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">FM</span>
-          </div>
-          <span className="font-bold text-xl">FastMinify</span>
+        <Link href="/" className="hover:opacity-80 transition-opacity">
+          <Logo size="md" />
         </Link>
 
         {/* Right navigation section */}

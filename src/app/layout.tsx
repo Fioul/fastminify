@@ -1,6 +1,7 @@
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import {Inter, Nunito_Sans} from 'next/font/google'
 import './globals.css'
+import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
 import Header from '@/components/Header'
@@ -9,6 +10,13 @@ import {cn} from '@/lib/utils'
 
 // Inter font configuration
 const inter = Inter({subsets: ['latin']})
+
+// Nunito Sans font configuration (similar to Gordita)
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-nunito-sans',
+})
 
 // SEO / Meta configuration
 export const metadata: Metadata = {
@@ -40,7 +48,9 @@ export const metadata: Metadata = {
         description: 'Minify JavaScript and CSS online in one click!',
     },
     icons: {
-        icon: '/favicon.ico',
+        icon: '/favicon.png?v=2',
+        shortcut: '/favicon.png?v=2',
+        apple: '/favicon.png?v=2',
     },
 }
 
@@ -51,10 +61,15 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
+        <head>
+            <link rel="icon" type="image/png" href="/favicon.png?v=2" />
+            <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
+        </head>
         <body
             className={cn(
                 'min-h-screen bg-background text-foreground antialiased',
-                inter.className
+                inter.className,
+                nunitoSans.variable
             )}
         >
         <ThemeProvider>
