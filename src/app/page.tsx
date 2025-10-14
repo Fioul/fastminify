@@ -35,6 +35,7 @@ export default function Page() {
     const [rightType, setRightType] = useState<'js' | 'css' | 'json' | 'php'>('js')
     const [autoDetectLeft, setAutoDetectLeft] = useState(true)
     const [autoDetectRight, setAutoDetectRight] = useState(true)
+    const [lastOperation, setLastOperation] = useState<'minify' | 'unminify' | null>(null)
 
     // Options configuration
     const [options, setOptions] = useState({
@@ -78,6 +79,7 @@ export default function Page() {
                 original: sourceCode.length,
                 result: processed.length,
             })
+            setLastOperation('minify')
 
             toast.success('Code minified successfully!')
         } catch (err) {
@@ -119,6 +121,7 @@ export default function Page() {
                 original: sourceCode.length,
                 result: processed.length,
             })
+            setLastOperation('unminify')
 
             toast.success('Code unminified successfully!')
         } catch (err) {
@@ -379,7 +382,7 @@ export default function Page() {
 
                 {/* LEFT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[440px] flex flex-col">
+                    <div className="h-[374px] flex flex-col">
                         <Label className="text-sm font-medium mb-2">Normal Code</Label>
                         <CodeEditor
                             value={leftCode}
@@ -391,11 +394,91 @@ export default function Page() {
                             height="100%"
                         />
                     </div>
+                    
+                    {/* RESULT BOX FOR UNMINIFY */}
+                    {stats && lastOperation === 'unminify' && (
+                        <Card className="border mt-4">
+                            <CardContent className="p-4">
+                                <div className="space-y-4">
+                                    <div className="text-center">
+                                        <h3 className="font-semibold text-sm mb-2">Unminification Result</h3>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <span className="text-muted-foreground">Input:</span>
+                                            <span className="ml-1 font-medium">{stats.original} chars</span>
+                                            <div className="text-muted-foreground/80 text-xs">
+                                                {stats.original < 1024 ? `${stats.original} B` :
+                                                 stats.original < 1024 * 1024 ? `${(stats.original / 1024).toFixed(1)} kB` :
+                                                 `${(stats.original / (1024 * 1024)).toFixed(2)} MB`}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span className="text-muted-foreground">Output:</span>
+                                            <span className="ml-1 font-medium">{stats.result} chars</span>
+                                            <div className="text-muted-foreground/80 text-xs">
+                                                {stats.result < 1024 ? `${stats.result} B` :
+                                                 stats.result < 1024 * 1024 ? `${(stats.result / 1024).toFixed(1)} kB` :
+                                                 `${(stats.result / (1024 * 1024)).toFixed(2)} MB`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className={`font-bold text-base ${
+                                            stats.result < stats.original ? 'text-green-600' : 
+                                            stats.result > stats.original ? 'text-blue-600' : 
+                                            'text-muted-foreground'
+                                        }`}>
+                                            {stats.result < stats.original ? 
+                                                `Compressed: ${((1 - stats.result / stats.original) * 100).toFixed(1)}%` :
+                                                stats.result > stats.original ?
+                                                `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%` :
+                                                'No change'
+                                            }
+                                        </div>
+                                        <div className="text-muted-foreground text-sm mt-1">
+                                            {stats.result < stats.original ? 
+                                                `Saved: ${(stats.original - stats.result) < 1024 ? 
+                                                    `${stats.original - stats.result} B` :
+                                                    (stats.original - stats.result) < 1024 * 1024 ?
+                                                    `${((stats.original - stats.result) / 1024).toFixed(1)} kB` :
+                                                    `${((stats.original - stats.result) / (1024 * 1024)).toFixed(2)} MB`}` :
+                                                stats.result > stats.original ?
+                                                `Added: ${(stats.result - stats.original) < 1024 ? 
+                                                    `${stats.result - stats.original} B` :
+                                                    (stats.result - stats.original) < 1024 * 1024 ?
+                                                    `${((stats.result - stats.original) / 1024).toFixed(1)} kB` :
+                                                    `${((stats.result - stats.original) / (1024 * 1024)).toFixed(2)} MB`}` :
+                                                ''
+                                            }
+                                        </div>
+                                        <Progress
+                                            value={stats.result < stats.original ? 
+                                                Number(((1 - stats.result / stats.original) * 100).toFixed(1)) :
+                                                stats.result > stats.original ?
+                                                Number(((stats.result / stats.original - 1) * 100).toFixed(1)) :
+                                                0
+                                            }
+                                            className="h-2 mt-3"
+                                        />
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Button onClick={handleCopy} className="flex-1" size="sm">
+                                            Copy Output
+                                        </Button>
+                                        <Button variant="outline" onClick={handleDownload} className="flex-1" size="sm">
+                                            Download
+                                        </Button>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
 
                 {/* RIGHT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[440px] flex flex-col">
+                    <div className="h-[374px] flex flex-col">
                         <Label className="text-sm font-medium mb-2">Minified Code</Label>
                         <CodeEditor
                             value={rightCode}
@@ -407,6 +490,86 @@ export default function Page() {
                             height="100%"
                         />
                     </div>
+                    
+                    {/* RESULT BOX FOR MINIFY */}
+                    {stats && lastOperation === 'minify' && (
+                        <Card className="border mt-4">
+                            <CardContent className="p-4">
+                                <div className="space-y-4">
+                                    <div className="text-center">
+                                        <h3 className="font-semibold text-sm mb-2">Minification Result</h3>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <span className="text-muted-foreground">Input:</span>
+                                            <span className="ml-1 font-medium">{stats.original} chars</span>
+                                            <div className="text-muted-foreground/80 text-xs">
+                                                {stats.original < 1024 ? `${stats.original} B` :
+                                                 stats.original < 1024 * 1024 ? `${(stats.original / 1024).toFixed(1)} kB` :
+                                                 `${(stats.original / (1024 * 1024)).toFixed(2)} MB`}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span className="text-muted-foreground">Output:</span>
+                                            <span className="ml-1 font-medium">{stats.result} chars</span>
+                                            <div className="text-muted-foreground/80 text-xs">
+                                                {stats.result < 1024 ? `${stats.result} B` :
+                                                 stats.result < 1024 * 1024 ? `${(stats.result / 1024).toFixed(1)} kB` :
+                                                 `${(stats.result / (1024 * 1024)).toFixed(2)} MB`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className={`font-bold text-base ${
+                                            stats.result < stats.original ? 'text-green-600' : 
+                                            stats.result > stats.original ? 'text-blue-600' : 
+                                            'text-muted-foreground'
+                                        }`}>
+                                            {stats.result < stats.original ? 
+                                                `Compressed: ${((1 - stats.result / stats.original) * 100).toFixed(1)}%` :
+                                                stats.result > stats.original ?
+                                                `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%` :
+                                                'No change'
+                                            }
+                                        </div>
+                                        <div className="text-muted-foreground text-sm mt-1">
+                                            {stats.result < stats.original ? 
+                                                `Saved: ${(stats.original - stats.result) < 1024 ? 
+                                                    `${stats.original - stats.result} B` :
+                                                    (stats.original - stats.result) < 1024 * 1024 ?
+                                                    `${((stats.original - stats.result) / 1024).toFixed(1)} kB` :
+                                                    `${((stats.original - stats.result) / (1024 * 1024)).toFixed(2)} MB`}` :
+                                                stats.result > stats.original ?
+                                                `Added: ${(stats.result - stats.original) < 1024 ? 
+                                                    `${stats.result - stats.original} B` :
+                                                    (stats.result - stats.original) < 1024 * 1024 ?
+                                                    `${((stats.result - stats.original) / 1024).toFixed(1)} kB` :
+                                                    `${((stats.result - stats.original) / (1024 * 1024)).toFixed(2)} MB`}` :
+                                                ''
+                                            }
+                                        </div>
+                                        <Progress
+                                            value={stats.result < stats.original ? 
+                                                Number(((1 - stats.result / stats.original) * 100).toFixed(1)) :
+                                                stats.result > stats.original ?
+                                                Number(((stats.result / stats.original - 1) * 100).toFixed(1)) :
+                                                0
+                                            }
+                                            className="h-2 mt-3"
+                                        />
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Button onClick={handleCopy} className="flex-1" size="sm">
+                                            Copy Output
+                                        </Button>
+                                        <Button variant="outline" onClick={handleDownload} className="flex-1" size="sm">
+                                            Download
+                                        </Button>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
 
                 {/* RIGHT AD PLACEHOLDER */}
@@ -423,56 +586,6 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* STATS AND ACTIONS - Below the main content */}
-            {stats && (
-                <Card className="border mt-8">
-                    <CardContent className="p-6">
-                        <div className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4 text-sm">
-                                <div>
-                                    <span className="text-muted-foreground">Input:</span>
-                                    <span className="ml-2 font-medium">{stats.original} chars</span>
-                                </div>
-                                <div>
-                                    <span className="text-muted-foreground">Output:</span>
-                                    <span className="ml-2 font-medium">{stats.result} chars</span>
-                                </div>
-                            </div>
-                            <div className="text-center">
-                                <span className={`font-semibold text-lg ${
-                                    stats.result < stats.original ? 'text-green-600' : 
-                                    stats.result > stats.original ? 'text-blue-600' : 
-                                    'text-muted-foreground'
-                                }`}>
-                                    {stats.result < stats.original ? 
-                                        `Saved: ${((1 - stats.result / stats.original) * 100).toFixed(1)}%` :
-                                        stats.result > stats.original ?
-                                        `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%` :
-                                        'No change'
-                                    }
-                                </span>
-                                <Progress
-                                    value={stats.result < stats.original ? 
-                                        Number(((1 - stats.result / stats.original) * 100).toFixed(1)) :
-                                        stats.result > stats.original ?
-                                        Number(((stats.result / stats.original - 1) * 100).toFixed(1)) :
-                                        0
-                                    }
-                                    className="h-2 mt-2"
-                                />
-                            </div>
-                            <div className="flex gap-2">
-                                <Button onClick={handleCopy} className="flex-1" size="sm">
-                                    Copy Output
-                                </Button>
-                                <Button variant="outline" onClick={handleDownload} className="flex-1" size="sm">
-                                    Download
-                                </Button>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
 
             {/* BOTTOM BANNER AD - Static version for mobile */}
             <div className="mt-8 flex justify-center xl:hidden">
