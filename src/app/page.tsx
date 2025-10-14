@@ -268,12 +268,13 @@ export default function Page() {
         }
     }
 
-    // Swap left and right code
-    const handleSwap = () => {
-        const temp = leftCode
-        setLeftCode(rightCode)
-        setRightCode(temp)
-        toast.success('Code swapped!')
+    // Clear both editors
+    const handleClear = () => {
+        setLeftCode('')
+        setRightCode('')
+        setStats(null)
+        setLastOperation(null)
+        toast.success('Editors cleared!')
     }
 
     // Download right code as file
@@ -743,11 +744,11 @@ export default function Page() {
                             </Button>
                             <Button 
                                 variant="secondary" 
-                                onClick={handleSwap} 
-                                disabled={!leftCode.trim() || !rightCode.trim()} 
+                                onClick={handleClear} 
+                                disabled={!leftCode.trim() && !rightCode.trim()} 
                                 size="sm"
                             >
-                                Swap
+                                Clear
                             </Button>
                         </div>
                     </div>
