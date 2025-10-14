@@ -87,9 +87,7 @@ export function unserializePHP(serialized: string): any {
         }
         
         if (trimmed.startsWith('a:')) {
-            // Parser simplifié pour les arrays/objets
-            // Dans une implémentation complète, il faudrait un parser plus robuste
-            throw new Error('Complex PHP serialized data requires a more advanced parser')
+            return parseArray(trimmed)
         }
         
         throw new Error('Unsupported PHP serialized format')
@@ -97,6 +95,178 @@ export function unserializePHP(serialized: string): any {
         console.error('PHP unserialization error:', error)
         throw new Error(`Failed to unserialize PHP data: ${error instanceof Error ? error.message : 'Invalid format'}`)
     }
+}
+
+/**
+ * Parse un array PHP sérialisé
+ */
+function parseArray(serialized: string): any {
+    const arrayMatch = serialized.match(/^a:(\d+):\{/)
+    if (!arrayMatch) {
+        throw new Error('Invalid array format')
+    }
+    
+    const length = parseInt(arrayMatch[1], 10)
+    const content = serialized.slice(arrayMatch[0].length, -1) // Enlever 'a:X:{' et '}'
+    
+    const result: any = {}
+    let pos = 0
+    let keyCount = 0
+    
+    while (pos < content.length && keyCount < length) {
+        // Parser la clé
+        const key = parseValue(content, pos)
+        pos = key.endPos
+        
+        // Parser la valeur
+        const value = parseValue(content, pos)
+        pos = value.endPos
+        
+        result[key.value] = value.value
+        keyCount++
+    }
+    
+    // Si toutes les clés sont numériques et séquentielles, retourner un array
+    const keys = Object.keys(result)
+    const numericKeys = keys.map(k => parseInt(k, 10)).filter(k => !isNaN(k))
+    const isSequential = numericKeys.length === keys.length && 
+                        numericKeys.every((k, i) => k === i)
+    
+    if (isSequential) {
+        return numericKeys.map(k => result[k])
+    }
+    
+    return result
+}
+
+/**
+ * Parse une valeur PHP sérialisée à partir d'une position donnée
+ */
+function parseValue(content: string, startPos: number): { value: any, endPos: number } {
+    let pos = startPos
+    
+    // Skip whitespace
+    while (pos < content.length && /\s/.test(content[pos])) {
+        pos++
+    }
+    
+    if (pos >= content.length) {
+        throw new Error('Unexpected end of content')
+    }
+    
+    // Boolean
+    if (content.slice(pos).startsWith('b:')) {
+        const match = content.slice(pos).match(/^b:([01]);/)
+        if (match) {
+            return {
+                value: match[1] === '1',
+                endPos: pos + match[0].length
+            }
+        }
+        throw new Error('Invalid boolean format')
+    }
+    
+    // Integer
+    if (content.slice(pos).startsWith('i:')) {
+        const match = content.slice(pos).match(/^i:(-?\d+);/)
+        if (match) {
+            return {
+                value: parseInt(match[1], 10),
+                endPos: pos + match[0].length
+            }
+        }
+        throw new Error('Invalid integer format')
+    }
+    
+    // Double
+    if (content.slice(pos).startsWith('d:')) {
+        const match = content.slice(pos).match(/^d:(-?\d+\.?\d*);/)
+        if (match) {
+            return {
+                value: parseFloat(match[1]),
+                endPos: pos + match[0].length
+            }
+        }
+        throw new Error('Invalid double format')
+    }
+    
+    // String
+    if (content.slice(pos).startsWith('s:')) {
+        const match = content.slice(pos).match(/^s:(\d+):"([^"]*)";/)
+        if (match) {
+            return {
+                value: match[2],
+                endPos: pos + match[0].length
+            }
+        }
+        throw new Error('Invalid string format')
+    }
+    
+    // Array
+    if (content.slice(pos).startsWith('a:')) {
+        const arrayMatch = content.slice(pos).match(/^a:(\d+):\{/)
+        if (!arrayMatch) {
+            throw new Error('Invalid array format')
+        }
+        
+        const arrayLength = parseInt(arrayMatch[1], 10)
+        const arrayStart = pos + arrayMatch[0].length
+        let arrayPos = arrayStart
+        let braceCount = 1
+        let arrayEnd = arrayStart
+        
+        // Trouver la fin de l'array en comptant les accolades
+        while (arrayPos < content.length && braceCount > 0) {
+            if (content[arrayPos] === '{') braceCount++
+            else if (content[arrayPos] === '}') braceCount--
+            arrayPos++
+        }
+        
+        if (braceCount !== 0) {
+            throw new Error('Unclosed array')
+        }
+        
+        arrayEnd = arrayPos - 1
+        const arrayContent = content.slice(arrayStart, arrayEnd)
+        
+        const result: any = {}
+        let parsePos = 0
+        let keyCount = 0
+        
+        while (parsePos < arrayContent.length && keyCount < arrayLength) {
+            const key = parseValue(arrayContent, parsePos)
+            parsePos = key.endPos
+            
+            const value = parseValue(arrayContent, parsePos)
+            parsePos = value.endPos
+            
+            result[key.value] = value.value
+            keyCount++
+        }
+        
+        // Si toutes les clés sont numériques et séquentielles, retourner un array
+        const keys = Object.keys(result)
+        const numericKeys = keys.map(k => parseInt(k, 10)).filter(k => !isNaN(k))
+        const isSequential = numericKeys.length === keys.length && 
+                            numericKeys.every((k, i) => k === i)
+        
+        const arrayValue = isSequential ? numericKeys.map(k => result[k]) : result
+        
+        return {
+            value: arrayValue,
+            endPos: arrayPos
+        }
+    }
+    
+    // Null
+    if (content.slice(pos).startsWith('N;')) {
+        return {
+            value: null,
+            endPos: pos + 2
+        }
+    }
+    
+    throw new Error(`Unknown format at position ${pos}: ${content.slice(pos, pos + 10)}`)
 }
 
 /**
