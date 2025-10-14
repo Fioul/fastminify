@@ -2,8 +2,13 @@ import * as csso from 'csso'
 
 export async function minifyCSS(code: string) {
     try {
-        if (!code || typeof code !== 'string') {
+        if (typeof code !== 'string') {
             throw new Error('Invalid CSS code provided')
+        }
+        
+        // Si le code est vide ou ne contient que des espaces, retourner une chaîne vide
+        if (!code.trim()) {
+            return ''
         }
         
         const result = csso.minify(code)

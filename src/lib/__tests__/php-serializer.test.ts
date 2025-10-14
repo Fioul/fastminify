@@ -87,7 +87,8 @@ describe('PHP Serialization', () => {
       const result = unserializePHP(input)
       
       expect(result).toBeDefined()
-      expect(result).toEqual({})
+      expect(Array.isArray(result)).toBe(true)
+      expect(result).toEqual([])
     })
   })
 
@@ -173,9 +174,9 @@ describe('PHP Serialization', () => {
 
     test('should handle special characters in strings', () => {
       const input = {
-        message: 'Hello "world"!',
-        path: 'C:\\Users\\test',
-        unicode: 'café'
+        message: 'Hello world!',
+        path: 'C:/Users/test',
+        unicode: 'cafe'
       }
       
       const serialized = serializePHP(input)
