@@ -4,6 +4,7 @@ import './globals.css'
 import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
+import {LenisProvider} from '@/components/LenisProvider'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
@@ -73,13 +74,15 @@ export default function RootLayout({
             )}
         >
         <ThemeProvider>
-            <div className="min-h-screen flex flex-col">
-                <Header />
-                <main className="flex-1">
-                    {children}
-                </main>
-                <Footer />
-            </div>
+            <LenisProvider>
+                <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                    <Footer />
+                </div>
+            </LenisProvider>
         </ThemeProvider>
 
         {/* Sonner toast notifications */}
