@@ -9,12 +9,18 @@ import { Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
 import { useHeaderScrollGSAP } from '@/hooks/useHeaderScrollGSAP'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { useTranslations } from '@/hooks/useTranslations'
 
-export default function Header() {
+interface HeaderProps {
+  locale?: string
+}
+
+export default function Header({ locale = 'en' }: HeaderProps) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [language, setLanguage] = useState('en')
   const pathname = usePathname()
+  const { t } = useTranslations(locale)
   
   // Use header scroll GSAP hook
   const headerRef = useHeaderScrollGSAP()
@@ -30,9 +36,9 @@ export default function Header() {
 
   // Navigation items configuration
   const navItems = [
-    { href: '/', label: 'Code Minifier' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: `/${locale}`, label: t('navigation.home') },
+    { href: `/${locale}/about`, label: t('navigation.about') },
+    { href: `/${locale}/contact`, label: t('navigation.contact') },
   ]
 
   return (
@@ -42,7 +48,7 @@ export default function Header() {
     >
       <div className="container max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo and brand */}
-        <Link href="/">
+        <Link href={`/${locale}`}>
           <Logo size="md" />
         </Link>
 
@@ -66,31 +72,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Language selector - Segmented Control */}
-          <div className="flex bg-muted rounded-lg p-1">
-            <button
-              onClick={() => setLanguage('en')}
-              className={cn(
-                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium cursor-pointer',
-                language === 'en'
-                  ? 'bg-background shadow-sm text-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('fr')}
-              className={cn(
-                'px-3 py-1 text-xs rounded-md transition-all duration-200 font-medium cursor-pointer',
-                language === 'fr'
-                  ? 'bg-background shadow-sm text-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              FR
-            </button>
-          </div>
+          {/* Language selector */}
+                <LanguageSwitcher currentLocale={locale} />
 
           {/* Theme toggle button */}
           <Button

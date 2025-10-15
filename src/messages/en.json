@@ -1,0 +1,116 @@
+{
+  "common": {
+    "subtitle": "Code Minifier",
+    "description": "Minify your code from left to right, unminify from right to left — free, fast, and private.",
+    "normalCode": "Normal Code",
+    "minifiedCode": "Minified Code",
+    "auto": "Auto",
+    "minify": "Minify",
+    "unminify": "Unminify",
+    "clear": "Clear"
+  },
+  "languages": {
+    "javascript": "JavaScript",
+    "css": "CSS",
+    "json": "JSON",
+    "php": "PHP Serialized"
+  },
+  "placeholders": {
+    "normalCode": "Paste your normal code here...",
+    "minifiedCode": "Paste your minified code here..."
+  },
+  "tooltips": {
+    "autoDetect": "Automatically detect the programming language when you paste or type code"
+  },
+  "navigation": {
+    "home": "Code Minifier",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About FastMinify",
+    "subtitle": "The fastest, most reliable online minifier for JavaScript and CSS",
+    "whatIs": "What is FastMinify?",
+    "whatIsText": "FastMinify is a free, privacy-focused online tool designed to minify JavaScript and CSS code instantly. Built with modern web technologies, it provides fast, reliable minification without compromising your data privacy.",
+    "whyChoose": "Why Choose FastMinify?",
+    "features": {
+      "clientSide": "100% Client-side: Your code never leaves your browser",
+      "lightningFast": "Lightning Fast: Minification happens instantly in your browser",
+      "privacyFirst": "Privacy First: No data collection, no tracking, no uploads",
+      "modernUI": "Modern UI: Clean, responsive design with dark mode support",
+      "advancedOptions": "Advanced Options: Safe/Aggressive modes and ES5/ES6+ compatibility",
+      "freeForever": "Free Forever: No registration required, no hidden costs"
+    },
+    "howItWorks": "How It Works",
+    "howItWorksText": "FastMinify uses industry-standard minification libraries (Terser for JavaScript, CSSO for CSS) running directly in your browser. This means:",
+    "howItWorksList": {
+      "noServer": "No server processing required",
+      "noUploads": "No file uploads or downloads",
+      "completePrivacy": "Complete privacy and security",
+      "worksOffline": "Works offline after initial page load"
+    },
+    "featuresTitle": "Features",
+    "jsMinification": "JavaScript Minification",
+    "cssMinification": "CSS Minification",
+    "jsFeatures": {
+      "removeWhitespace": "• Remove whitespace and comments",
+      "shortenVariables": "• Shorten variable names",
+      "optimizeExpressions": "• Optimize expressions",
+      "compatibility": "• ES5/ES6+ compatibility"
+    },
+    "cssFeatures": {
+      "removeWhitespace": "• Remove unnecessary whitespace",
+      "optimizeSelectors": "• Optimize selectors",
+      "mergeRules": "• Merge duplicate rules",
+      "removeUnused": "• Remove unused declarations"
+    },
+    "builtWith": "Built With",
+    "builtWithText": "FastMinify is built using modern web technologies to ensure the best performance and user experience:",
+    "technologies": {
+      "nextjs": "Next.js 15: React framework for optimal performance",
+      "typescript": "TypeScript: Type-safe development",
+      "tailwind": "TailwindCSS: Utility-first CSS framework",
+      "shadcn": "Shadcn/UI: Beautiful, accessible components",
+      "terser": "Terser: JavaScript minification engine",
+      "csso": "CSSO: CSS optimization library"
+    },
+    "openSource": "Open Source",
+    "openSourceText": "FastMinify is open source and available on GitHub. We welcome contributions, bug reports, and feature requests from the community."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Found a bug? Have a suggestion? We'd love to hear from you!",
+    "sendMessage": "Send us a message",
+    "name": "Name",
+    "email": "Email",
+    "typeOfMessage": "Type of message",
+    "subject": "Subject",
+    "message": "Message",
+    "sendButton": "Send Message",
+    "getInTouch": "Get in touch",
+    "getInTouchText": "We're always looking to improve FastMinify. Whether you've found a bug, have a feature request, or just want to say hello, we'd love to hear from you.",
+    "commonIssues": "Common issues",
+    "minificationNotWorking": "Minification not working?",
+    "minificationNotWorkingText": "Make sure your code is valid JavaScript or CSS. Check the browser console for errors.",
+    "codeNotCopying": "Code not copying?",
+    "codeNotCopyingText": "Try using the copy button or manually select and copy the text.",
+    "themeNotSaving": "Theme not saving?",
+    "themeNotSavingText": "Check if your browser allows localStorage. Try refreshing the page.",
+    "messageTypes": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "question": "Question",
+      "other": "Other"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "your@email.com",
+      "subject": "Brief description",
+      "message": "Please describe your issue or suggestion in detail..."
+    },
+    "validation": {
+      "required": "Please fill in all required fields.",
+      "success": "Thank you for your message! We'll get back to you soon."
+    }
+  }
+}
