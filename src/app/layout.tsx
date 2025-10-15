@@ -74,15 +74,15 @@ export default function RootLayout({
             )}
         >
         <ThemeProvider>
-            <LenisProvider>
+            {/* <LenisProvider> */}
                 <div className="min-h-screen flex flex-col">
                     <Header />
-                    <main className="flex-1">
+                    <main className="flex-1 pt-16">
                         {children}
                     </main>
                     <Footer />
                 </div>
-            </LenisProvider>
+            {/* </LenisProvider> */}
         </ThemeProvider>
 
         {/* Sonner toast notifications */}

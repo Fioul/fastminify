@@ -8,12 +8,16 @@ import { Button } from '@/components/ui/button'
 import { Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
+import { useHeaderScrollGSAP } from '@/hooks/useHeaderScrollGSAP'
 
 export default function Header() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [language, setLanguage] = useState('en')
   const pathname = usePathname()
+  
+  // Use header scroll GSAP hook
+  const headerRef = useHeaderScrollGSAP()
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -32,10 +36,13 @@ export default function Header() {
   ]
 
   return (
-    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header 
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    >
       <div className="container max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo and brand */}
-        <Link href="/" className="hover:opacity-80 transition-opacity">
+        <Link href="/">
           <Logo size="md" />
         </Link>
 
