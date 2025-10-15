@@ -324,7 +324,7 @@ export default function Page({ params }: PageProps) {
 
             {/* TOOLBAR - Action buttons */}
             <div className="flex justify-center mb-6">
-                <Card className="p-4 card-warm w-full max-w-4xl">
+                <Card className="p-4 card-warm w-full max-w-[960px]">
                     <div className="flex flex-wrap gap-4 items-center justify-between">
                         <div className="flex flex-wrap gap-4 items-center">
                             <div className="flex items-end gap-2">
@@ -797,7 +797,7 @@ export default function Page({ params }: PageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* LEFT AD PLACEHOLDER */}
                 <div className="hidden xl:block xl:col-span-2">
-                    <div className="sticky top-24">
+                    <div className="fixed top-28 left-12 z-30">
                         <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
                             <div className="text-muted-foreground text-sm">
                                 <div className="w-[160px] h-[600px] mx-auto bg-muted/30 rounded flex items-center justify-center">
@@ -810,7 +810,7 @@ export default function Page({ params }: PageProps) {
 
                 {/* LEFT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[374px] flex flex-col">
+                    <div className="h-[270px] flex flex-col">
                         <Label className="text-sm font-medium mb-2">{t('common.normalCode')}</Label>
                         <CodeEditor
                             value={leftCode}
@@ -906,7 +906,7 @@ export default function Page({ params }: PageProps) {
 
                 {/* RIGHT EDITOR */}
                 <div className="lg:col-span-5 xl:col-span-4">
-                    <div className="h-[374px] flex flex-col">
+                    <div className="h-[270px] flex flex-col">
                         <Label className="text-sm font-medium mb-2">{t('common.minifiedCode')}</Label>
                         <CodeEditor
                             value={rightCode}
@@ -1002,7 +1002,7 @@ export default function Page({ params }: PageProps) {
 
                 {/* RIGHT AD PLACEHOLDER */}
                 <div className="hidden xl:block xl:col-span-2">
-                    <div className="sticky top-24">
+                    <div className="fixed top-28 right-12 z-30">
                         <div className="bg-muted/50 border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
                             <div className="text-muted-foreground text-sm">
                                 <div className="w-[160px] h-[600px] mx-auto bg-muted/30 rounded flex items-center justify-center">
