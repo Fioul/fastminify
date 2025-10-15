@@ -312,10 +312,11 @@ export default function Page({ params }: PageProps) {
     }
 
     return (
-        <div className="container max-w-[1440px] mx-auto px-4 py-10">
+        <div className="gradient-bg">
+            <div className="container max-w-[1440px] mx-auto px-4 py-10">
             {/* HERO SECTION */}
             <div className="text-center space-y-2 mb-8">
-                <h1 className="text-3xl font-bold">{t('common.subtitle')}</h1>
+                <h1 className="text-3xl font-bold bounce-subtle">{t('common.subtitle')}</h1>
                 <p className="text-muted-foreground">
                     {t('common.description')}
                 </p>
@@ -323,7 +324,7 @@ export default function Page({ params }: PageProps) {
 
             {/* TOOLBAR - Action buttons */}
             <div className="flex justify-center mb-6">
-                <Card className="p-4 bg-muted/30 w-full max-w-4xl">
+                <Card className="p-4 card-warm w-full max-w-4xl">
                     <div className="flex flex-wrap gap-4 items-center justify-between">
                         <div className="flex flex-wrap gap-4 items-center">
                             <div className="flex items-end gap-2">
@@ -767,7 +768,7 @@ export default function Page({ params }: PageProps) {
                                 onClick={processMinify} 
                                 disabled={isLoading || !leftCode.trim()} 
                                 size="sm"
-                                className="bg-primary text-primary-foreground"
+                                className="btn-warm text-primary-foreground relative overflow-hidden"
                             >
                                 {isLoading ? 'Processing…' : `${t('common.minify')} →`}
                             </Button>
@@ -1055,6 +1056,7 @@ export default function Page({ params }: PageProps) {
 
             {/* Add bottom padding to prevent content from being hidden behind floating ad */}
             <div className="h-24 xl:block hidden"></div>
+            </div>
         </div>
     )
 }
