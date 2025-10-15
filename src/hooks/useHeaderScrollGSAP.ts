@@ -6,6 +6,7 @@ export function useHeaderScrollGSAP() {
   const lastScrollY = useRef(0)
   const isHidden = useRef(false)
   const animationRef = useRef<gsap.core.Timeline | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const header = headerRef.current
@@ -32,48 +33,58 @@ export function useHeaderScrollGSAP() {
       // Only hide/show if scrolling significantly
       if (Math.abs(currentScrollY - lastScrollY.current) < 10) return
       
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+      
       // Kill any existing animation
       if (animationRef.current) {
         animationRef.current.kill()
+        animationRef.current = null
       }
       
-      if (scrollDirection === 'down' && currentScrollY > 100 && !isHidden.current) {
-        // Slide up animation (disappear)
-        animationRef.current = gsap.timeline()
-        animationRef.current
-          .to(header, {
-            y: '-100%',
-            duration: 0.4,
-            ease: "power2.inOut"
-          })
-          .to(header, {
-            opacity: 0,
-            duration: 0.2,
-            ease: "power2.out"
-          }, 0.2)
-          .call(() => {
-            isHidden.current = true
-            animationRef.current = null
-          })
-      } else if (scrollDirection === 'up' && isHidden.current) {
-        // Slide down animation (appear)
-        animationRef.current = gsap.timeline()
-        animationRef.current
-          .to(header, {
-            opacity: 1,
-            duration: 0.2,
-            ease: "power2.out"
-          })
-          .to(header, {
-            y: 0,
-            duration: 0.4,
-            ease: "power2.out"
-          }, 0.1)
-          .call(() => {
-            isHidden.current = false
-            animationRef.current = null
-          })
-      }
+      // Add a small delay to prevent rapid direction changes from causing issues
+      timeoutRef.current = setTimeout(() => {
+        if (scrollDirection === 'down' && currentScrollY > 100 && !isHidden.current) {
+          // Slide up animation (disappear)
+          animationRef.current = gsap.timeline()
+          animationRef.current
+            .to(header, {
+              y: '-100%',
+              duration: 0.4,
+              ease: "power2.inOut"
+            })
+            .to(header, {
+              opacity: 0,
+              duration: 0.2,
+              ease: "power2.out"
+            }, 0.2)
+            .call(() => {
+              isHidden.current = true
+              animationRef.current = null
+            })
+        } else if (scrollDirection === 'up' && isHidden.current) {
+          // Slide down animation (appear)
+          animationRef.current = gsap.timeline()
+          animationRef.current
+            .to(header, {
+              opacity: 1,
+              duration: 0.2,
+              ease: "power2.out"
+            })
+            .to(header, {
+              y: 0,
+              duration: 0.4,
+              ease: "power2.out"
+            }, 0.1)
+            .call(() => {
+              isHidden.current = false
+              animationRef.current = null
+            })
+        }
+      }, 50) // Small delay to prevent conflicts
       
       lastScrollY.current = currentScrollY
     }
@@ -94,8 +105,13 @@ export function useHeaderScrollGSAP() {
     
     return () => {
       window.removeEventListener('scroll', throttledScroll)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
       if (animationRef.current) {
         animationRef.current.kill()
+        animationRef.current = null
       }
     }
   }
