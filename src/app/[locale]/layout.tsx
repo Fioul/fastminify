@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import AdPlaceholder from '@/components/sections/AdPlaceholder'
+import FloatingAdManager from '@/components/sections/FloatingAdManager'
 
 interface LocaleLayoutProps {
   children: React.ReactNode
@@ -31,8 +32,8 @@ export default async function LocaleLayout({
         {/* BOTTOM BANNER AD - Static version for mobile */}
         <AdPlaceholder type="mobile-banner" />
         
-        {/* FLOATING BANNER AD - Desktop only */}
-        <AdPlaceholder type="floating-banner" />
+        {/* FLOATING BANNER AD - Desktop only with close button */}
+        <FloatingAdManager />
         
         {/* Add bottom padding to prevent content from being hidden behind floating ad */}
         <div className="h-24 xl:block hidden"></div>
