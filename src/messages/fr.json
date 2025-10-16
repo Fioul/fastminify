@@ -113,5 +113,90 @@
       "required": "Veuillez remplir tous les champs obligatoires.",
       "success": "Merci pour votre message ! Nous vous répondrons bientôt."
     }
+  },
+  "footer": {
+    "description": "Outil en ligne gratuit pour minifier le code instantanément — rapide, moderne et respectueux de la vie privée."
+  },
+  "content": {
+    "hero": {
+      "badges": {
+        "free": "100% Gratuit",
+        "private": "Aucune donnée envoyée",
+        "instant": "Traitement instantané"
+      }
+    },
+    "whyMinify": {
+      "title": "Qu'est-ce que la minification de code ?",
+      "subtitle": "La minification de code est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables.",
+      "benefits": {
+        "performance": {
+          "title": "Réduction de taille",
+          "description": "La minification peut réduire la taille des fichiers JavaScript et CSS de 30 à 70%, améliorant significativement les temps de chargement."
+        },
+        "bandwidth": {
+          "title": "Optimisation de bande passante",
+          "description": "Des fichiers plus petits signifient moins de transfert de données, réduisant les coûts de bande passante et améliorant l'expérience utilisateur sur les connexions lentes."
+        },
+        "security": {
+          "title": "Obfuscation du code",
+          "description": "Le code minifié est plus difficile à lire et à rétro-ingénierer, offrant un niveau de protection basique du code."
+        }
+      }
+    },
+    "languages": {
+      "title": "Langages supportés",
+      "javascript": "JavaScript",
+      "css": "CSS",
+      "json": "JSON",
+      "php": "PHP Serialization"
+    },
+    "howItWorks": {
+      "title": "Comment ça fonctionne ?",
+      "subtitle": "Notre outil de minification est conçu pour être simple, rapide et sécurisé.",
+      "steps": {
+        "paste": {
+          "title": "Collez votre code",
+          "description": "Copiez et collez votre code dans l'éditeur de gauche. Notre détection automatique reconnaît le langage."
+        },
+        "configure": {
+          "title": "Configurez les options",
+          "description": "Personnalisez la minification selon vos besoins : compatibilité, compression, optimisations."
+        },
+        "getResult": {
+          "title": "Récupérez le résultat",
+          "description": "Votre code minifié apparaît instantanément. Téléchargez ou copiez le résultat."
+        }
+      }
+    },
+    "seoOptimization": {
+      "title": "Optimisation SEO et Performance",
+      "subtitle": "La minification de code améliore directement votre référencement et l'expérience utilisateur de votre site.",
+      "seoImpact": {
+        "title": "Impact SEO",
+        "items": [
+          "Améliore les Core Web Vitals de Google",
+          "Réduit les temps de chargement des pages",
+          "Augmente les taux de conversion",
+          "Améliore l'expérience mobile"
+        ]
+      },
+      "technicalOptimizations": {
+        "title": "Optimisations techniques",
+        "items": [
+          "Supprime les espaces inutiles",
+          "Raccourcit les noms de variables",
+          "Optimise les expressions",
+          "Compatible avec la compression GZIP"
+        ]
+      }
+    },
+    "codeExamples": {
+      "title": "Exemples de minification",
+      "subtitle": "Découvrez comment la minification transforme votre code pour optimiser les performances.",
+      "javascript": "JavaScript",
+      "css": "CSS",
+      "originalCode": "Code original :",
+      "minifiedCode": "Code minifié :"
+    }
   }
 }

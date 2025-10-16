@@ -8,6 +8,7 @@ import {LenisProvider} from '@/components/LenisProvider'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
+import { headers } from 'next/headers'
 
 // Inter font configuration
 const inter = Inter({subsets: ['latin']})
@@ -55,13 +56,25 @@ export const metadata: Metadata = {
     },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
                                        children,
                                    }: {
     children: React.ReactNode
 }) {
+    // Détecter la locale depuis l'URL
+    const headersList = await headers()
+    const pathname = headersList.get('x-pathname') || ''
+    
+    // Extraire la locale depuis le pathname
+    let locale = 'en' // par défaut
+    if (pathname.startsWith('/fr')) {
+        locale = 'fr'
+    } else if (pathname.startsWith('/en')) {
+        locale = 'en'
+    }
+
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang={locale} suppressHydrationWarning>
         <head>
             <link rel="icon" type="image/png" href="/favicon.png?v=2" />
             <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
@@ -79,7 +92,7 @@ export default function RootLayout({
                     <main className="flex-1">
                         {children}
                     </main>
-                    <Footer />
+                    <Footer locale={locale} />
                 </div>
             {/* </LenisProvider> */}
         </ThemeProvider>

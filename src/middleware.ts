@@ -18,6 +18,11 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     return NextResponse.redirect(new URL(`/en${pathname}`, request.url))
   }
+  
+  // Ajouter le pathname dans les headers pour le layout
+  const response = NextResponse.next()
+  response.headers.set('x-pathname', pathname)
+  return response
 }
 
 export const config = {
