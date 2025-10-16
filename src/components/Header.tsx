@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Moon, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
-import { useHeaderScrollGSAP } from '@/hooks/useHeaderScrollGSAP'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useTranslations } from '@/hooks/useTranslations'
 
@@ -21,9 +20,6 @@ export default function Header({ locale = 'en' }: HeaderProps) {
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const { t } = useTranslations(locale)
-  
-  // Use header scroll GSAP hook
-  const headerRef = useHeaderScrollGSAP()
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -42,10 +38,7 @@ export default function Header({ locale = 'en' }: HeaderProps) {
   ]
 
   return (
-      <header
-        ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 header-warm"
-      >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo and brand */}
         <Link href={`/${locale}`}>
