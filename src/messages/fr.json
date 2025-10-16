@@ -75,8 +75,112 @@
       "terser": "Terser : Moteur de minification JavaScript",
       "csso": "CSSO : Bibliothèque d'optimisation CSS"
     },
-    "openSource": "Open Source",
-    "openSourceText": "FastMinify est open source et disponible sur GitHub. Nous accueillons les contributions, rapports de bugs et demandes de fonctionnalités de la communauté."
+    "technologies": {
+      "title": "Technologies utilisées",
+      "subtitle": "FastMinify est construit avec les technologies web les plus modernes et performantes",
+      "nextjs": {
+        "title": "Next.js 15",
+        "description": "Framework React avec App Router, Server Components et optimisations SEO"
+      },
+      "terser": {
+        "title": "Terser",
+        "description": "Moteur de minification JavaScript haute performance et optimisé"
+      },
+      "csso": {
+        "title": "CSSO",
+        "description": "Optimiseur CSS avancé avec compression intelligente et analyse syntaxique"
+      },
+      "monaco": {
+        "title": "Monaco Editor",
+        "description": "Éditeur de code professionnel avec coloration syntaxique et autocomplétion"
+      },
+      "typescript": {
+        "title": "TypeScript",
+        "description": "Typage statique pour une meilleure sécurité et maintenabilité du code"
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "description": "Framework CSS utilitaire pour un design responsive et performant"
+      }
+    },
+    "process": {
+      "title": "Processus de conversion",
+      "subtitle": "Découvrez comment FastMinify transforme votre code de manière intelligente et sécurisée",
+      "analysis": {
+        "title": "Analyse du code",
+        "description": "Le code est analysé côté client pour identifier la syntaxe, les optimisations possibles et les structures de données"
+      },
+      "optimization": {
+        "title": "Optimisation intelligente",
+        "description": "Application d'algorithmes de compression avancés selon le type de code et les options sélectionnées"
+      },
+      "compression": {
+        "title": "Compression finale",
+        "description": "Génération du code optimisé avec préservation de la fonctionnalité et affichage des statistiques"
+      }
+    },
+    "algorithms": {
+      "title": "Algorithmes de minification",
+      "subtitle": "Chaque type de code utilise des algorithmes spécialisés pour une compression optimale",
+      "javascript": {
+        "title": "JavaScript",
+        "optimizations": [
+          "Suppression des espaces et commentaires",
+          "Minification des noms de variables",
+          "Optimisation des expressions",
+          "Élimination du code mort",
+          "Compression des chaînes de caractères"
+        ]
+      },
+      "css": {
+        "title": "CSS",
+        "optimizations": [
+          "Suppression des espaces inutiles",
+          "Conversion des couleurs (blue → #0000ff)",
+          "Fusion des règles identiques",
+          "Optimisation des sélecteurs",
+          "Suppression des propriétés redondantes"
+        ]
+      }
+    },
+    "performance": {
+      "title": "Performance et sécurité",
+      "subtitle": "FastMinify garantit des performances optimales et une sécurité maximale pour vos données",
+      "speed": {
+        "title": "Vitesse de traitement",
+        "description": "Traitement instantané côté client sans latence réseau, même pour des fichiers volumineux"
+      },
+      "security": {
+        "title": "Confidentialité totale",
+        "description": "Aucune donnée n'est envoyée sur nos serveurs. Tout le traitement se fait localement dans votre navigateur"
+      },
+      "reliability": {
+        "title": "Fiabilité garantie",
+        "description": "Algorithmes testés et éprouvés, avec préservation garantie de la fonctionnalité du code original"
+      }
+    },
+    "opensource": {
+      "title": "Transparence et open source",
+      "subtitle": "FastMinify est entièrement transparent et open source pour garantir votre confiance",
+      "transparency": {
+        "title": "Transparence totale",
+        "items": [
+          "Code source entièrement transparent",
+          "Algorithmes de minification ouverts",
+          "Audit de sécurité public",
+          "Contribution communautaire encouragée"
+        ]
+      },
+      "updates": {
+        "title": "Évolution continue",
+        "items": [
+          "Mises à jour régulières",
+          "Nouvelles fonctionnalités gratuites",
+          "Support des dernières standards web",
+          "Amélioration continue des performances"
+        ]
+      }
+    }
   },
   "contact": {
     "title": "Contactez-nous",

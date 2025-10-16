@@ -8,7 +8,7 @@ export function useTranslations(locale: string) {
   // Use translations directly without loading state
   const translations = locale === 'fr' ? frMessages : enMessages
 
-  const t = (key: string): string => {
+  const t = (key: string): unknown => {
     const keys = key.split('.')
     let value: unknown = translations
     
@@ -20,8 +20,13 @@ export function useTranslations(locale: string) {
       }
     }
     
-    return typeof value === 'string' ? value : key
+    return value
   }
 
-  return { t, loading: false }
+  const tArray = (key: string): string[] => {
+    const value = t(key)
+    return Array.isArray(value) ? value : []
+  }
+
+  return { t, tArray, loading: false }
 }

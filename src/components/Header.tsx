@@ -34,7 +34,6 @@ export default function Header({ locale = 'en' }: HeaderProps) {
   const navItems = [
     { href: `/${locale}`, label: t('navigation.home') },
     { href: `/${locale}/about`, label: t('navigation.about') },
-    { href: `/${locale}/contact`, label: t('navigation.contact') },
   ]
 
   return (

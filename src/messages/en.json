@@ -30,52 +30,112 @@
   "about": {
     "title": "About FastMinify",
     "subtitle": "The fastest, most reliable online minifier for JavaScript and CSS",
-    "whatIs": "What is FastMinify?",
-    "whatIsText": "FastMinify is a free, privacy-focused online tool designed to minify JavaScript and CSS code instantly. Built with modern web technologies, it provides fast, reliable minification without compromising your data privacy.",
-    "whyChoose": "Why Choose FastMinify?",
-    "features": {
-      "clientSide": "100% Client-side: Your code never leaves your browser",
-      "lightningFast": "Lightning Fast: Minification happens instantly in your browser",
-      "privacyFirst": "Privacy First: No data collection, no tracking, no uploads",
-      "modernUI": "Modern UI: Clean, responsive design with dark mode support",
-      "advancedOptions": "Advanced Options: Safe/Aggressive modes and ES5/ES6+ compatibility",
-      "freeForever": "Free Forever: No registration required, no hidden costs"
-    },
-    "howItWorks": "How It Works",
-    "howItWorksText": "FastMinify uses industry-standard minification libraries (Terser for JavaScript, CSSO for CSS) running directly in your browser. This means:",
-    "howItWorksList": {
-      "noServer": "No server processing required",
-      "noUploads": "No file uploads or downloads",
-      "completePrivacy": "Complete privacy and security",
-      "worksOffline": "Works offline after initial page load"
-    },
-    "featuresTitle": "Features",
-    "jsMinification": "JavaScript Minification",
-    "cssMinification": "CSS Minification",
-    "jsFeatures": {
-      "removeWhitespace": "• Remove whitespace and comments",
-      "shortenVariables": "• Shorten variable names",
-      "optimizeExpressions": "• Optimize expressions",
-      "compatibility": "• ES5/ES6+ compatibility"
-    },
-    "cssFeatures": {
-      "removeWhitespace": "• Remove unnecessary whitespace",
-      "optimizeSelectors": "• Optimize selectors",
-      "mergeRules": "• Merge duplicate rules",
-      "removeUnused": "• Remove unused declarations"
-    },
-    "builtWith": "Built With",
-    "builtWithText": "FastMinify is built using modern web technologies to ensure the best performance and user experience:",
     "technologies": {
-      "nextjs": "Next.js 15: React framework for optimal performance",
-      "typescript": "TypeScript: Type-safe development",
-      "tailwind": "TailwindCSS: Utility-first CSS framework",
-      "shadcn": "Shadcn/UI: Beautiful, accessible components",
-      "terser": "Terser: JavaScript minification engine",
-      "csso": "CSSO: CSS optimization library"
+      "title": "Technologies used",
+      "subtitle": "FastMinify is built with the most modern and performant web technologies",
+      "nextjs": {
+        "title": "Next.js 15",
+        "description": "React framework with App Router, Server Components and SEO optimizations"
+      },
+      "terser": {
+        "title": "Terser",
+        "description": "High-performance and optimized JavaScript minification engine"
+      },
+      "csso": {
+        "title": "CSSO",
+        "description": "Advanced CSS optimizer with intelligent compression and syntax analysis"
+      },
+      "monaco": {
+        "title": "Monaco Editor",
+        "description": "Professional code editor with syntax highlighting and autocompletion"
+      },
+      "typescript": {
+        "title": "TypeScript",
+        "description": "Static typing for better security and code maintainability"
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "description": "Utility-first CSS framework for responsive and performant design"
+      }
     },
-    "openSource": "Open Source",
-    "openSourceText": "FastMinify is open source and available on GitHub. We welcome contributions, bug reports, and feature requests from the community."
+    "process": {
+      "title": "Conversion process",
+      "subtitle": "Discover how FastMinify intelligently and securely transforms your code",
+      "analysis": {
+        "title": "Code analysis",
+        "description": "The code is analyzed client-side to identify syntax, possible optimizations and data structures"
+      },
+      "optimization": {
+        "title": "Intelligent optimization",
+        "description": "Application of advanced compression algorithms according to code type and selected options"
+      },
+      "compression": {
+        "title": "Final compression",
+        "description": "Generation of optimized code with preserved functionality and statistics display"
+      }
+    },
+    "algorithms": {
+      "title": "Minification algorithms",
+      "subtitle": "Each code type uses specialized algorithms for optimal compression",
+      "javascript": {
+        "title": "JavaScript",
+        "optimizations": [
+          "Remove spaces and comments",
+          "Minify variable names",
+          "Optimize expressions",
+          "Eliminate dead code",
+          "Compress character strings"
+        ]
+      },
+      "css": {
+        "title": "CSS",
+        "optimizations": [
+          "Remove unnecessary spaces",
+          "Convert colors (blue → #0000ff)",
+          "Merge identical rules",
+          "Optimize selectors",
+          "Remove redundant properties"
+        ]
+      }
+    },
+    "performance": {
+      "title": "Performance and security",
+      "subtitle": "FastMinify guarantees optimal performance and maximum security for your data",
+      "speed": {
+        "title": "Processing speed",
+        "description": "Instant client-side processing without network latency, even for large files"
+      },
+      "security": {
+        "title": "Total privacy",
+        "description": "No data is sent to our servers. All processing is done locally in your browser"
+      },
+      "reliability": {
+        "title": "Guaranteed reliability",
+        "description": "Tested and proven algorithms, with guaranteed preservation of original code functionality"
+      }
+    },
+    "opensource": {
+      "title": "Transparency and open source",
+      "subtitle": "FastMinify is completely transparent and open source to guarantee your trust",
+      "transparency": {
+        "title": "Total transparency",
+        "items": [
+          "Completely transparent source code",
+          "Open minification algorithms",
+          "Public security audit",
+          "Encouraged community contribution"
+        ]
+      },
+      "updates": {
+        "title": "Continuous evolution",
+        "items": [
+          "Regular updates",
+          "Free new features",
+          "Support for latest web standards",
+          "Continuous performance improvements"
+        ]
+      }
+    }
   },
   "contact": {
     "title": "Contact Us",
