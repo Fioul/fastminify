@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useMinification } from '@/hooks/useMinification'
 import HeroSection from '@/components/sections/HeroSection'
 import Toolbar from '@/components/sections/Toolbar'
 import EditorSection from '@/components/sections/EditorSection'
 import ContentSections from '@/components/sections/ContentSections'
-import AdPlaceholder from '@/components/sections/AdPlaceholder'
 
 interface PageProps {
     params: Promise<{ locale: string }>
@@ -47,9 +46,6 @@ export default function Page({ params }: PageProps) {
         handleClear,
         handleDownload,
     } = useMinification()
-
-    // State for floating ad
-    const [showFloatingAd, setShowFloatingAd] = useState(true)
 
 
     return (
@@ -104,26 +100,8 @@ export default function Page({ params }: PageProps) {
                     </div>
                 </div>
 
-                {/* SIDEBAR ADS */}
-                <AdPlaceholder type="sidebar-left" />
-                <AdPlaceholder type="sidebar-right" />
-
                 {/* CONTENT SECTIONS FOR SEO */}
                 <ContentSections locale={locale} />
-
-                {/* BOTTOM BANNER AD - Static version for mobile */}
-                <AdPlaceholder type="mobile-banner" />
-
-                {/* FLOATING BANNER AD - Desktop only */}
-                {showFloatingAd && (
-                    <AdPlaceholder 
-                        type="floating-banner" 
-                        onClose={() => setShowFloatingAd(false)} 
-                    />
-                )}
-
-                {/* Add bottom padding to prevent content from being hidden behind floating ad */}
-                <div className="h-24 xl:block hidden"></div>
             </div>
         </div>
     )
