@@ -41,7 +41,7 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
                   <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items) {
     let total = 0;
     
@@ -59,7 +59,7 @@ function init() {
               </div>
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
                   <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(t){let l=0;for(let n=0;n<t.length;n++)l+=t[n].price*t[n].quantity;return l}function init(){calculateTotal()}`}</pre>
                 </div>
               </div>
@@ -74,7 +74,7 @@ function init() {
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
                   <pre className="whitespace-pre-wrap break-all">{`.header {
     background-color: #ffffff;
     padding: 20px;
@@ -92,7 +92,7 @@ function init() {
               </div>
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
                   <pre className="whitespace-pre-wrap break-all">{`.header{background-color:#fff;padding:20px;margin-bottom:10px;border-radius:5px;color:#333}.header .title{font-size:24px;font-weight:700;color:#333}`}</pre>
                 </div>
               </div>
@@ -103,7 +103,7 @@ function init() {
 
       {/* BENEFITS GRID */}
       <div className="grid md:grid-cols-3 gap-8">
-        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
           <div className="w-12 h-12 flex items-center justify-center mx-auto">
             <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
@@ -117,7 +117,7 @@ function init() {
           </p>
         </div>
         
-        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
           <div className="w-12 h-12 flex items-center justify-center mx-auto">
             <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.686 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.686-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
@@ -131,7 +131,7 @@ function init() {
           </p>
         </div>
         
-        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
           <div className="w-12 h-12 flex items-center justify-center mx-auto">
             <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -152,25 +152,25 @@ function init() {
           {t('content.languages.title')}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
             <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-yellow-600">JS</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.javascript')}</span>
           </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
             <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-blue-600">CSS</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.css')}</span>
           </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
             <div className="w-12 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-green-600">JSON</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.json')}</span>
           </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
             <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-purple-600">PHP</span>
             </div>
@@ -224,7 +224,7 @@ function init() {
       </section>
 
       {/* SEO OPTIMIZATION TIPS */}
-      <section className="mt-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 space-y-6 border border-gray-200 dark:border-gray-700">
+      <section className="mt-24 bg-gray-50 dark:bg-gray-950 rounded-2xl p-8 space-y-6 border border-gray-200 dark:border-gray-700">
         <div className="text-center space-y-4">
           <h2 className="text-3xl font-bold text-foreground">
             {t('content.seoOptimization.title')}
