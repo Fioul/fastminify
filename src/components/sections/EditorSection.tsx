@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
+import { Copy, Download } from 'lucide-react'
 
 interface EditorSectionProps {
   locale: string
@@ -19,6 +20,10 @@ interface EditorSectionProps {
   onRightCodeChange: (value: string | undefined) => void
   onCopy: () => void
   onDownload: () => void
+  onLeftCopy: () => void
+  onLeftDownload: () => void
+  onRightCopy: () => void
+  onRightDownload: () => void
 }
 
 export default function EditorSection({
@@ -33,6 +38,10 @@ export default function EditorSection({
   onRightCodeChange,
   onCopy,
   onDownload,
+  onLeftCopy,
+  onLeftDownload,
+  onRightCopy,
+  onRightDownload,
 }: EditorSectionProps) {
   const { t } = useTranslations(locale)
 
@@ -124,14 +133,6 @@ export default function EditorSection({
                 className="h-2 mt-3"
               />
             </div>
-            <div className="flex gap-2">
-              <Button onClick={onCopy} className="flex-1" size="sm">
-                Copy Output
-              </Button>
-              <Button variant="outline" onClick={onDownload} className="flex-1" size="sm">
-                Download
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>
@@ -143,7 +144,31 @@ export default function EditorSection({
       {/* LEFT EDITOR */}
       <div>
         <div className="h-[270px] flex flex-col">
-          <Label className="text-sm font-medium mb-2">{t('common.normalCode')}</Label>
+          <div className="flex items-center justify-between mb-2">
+            <Label className="text-sm font-medium">{t('common.normalCode')}</Label>
+            <div className="flex gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onLeftCopy}
+                disabled={!leftCode.trim()}
+                className="h-8 w-8 p-0"
+                title="Copy code"
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onLeftDownload}
+                disabled={!leftCode.trim()}
+                className="h-8 w-8 p-0"
+                title="Download code"
+              >
+                <Download className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
           <CodeEditor
             value={leftCode}
             onChange={onLeftCodeChange}
@@ -161,7 +186,31 @@ export default function EditorSection({
       {/* RIGHT EDITOR */}
       <div>
         <div className="h-[270px] flex flex-col">
-          <Label className="text-sm font-medium mb-2">{t('common.minifiedCode')}</Label>
+          <div className="flex items-center justify-between mb-2">
+            <Label className="text-sm font-medium">{t('common.minifiedCode')}</Label>
+            <div className="flex gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onRightCopy}
+                disabled={!rightCode.trim()}
+                className="h-8 w-8 p-0"
+                title="Copy code"
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onRightDownload}
+                disabled={!rightCode.trim()}
+                className="h-8 w-8 p-0"
+                title="Download code"
+              >
+                <Download className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
           <CodeEditor
             value={rightCode}
             onChange={onRightCodeChange}

@@ -45,6 +45,10 @@ export default function Page({ params }: PageProps) {
         handleCopy,
         handleClear,
         handleDownload,
+        handleLeftCopy,
+        handleLeftDownload,
+        handleRightCopy,
+        handleRightDownload,
     } = useMinification()
 
 
@@ -96,6 +100,10 @@ export default function Page({ params }: PageProps) {
                             onRightCodeChange={handleRightCodeChange}
                             onCopy={handleCopy}
                             onDownload={handleDownload}
+                            onLeftCopy={handleLeftCopy}
+                            onLeftDownload={handleLeftDownload}
+                            onRightCopy={handleRightCopy}
+                            onRightDownload={handleRightDownload}
                         />
                     </div>
                 </div>

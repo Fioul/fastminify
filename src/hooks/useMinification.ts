@@ -29,6 +29,7 @@ export function useMinification() {
   const [autoDetectRight, setAutoDetectRight] = useState(true)
   const [lastOperation, setLastOperation] = useState<OperationType>(null)
 
+
   // Options configuration
   const [jsOptions, setJsOptions] = useState<JavaScriptOptions>({
     ecmaVersion: 'es2022',
@@ -289,17 +290,96 @@ export function useMinification() {
     if (!rightCode) return
     
     const extensions = {
+      'js': 'min.js',
+      'css': 'min.css', 
+      'json': 'json',
+      'php': 'php'
+    }
+    
+    const timestamp = Math.floor(Date.now() / 1000)
+    const blob = new Blob([rightCode], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `fastminify-minified-${timestamp}.${extensions[rightType]}`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    toast.success('File downloaded!')
+  }
+
+  // Copy left code
+  const handleLeftCopy = () => {
+    if (!leftCode) return
+    
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(leftCode).then(() => {
+        toast.success('Left code copied!')
+      }).catch(() => {
+        fallbackCopy(leftCode)
+      })
+    } else {
+      fallbackCopy(leftCode)
+    }
+  }
+
+  // Download left code as file
+  const handleLeftDownload = () => {
+    if (!leftCode) return
+    
+    const extensions = {
       'js': 'js',
       'css': 'css', 
       'json': 'json',
       'php': 'php'
     }
     
+    const timestamp = Math.floor(Date.now() / 1000)
+    const blob = new Blob([leftCode], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `fastminify-normal-${timestamp}.${extensions[leftType]}`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    toast.success('File downloaded!')
+  }
+
+  // Copy right code
+  const handleRightCopy = () => {
+    if (!rightCode) return
+    
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(rightCode).then(() => {
+        toast.success('Right code copied!')
+      }).catch(() => {
+        fallbackCopy(rightCode)
+      })
+    } else {
+      fallbackCopy(rightCode)
+    }
+  }
+
+  // Download right code as file
+  const handleRightDownload = () => {
+    if (!rightCode) return
+    
+    const extensions = {
+      'js': 'min.js',
+      'css': 'min.css', 
+      'json': 'json',
+      'php': 'php'
+    }
+    
+    const timestamp = Math.floor(Date.now() / 1000)
     const blob = new Blob([rightCode], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `processed.${extensions[rightType]}`
+    a.download = `fastminify-minified-${timestamp}.${extensions[rightType]}`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -341,5 +421,9 @@ export function useMinification() {
     handleCopy,
     handleClear,
     handleDownload,
+    handleLeftCopy,
+    handleLeftDownload,
+    handleRightCopy,
+    handleRightDownload,
   }
 }
