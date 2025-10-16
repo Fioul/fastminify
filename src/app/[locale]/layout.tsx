@@ -12,7 +12,7 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { locale } = await params
   
-  // Vérifier que la langue est supportée
+  // Check if language is supported
   if (!['en', 'fr'].includes(locale)) {
     notFound()
   }
@@ -27,7 +27,7 @@ export default async function LocaleLayout({
   )
 }
 
-// Générer les paramètres statiques pour toutes les langues
+// Generate static parameters for all languages
 export function generateStaticParams() {
   return [
     { locale: 'en' },

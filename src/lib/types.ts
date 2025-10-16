@@ -1,0 +1,51 @@
+// JavaScript options interface
+export interface JavaScriptOptions {
+  ecmaVersion: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022'
+  compressionLevel: 'conservative' | 'normal' | 'aggressive'
+  browserSupport: 'modern' | 'ie11' | 'ie9' | 'all'
+  preserveClassNames: boolean
+  preserveFunctionNames: boolean
+  removeConsole: boolean
+}
+
+// CSS options interface
+export interface CSSOptions {
+  compressionLevel: 'conservative' | 'normal' | 'aggressive'
+  browserSupport: 'modern' | 'ie11' | 'ie9'
+  removeComments: boolean
+  convertColors: boolean
+  mergeRules: boolean
+  minifySelectors: boolean
+}
+
+// JSON options interface
+export interface JSONOptions {
+  compressionLevel: 'conservative' | 'normal' | 'aggressive'
+  optimizeNumbers: boolean
+  useScientificNotation: boolean
+  removeEmptyKeys: boolean
+  removeNullValues: boolean
+  fixCommonErrors: boolean
+}
+
+// PHP options interface
+export interface PHPOptions {
+  serializationLevel: 'basic' | 'deep' | 'custom'
+  compression: 'none' | 'minimal' | 'aggressive'
+  preserveTypes: boolean
+  includeNullValues: boolean
+  readable: boolean
+  strictMode: boolean
+}
+
+// Language type
+export type LanguageType = 'js' | 'css' | 'json' | 'php'
+
+// Operation type
+export type OperationType = 'minify' | 'unminify' | null
+
+// Stats interface
+export interface Stats {
+  original: number
+  result: number
+}

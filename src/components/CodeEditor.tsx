@@ -32,11 +32,11 @@ export default function CodeEditor({
   readOnly = false
 }: CodeEditorProps) {
   const { theme } = useTheme()
-  const editorRef = useRef<any>(null)
+  const editorRef = useRef<unknown>(null)
 
   // Simple scroll handling - allow page scroll by default
   useEffect(() => {
-    const editor = editorRef.current
+    const editor = editorRef.current as any
     if (!editor) return
 
     const editorElement = editor.getDomNode()
@@ -49,7 +49,6 @@ export default function CodeEditor({
       
       // If there's no scrollable content, always allow page scroll
       if (!hasScrollableContent) {
-        // Let the page handle the scroll
         return
       }
 
@@ -101,17 +100,17 @@ export default function CodeEditor({
     cursorSmoothCaretAnimation: 'on' as const,
     // Accessibility
     accessibilitySupport: 'auto' as const,
-    // Supprimer les bordures internes
+    // Remove internal borders
     renderLineHighlight: 'none' as const,
     hideCursorInOverviewRuler: true,
     overviewRulerBorder: false,
     contextmenu: false,
-    // Supprimer les décorations de validation et bordures
+    // Remove validation decorations and borders
     renderValidationDecorations: 'off' as const,
     renderWhitespace: 'none' as const,
-    // Supprimer les bordures de focus
+    // Remove focus borders
     outline: 'none',
-    // Supprimer les bordures de sélection
+    // Remove selection borders
     selectionHighlight: false
   }), [placeholder, readOnly])
 

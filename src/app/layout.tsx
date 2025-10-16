@@ -4,8 +4,6 @@ import './globals.css'
 import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
-import {LenisProvider} from '@/components/LenisProvider'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
@@ -61,12 +59,12 @@ export default async function RootLayout({
                                    }: {
     children: React.ReactNode
 }) {
-    // Détecter la locale depuis l'URL
+    // Detect locale from URL
     const headersList = await headers()
     const pathname = headersList.get('x-pathname') || ''
     
-    // Extraire la locale depuis le pathname
-    let locale = 'en' // par défaut
+    // Extract locale from pathname
+    let locale = 'en' // default
     if (pathname.startsWith('/fr')) {
         locale = 'fr'
     } else if (pathname.startsWith('/en')) {
@@ -87,14 +85,12 @@ export default async function RootLayout({
             )}
         >
         <ThemeProvider>
-            {/* <LenisProvider> */}
-                <div className="min-h-screen flex flex-col">
-                    <main className="flex-1">
-                        {children}
-                    </main>
-                    <Footer locale={locale} />
-                </div>
-            {/* </LenisProvider> */}
+            <div className="min-h-screen flex flex-col">
+                <main className="flex-1">
+                    {children}
+                </main>
+                <Footer locale={locale} />
+            </div>
         </ThemeProvider>
 
         {/* Sonner toast notifications */}
