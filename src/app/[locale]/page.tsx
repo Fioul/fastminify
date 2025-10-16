@@ -340,7 +340,7 @@ export default function Page({ params }: PageProps) {
 
             {/* TOOLBAR - Action buttons */}
             <div className="flex justify-center mb-6">
-                <Card className="p-4 card-warm w-full max-w-[960px]">
+                <Card className="p-4 card-warm w-full max-w-[930px]">
                     <div className="flex flex-wrap gap-4 items-center justify-between">
                         <div className="flex flex-wrap gap-4 items-center">
                             <div className="flex items-end gap-2">
