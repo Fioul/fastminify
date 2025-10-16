@@ -14,7 +14,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
         {t('common.subtitle')}
       </h1>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+      <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
         {t('common.description')}
       </p>
       <div className="flex flex-wrap justify-center gap-4 mt-6">

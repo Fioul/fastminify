@@ -6,7 +6,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
-import { Copy, Download } from 'lucide-react'
+import { Copy, Download, Maximize2 } from 'lucide-react'
+import ModalEditor from './ModalEditor'
 
 interface EditorSectionProps {
   locale: string
@@ -16,6 +17,8 @@ interface EditorSectionProps {
   rightType: 'js' | 'css' | 'json' | 'php'
   stats: { original: number; result: number } | null
   lastOperation: 'minify' | 'unminify' | null
+  leftModalOpen: boolean
+  rightModalOpen: boolean
   onLeftCodeChange: (value: string | undefined) => void
   onRightCodeChange: (value: string | undefined) => void
   onCopy: () => void
@@ -24,6 +27,10 @@ interface EditorSectionProps {
   onLeftDownload: () => void
   onRightCopy: () => void
   onRightDownload: () => void
+  onLeftModalOpen: () => void
+  onLeftModalClose: () => void
+  onRightModalOpen: () => void
+  onRightModalClose: () => void
 }
 
 export default function EditorSection({
@@ -34,6 +41,8 @@ export default function EditorSection({
   rightType,
   stats,
   lastOperation,
+  leftModalOpen,
+  rightModalOpen,
   onLeftCodeChange,
   onRightCodeChange,
   onCopy,
@@ -42,6 +51,10 @@ export default function EditorSection({
   onLeftDownload,
   onRightCopy,
   onRightDownload,
+  onLeftModalOpen,
+  onLeftModalClose,
+  onRightModalOpen,
+  onRightModalClose,
 }: EditorSectionProps) {
   const { t } = useTranslations(locale)
 
@@ -167,6 +180,15 @@ export default function EditorSection({
               >
                 <Download className="h-4 w-4" />
               </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onLeftModalOpen}
+                className="h-8 w-8 p-0"
+                title="Open in modal"
+              >
+                <Maximize2 className="h-4 w-4" />
+              </Button>
             </div>
           </div>
           <CodeEditor
@@ -209,6 +231,15 @@ export default function EditorSection({
               >
                 <Download className="h-4 w-4" />
               </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onRightModalOpen}
+                className="h-8 w-8 p-0"
+                title="Open in modal"
+              >
+                <Maximize2 className="h-4 w-4" />
+              </Button>
             </div>
           </div>
           <CodeEditor
@@ -224,6 +255,35 @@ export default function EditorSection({
         
         <ResultBox operation="minify" />
       </div>
+
+      {/* MODALS */}
+      <ModalEditor
+        isOpen={leftModalOpen}
+        onClose={onLeftModalClose}
+        title={t('common.normalCode')}
+        code={leftCode}
+        language={leftType === 'js' ? 'javascript' : 
+                 leftType === 'css' ? 'css' : 
+                 leftType === 'json' ? 'json' : 'javascript'}
+        placeholder={t('placeholders.normalCode')}
+        onCodeChange={onLeftCodeChange}
+        onCopy={onLeftCopy}
+        onDownload={onLeftDownload}
+      />
+
+      <ModalEditor
+        isOpen={rightModalOpen}
+        onClose={onRightModalClose}
+        title={t('common.minifiedCode')}
+        code={rightCode}
+        language={rightType === 'js' ? 'javascript' : 
+                 rightType === 'css' ? 'css' : 
+                 rightType === 'json' ? 'json' : 'javascript'}
+        placeholder={t('placeholders.minifiedCode')}
+        onCodeChange={onRightCodeChange}
+        onCopy={onRightCopy}
+        onDownload={onRightDownload}
+      />
     </div>
   )
 }

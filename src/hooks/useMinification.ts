@@ -28,6 +28,8 @@ export function useMinification() {
   const [autoDetectLeft, setAutoDetectLeft] = useState(true)
   const [autoDetectRight, setAutoDetectRight] = useState(true)
   const [lastOperation, setLastOperation] = useState<OperationType>(null)
+  const [leftModalOpen, setLeftModalOpen] = useState(false)
+  const [rightModalOpen, setRightModalOpen] = useState(false)
 
 
   // Options configuration
@@ -387,6 +389,23 @@ export function useMinification() {
     toast.success('File downloaded!')
   }
 
+  // Modal handlers
+  const handleLeftModalOpen = () => {
+    setLeftModalOpen(true)
+  }
+
+  const handleLeftModalClose = () => {
+    setLeftModalOpen(false)
+  }
+
+  const handleRightModalOpen = () => {
+    setRightModalOpen(true)
+  }
+
+  const handleRightModalClose = () => {
+    setRightModalOpen(false)
+  }
+
   return {
     // State
     leftCode,
@@ -398,6 +417,8 @@ export function useMinification() {
     autoDetectLeft,
     autoDetectRight,
     lastOperation,
+    leftModalOpen,
+    rightModalOpen,
     jsOptions,
     cssOptions,
     jsonOptions,
@@ -425,5 +446,9 @@ export function useMinification() {
     handleLeftDownload,
     handleRightCopy,
     handleRightDownload,
+    handleLeftModalOpen,
+    handleLeftModalClose,
+    handleRightModalOpen,
+    handleRightModalClose,
   }
 }

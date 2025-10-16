@@ -49,13 +49,19 @@ export default function Page({ params }: PageProps) {
         handleLeftDownload,
         handleRightCopy,
         handleRightDownload,
+        leftModalOpen,
+        rightModalOpen,
+        handleLeftModalOpen,
+        handleLeftModalClose,
+        handleRightModalOpen,
+        handleRightModalClose,
     } = useMinification()
 
 
     return (
         <div className="gradient-bg">
             <div className="container max-w-[1440px] mx-auto px-4 py-10">
-                {/* HERO SECTION */}
+            {/* HERO SECTION */}
                 <HeroSection locale={locale} />
 
                 {/* TOOLBAR */}
@@ -96,6 +102,8 @@ export default function Page({ params }: PageProps) {
                             rightType={rightType}
                             stats={stats}
                             lastOperation={lastOperation}
+                            leftModalOpen={leftModalOpen}
+                            rightModalOpen={rightModalOpen}
                             onLeftCodeChange={handleLeftCodeChange}
                             onRightCodeChange={handleRightCodeChange}
                             onCopy={handleCopy}
@@ -104,11 +112,15 @@ export default function Page({ params }: PageProps) {
                             onLeftDownload={handleLeftDownload}
                             onRightCopy={handleRightCopy}
                             onRightDownload={handleRightDownload}
+                            onLeftModalOpen={handleLeftModalOpen}
+                            onLeftModalClose={handleLeftModalClose}
+                            onRightModalOpen={handleRightModalOpen}
+                            onRightModalClose={handleRightModalClose}
                         />
-                    </div>
                 </div>
+            </div>
 
-                {/* CONTENT SECTIONS FOR SEO */}
+            {/* CONTENT SECTIONS FOR SEO */}
                 <ContentSections locale={locale} />
             </div>
         </div>
