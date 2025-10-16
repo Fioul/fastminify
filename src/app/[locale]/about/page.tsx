@@ -50,8 +50,16 @@ export default function AboutPage({ params }: AboutPageProps) {
             
             <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
-                <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 512 512">
+                  <g>
+                    <path d="M256,329l63,36v128H193V365L256,329z M319,147V19H193v128l63,36L319,147z"/>
+                    <path d="M256,183l63-36v73L256,183z M193,292v73l63-36L193,292z"/>
+                    <path d="M319,220v-73l110-64l63,109l-111,64L319,220z M130,256L19,320l63,109l111-64v-73L130,256z"/>
+                    <path d="M319,220l62,36l-62,36V220z M193,220l-63,36l63,36V220z"/>
+                    <path d="M193,220l-63,36L19,192L83,83l110,64V220z M319,292v73l110,64l63-109l-111-64L319,292z"/>
+                    <path d="M319,292v73l-63-36L319,292z M256,183l-63-36v73L256,183z"/>
+                    <polygon points="256,183 193,220 193,292 256,329 319,292 319,220"/>
+                  </g>
                 </svg>
               </div>
               <h3 className="text-xl font-semibold">{t('about.technologies.terser.title')}</h3>
