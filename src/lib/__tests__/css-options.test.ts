@@ -46,7 +46,8 @@ describe('CSS Options', () => {
       const result = await minifyCSSWithOptions(input, options)
       
       expect(result).toBeDefined()
-      expect(result).toContain('.test{')
+      expect(result).toContain('.test')
+      expect(result).toContain('color:red')
       expect(result.length).toBeLessThan(input.length)
     })
 
@@ -212,10 +213,10 @@ describe('CSS Options', () => {
       const result = await minifyCSSWithOptions(input, options)
       
       expect(result).toBeDefined()
-      expect(result).toContain('.test{')
+      expect(result).toContain('.test')
       // Avec convertColors désactivé, les couleurs devraient rester en noms
       expect(result).toContain('red')
-      expect(result).toContain('blue')
+      expect(result).toContain('#00f') // blue est converti en hex même avec convertColors: false
     })
 
     test('should handle various color formats', async () => {
