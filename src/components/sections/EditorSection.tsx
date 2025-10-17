@@ -114,6 +114,23 @@ export default function EditorSection({
     return leftType === 'js' || leftType === 'css' || leftType === 'json' || leftType === 'php'
   }
 
+  // Get button text and title based on language type
+  const getMinifyButtonText = () => {
+    return leftType === 'php' ? t('common.serialize') : t('common.minify')
+  }
+
+  const getMinifyButtonTitle = () => {
+    return leftType === 'php' ? t('common.serializeCode') : t('common.minifyCode')
+  }
+
+  const getUnminifyButtonText = () => {
+    return rightType === 'php' ? t('common.unserialize') : t('common.unminify')
+  }
+
+  const getUnminifyButtonTitle = () => {
+    return rightType === 'php' ? t('common.unserializeCode') : t('common.unminifyCode')
+  }
+
   const getSavedSize = () => {
     if (!stats) return ''
     if (stats.result < stats.original) {
@@ -187,10 +204,10 @@ export default function EditorSection({
                 onClick={onMinify}
                 disabled={isLoading || !leftCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
-                title={t('common.minifyCode')}
+                title={getMinifyButtonTitle()}
               >
                 <Play className="h-3 w-3 mr-1" />
-                {t('common.minify')}
+                {getMinifyButtonText()}
               </Button>
               <Button
                 variant="outline"
@@ -308,10 +325,10 @@ export default function EditorSection({
                 onClick={onUnminify}
                 disabled={isLoading || !rightCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
-                title={t('common.unminifyCode')}
+                title={getUnminifyButtonTitle()}
               >
                 <Undo2 className="h-3 w-3 mr-1" />
-                {t('common.unminify')}
+                {getUnminifyButtonText()}
               </Button>
             </div>
             <Label className="text-sm font-medium">{t('common.minifiedCode')}</Label>
