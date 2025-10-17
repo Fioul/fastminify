@@ -292,4 +292,34 @@
     background-color: oklch(1 0 0) !important;
     border-color: oklch(0.65 0.18 35) !important;
   }
+  
+  /* Fix agressif pour éviter le décalage du contenu lors de l'ouverture des dropdowns */
+  body[data-scroll-locked] {
+    overflow: auto !important;
+    padding-right: 0 !important;
+    pointer-events: auto !important;
+    --removed-body-scroll-bar-size: 0px !important;
+  }
+  
+  /* Forcer la suppression de l'attribut data-scroll-locked */
+  body[data-scroll-locked] {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* S'assurer que la scrollbar reste toujours visible pour éviter le décalage */
+  html {
+    overflow-y: scroll !important;
+  }
+  
+  /* Prévenir les changements de largeur de la page quand la scrollbar apparaît/disparaît */
+  body {
+    overflow-x: hidden !important;
+    padding-right: 0 !important;
+  }
+  
+  /* Supprimer les éléments data-radix-focus-guard */
+  [data-radix-focus-guard] {
+    display: none !important;
+  }
 }

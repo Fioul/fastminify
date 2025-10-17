@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useMinification } from '@/hooks/useMinification'
+import { useForceScrollLockDisable } from '@/hooks/useForceScrollLockDisable'
 import HeroSection from '@/components/sections/HeroSection'
 import Toolbar from '@/components/sections/Toolbar'
 import EditorSection from '@/components/sections/EditorSection'
@@ -14,6 +15,9 @@ interface PageProps {
 export default function Page({ params }: PageProps) {
     // Use React.use() to unwrap the Promise
     const { locale } = React.use(params)
+    
+    // Force disable scroll lock pour éviter le décalage du contenu
+    useForceScrollLockDisable()
     
     // Use the custom minification hook
     const {
