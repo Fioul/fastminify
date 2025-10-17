@@ -43,6 +43,7 @@ interface ToolbarProps {
   onPhpOptionsChange: (options: PHPOptions) => void
   onMinify: () => void
   onUnminify: () => void
+  onConcat: () => void
   onClear: () => void
 }
 
@@ -69,6 +70,7 @@ export default function Toolbar({
   onPhpOptionsChange,
   onMinify,
   onUnminify,
+  onConcat,
   onClear,
 }: ToolbarProps) {
   const { t } = useTranslations(locale)
@@ -526,6 +528,15 @@ export default function Toolbar({
                 size="sm"
               >
                 ← {t('common.unminify')}
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={onConcat} 
+                disabled={isLoading} 
+                size="sm"
+                className="border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+              >
+                📁 {t('common.concat')}
               </Button>
               <Button 
                 variant="secondary" 

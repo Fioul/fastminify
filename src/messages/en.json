@@ -7,6 +7,7 @@
     "auto": "Auto",
     "minify": "Minify",
     "unminify": "Unminify",
+    "concat": "Concat",
     "clear": "Clear all",
     "clearLeft": "Clear left",
     "clearRight": "Clear right"

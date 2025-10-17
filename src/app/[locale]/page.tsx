@@ -7,6 +7,7 @@ import HeroSection from '@/components/sections/HeroSection'
 import Toolbar from '@/components/sections/Toolbar'
 import EditorSection from '@/components/sections/EditorSection'
 import ContentSections from '@/components/sections/ContentSections'
+import ConcatModal from '@/components/ConcatModal'
 
 interface PageProps {
     params: Promise<{ locale: string }>
@@ -18,6 +19,9 @@ export default function Page({ params }: PageProps) {
     
     // Force disable scroll lock pour éviter le décalage du contenu
     useForceScrollLockDisable()
+    
+    // State for concat modal
+    const [concatModalOpen, setConcatModalOpen] = React.useState(false)
     
     // Use the custom minification hook
     const {
@@ -94,6 +98,7 @@ export default function Page({ params }: PageProps) {
                     onPhpOptionsChange={setPhpOptions}
                     onMinify={processMinify}
                     onUnminify={processUnminify}
+                    onConcat={() => setConcatModalOpen(true)}
                     onClear={handleClear}
                 />
 
@@ -130,6 +135,17 @@ export default function Page({ params }: PageProps) {
 
             {/* CONTENT SECTIONS FOR SEO */}
                 <ContentSections locale={locale} />
+                
+                {/* CONCAT MODAL */}
+                <ConcatModal
+                    isOpen={concatModalOpen}
+                    onClose={() => setConcatModalOpen(false)}
+                    onResult={(result, type) => {
+                        handleRightCodeChange(result)
+                        setRightType(type)
+                        setConcatModalOpen(false)
+                    }}
+                />
             </div>
         </div>
     )
