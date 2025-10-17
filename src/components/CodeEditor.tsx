@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
 import { useMemo, useEffect, useRef } from 'react'
@@ -33,52 +34,37 @@ export default function CodeEditor({
 }: CodeEditorProps) {
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
+  const [hasScrollableContent, setHasScrollableContent] = React.useState(false)
 
-  // Enhanced scroll handling for page context only (modal uses native Monaco scroll)
-  useEffect(() => {
+  // Check if editor has scrollable content and update handleMouseWheel accordingly
+  React.useEffect(() => {
     const editor = editorRef.current as any
     if (!editor) return
 
-    const editorElement = editor.getDomNode()
-    if (!editorElement) return
-
-    // Check if we're in a modal context - if so, don't add custom scroll handling
-    const isInModal = editorElement.closest('[data-slot="dialog-content"]')
-    if (isInModal) {
-      return // Let Monaco handle scroll natively in modal
-    }
-    
-    const handleWheel = (e: WheelEvent) => {
-      // Check if there's content to scroll in the editor
-      const hasScrollableContent = editor.getScrollHeight() > editor.getLayoutInfo().height
-      
-      // If there's no scrollable content, always allow page scroll
-      if (!hasScrollableContent) {
-        return
-      }
-
-      // Check if we're at the top/bottom of editor scroll
-      const currentScrollTop = editor.getScrollTop()
-      const maxScrollTop = editor.getScrollHeight() - editor.getLayoutInfo().height
-      
-      // If scrolling up and at top, or scrolling down and at bottom, allow page scroll
-      if ((e.deltaY < 0 && currentScrollTop <= 0) || 
-          (e.deltaY > 0 && currentScrollTop >= maxScrollTop)) {
-        return // Allow page scroll
-      }
-
-      // Otherwise, handle editor scroll
-      e.preventDefault()
-      e.stopPropagation()
-      
-      const newScrollTop = currentScrollTop + e.deltaY
-      editor.setScrollTop(Math.max(0, Math.min(newScrollTop, maxScrollTop)))
+    const checkScrollableContent = () => {
+      const scrollHeight = editor.getScrollHeight()
+      const layoutInfo = editor.getLayoutInfo()
+      const isScrollable = scrollHeight > layoutInfo.height
+      setHasScrollableContent(isScrollable)
     }
 
-    editorElement.addEventListener('wheel', handleWheel, { passive: false })
+    // Check initially
+    checkScrollableContent()
+
+    // Listen for content changes
+    const model = editor.getModel()
+    if (model) {
+      model.onDidChangeContent(checkScrollableContent)
+    }
+
+    // Listen for layout changes (resize, etc.)
+    editor.onDidLayoutChange(checkScrollableContent)
 
     return () => {
-      editorElement.removeEventListener('wheel', handleWheel)
+      if (model) {
+        model.onDidChangeContent.dispose()
+      }
+      editor.onDidLayoutChange.dispose()
     }
   }, [value])
 
@@ -98,7 +84,7 @@ export default function CodeEditor({
       horizontal: 'auto' as const,
       verticalScrollbarSize: 12,
       horizontalScrollbarSize: 12,
-      handleMouseWheel: true,
+      handleMouseWheel: hasScrollableContent, // Enable mouse wheel only when there's scrollable content
       useShadows: true,
       verticalHasArrows: false,
       horizontalHasArrows: false,
@@ -128,7 +114,7 @@ export default function CodeEditor({
     outline: 'none',
     // Remove selection borders
     selectionHighlight: false
-  }), [placeholder, readOnly])
+  }), [placeholder, readOnly, hasScrollableContent])
 
   // Theme mapping
   const editorTheme = theme === 'dark' ? 'vs-dark' : 'vs-light'
