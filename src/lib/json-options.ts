@@ -168,7 +168,7 @@ function cleanObject(obj: any, options: JSONOptions): any {
         shouldRemove = true
       }
       
-      if (options.removeEmptyKeys && value === '') {
+      if (options.removeEmptyKeys && (value === '' || (typeof value === 'object' && value !== null && Object.keys(value).length === 0))) {
         shouldRemove = true
       }
       
@@ -233,8 +233,9 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
       optimized = optimizeNumbers(optimized, options)
     }
     
-    if (options.compressionLevel === 'aggressive') {
-      // Nettoyer l'objet (supprimer clés vides, null, etc.)
+    // Nettoyer l'objet (supprimer clés vides, null, etc.) si demandé
+    if (options.removeEmptyKeys || options.removeNullValues || options.removeUndefinedValues || 
+        options.removeEmptyArrayElements || options.removeDuplicateArrayElements || options.sortArrayElements) {
       optimized = cleanObject(optimized, options)
     }
     
