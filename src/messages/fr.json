@@ -24,6 +24,8 @@
     "unminificationResult": "Résultat de déminification",
     "minifyCode": "Minifier le code",
     "unminifyCode": "Déminifier le code",
+    "beautifyCode": "Beautifier le code",
+    "beautify": "Beautifier",
     "copyCode": "Copier le code",
     "downloadCode": "Télécharger le code",
     "openInModal": "Ouvrir dans une modal",

@@ -66,22 +66,18 @@ export const compressionLevelMap = {
 
 export const browserSupportMap = {
   'modern': {
-    ecma: 2020,
     safari10: false,
     ie8: false
   },
   'ie11': {
-    ecma: 2015,
     safari10: false,
     ie8: false
   },
   'ie9': {
-    ecma: 5,
     safari10: false,
     ie8: true
   },
   'all': {
-    ecma: 5,
     safari10: true,
     ie8: true
   }

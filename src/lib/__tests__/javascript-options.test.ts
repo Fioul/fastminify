@@ -198,6 +198,66 @@ describe('JavaScript Minification', () => {
       expect(result).toBeDefined()
       expect(result).toContain('/function')
     })
+
+    test('should handle Jest configuration code', async () => {
+      const input = `const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files
+  dir: './',
+})
+
+// Add any custom config to be passed to Jest
+const customJestConfig = {
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/*.stories.{js,jsx,ts,tsx}',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+}
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+module.exports = createJestConfig(customJestConfig)`
+      
+      const result = await minifyJavaScript(input, defaultJavaScriptOptions)
+      
+      expect(result).toBeDefined()
+      expect(result.length).toBeLessThan(input.length)
+      expect(result).toContain('nextJest')
+      expect(result).toContain('createJestConfig')
+      expect(result).toContain('customJestConfig')
+      expect(result).toContain('module.exports')
+    })
+
+    test('should handle complex object patterns with string arrays', async () => {
+      const input = `const config = {
+  patterns: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  mapping: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  }
+}`
+      
+      const result = await minifyJavaScript(input, defaultJavaScriptOptions)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('src/**/*.{js,jsx,ts,tsx}')
+      expect(result).toContain('!src/**/*.d.ts')
+      expect(result).toContain('^@/(.*)$')
+    })
   })
 
   describe('Performance and size', () => {

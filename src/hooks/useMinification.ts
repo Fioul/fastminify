@@ -8,6 +8,7 @@ import { minifyJSONWithOptions } from '@/lib/json-options'
 import { serializePHPWithOptions, unserializePHPWithOptions } from '@/lib/php-options'
 import { unminifyJS, unminifyCSS, unminifyJSON } from '@/lib/unminify'
 import { detectCodeLanguage } from '@/lib/detect-language'
+import { beautifyCode } from '@/lib/beautify'
 import { 
   LanguageType, 
   OperationType, 
@@ -264,6 +265,44 @@ export function useMinification() {
       }
       
       toast.error(errorMessage)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Process beautify operation
+  const processBeautify = async () => {
+    if (!leftCode.trim()) {
+      toast.error('Please enter some code to beautify.')
+      return
+    }
+
+    if (!leftType) {
+      toast.error('Unable to determine language type')
+      return
+    }
+
+    // Only support JS, CSS, and JSON for beautification
+    if (leftType !== 'js' && leftType !== 'css' && leftType !== 'json') {
+      toast.error('Beautification is only supported for JavaScript, CSS, and JSON.')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const beautified = beautifyCode(leftCode, leftType)
+      setLeftCode(beautified) // Beautify directly in the left editor
+      
+      // Clear right editor and stats since we're not producing output
+      setRightCode('')
+      setStats(null)
+      setLastOperation(null)
+      
+      toast.success('Code beautified successfully!')
+    } catch (error) {
+      console.error('Beautification error:', error)
+      toast.error('Failed to beautify code. Please check your code syntax.')
     } finally {
       setIsLoading(false)
     }
@@ -536,6 +575,7 @@ export function useMinification() {
     // Actions
     processMinify,
     processUnminify,
+    processBeautify,
     handleLeftCodeChange,
     handleRightCodeChange,
     handleCopy,

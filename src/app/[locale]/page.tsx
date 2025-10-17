@@ -50,6 +50,7 @@ export default function Page({ params }: PageProps) {
         setPhpOptions,
         processMinify,
         processUnminify,
+        processBeautify,
         handleLeftCodeChange,
         handleRightCodeChange,
         handleCopy,
@@ -131,6 +132,7 @@ export default function Page({ params }: PageProps) {
                     onClearRight={handleClearRight}
                     onMinify={processMinify}
                     onUnminify={processUnminify}
+                    onBeautify={processBeautify}
                     isLoading={isLoading}
                 />
                 </div>

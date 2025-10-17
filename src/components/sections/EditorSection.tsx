@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
-import { Copy, Download, Maximize2, Eraser, Play, Undo2 } from 'lucide-react'
+import { Copy, Download, Maximize2, Eraser, Play, Undo2, Sparkles } from 'lucide-react'
 import ModalEditor from './ModalEditor'
 
 interface EditorSectionProps {
@@ -35,6 +35,7 @@ interface EditorSectionProps {
   onClearRight: () => void
   onMinify: () => void
   onUnminify: () => void
+  onBeautify: () => void
   isLoading: boolean
 }
 
@@ -62,6 +63,7 @@ export default function EditorSection({
   onClearRight,
   onMinify,
   onUnminify,
+  onBeautify,
   isLoading,
 }: EditorSectionProps) {
   const { t } = useTranslations(locale)
@@ -75,10 +77,12 @@ export default function EditorSection({
   const calculateCompressionPercentage = () => {
     if (!stats) return 0
     if (stats.result < stats.original) {
+      // Compression: reduction from original
       return Number(((1 - stats.result / stats.original) * 100).toFixed(1))
     }
     if (stats.result > stats.original) {
-      return Number(((stats.result / stats.original - 1) * 100).toFixed(1))
+      // Expansion: increase from original (same formula as compression but inverted)
+      return Number(((1 - stats.original / stats.result) * 100).toFixed(1))
     }
     return 0
   }
@@ -89,7 +93,7 @@ export default function EditorSection({
       return `Compressed: ${((1 - stats.result / stats.original) * 100).toFixed(1)}%`
     }
     if (stats.result > stats.original) {
-      return `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%`
+      return `Expanded: ${((1 - stats.original / stats.result) * 100).toFixed(1)}%`
     }
     return t('common.noChange')
   }
@@ -99,6 +103,18 @@ export default function EditorSection({
     if (stats.result < stats.original) return 'text-green-600'
     if (stats.result > stats.original) return 'text-blue-600'
     return 'text-muted-foreground'
+  }
+
+  // Check if beautify button should be enabled
+  const isBeautifyEnabled = () => {
+    // Must have code in left editor
+    if (!leftCode.trim()) return false
+    
+    // Must not be PHP Serialize
+    if (leftType === 'php') return false
+    
+    // Must be a supported language for beautification
+    return leftType === 'js' || leftType === 'css' || leftType === 'json'
   }
 
   const getSavedSize = () => {
@@ -178,6 +194,17 @@ export default function EditorSection({
               >
                 <Play className="h-3 w-3 mr-1" />
                 {t('common.minify')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onBeautify}
+                disabled={!isBeautifyEnabled() || isLoading}
+                className="h-8 px-3 text-xs font-medium btn-outline-hover"
+                title={t('common.beautifyCode')}
+              >
+                <Sparkles className="h-3 w-3 mr-1" />
+                {t('common.beautify')}
               </Button>
               <Button
                 variant="ghost"

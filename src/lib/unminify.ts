@@ -8,24 +8,85 @@ export function unminifyJS(code: string): string {
             throw new Error('Invalid JavaScript code provided')
         }
         
-        // Unminify simple pour JavaScript
-        let unminified = code
+        // Approche plus intelligente pour unminify JavaScript
+        let result = code
+        let i = 0
+        let inString = false
+        let stringChar = ''
+        let inComment = false
+        let braceLevel = 0
+        let parenLevel = 0
+        let bracketLevel = 0
+        
+        while (i < result.length) {
+            const char = result[i]
+            const nextChar = result[i + 1]
+            
+            // Gérer les chaînes de caractères
+            if (!inComment && (char === '"' || char === "'" || char === '`')) {
+                if (!inString) {
+                    inString = true
+                    stringChar = char
+                } else if (char === stringChar && result[i - 1] !== '\\') {
+                    inString = false
+                    stringChar = ''
+                }
+            }
+            
+            // Gérer les commentaires
+            if (!inString && char === '/' && nextChar === '*') {
+                inComment = true
+                i += 2
+                continue
+            }
+            if (inComment && char === '*' && nextChar === '/') {
+                inComment = false
+                i += 2
+                continue
+            }
+            
+            if (inString || inComment) {
+                i++
+                continue
+            }
+            
+            // Compter les niveaux d'imbrication
+            if (char === '{') braceLevel++
+            if (char === '}') braceLevel--
+            if (char === '(') parenLevel++
+            if (char === ')') parenLevel--
+            if (char === '[') bracketLevel++
+            if (char === ']') bracketLevel--
+            
             // Ajouter des retours à la ligne après les points-virgules
-            .replace(/;(\s*)/g, ';\n$1')
+            if (char === ';' && (braceLevel === 0 || result[i + 1] === '}')) {
+                result = result.slice(0, i + 1) + '\n' + result.slice(i + 1)
+                i++
+            }
             // Ajouter des retours à la ligne après les accolades ouvrantes
-            .replace(/\{\s*/g, '{\n  ')
+            else if (char === '{') {
+                result = result.slice(0, i + 1) + '\n' + result.slice(i + 1)
+                i++
+            }
             // Ajouter des retours à la ligne avant les accolades fermantes
-            .replace(/\s*\}/g, '\n}')
+            else if (char === '}' && result[i - 1] !== '\n') {
+                result = result.slice(0, i) + '\n' + result.slice(i)
+                i++
+            }
             // Ajouter des retours à la ligne après les virgules dans les objets/arrays
-            .replace(/,(\s*)(?=[^}])/g, ',\n$1')
-            // Ajouter des retours à la ligne après les mots-clés
-            .replace(/\b(function|if|else|for|while|switch|case|try|catch|finally|class|const|let|var)\b/g, '\n$1')
-            // Nettoyer les lignes vides multiples
-            .replace(/\n\s*\n\s*\n/g, '\n\n')
-            .trim()
+            else if (char === ',' && (braceLevel > 0 || bracketLevel > 0) && result[i + 1] !== '\n') {
+                result = result.slice(0, i + 1) + '\n' + result.slice(i + 1)
+                i++
+            }
+            
+            i++
+        }
+        
+        // Nettoyer les lignes vides multiples
+        result = result.replace(/\n\s*\n\s*\n/g, '\n\n')
         
         // Indenter proprement
-        const lines = unminified.split('\n')
+        const lines = result.split('\n')
         let indentLevel = 0
         const indentedLines = lines.map(line => {
             const trimmed = line.trim()
@@ -46,7 +107,7 @@ export function unminifyJS(code: string): string {
             return indented
         })
         
-        return indentedLines.join('\n')
+        return indentedLines.join('\n').trim()
     } catch (error) {
         console.error('JS unminify error:', error)
         throw new Error(`Failed to unminify JavaScript: ${error instanceof Error ? error.message : 'Unknown error'}`)

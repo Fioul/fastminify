@@ -24,6 +24,8 @@
     "unminificationResult": "Unminification Result",
     "minifyCode": "Minify code",
     "unminifyCode": "Unminify code",
+    "beautifyCode": "Beautify code",
+    "beautify": "Beautify",
     "copyCode": "Copy code",
     "downloadCode": "Download code",
     "openInModal": "Open in modal",
