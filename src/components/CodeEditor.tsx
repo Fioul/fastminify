@@ -46,6 +46,9 @@ export default function CodeEditor({
       const layoutInfo = editor.getLayoutInfo()
       const isScrollable = scrollHeight > layoutInfo.height
       setHasScrollableContent(isScrollable)
+      
+      // Force layout update to ensure scrollbar is properly calculated
+      editor.layout()
     }
 
     // Check initially
@@ -73,6 +76,23 @@ export default function CodeEditor({
     }
   }, [value])
 
+  // Force refresh when value changes significantly (like paste operations)
+  React.useEffect(() => {
+    const editor = editorRef.current as any
+    if (!editor) return
+
+    // Small delay to allow Monaco to process the content
+    const timeoutId = setTimeout(() => {
+      editor.layout()
+      const scrollHeight = editor.getScrollHeight()
+      const layoutInfo = editor.getLayoutInfo()
+      const isScrollable = scrollHeight > layoutInfo.height
+      setHasScrollableContent(isScrollable)
+    }, 100)
+
+    return () => clearTimeout(timeoutId)
+  }, [value])
+
   // Monaco Editor options
   const editorOptions = useMemo(() => ({
     minimap: { enabled: false },
@@ -89,7 +109,7 @@ export default function CodeEditor({
       horizontal: 'auto' as const,
       verticalScrollbarSize: 12,
       horizontalScrollbarSize: 12,
-      handleMouseWheel: hasScrollableContent, // Enable mouse wheel only when there's scrollable content
+      handleMouseWheel: true, // Always enable mouse wheel handling
       useShadows: true,
       verticalHasArrows: false,
       horizontalHasArrows: false,

@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import CodeEditor from '@/components/CodeEditor'
 import { Copy, Download, X, Eraser } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 interface ModalEditorProps {
   isOpen: boolean
@@ -85,6 +85,19 @@ export default function ModalEditor({
   const handleWheel = (e: React.WheelEvent) => {
     e.stopPropagation()
   }
+
+  // Force Monaco Editor refresh when modal opens
+  React.useEffect(() => {
+    if (isOpen) {
+      // Small delay to ensure Monaco Editor is fully rendered
+      const timeoutId = setTimeout(() => {
+        // Trigger a resize event to force Monaco to recalculate its layout
+        window.dispatchEvent(new Event('resize'))
+      }, 200)
+
+      return () => clearTimeout(timeoutId)
+    }
+  }, [isOpen])
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
