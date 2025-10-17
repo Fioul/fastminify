@@ -32,7 +32,7 @@ export const defaultJSONOptions: JSONOptions = {
   removeDuplicateArrayElements: false,
   sortArrayElements: false,
   validateBeforeMinify: true,
-  fixCommonErrors: false
+  fixCommonErrors: true // Enable by default to help users
 }
 
 /**
@@ -41,7 +41,17 @@ export const defaultJSONOptions: JSONOptions = {
 function fixCommonJSONErrors(code: string): string {
   let fixed = code.trim()
   
+  // Supprimer le BOM (Byte Order Mark) si présent
+  if (fixed.charCodeAt(0) === 0xFEFF) {
+    fixed = fixed.slice(1)
+  }
+  
+  // Supprimer les caractères invisibles (zero-width characters)
+  fixed = fixed.replace(/[\u200B-\u200D\uFEFF]/g, '')
+  
   // Corriger les guillemets simples en guillemets doubles
+  // On remplace tous les guillemets simples par des guillemets doubles
+  // car JSON ne supporte que les guillemets doubles
   fixed = fixed.replace(/'/g, '"')
   
   // Corriger les clés sans guillemets (simple regex, pas parfait)
@@ -49,6 +59,12 @@ function fixCommonJSONErrors(code: string): string {
   
   // Corriger les virgules en trop
   fixed = fixed.replace(/,(\s*[}\]])/g, '$1')
+  
+  // Corriger les virgules manquantes entre les propriétés
+  fixed = fixed.replace(/"\s*}\s*"/g, '","')
+  fixed = fixed.replace(/"\s*]\s*"/g, '","')
+  fixed = fixed.replace(/}\s*"/g, '},"')
+  fixed = fixed.replace(/]\s*"/g, '],"')
   
   return fixed
 }
@@ -179,17 +195,26 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
       throw new Error('Invalid JSON code provided')
     }
     
-    // Corriger les erreurs communes si demandé
-    if (options.fixCommonErrors) {
-      processedCode = fixCommonJSONErrors(processedCode)
-    }
-    
-    // Valider la syntaxe si demandé
+    // Valider la syntaxe d'abord
+    let isValidJSON = false
     if (options.validateBeforeMinify) {
       try {
         JSON.parse(processedCode)
+        isValidJSON = true
       } catch (error) {
-        throw new Error(`Invalid JSON syntax: ${error instanceof Error ? error.message : 'Unknown error'}`)
+        // JSON invalide, on essaie de le corriger si demandé
+        if (options.fixCommonErrors) {
+          processedCode = fixCommonJSONErrors(processedCode)
+          // Re-valider après correction
+          try {
+            JSON.parse(processedCode)
+            isValidJSON = true
+          } catch (correctedError) {
+            throw new Error(`Invalid JSON syntax: ${correctedError instanceof Error ? correctedError.message : 'Unknown error'}`)
+          }
+        } else {
+          throw new Error(`Invalid JSON syntax: ${error instanceof Error ? error.message : 'Unknown error'}`)
+        }
       }
     }
     

@@ -117,7 +117,18 @@ export function useMinification() {
       if (error instanceof Error) {
         if (error.message.includes('JSON')) {
           if (leftType === 'json') {
-            errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
+            // Messages d'erreur plus spécifiques pour JSON
+            if (error.message.includes('Expected property name')) {
+              errorMessage = 'Invalid JSON: Property names must be quoted. Try using double quotes around property names.'
+            } else if (error.message.includes('Unexpected token')) {
+              errorMessage = 'Invalid JSON: Unexpected character found. Check for missing commas, quotes, or brackets.'
+            } else if (error.message.includes('Expected double-quoted property name')) {
+              errorMessage = 'Invalid JSON: Property names must use double quotes, not single quotes.'
+            } else if (error.message.includes('Expected \',\' or \'}\'')) {
+              errorMessage = 'Invalid JSON: Missing comma or closing brace. Check your object structure.'
+            } else {
+              errorMessage = 'Invalid JSON syntax. Please check your JSON code and ensure it\'s properly formatted.'
+            }
           } else {
             errorMessage = `Invalid ${leftType.toUpperCase()} code. Please ensure the code matches the selected type.`
           }
