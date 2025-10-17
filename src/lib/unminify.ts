@@ -59,79 +59,94 @@ export function unminifyCSS(code: string): string {
             throw new Error('Invalid CSS code provided')
         }
         
-        // Approche plus robuste pour unminify CSS
         let result = code.trim()
         
-        // Étape 1: Séparer les règles CSS principales
-        result = result
-            // Ajouter des retours à la ligne avant les accolades fermantes
-            .replace(/\}/g, '\n}')
-            // Ajouter des retours à la ligne après les accolades ouvrantes
-            .replace(/\{/g, '{\n')
-            // Ajouter des retours à la ligne après les points-virgules
-            .replace(/;/g, ';\n')
-            // Nettoyer les espaces multiples
-            .replace(/\s+/g, ' ')
-            .trim()
+        // Étape 1: Séparer les règles CSS en utilisant les accolades comme délimiteurs
+        // D'abord, on sépare les règles CSS principales
+        const rules: string[] = []
+        let currentRule = ''
+        let braceCount = 0
+        let inComment = false
         
-        // Étape 2: Traiter ligne par ligne
-        const lines = result.split('\n')
-        const processedLines: string[] = []
-        let indentLevel = 0
-        
-        for (let i = 0; i < lines.length; i++) {
-            let line = lines[i].trim()
-            if (!line) continue
+        for (let i = 0; i < result.length; i++) {
+            const char = result[i]
+            const nextChar = result[i + 1]
             
-            // Gérer les accolades fermantes
-            if (line === '}') {
-                indentLevel = Math.max(0, indentLevel - 1)
-                processedLines.push('  '.repeat(indentLevel) + line)
+            // Gérer les commentaires
+            if (char === '/' && nextChar === '*') {
+                inComment = true
+                currentRule += char
+                continue
+            }
+            if (inComment && char === '*' && nextChar === '/') {
+                inComment = false
+                currentRule += char + nextChar
+                i++ // Skip next char
                 continue
             }
             
-            // Gérer les accolades ouvrantes
-            if (line.endsWith('{')) {
-                processedLines.push('  '.repeat(indentLevel) + line)
-                indentLevel++
+            if (inComment) {
+                currentRule += char
                 continue
             }
             
-            // Gérer les propriétés CSS (lignes avec :)
-            if (line.includes(':')) {
-                processedLines.push('  '.repeat(indentLevel) + line)
-                continue
-            }
+            currentRule += char
             
-            // Gérer les sélecteurs (lignes sans : et sans {)
-            if (!line.includes(':') && !line.includes('{')) {
-                // Si c'est un sélecteur, vérifier s'il y a une virgule
-                if (line.includes(',')) {
-                    // Séparer les sélecteurs multiples
-                    const selectors = line.split(',').map(s => s.trim())
-                    selectors.forEach((selector, index) => {
-                        if (index > 0) {
-                            processedLines.push('')
-                        }
-                        processedLines.push('  '.repeat(indentLevel) + selector)
-                    })
-                } else {
-                    processedLines.push('  '.repeat(indentLevel) + line)
+            if (char === '{') {
+                braceCount++
+            } else if (char === '}') {
+                braceCount--
+                if (braceCount === 0) {
+                    rules.push(currentRule.trim())
+                    currentRule = ''
                 }
-                continue
             }
-            
-            // Ligne par défaut
-            processedLines.push('  '.repeat(indentLevel) + line)
         }
         
-        // Nettoyer les lignes vides multiples
-        const finalResult = processedLines
-            .join('\n')
-            .replace(/\n\s*\n\s*\n/g, '\n\n')
-            .trim()
+        // Étape 2: Traiter chaque règle
+        const processedRules: string[] = []
         
-        return finalResult
+        for (const rule of rules) {
+            if (!rule) continue
+            
+            // Séparer le sélecteur du contenu
+            const braceIndex = rule.indexOf('{')
+            if (braceIndex === -1) continue
+            
+            const selector = rule.substring(0, braceIndex).trim()
+            const content = rule.substring(braceIndex + 1, rule.lastIndexOf('}')).trim()
+            
+            // Traiter le sélecteur - séparer les sélecteurs multiples
+            const selectors = selector.split(',').map(s => s.trim())
+            
+            // Traiter le contenu - séparer les propriétés
+            const properties = content.split(';').map(p => p.trim()).filter(p => p)
+            
+            // Construire la règle formatée
+            let formattedRule = ''
+            
+            // Ajouter les sélecteurs
+            selectors.forEach((sel, index) => {
+                if (index > 0) {
+                    formattedRule += ',\n'
+                }
+                formattedRule += sel
+            })
+            
+            formattedRule += ' {\n'
+            
+            // Ajouter les propriétés
+            properties.forEach(prop => {
+                formattedRule += '  ' + prop + ';\n'
+            })
+            
+            formattedRule += '}'
+            
+            processedRules.push(formattedRule)
+        }
+        
+        return processedRules.join('\n\n')
+        
     } catch (error) {
         console.error('CSS unminify error:', error)
         throw new Error(`Failed to unminify CSS: ${error instanceof Error ? error.message : 'Unknown error'}`)
