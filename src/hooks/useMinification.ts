@@ -69,12 +69,10 @@ export function useMinification() {
   })
   
   const [phpOptions, setPhpOptions] = useState<PHPOptions>({
-    serializationLevel: 'deep',
-    compression: 'minimal',
-    preserveTypes: true,
     includeNullValues: true,
-    readable: false,
-    strictMode: false
+    removeEmptyArrays: false,
+    removeEmptyObjects: false,
+    sortKeys: false
   })
 
   // Process code from left to right (minify)

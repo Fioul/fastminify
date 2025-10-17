@@ -388,59 +388,7 @@ export default function Toolbar({
       case 'php':
         return (
           <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Mode</Label>
-              <TooltipInfo content="PHP serialization mode. Serialize = data to string, Unserialize = string to data." />
-              <Select
-                value={phpOptions.serializationLevel}
-                onValueChange={(value: 'basic' | 'deep' | 'custom') => 
-                  onPhpOptionsChange({ ...phpOptions, serializationLevel: value })
-                }
-              >
-                <SelectTrigger className="w-32 h-9">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="basic">Serialize</SelectItem>
-                  <SelectItem value="deep">Unserialize</SelectItem>
-                  <SelectItem value="custom">Custom</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Compression</Label>
-              <TooltipInfo content="PHP compression level. None = readable, Minimal = optimized, Aggressive = maximum." />
-              <Select
-                value={phpOptions.compression}
-                onValueChange={(value: 'none' | 'minimal' | 'aggressive') => 
-                  onPhpOptionsChange({ ...phpOptions, compression: value })
-                }
-              >
-                <SelectTrigger className="w-32 h-9">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
-                  <SelectItem value="minimal">Minimal</SelectItem>
-                  <SelectItem value="aggressive">Aggressive</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="preserve-types"
-                  checked={phpOptions.preserveTypes}
-                  onCheckedChange={(checked) => 
-                    onPhpOptionsChange({ ...phpOptions, preserveTypes: checked })
-                  }
-                />
-                <Label htmlFor="preserve-types" className="text-sm">Preserve types</Label>
-                <TooltipInfo content="Preserves PHP data types (string, int, array) during serialization." />
-              </div>
-
               <div className="flex items-center gap-2">
                 <Switch
                   id="include-null"
@@ -455,26 +403,38 @@ export default function Toolbar({
 
               <div className="flex items-center gap-2">
                 <Switch
-                  id="readable"
-                  checked={phpOptions.readable}
+                  id="remove-empty-arrays"
+                  checked={phpOptions.removeEmptyArrays}
                   onCheckedChange={(checked) => 
-                    onPhpOptionsChange({ ...phpOptions, readable: checked })
+                    onPhpOptionsChange({ ...phpOptions, removeEmptyArrays: checked })
                   }
                 />
-                <Label htmlFor="readable" className="text-sm">Readable</Label>
-                <TooltipInfo content="Formats PHP serialization in a readable way with spaces and line breaks." />
+                <Label htmlFor="remove-empty-arrays" className="text-sm">Remove empty arrays</Label>
+                <TooltipInfo content="Removes empty arrays [] from PHP serialization." />
               </div>
 
               <div className="flex items-center gap-2">
                 <Switch
-                  id="strict-mode"
-                  checked={phpOptions.strictMode}
+                  id="remove-empty-objects"
+                  checked={phpOptions.removeEmptyObjects}
                   onCheckedChange={(checked) => 
-                    onPhpOptionsChange({ ...phpOptions, strictMode: checked })
+                    onPhpOptionsChange({ ...phpOptions, removeEmptyObjects: checked })
                   }
                 />
-                <Label htmlFor="strict-mode" className="text-sm">Strict mode</Label>
-                <TooltipInfo content="Strict mode: validates data before serialization and rejects unsupported types." />
+                <Label htmlFor="remove-empty-objects" className="text-sm">Remove empty objects</Label>
+                <TooltipInfo content="Removes empty objects {} from PHP serialization." />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="sort-keys"
+                  checked={phpOptions.sortKeys}
+                  onCheckedChange={(checked) => 
+                    onPhpOptionsChange({ ...phpOptions, sortKeys: checked })
+                  }
+                />
+                <Label htmlFor="sort-keys" className="text-sm">Sort keys</Label>
+                <TooltipInfo content="Sorts object keys alphabetically in PHP serialization." />
               </div>
             </div>
           </div>

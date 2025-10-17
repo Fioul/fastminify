@@ -39,12 +39,10 @@ export interface JSONOptions {
 
 // PHP options interface
 export interface PHPOptions {
-  serializationLevel: 'basic' | 'deep' | 'custom'
-  compression: 'none' | 'minimal' | 'aggressive'
-  preserveTypes: boolean
   includeNullValues: boolean
-  readable: boolean
-  strictMode: boolean
+  removeEmptyArrays: boolean
+  removeEmptyObjects: boolean
+  sortKeys: boolean
 }
 
 // Language type

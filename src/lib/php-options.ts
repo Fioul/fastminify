@@ -1,194 +1,126 @@
 export interface PHPOptions {
-  // Niveau de sérialisation
-  serializationLevel: 'basic' | 'deep' | 'custom'
-  
-  // Gestion des types de données
-  preserveTypes: boolean
-  normalizeTypes: boolean
-  optimizeTypes: boolean
-  
-  // Gestion des valeurs spéciales
+  // Gestion des valeurs
   includeNullValues: boolean
-  includeEmptyValues: boolean
-  convertUndefinedToNull: boolean
+  removeEmptyArrays: boolean
+  removeEmptyObjects: boolean
   
   // Options de formatage
-  compression: 'none' | 'minimal' | 'aggressive'
-  readable: boolean
-  
-  // Validation et correction
-  validateBeforeSerialize: boolean
-  fixCommonErrors: boolean
-  strictMode: boolean
+  sortKeys: boolean
 }
 
 export const defaultPHPOptions: PHPOptions = {
-  serializationLevel: 'deep',
-  preserveTypes: true,
-  normalizeTypes: false,
-  optimizeTypes: false,
   includeNullValues: true,
-  includeEmptyValues: true,
-  convertUndefinedToNull: true,
-  compression: 'minimal',
-  readable: false,
-  validateBeforeSerialize: true,
-  fixCommonErrors: false,
-  strictMode: false
+  removeEmptyArrays: false,
+  removeEmptyObjects: false,
+  sortKeys: false
 }
 
 /**
- * Valide les données avant sérialisation
+ * Supprime les tableaux vides
  */
-function validateData(data: any, options: PHPOptions): void {
-  if (options.strictMode) {
-    if (data === undefined) {
-      throw new Error('Undefined values are not allowed in strict mode')
+function removeEmptyArrays(obj: any, options: PHPOptions): any {
+  if (obj === null || obj === undefined) return obj
+  
+  if (Array.isArray(obj)) {
+    if (options.removeEmptyArrays && obj.length === 0) {
+      return undefined // Marquer pour suppression
     }
-    if (typeof data === 'function') {
-      throw new Error('Functions cannot be serialized')
-    }
-    if (data instanceof Error) {
-      throw new Error('Error objects cannot be serialized')
-    }
+    return obj.map(item => removeEmptyArrays(item, options)).filter(item => item !== undefined)
   }
   
-  // Validation récursive pour les objets et tableaux
-  if (typeof data === 'object' && data !== null) {
-    if (Array.isArray(data)) {
-      data.forEach(item => validateData(item, options))
-    } else {
-      Object.values(data).forEach(value => validateData(value, options))
-    }
-  }
-}
-
-/**
- * Normalise les types de données
- */
-function normalizeData(data: any, options: PHPOptions): any {
-  if (data === null || data === undefined) {
-    if (options.convertUndefinedToNull && data === undefined) {
-      return null
-    }
-    return data
-  }
-  
-  if (Array.isArray(data)) {
-    return data.map(item => normalizeData(item, options))
-  }
-  
-  if (typeof data === 'object') {
-    const normalized: any = {}
-    for (const [key, value] of Object.entries(data)) {
-      normalized[key] = normalizeData(value, options)
-    }
-    return normalized
-  }
-  
-  if (options.normalizeTypes) {
-    // Convertir tout en strings
-    return String(data)
-  }
-  
-  if (options.optimizeTypes) {
-    // Optimiser les types pour la sérialisation
-    if (typeof data === 'number') {
-      if (Number.isInteger(data)) {
-        return parseInt(data.toString())
+  if (typeof obj === 'object') {
+    const result: any = {}
+    for (const [key, value] of Object.entries(obj)) {
+      const processedValue = removeEmptyArrays(value, options)
+      if (processedValue !== undefined) {
+        result[key] = processedValue
       }
-      return parseFloat(data.toString())
     }
+    return result
   }
   
-  return data
+  return obj
 }
 
 /**
- * Filtre les valeurs selon les options
+ * Supprime les objets vides
  */
-function filterData(data: any, options: PHPOptions): any {
+function removeEmptyObjects(obj: any, options: PHPOptions): any {
+  if (obj === null || obj === undefined) return obj
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => removeEmptyObjects(item, options))
+  }
+  
+  if (typeof obj === 'object') {
+    const result: any = {}
+    for (const [key, value] of Object.entries(obj)) {
+      const processedValue = removeEmptyObjects(value, options)
+      if (processedValue !== undefined) {
+        // Vérifier si l'objet est vide après traitement
+        if (typeof processedValue === 'object' && processedValue !== null && !Array.isArray(processedValue)) {
+          if (options.removeEmptyObjects && Object.keys(processedValue).length === 0) {
+            continue // Supprimer l'objet vide
+          }
+        }
+        result[key] = processedValue
+      }
+    }
+    return result
+  }
+  
+  return obj
+}
+
+/**
+ * Trie les clés d'objets
+ */
+function sortKeys(obj: any, options: PHPOptions): any {
+  if (obj === null || obj === undefined) return obj
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => sortKeys(item, options))
+  }
+  
+  if (typeof obj === 'object') {
+    const sortedKeys = Object.keys(obj).sort()
+    const result: any = {}
+    for (const key of sortedKeys) {
+      result[key] = sortKeys(obj[key], options)
+    }
+    return result
+  }
+  
+  return obj
+}
+
+/**
+ * Filtre les valeurs nulles
+ */
+function filterNullValues(data: any, options: PHPOptions): any {
   if (data === null) {
     return options.includeNullValues ? data : undefined
   }
   
-  if (data === '') {
-    return options.includeEmptyValues ? data : undefined
-  }
-  
   if (Array.isArray(data)) {
-    const filtered = data
-      .map(item => filterData(item, options))
-      .filter(item => item !== undefined)
-    return options.includeEmptyValues || filtered.length > 0 ? filtered : undefined
+    const filtered = data.map(item => filterNullValues(item, options)).filter(item => item !== undefined)
+    return filtered.length > 0 ? filtered : undefined
   }
   
-  if (typeof data === 'object' && data !== null) {
+  if (typeof data === 'object') {
     const filtered: any = {}
-    let hasValues = false
-    
     for (const [key, value] of Object.entries(data)) {
-      const filteredValue = filterData(value, options)
+      const filteredValue = filterNullValues(value, options)
       if (filteredValue !== undefined) {
         filtered[key] = filteredValue
-        hasValues = true
       }
     }
-    
-    return options.includeEmptyValues || hasValues ? filtered : undefined
+    return Object.keys(filtered).length > 0 ? filtered : undefined
   }
   
   return data
 }
 
-/**
- * Applique la compression selon le niveau
- */
-function applyCompression(serialized: string, options: PHPOptions): string {
-  if (options.compression === 'none') {
-    return serialized
-  }
-  
-  if (options.compression === 'minimal') {
-    // Supprimer les espaces inutiles
-    return serialized.replace(/\s+/g, ' ').trim()
-  }
-  
-  if (options.compression === 'aggressive') {
-    // Supprimer tous les espaces
-    return serialized.replace(/\s+/g, '')
-  }
-  
-  return serialized
-}
-
-/**
- * Formate la sortie pour la lisibilité
- */
-function formatOutput(serialized: string, options: PHPOptions): string {
-  if (!options.readable) {
-    return serialized
-  }
-  
-  // Ajouter des espaces pour la lisibilité
-  let formatted = serialized
-  
-  // Espaces autour des deux-points
-  formatted = formatted.replace(/:/g, ': ')
-  
-  // Espaces autour des points-virgules
-  formatted = formatted.replace(/;/g, '; ')
-  
-  // Espaces autour des accolades
-  formatted = formatted.replace(/\{/g, '{ ')
-  formatted = formatted.replace(/\}/g, ' }')
-  
-  // Espaces autour des crochets
-  formatted = formatted.replace(/\[/g, '[ ')
-  formatted = formatted.replace(/\]/g, ' ]')
-  
-  return formatted
-}
 
 /**
  * Sérialise les données PHP avec les options spécifiées
@@ -200,50 +132,31 @@ export function serializePHPWithOptions(data: any, options: PHPOptions = default
       throw new Error('Invalid serialized data provided')
     }
     
-    if (options.validateBeforeSerialize) {
-      validateData(data, options)
-    }
-    
-    // Normaliser les données
+    // Appliquer les transformations
     let processedData = data
-    if (options.normalizeTypes || options.optimizeTypes || options.convertUndefinedToNull) {
-      processedData = normalizeData(data, options)
+    
+    // Supprimer les valeurs nulles si demandé
+    if (!options.includeNullValues) {
+      processedData = filterNullValues(processedData, options)
     }
     
-    // Filtrer les données
-    if (!options.includeNullValues || !options.includeEmptyValues) {
-      processedData = filterData(processedData, options)
+    // Supprimer les tableaux vides si demandé
+    if (options.removeEmptyArrays) {
+      processedData = removeEmptyArrays(processedData, options)
     }
     
-    // Sérialiser selon le niveau
-    let serialized: string
-    
-    if (options.serializationLevel === 'basic') {
-      // Sérialisation basique (objets plats seulement)
-      if (typeof processedData === 'object' && processedData !== null && !Array.isArray(processedData)) {
-        const flatObject: any = {}
-        for (const [key, value] of Object.entries(processedData)) {
-          if (typeof value !== 'object' || value === null) {
-            flatObject[key] = value
-          }
-        }
-        serialized = serializePHP(flatObject)
-      } else {
-        serialized = serializePHP(processedData)
-      }
-    } else if (options.serializationLevel === 'deep') {
-      // Sérialisation récursive (objets imbriqués)
-      serialized = serializePHP(processedData)
-    } else {
-      // Sérialisation personnalisée
-      serialized = serializePHP(processedData)
+    // Supprimer les objets vides si demandé
+    if (options.removeEmptyObjects) {
+      processedData = removeEmptyObjects(processedData, options)
     }
     
-    // Appliquer la compression
-    serialized = applyCompression(serialized, options)
+    // Trier les clés si demandé
+    if (options.sortKeys) {
+      processedData = sortKeys(processedData, options)
+    }
     
-    // Formater pour la lisibilité
-    serialized = formatOutput(serialized, options)
+    // Sérialiser
+    const serialized = serializePHP(processedData)
     
     return serialized
     
@@ -262,29 +175,39 @@ export function unserializePHPWithOptions(serialized: string, options: PHPOption
       throw new Error('Invalid serialized data provided')
     }
     
-    const trimmed = serialized.trim()
-    if (!trimmed) {
-      throw new Error('Empty serialized data provided')
-    }
-    
     // Désérialiser
-    const data = unserializePHP(trimmed)
+    const data = unserializePHP(serialized)
     
-    // Appliquer les options de post-traitement
+    // Appliquer les transformations (même logique que pour la sérialisation)
     let processedData = data
     
-    if (options.normalizeTypes) {
-      // Dénormaliser les types si nécessaire
-      processedData = normalizeData(data, { ...options, normalizeTypes: false })
+    // Supprimer les valeurs nulles si demandé
+    if (!options.includeNullValues) {
+      processedData = filterNullValues(processedData, options)
+    }
+    
+    // Supprimer les tableaux vides si demandé
+    if (options.removeEmptyArrays) {
+      processedData = removeEmptyArrays(processedData, options)
+    }
+    
+    // Supprimer les objets vides si demandé
+    if (options.removeEmptyObjects) {
+      processedData = removeEmptyObjects(processedData, options)
+    }
+    
+    // Trier les clés si demandé
+    if (options.sortKeys) {
+      processedData = sortKeys(processedData, options)
     }
     
     return processedData
     
   } catch (error) {
     console.error('PHP unserialization error:', error)
-    throw new Error(`Failed to unserialize PHP data: ${error instanceof Error ? error.message : 'Invalid serialized data'}`)
+    throw new Error(`Failed to unserialize PHP data: ${error instanceof Error ? error.message : 'Invalid format'}`)
   }
 }
 
-// Import des fonctions existantes
+// Import des fonctions de sérialisation de base
 import { serializePHP, unserializePHP } from './php-serializer'
