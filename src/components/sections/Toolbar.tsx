@@ -292,17 +292,19 @@ export default function Toolbar({
               <TooltipInfo content="Removes unnecessary zeros from numbers (1.00 → 1, 0.50 → 0.5)." />
             </div>
 
-            <div className="flex items-center gap-2">
-              <Switch
-                id="scientific-notation"
-                checked={jsonOptions.useScientificNotation}
-                onCheckedChange={(checked) => 
-                  onJsonOptionsChange({ ...jsonOptions, useScientificNotation: checked })
-                }
-              />
-              <Label htmlFor="scientific-notation" className="text-sm">Scientific notation</Label>
-              <TooltipInfo content="Uses scientific notation for very large numbers (1000000 → 1e6)." />
-            </div>
+            {jsonOptions.optimizeNumbers && (
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="scientific-notation"
+                  checked={jsonOptions.useScientificNotation}
+                  onCheckedChange={(checked) => 
+                    onJsonOptionsChange({ ...jsonOptions, useScientificNotation: checked })
+                  }
+                />
+                <Label htmlFor="scientific-notation" className="text-sm">Scientific notation</Label>
+                <TooltipInfo content="Uses scientific notation for very large numbers (1000000 → 1e6)." />
+              </div>
+            )}
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">

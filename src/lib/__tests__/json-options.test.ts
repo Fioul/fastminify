@@ -108,6 +108,34 @@ describe('JSON Options', () => {
       // Small numbers are not converted by our regex (only 7+ digits)
       expect(result).toContain('"small":0.000001')
     })
+
+    test('should preserve decimals when optimizeNumbers is disabled', () => {
+      const input = '{"price": 1.00, "discount": 0.50, "count": 42}'
+      const options: JSONOptions = { 
+        ...defaultJSONOptions, 
+        optimizeNumbers: false
+      }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"price":1.00')
+      expect(result).toContain('"discount":0.50')
+      expect(result).toContain('"count":42')
+    })
+
+    test('should use scientific notation even when optimizeNumbers is disabled', () => {
+      const input = '{"large": 1000000, "price": 1.00}'
+      const options: JSONOptions = { 
+        ...defaultJSONOptions, 
+        optimizeNumbers: false,
+        useScientificNotation: true
+      }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"large":"1e+6"')
+      expect(result).toContain('"price":1.00')
+    })
   })
 
   describe('Key and value cleaning', () => {

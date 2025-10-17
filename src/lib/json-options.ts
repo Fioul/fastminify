@@ -36,6 +36,50 @@ export const defaultJSONOptions: JSONOptions = {
 }
 
 /**
+ * Préserve les décimales originales dans le JSON
+ */
+function preserveDecimals(code: string): string {
+  // Remplacer les nombres décimaux par des chaînes pour éviter la conversion automatique
+  // Pattern: "key": 1.00 -> "key": "1.00"
+  let preserved = code.replace(/"([^"]+)"\s*:\s*(\d+\.\d+)/g, (match, key, decimal) => {
+    // Préserver tous les nombres avec des décimales, même 1.00
+    return `"${key}":"${decimal}"`;
+  });
+  
+  return preserved;
+}
+
+/**
+ * Restaure les nombres décimaux après le parsing
+ */
+function restoreDecimals(obj: any): any {
+  if (obj === null || obj === undefined) return obj;
+  
+  if (typeof obj === 'string') {
+    // Vérifier si c'est un nombre décimal sous forme de chaîne
+    const num = parseFloat(obj);
+    if (!isNaN(num) && obj.includes('.')) {
+      return num;
+    }
+    return obj;
+  }
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => restoreDecimals(item));
+  }
+  
+  if (typeof obj === 'object') {
+    const restored: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      restored[key] = restoreDecimals(value);
+    }
+    return restored;
+  }
+  
+  return obj;
+}
+
+/**
  * Corrige les erreurs JSON communes
  */
 function fixCommonJSONErrors(code: string): string {
@@ -228,6 +272,20 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
       throw new Error('Invalid JSON code provided')
     }
     
+    // Préserver les décimales si optimizeNumbers est désactivé
+    let shouldPreserveDecimals = !options.optimizeNumbers;
+    let originalDecimals: { [key: string]: string } = {};
+    
+    if (shouldPreserveDecimals) {
+      // Extraire les décimales originales
+      const decimalMatches = code.matchAll(/"([^"]+)"\s*:\s*(\d+\.\d+)/g);
+      for (const match of decimalMatches) {
+        const key = match[1];
+        const decimal = match[2];
+        originalDecimals[key] = decimal;
+      }
+    }
+    
     // Valider la syntaxe d'abord
     let isValidJSON = false
     if (options.validateBeforeMinify) {
@@ -252,13 +310,18 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
     }
     
     // Parser le JSON
-    const parsed = JSON.parse(processedCode)
+    let parsed = JSON.parse(processedCode)
     
     // Appliquer les optimisations selon le niveau de compression
     let optimized = parsed
     
     if (options.compressionLevel === 'normal' || options.compressionLevel === 'aggressive') {
       // Optimiser les nombres
+      optimized = optimizeNumbers(optimized, options)
+    }
+    
+    // Appliquer la notation scientifique même si optimizeNumbers est désactivé
+    if (options.useScientificNotation && !options.optimizeNumbers) {
       optimized = optimizeNumbers(optimized, options)
     }
     
@@ -271,12 +334,22 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
     // Stringify avec minification
     let result = JSON.stringify(optimized)
     
+    // Post-traitement pour restaurer les décimales originales si optimizeNumbers est désactivé
+    if (shouldPreserveDecimals && Object.keys(originalDecimals).length > 0) {
+      // Restaurer les décimales originales dans le résultat final
+      for (const [key, decimal] of Object.entries(originalDecimals)) {
+        const regex = new RegExp(`"${key}"\\s*:\\s*\\d+(?:\\.\\d+)?`, 'g');
+        result = result.replace(regex, `"${key}":${decimal}`);
+      }
+    }
+    
     // Post-traitement pour la notation scientifique si nécessaire
     if (options.useScientificNotation) {
-      result = result.replace(/"(\d{7,})"/g, (match, number) => {
+      // Convertir les grands nombres en notation scientifique
+      result = result.replace(/:(\d{7,})/g, (match, number) => {
         const num = parseInt(number)
         if (Math.abs(num) >= 1000000) {
-          return `"${num.toExponential()}"`
+          return `:"${num.toExponential()}"`
         }
         return match
       })
