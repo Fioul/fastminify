@@ -142,29 +142,34 @@ export default function Toolbar({
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="preserve-classnames"
-                  checked={jsOptions.preserveClassNames}
-                  onCheckedChange={(checked) => 
-                    onJsOptionsChange({ ...jsOptions, preserveClassNames: checked })
-                  }
-                />
-                <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
-                <TooltipInfo content="Preserves CSS class names in JavaScript code (e.g., className='my-class')." />
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="preserve-functions"
-                  checked={jsOptions.preserveFunctionNames}
-                  onCheckedChange={(checked) => 
-                    onJsOptionsChange({ ...jsOptions, preserveFunctionNames: checked })
-                  }
-                />
-                <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
-                <TooltipInfo content="Preserves function names to facilitate debugging and stack traces." />
-              </div>
+              {/* Options qui ne s'affichent que pour le mode Aggressive */}
+              {jsOptions.compressionLevel === 'aggressive' && (
+                <>
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="preserve-classnames"
+                      checked={jsOptions.preserveClassNames}
+                      onCheckedChange={(checked) => 
+                        onJsOptionsChange({ ...jsOptions, preserveClassNames: checked })
+                      }
+                    />
+                    <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
+                    <TooltipInfo content="Preserves ES6 class names (UserCard, AdminCard, etc.) in aggressive mode." />
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="preserve-functions"
+                      checked={jsOptions.preserveFunctionNames}
+                      onCheckedChange={(checked) => 
+                        onJsOptionsChange({ ...jsOptions, preserveFunctionNames: checked })
+                      }
+                    />
+                    <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
+                    <TooltipInfo content="Preserves function names to facilitate debugging and stack traces in aggressive mode." />
+                  </div>
+                </>
+              )}
               
               <div className="flex items-center gap-2">
                 <Switch

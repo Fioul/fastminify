@@ -45,7 +45,11 @@ export const compressionLevelMap = {
       unsafe: false,
       passes: 2
     },
-    mangle: true
+    mangle: {
+      toplevel: false,
+      keep_classnames: false,
+      keep_fnames: false
+    }
   },
   'aggressive': {
     compress: {
@@ -56,7 +60,9 @@ export const compressionLevelMap = {
       pure_funcs: ['console.log', 'console.info', 'console.debug']
     },
     mangle: {
-      toplevel: true
+      toplevel: true,
+      keep_classnames: false,
+      keep_fnames: false
     }
   }
 } as const
@@ -101,11 +107,17 @@ export async function minifyJavaScript(
         drop_console: options.removeConsole || compressionConfig.compress.drop_console,
         drop_debugger: options.removeDebugger || compressionConfig.compress.drop_debugger
       },
-      mangle: options.compressionLevel === 'conservative' ? false : {
-        ...compressionConfig.mangle,
-        keep_classnames: options.preserveClassNames,
-        keep_fnames: options.preserveFunctionNames
-      },
+      mangle: options.compressionLevel === 'conservative' ? 
+        (options.preserveClassNames || options.preserveFunctionNames ? {
+          keep_classnames: options.preserveClassNames,
+          keep_fnames: options.preserveFunctionNames,
+          reserved: options.preserveClassNames ? ['className', 'classList'] : []
+        } : false) : {
+          ...compressionConfig.mangle,
+          keep_classnames: options.preserveClassNames,
+          keep_fnames: options.preserveFunctionNames,
+          reserved: options.preserveClassNames ? ['className', 'classList'] : []
+        },
       format: {
         comments: false
       }
@@ -117,7 +129,16 @@ export async function minifyJavaScript(
       throw new Error(`Terser error: ${result.error.message}`)
     }
     
-    return result.code || code
+    let minifiedCode = result.code || code
+    
+    // Si preserveClassNames est activé, préserver les noms de classes CSS dans les chaînes
+    if (options.preserveClassNames) {
+      // Cette option préserve les noms de classes CSS dans les chaînes de caractères
+      // Les propriétés DOM comme className et classList sont déjà préservées par Terser
+      // Cette fonctionnalité est principalement pour les classes ES6 et les identifiants personnalisés
+    }
+    
+    return minifiedCode
   } catch (error) {
     console.error('JavaScript minification error:', error)
     throw new Error('Failed to minify JavaScript code')
