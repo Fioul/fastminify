@@ -462,7 +462,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
             {/* Right side - Result (only when there's a result) */}
             {result && (
               <div className="space-y-6 p-6">
-                <Card className="h-full">
+                <Card>
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg">{t('common.result')}</CardTitle>
@@ -496,8 +496,8 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="h-full p-0">
-                    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto h-[50vh] text-sm whitespace-pre-wrap break-words w-full">
+                  <CardContent className="p-0">
+                    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-[50vh] text-sm whitespace-pre-wrap break-words w-full">
                       {result}
                     </pre>
                   </CardContent>
