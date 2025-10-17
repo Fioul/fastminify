@@ -53,18 +53,23 @@ export default function CodeEditor({
 
     // Listen for content changes
     const model = editor.getModel()
+    let contentDisposable: any = null
+    let layoutDisposable: any = null
+
     if (model) {
-      model.onDidChangeContent(checkScrollableContent)
+      contentDisposable = model.onDidChangeContent(checkScrollableContent)
     }
 
     // Listen for layout changes (resize, etc.)
-    editor.onDidLayoutChange(checkScrollableContent)
+    layoutDisposable = editor.onDidLayoutChange(checkScrollableContent)
 
     return () => {
-      if (model) {
-        model.onDidChangeContent.dispose()
+      if (contentDisposable) {
+        contentDisposable.dispose()
       }
-      editor.onDidLayoutChange.dispose()
+      if (layoutDisposable) {
+        layoutDisposable.dispose()
+      }
     }
   }, [value])
 
