@@ -223,6 +223,45 @@ describe('JSON Options', () => {
       expect(result).toContain('"value":123')
     })
 
+    test('should fix missing commas after null values', () => {
+      const input = `{
+        "nullValue": null
+        "nextValue": "test"
+      }`
+      const options: JSONOptions = { ...defaultJSONOptions, fixCommonErrors: true }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"nullValue":null,')
+      expect(result).toContain('"nextValue":"test"')
+    })
+
+    test('should fix missing commas after boolean values', () => {
+      const input = `{
+        "active": true
+        "enabled": false
+      }`
+      const options: JSONOptions = { ...defaultJSONOptions, fixCommonErrors: true }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"active":true,')
+      expect(result).toContain('"enabled":false')
+    })
+
+    test('should fix missing commas after numeric values', () => {
+      const input = `{
+        "count": 42
+        "price": 19.99
+      }`
+      const options: JSONOptions = { ...defaultJSONOptions, fixCommonErrors: true }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"count":42,')
+      expect(result).toContain('"price":19.99')
+    })
+
     test('should handle invalid input', () => {
       expect(() => minifyJSONWithOptions(''))
         .toThrow('Invalid JSON code provided')

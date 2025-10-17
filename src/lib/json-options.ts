@@ -57,9 +57,32 @@ function fixCommonJSONErrors(code: string): string {
   // Corriger les clés sans guillemets (simple regex, pas parfait)
   fixed = fixed.replace(/([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '$1"$2":')
   
-  // Corriger les valeurs sans guillemets (identifiants non-quotés)
-  // Pattern: "key": value (où value n'est pas entre guillemets et n'est pas un nombre/boolean/null)
-  fixed = fixed.replace(/"([^"]+)"\s*:\s*([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\s*[,}])/g, '"$1":"$2"')
+  // Corriger les virgules manquantes après des valeurs non-quotées (null, true, false, nombres)
+  // Pattern: "key": value\n"key2": value2
+  fixed = fixed.replace(/"([^"]+)"\s*:\s*(null|true|false|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\s*\n\s*"([^"]+)"\s*:/g, '"$1":$2,\n"$3":')
+  
+  // Corriger les virgules manquantes après des valeurs non-quotées (même ligne)
+  fixed = fixed.replace(/"([^"]+)"\s*:\s*(null|true|false|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\s+"([^"]+)"\s*:/g, '"$1":$2, "$3":')
+  
+  // Corriger les virgules manquantes après des objets ou tableaux
+  // Pattern: }\n"key": value ou ]\n"key": value
+  fixed = fixed.replace(/}\s*\n\s*"([^"]+)"\s*:/g, '},\n"$1":')
+  fixed = fixed.replace(/\]\s*\n\s*"([^"]+)"\s*:/g, '],\n"$1":')
+  
+  // Corriger les valeurs undefined qui ne sont pas des valeurs JSON valides
+  fixed = fixed.replace(/"([^"]+)"\s*:\s*undefined/g, '"$1":"undefined"')
+  
+  // Corriger les autres valeurs sans guillemets (identifiants non-quotés)
+  // On évite de convertir true, false, null qui sont des valeurs JSON valides
+  // On utilise une approche plus simple : on remplace tout sauf les valeurs JSON valides
+  fixed = fixed.replace(/"([^"]+)"\s*:\s*([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\s*[,}])/g, (match, key, value) => {
+    // Si la valeur est true, false, ou null, on la laisse telle quelle
+    if (value === 'true' || value === 'false' || value === 'null') {
+      return match;
+    }
+    // Sinon, on l'entoure de guillemets
+    return `"${key}":"${value}"`;
+  })
   
   // Corriger les virgules en trop
   fixed = fixed.replace(/,(\s*[}\]])/g, '$1')
