@@ -34,7 +34,7 @@ export default function CodeEditor({
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
 
-  // Simple scroll handling - allow page scroll by default
+  // Enhanced scroll handling for page context only (modal uses native Monaco scroll)
   useEffect(() => {
     const editor = editorRef.current as any
     if (!editor) return
@@ -42,7 +42,12 @@ export default function CodeEditor({
     const editorElement = editor.getDomNode()
     if (!editorElement) return
 
-    // Add wheel event listener that allows page scroll by default
+    // Check if we're in a modal context - if so, don't add custom scroll handling
+    const isInModal = editorElement.closest('[data-slot="dialog-content"]')
+    if (isInModal) {
+      return // Let Monaco handle scroll natively in modal
+    }
+    
     const handleWheel = (e: WheelEvent) => {
       // Check if there's content to scroll in the editor
       const hasScrollableContent = editor.getScrollHeight() > editor.getLayoutInfo().height
@@ -52,15 +57,21 @@ export default function CodeEditor({
         return
       }
 
-      // If there's scrollable content, handle editor scroll manually
+      // Check if we're at the top/bottom of editor scroll
+      const currentScrollTop = editor.getScrollTop()
+      const maxScrollTop = editor.getScrollHeight() - editor.getLayoutInfo().height
+      
+      // If scrolling up and at top, or scrolling down and at bottom, allow page scroll
+      if ((e.deltaY < 0 && currentScrollTop <= 0) || 
+          (e.deltaY > 0 && currentScrollTop >= maxScrollTop)) {
+        return // Allow page scroll
+      }
+
+      // Otherwise, handle editor scroll
       e.preventDefault()
       e.stopPropagation()
       
-      const currentScrollTop = editor.getScrollTop()
-      const maxScrollTop = editor.getScrollHeight() - editor.getLayoutInfo().height
       const newScrollTop = currentScrollTop + e.deltaY
-      
-      // Scroll within editor bounds
       editor.setScrollTop(Math.max(0, Math.min(newScrollTop, maxScrollTop)))
     }
 
@@ -85,9 +96,14 @@ export default function CodeEditor({
     scrollbar: {
       vertical: 'auto' as const,
       horizontal: 'auto' as const,
-      verticalScrollbarSize: 8,
-      horizontalScrollbarSize: 8,
-      handleMouseWheel: false
+      verticalScrollbarSize: 12,
+      horizontalScrollbarSize: 12,
+      handleMouseWheel: true,
+      useShadows: true,
+      verticalHasArrows: false,
+      horizontalHasArrows: false,
+      verticalScrollbarHasSlider: true,
+      horizontalScrollbarHasSlider: true
     },
     // Syntax highlighting
     bracketPairColorization: { enabled: true },

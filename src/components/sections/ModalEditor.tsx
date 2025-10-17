@@ -31,11 +31,11 @@ export default function ModalEditor({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="!max-w-[75vw] !max-h-[90vh] w-full h-full p-0" 
+        className="!max-w-[75vw] !max-h-[90vh] w-full h-full p-0 flex flex-col" 
         style={{ maxWidth: '75vw', maxHeight: '90vh' }}
         showCloseButton={false}
       >
-        <DialogHeader className="px-6 py-4 border-b">
+        <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
             <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
             <div className="flex gap-2">
@@ -74,8 +74,8 @@ export default function ModalEditor({
           </div>
         </DialogHeader>
         
-        <div className="flex-1 p-6 overflow-hidden">
-          <div className="h-[calc(90vh-120px)] w-full">
+        <div className="flex-1 p-6 overflow-hidden min-h-0">
+          <div className="h-full w-full">
             <CodeEditor
               value={code}
               onChange={onCodeChange}
