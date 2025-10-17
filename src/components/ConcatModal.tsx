@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -66,6 +66,8 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
   const [isProcessing, setIsProcessing] = useState(false)
   const [result, setResult] = useState('')
   const [copied, setCopied] = useState(false)
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileUpload = useCallback((uploadedFiles: FileList) => {
@@ -95,13 +97,13 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
     })
   }, [])
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
+  const handleFileDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     const files = e.dataTransfer.files
     handleFileUpload(files)
   }, [handleFileUpload])
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
+  const handleDropZoneDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault()
   }, [])
 
@@ -112,6 +114,37 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
       newFiles.splice(toIndex, 0, movedFile)
       return newFiles
     })
+  }
+
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    setDraggedIndex(index)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    setDragOverIndex(index)
+  }
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null)
+  }
+
+  const handleFileReorderDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault()
+    
+    if (draggedIndex !== null && draggedIndex !== dropIndex) {
+      moveFile(draggedIndex, dropIndex)
+    }
+    
+    setDraggedIndex(null)
+    setDragOverIndex(null)
+  }
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null)
+    setDragOverIndex(null)
   }
 
   const removeFile = (id: string) => {
@@ -195,7 +228,12 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `concatenated.${fileType}`
+    
+    // Générer un nom de fichier avec timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5)
+    const extension = fileType === 'js' ? 'min.js' : 'min.css'
+    a.download = `fastminify-${timestamp}.${extension}`
+    
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -209,9 +247,47 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
     onClose()
   }
 
+  // Bloquer le scroll de la page principale quand la modal est ouverte
+  React.useEffect(() => {
+    if (isOpen) {
+      // Sauvegarder la position actuelle du scroll
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+      
+      return () => {
+        // Restaurer le scroll quand la modal se ferme
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.width = ''
+        document.body.style.overflow = ''
+        window.scrollTo(0, scrollY)
+      }
+    }
+  }, [isOpen])
+
+  // Forcer le re-render quand le résultat change pour s'assurer que la largeur est appliquée
+  React.useEffect(() => {
+    if (result) {
+      // Petit délai pour s'assurer que le DOM est mis à jour
+      setTimeout(() => {
+        const dialogContent = document.querySelector('[role="dialog"]')
+        if (dialogContent) {
+          dialogContent.style.width = '1044px'
+          dialogContent.style.maxWidth = 'none'
+        }
+      }, 100)
+    }
+  }, [result])
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+      <DialogContent 
+        className={`${result ? '!w-[90vw] !max-w-[1200px]' : 'max-w-4xl'} max-h-[90vh] overflow-hidden flex flex-col transition-all duration-300`}
+        style={result ? { width: '90vw', maxWidth: '1200px' } : {}}
+      >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
@@ -219,7 +295,10 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto space-y-6">
+        <div className="flex-1 overflow-y-auto">
+          <div className={`grid gap-6 transition-all duration-300 ${result ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'}`}>
+            {/* Left side - Files and options */}
+            <div className="space-y-6">
           {/* File Type Selection */}
           <div className="flex items-center gap-4">
             <Label className="text-sm font-medium">File Type</Label>
@@ -240,8 +319,8 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
             <CardContent className="p-6">
               <div
                 className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer"
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
+                onDrop={handleFileDrop}
+                onDragOver={handleDropZoneDragOver}
                 onClick={() => fileInputRef.current?.click()}
               >
                 <Upload className="h-12 w-12 mx-auto mb-4 text-gray-400" />
@@ -275,9 +354,21 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                   {files.map((file, index) => (
                     <div
                       key={file.id}
-                      className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-gray-800"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragOver={(e) => handleDragOver(e, index)}
+                      onDragLeave={handleDragLeave}
+                      onDrop={(e) => handleFileReorderDrop(e, index)}
+                      onDragEnd={handleDragEnd}
+                      className={`flex items-center gap-3 p-3 border rounded-lg transition-all duration-200 ${
+                        draggedIndex === index 
+                          ? 'opacity-50 scale-95 bg-blue-50 dark:bg-blue-900/20' 
+                          : dragOverIndex === index
+                          ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-600'
+                          : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }`}
                     >
-                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move" />
+                      <GripVertical className="h-4 w-4 text-gray-400 cursor-move hover:text-gray-600" />
                       <FileText className="h-4 w-4 text-blue-500" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{file.name}</p>
@@ -338,77 +429,81 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
             </CardContent>
           </Card>
 
-          {/* Process Button */}
-          <div className="flex justify-center">
-            <Button
-              onClick={processFiles}
-              disabled={files.length === 0 || isProcessing}
-              size="lg"
-              className="w-full max-w-md"
-            >
-              {isProcessing ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                  Processing...
-                </>
-              ) : (
-                `Concatenate & Minify ${files.length} file${files.length !== 1 ? 's' : ''}`
-              )}
-            </Button>
-          </div>
+              {/* Process Button */}
+              <div className="flex justify-center">
+                <Button
+                  onClick={processFiles}
+                  disabled={files.length === 0 || isProcessing}
+                  size="lg"
+                  className="w-full"
+                >
+                  {isProcessing ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                      Processing...
+                    </>
+                  ) : (
+                    `Concatenate & Minify ${files.length} file${files.length !== 1 ? 's' : ''}`
+                  )}
+                </Button>
+              </div>
 
-          {/* Progress Bar */}
-          {isProcessing && (
-            <div className="space-y-2">
-              <Progress value={50} className="w-full" />
-              <p className="text-sm text-center text-gray-500">
-                Processing files...
-              </p>
-            </div>
-          )}
-
-          {/* Result */}
-          {result && (
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">Result</CardTitle>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={copyResult}
-                      className="flex items-center gap-2"
-                    >
-                      {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                      {copied ? 'Copied!' : 'Copy'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={downloadResult}
-                      className="flex items-center gap-2"
-                    >
-                      <Download className="h-4 w-4" />
-                      Download
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onResult(result, fileType)}
-                    >
-                      Use Result
-                    </Button>
-                  </div>
+              {/* Progress Bar */}
+              {isProcessing && (
+                <div className="space-y-2">
+                  <Progress value={50} className="w-full" />
+                  <p className="text-sm text-center text-gray-500">
+                    Processing files...
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-64 text-sm">
-                  {result}
-                </pre>
-              </CardContent>
-            </Card>
-          )}
+              )}
+            </div>
+
+            {/* Right side - Result (only when there's a result) */}
+            {result && (
+              <div className="space-y-6 p-6">
+                <Card className="h-full">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">Result</CardTitle>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={copyResult}
+                          className="flex items-center gap-2"
+                        >
+                          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                          {copied ? 'Copied!' : 'Copy'}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={downloadResult}
+                          className="flex items-center gap-2"
+                        >
+                          <Download className="h-4 w-4" />
+                          Download
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => onResult(result, fileType)}
+                        >
+                          Use Result
+                        </Button>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="h-full p-0">
+                    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto h-[50vh] text-sm whitespace-pre-wrap break-words w-full">
+                      {result}
+                    </pre>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex justify-end gap-2 pt-4 border-t">
