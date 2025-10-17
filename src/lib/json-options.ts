@@ -16,6 +16,13 @@ export interface JSONOptions {
   removeDuplicateArrayElements: boolean
   sortArrayElements: boolean
   
+  
+  // Nettoyage avancé
+  removeDuplicateKeys: boolean
+  removeEmptyObjects: boolean
+  removeEmptyArrays: boolean
+  sortObjectKeys: boolean
+  
   // Validation
   validateBeforeMinify: boolean
   fixCommonErrors: boolean
@@ -31,6 +38,9 @@ export const defaultJSONOptions: JSONOptions = {
   removeEmptyArrayElements: false,
   removeDuplicateArrayElements: false,
   sortArrayElements: false,
+  removeEmptyObjects: false,
+  removeEmptyArrays: false,
+  sortObjectKeys: false,
   validateBeforeMinify: true,
   fixCommonErrors: true // Enable by default to help users
 }
@@ -144,6 +154,100 @@ function fixCommonJSONErrors(code: string): string {
   fixed = fixed.replace(/"([^"]*)"\s+"([^"]*)"\s*:/g, '"$1", "$2":')
   
   return fixed
+}
+
+
+/**
+ * Supprime les objets vides
+ */
+function removeEmptyObjects(obj: any, options: JSONOptions): any {
+  if (obj === null || obj === undefined) return obj;
+  
+  if (typeof obj === 'object' && !Array.isArray(obj)) {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const cleanedValue = removeEmptyObjects(value, options);
+      
+      // Ne pas supprimer si c'est un objet vide mais que l'option n'est pas activée
+      if (options.removeEmptyObjects && 
+          typeof cleanedValue === 'object' && 
+          cleanedValue !== null && 
+          !Array.isArray(cleanedValue) && 
+          Object.keys(cleanedValue).length === 0) {
+        continue;
+      }
+      
+      cleaned[key] = cleanedValue;
+    }
+    return cleaned;
+  }
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => removeEmptyObjects(item, options));
+  }
+  
+  return obj;
+}
+
+/**
+ * Supprime les tableaux vides
+ */
+function removeEmptyArrays(obj: any, options: JSONOptions): any {
+  if (obj === null || obj === undefined) return obj;
+  
+  if (Array.isArray(obj)) {
+    const cleaned = obj
+      .map(item => removeEmptyArrays(item, options))
+      .filter(item => {
+        // Ne pas supprimer si c'est un tableau vide mais que l'option n'est pas activée
+        if (options.removeEmptyArrays && Array.isArray(item) && item.length === 0) {
+          return false;
+        }
+        return true;
+      });
+    return cleaned;
+  }
+  
+  if (typeof obj === 'object' && obj !== null) {
+    const cleaned: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const cleanedValue = removeEmptyArrays(value, options);
+      
+      // Supprimer les tableaux vides qui sont des valeurs d'objets
+      if (options.removeEmptyArrays && Array.isArray(cleanedValue) && cleanedValue.length === 0) {
+        continue;
+      }
+      
+      cleaned[key] = cleanedValue;
+    }
+    return cleaned;
+  }
+  
+  return obj;
+}
+
+/**
+ * Trie les clés d'objets par ordre alphabétique
+ */
+function sortObjectKeys(obj: any, options: JSONOptions): any {
+  if (obj === null || obj === undefined) return obj;
+  
+  if (typeof obj === 'object' && !Array.isArray(obj)) {
+    const sorted: any = {};
+    const keys = Object.keys(obj).sort();
+    
+    for (const key of keys) {
+      sorted[key] = sortObjectKeys(obj[key], options);
+    }
+    
+    return sorted;
+  }
+  
+  if (Array.isArray(obj)) {
+    return obj.map(item => sortObjectKeys(item, options));
+  }
+  
+  return obj;
 }
 
 /**
@@ -315,6 +419,12 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
     // Appliquer les optimisations selon le niveau de compression
     let optimized = parsed
     
+    
+    // Trier les clés d'objets si demandé
+    if (options.sortObjectKeys) {
+      optimized = sortObjectKeys(optimized, options)
+    }
+    
     if (options.compressionLevel === 'normal' || options.compressionLevel === 'aggressive') {
       // Optimiser les nombres
       optimized = optimizeNumbers(optimized, options)
@@ -329,6 +439,16 @@ export function minifyJSONWithOptions(code: string, options: JSONOptions = defau
     if (options.removeEmptyKeys || options.removeNullValues || options.removeUndefinedValues || 
         options.removeEmptyArrayElements || options.removeDuplicateArrayElements || options.sortArrayElements) {
       optimized = cleanObject(optimized, options)
+    }
+    
+    // Supprimer les objets vides si demandé
+    if (options.removeEmptyObjects) {
+      optimized = removeEmptyObjects(optimized, options)
+    }
+    
+    // Supprimer les tableaux vides si demandé
+    if (options.removeEmptyArrays) {
+      optimized = removeEmptyArrays(optimized, options)
     }
     
     // Stringify avec minification

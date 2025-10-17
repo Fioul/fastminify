@@ -136,6 +136,56 @@ describe('JSON Options', () => {
       expect(result).toContain('"large":"1e+6"')
       expect(result).toContain('"price":1.00')
     })
+
+
+    test('should sort object keys when enabled', () => {
+      const input = '{"zebra":"test","apple":123,"banana":true}'
+      const options: JSONOptions = { 
+        ...defaultJSONOptions, 
+        sortObjectKeys: true
+      }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"apple"')
+      expect(result).toContain('"banana"')
+      expect(result).toContain('"zebra"')
+      // Vérifier que les clés sont dans l'ordre alphabétique
+      const appleIndex = result.indexOf('"apple"')
+      const bananaIndex = result.indexOf('"banana"')
+      const zebraIndex = result.indexOf('"zebra"')
+      expect(appleIndex).toBeLessThan(bananaIndex)
+      expect(bananaIndex).toBeLessThan(zebraIndex)
+    })
+
+
+    test('should remove empty objects when enabled', () => {
+      const input = '{"data":{},"name":"test","empty":{}}'
+      const options: JSONOptions = { 
+        ...defaultJSONOptions, 
+        removeEmptyObjects: true
+      }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"name":"test"')
+      expect(result).not.toContain('"data":{}')
+      expect(result).not.toContain('"empty":{}')
+    })
+
+    test('should remove empty arrays when enabled', () => {
+      const input = '{"items":[],"name":"test","tags":[]}'
+      const options: JSONOptions = { 
+        ...defaultJSONOptions, 
+        removeEmptyArrays: true
+      }
+      const result = minifyJSONWithOptions(input, options)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"name":"test"')
+      expect(result).not.toContain('"items":[]')
+      expect(result).not.toContain('"tags":[]')
+    })
   })
 
   describe('Key and value cleaning', () => {

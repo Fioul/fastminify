@@ -61,6 +61,9 @@ export function useMinification() {
     removeEmptyArrayElements: false,
     removeDuplicateArrayElements: false,
     sortArrayElements: false,
+    removeEmptyObjects: false,
+    removeEmptyArrays: false,
+    sortObjectKeys: false,
     validateBeforeMinify: true,
     fixCommonErrors: true
   })

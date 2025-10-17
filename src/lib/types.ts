@@ -25,6 +25,14 @@ export interface JSONOptions {
   useScientificNotation: boolean
   removeEmptyKeys: boolean
   removeNullValues: boolean
+  removeUndefinedValues: boolean
+  removeEmptyArrayElements: boolean
+  removeDuplicateArrayElements: boolean
+  sortArrayElements: boolean
+  removeEmptyObjects: boolean
+  removeEmptyArrays: boolean
+  sortObjectKeys: boolean
+  validateBeforeMinify: boolean
   fixCommonErrors: boolean
 }
 

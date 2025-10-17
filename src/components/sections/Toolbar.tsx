@@ -333,6 +333,45 @@ export default function Toolbar({
 
               <div className="flex items-center gap-2">
                 <Switch
+                  id="remove-empty-objects"
+                  checked={jsonOptions.removeEmptyObjects}
+                  onCheckedChange={(checked) => 
+                    onJsonOptionsChange({ ...jsonOptions, removeEmptyObjects: checked })
+                  }
+                />
+                <Label htmlFor="remove-empty-objects" className="text-sm">Remove empty objects</Label>
+                <TooltipInfo content="Removes empty objects {} from JSON." />
+              </div>
+
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="sort-object-keys"
+                  checked={jsonOptions.sortObjectKeys}
+                  onCheckedChange={(checked) => 
+                    onJsonOptionsChange({ ...jsonOptions, sortObjectKeys: checked })
+                  }
+                />
+                <Label htmlFor="sort-object-keys" className="text-sm">Sort object keys</Label>
+                <TooltipInfo content="Sorts object keys alphabetically for consistent ordering." />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="remove-empty-arrays"
+                  checked={jsonOptions.removeEmptyArrays}
+                  onCheckedChange={(checked) => 
+                    onJsonOptionsChange({ ...jsonOptions, removeEmptyArrays: checked })
+                  }
+                />
+                <Label htmlFor="remove-empty-arrays" className="text-sm">Remove empty arrays</Label>
+                <TooltipInfo content="Removes empty arrays [] from JSON." />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Switch
                   id="fix-errors"
                   checked={jsonOptions.fixCommonErrors}
                   onCheckedChange={(checked) => 
