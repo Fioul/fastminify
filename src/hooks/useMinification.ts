@@ -61,7 +61,7 @@ export function useMinification() {
   })
   
   const [phpOptions, setPhpOptions] = useState<PHPOptions>({
-    serializationLevel: 'basic',
+    serializationLevel: 'deep',
     compression: 'minimal',
     preserveTypes: true,
     includeNullValues: true,
