@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import CodeEditor from '@/components/CodeEditor'
 import { Copy, Download, X, Eraser } from 'lucide-react'
 import { useTranslations } from '@/hooks/useTranslations'
+import { useEffect, useRef } from 'react'
 
 interface ModalEditorProps {
   isOpen: boolean
@@ -34,12 +35,64 @@ export default function ModalEditor({
   locale,
 }: ModalEditorProps) {
   const { t } = useTranslations(locale)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const lenisInstanceRef = useRef<unknown>(null)
+
+  // Handle Lenis disable/enable when modal opens/closes
+  useEffect(() => {
+    if (isOpen) {
+      // Disable Lenis by adding a class to body that prevents smooth scrolling
+      document.body.classList.add('lenis-disabled')
+      
+      // Also try to find and disable Lenis instance directly
+      const lenisElement = document.querySelector('[data-lenis]')
+      if (lenisElement) {
+        // Store reference to Lenis instance
+        const lenisInstance = (lenisElement as { __lenis?: { stop: () => void; start: () => void } }).__lenis
+        if (lenisInstance) {
+          lenisInstanceRef.current = lenisInstance
+          lenisInstance.stop()
+        }
+      }
+      
+      // Alternative: try to find Lenis in window object
+      const windowLenis = (window as { lenis?: { stop: () => void; start: () => void } }).lenis
+      if (windowLenis) {
+        lenisInstanceRef.current = windowLenis
+        windowLenis.stop()
+      }
+    } else {
+      // Re-enable Lenis when modal closes
+      document.body.classList.remove('lenis-disabled')
+      
+      if (lenisInstanceRef.current) {
+        (lenisInstanceRef.current as { start: () => void }).start()
+        lenisInstanceRef.current = null
+      }
+    }
+
+    return () => {
+      // Cleanup: re-enable Lenis if component unmounts while modal is open
+      document.body.classList.remove('lenis-disabled')
+      if (lenisInstanceRef.current) {
+        (lenisInstanceRef.current as { start: () => void }).start()
+        lenisInstanceRef.current = null
+      }
+    }
+  }, [isOpen])
+
+  // Prevent scroll events from bubbling up to Lenis
+  const handleWheel = (e: React.WheelEvent) => {
+    e.stopPropagation()
+  }
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
+        ref={modalRef}
         className="!max-w-[75vw] !max-h-[90vh] w-full h-full p-0 flex flex-col" 
         style={{ maxWidth: '75vw', maxHeight: '90vh' }}
         showCloseButton={false}
+        onWheel={handleWheel}
       >
         <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
@@ -91,8 +144,8 @@ export default function ModalEditor({
           </div>
         </DialogHeader>
         
-        <div className="flex-1 p-6 overflow-hidden min-h-0">
-          <div className="h-full w-full">
+        <div className="flex-1 p-6 overflow-hidden min-h-0" onWheel={handleWheel}>
+          <div className="h-full w-full" onWheel={handleWheel}>
             <CodeEditor
               value={code}
               onChange={onCodeChange}

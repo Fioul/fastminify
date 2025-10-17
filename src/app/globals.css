@@ -343,3 +343,21 @@
     border-color: oklch(0.6 0.15 35);
   }
 }
+
+/* Disable Lenis smooth scrolling when modal is open */
+body.lenis-disabled {
+  overflow: auto !important;
+}
+
+body.lenis-disabled [data-lenis] {
+  overflow: auto !important;
+}
+
+/* Ensure Monaco Editor can scroll properly in modals */
+[data-radix-dialog-content] .monaco-editor {
+  overflow: visible !important;
+}
+
+[data-radix-dialog-content] .monaco-editor .overflow-guard {
+  overflow: visible !important;
+}
