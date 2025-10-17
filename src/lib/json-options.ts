@@ -70,6 +70,12 @@ function fixCommonJSONErrors(code: string): string {
   fixed = fixed.replace(/}\s*"/g, '},"')
   fixed = fixed.replace(/]\s*"/g, '],"')
   
+  // Corriger les virgules manquantes entre propriétés (nouvelle ligne)
+  fixed = fixed.replace(/"([^"]*)"\s*\n\s*"([^"]*)"\s*:/g, '"$1",\n"$2":')
+  
+  // Corriger les virgules manquantes entre propriétés (même ligne)
+  fixed = fixed.replace(/"([^"]*)"\s+"([^"]*)"\s*:/g, '"$1", "$2":')
+  
   return fixed
 }
 
