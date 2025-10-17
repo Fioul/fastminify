@@ -291,7 +291,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
-            Concatenate Files
+{t('common.concatenateFiles')}
           </DialogTitle>
         </DialogHeader>
 
@@ -301,7 +301,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
             <div className="space-y-6">
           {/* File Type Selection */}
           <div className="flex items-center gap-4">
-            <Label className="text-sm font-medium">File Type</Label>
+            <Label className="text-sm font-medium">{t('common.fileType')}</Label>
             <Select value={fileType} onValueChange={(value: 'js' | 'css') => setFileType(value)}>
               <SelectTrigger className="w-32">
                 <SelectValue />
@@ -318,18 +318,18 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
           <Card>
             <CardContent className="p-6">
               <div
-                className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer"
+                className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-primary dark:hover:border-primary transition-colors cursor-pointer"
                 onDrop={handleFileDrop}
                 onDragOver={handleDropZoneDragOver}
                 onClick={() => fileInputRef.current?.click()}
               >
                 <Upload className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-lg font-medium mb-2">Drop files here or click to browse</p>
+                <p className="text-lg font-medium mb-2">{t('common.dropFilesHere')}</p>
                 <p className="text-sm text-gray-500 mb-4">
-                  Supports: .{fileType} files
+                  {t('common.supportsFiles').replace('{type}', fileType)}
                 </p>
                 <Button variant="outline" size="sm" className="cursor-pointer btn-outline-hover">
-                  Select Files
+                  {t('common.selectFiles')}
                 </Button>
                 <input
                   ref={fileInputRef}
@@ -347,7 +347,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
           {files.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Files to Concatenate ({files.length})</CardTitle>
+                <CardTitle className="text-lg">{t('common.filesToConcatenate').replace('{count}', files.length.toString())}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -397,14 +397,14 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
           {/* Options */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Options</CardTitle>
+              <CardTitle className="text-lg">{t('common.options')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="add-comments">Add file names as comments</Label>
+                  <Label htmlFor="add-comments">{t('common.addFileNamesAsComments')}</Label>
                   <p className="text-sm text-gray-500">
-                    Add file names as comments in the output
+                    {t('common.addFileNamesAsCommentsDesc')}
                   </p>
                 </div>
                 <Switch
@@ -415,9 +415,9 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
               </div>
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="add-newlines">Add newlines between files</Label>
+                  <Label htmlFor="add-newlines">{t('common.addNewlinesBetweenFiles')}</Label>
                   <p className="text-sm text-gray-500">
-                    Add blank lines between concatenated files
+                    {t('common.addNewlinesBetweenFilesDesc')}
                   </p>
                 </div>
                 <Switch
@@ -440,10 +440,10 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                   {isProcessing ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                      Processing...
+                      {t('common.processingFiles')}
                     </>
                   ) : (
-                    `Concatenate & Minify ${files.length} file${files.length !== 1 ? 's' : ''}`
+                    t('common.concatenateAndMinify').replace('{count}', files.length.toString()).replace('{plural}', files.length !== 1 ? 's' : '')
                   )}
                 </Button>
               </div>
@@ -453,7 +453,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                 <div className="space-y-2">
                   <Progress value={50} className="w-full" />
                   <p className="text-sm text-center text-gray-500">
-                    Processing files...
+                    {t('common.processingFiles')}
                   </p>
                 </div>
               )}
@@ -465,7 +465,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                 <Card className="h-full">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">Result</CardTitle>
+                      <CardTitle className="text-lg">{t('common.result')}</CardTitle>
                       <div className="flex gap-2">
                         <Button
                           variant="outline"
@@ -483,7 +483,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                           className="flex items-center gap-2 cursor-pointer btn-outline-hover"
                         >
                           <Download className="h-4 w-4" />
-                          Download
+                          {t('common.download')}
                         </Button>
                         <Button
                           variant="outline"
@@ -491,7 +491,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                           onClick={() => onResult(result, fileType)}
                           className="cursor-pointer btn-outline-hover"
                         >
-                          Use Result
+                          {t('common.useResult')}
                         </Button>
                       </div>
                     </div>
