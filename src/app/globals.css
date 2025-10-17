@@ -158,6 +158,9 @@
   }
   
   .btn-warm:hover {
+    background: linear-gradient(135deg, 
+      oklch(0.6 0.2 35) 0%, 
+      oklch(0.65 0.18 35) 100%);
     transform: translateY(-1px);
     box-shadow: 0 6px 20px 0 oklch(0.65 0.18 35 / 0.4);
   }
@@ -321,5 +324,22 @@
   /* Supprimer les éléments data-radix-focus-guard */
   [data-radix-focus-guard] {
     display: none !important;
+  }
+  
+  /* Hover personnalisé pour les boutons outline */
+  .btn-outline-hover {
+    transition: all 0.2s ease;
+  }
+  
+  .btn-outline-hover:hover {
+    background-color: oklch(0.7 0.12 35); /* Orange doux pour le mode clair */
+    color: oklch(0.98 0.01 0); /* Texte blanc pour le contraste */
+    border-color: oklch(0.7 0.12 35);
+  }
+  
+  .dark .btn-outline-hover:hover {
+    background-color: oklch(0.6 0.15 35); /* Orange plus foncé pour le mode sombre */
+    color: oklch(0.12 0.02 240); /* Texte sombre pour le contraste */
+    border-color: oklch(0.6 0.15 35);
   }
 }

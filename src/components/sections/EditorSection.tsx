@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
-import { Copy, Download, Maximize2, Eraser } from 'lucide-react'
+import { Copy, Download, Maximize2, Eraser, Play, Undo2 } from 'lucide-react'
 import ModalEditor from './ModalEditor'
 
 interface EditorSectionProps {
@@ -33,6 +33,9 @@ interface EditorSectionProps {
   onRightModalClose: () => void
   onClearLeft: () => void
   onClearRight: () => void
+  onMinify: () => void
+  onUnminify: () => void
+  isLoading: boolean
 }
 
 export default function EditorSection({
@@ -57,6 +60,9 @@ export default function EditorSection({
   onRightModalClose,
   onClearLeft,
   onClearRight,
+  onMinify,
+  onUnminify,
+  isLoading,
 }: EditorSectionProps) {
   const { t } = useTranslations(locale)
 
@@ -163,6 +169,17 @@ export default function EditorSection({
             <Label className="text-sm font-medium">{t('common.normalCode')}</Label>
             <div className="flex gap-1">
               <Button
+                variant="default"
+                size="sm"
+                onClick={onMinify}
+                disabled={isLoading || !leftCode.trim()}
+                className="h-8 px-3 text-xs font-medium"
+                title="Minify code"
+              >
+                <Play className="h-3 w-3 mr-1" />
+                {t('common.minify')}
+              </Button>
+              <Button
                 variant="ghost"
                 size="sm"
                 onClick={onLeftCopy}
@@ -221,27 +238,15 @@ export default function EditorSection({
       <div>
         <div className="h-[270px] flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <Label className="text-sm font-medium">{t('common.minifiedCode')}</Label>
             <div className="flex gap-1">
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={onRightCopy}
-                disabled={!rightCode.trim()}
+                onClick={onRightModalOpen}
                 className="h-8 w-8 p-0"
-                title="Copy code"
+                title="Open in modal"
               >
-                <Copy className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onRightDownload}
-                disabled={!rightCode.trim()}
-                className="h-8 w-8 p-0"
-                title="Download code"
-              >
-                <Download className="h-4 w-4" />
+                <Maximize2 className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -256,13 +261,36 @@ export default function EditorSection({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={onRightModalOpen}
+                onClick={onRightDownload}
+                disabled={!rightCode.trim()}
                 className="h-8 w-8 p-0"
-                title="Open in modal"
+                title="Download code"
               >
-                <Maximize2 className="h-4 w-4" />
+                <Download className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onRightCopy}
+                disabled={!rightCode.trim()}
+                className="h-8 w-8 p-0"
+                title="Copy code"
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onUnminify}
+                disabled={isLoading || !rightCode.trim()}
+                className="h-8 px-3 text-xs font-medium"
+                title="Unminify code"
+              >
+                <Undo2 className="h-3 w-3 mr-1" />
+                {t('common.unminify')}
               </Button>
             </div>
+            <Label className="text-sm font-medium">{t('common.minifiedCode')}</Label>
           </div>
           <CodeEditor
             value={rightCode}

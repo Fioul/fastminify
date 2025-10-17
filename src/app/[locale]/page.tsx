@@ -96,8 +96,6 @@ export default function Page({ params }: PageProps) {
                     onCssOptionsChange={setCssOptions}
                     onJsonOptionsChange={setJsonOptions}
                     onPhpOptionsChange={setPhpOptions}
-                    onMinify={processMinify}
-                    onUnminify={processUnminify}
                     onConcat={() => setConcatModalOpen(true)}
                     onClear={handleClear}
                 />
@@ -129,6 +127,9 @@ export default function Page({ params }: PageProps) {
                     onRightModalClose={handleRightModalClose}
                     onClearLeft={handleClearLeft}
                     onClearRight={handleClearRight}
+                    onMinify={processMinify}
+                    onUnminify={processUnminify}
+                    isLoading={isLoading}
                 />
                 </div>
             </div>

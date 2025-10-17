@@ -197,10 +197,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
         minified = await minifyCSSWithOptions(concatenated, {
           compressionLevel: 'normal',
           browserSupport: 'modern',
-          removeComments: true,
-          convertColors: true,
-          mergeRules: true,
-          minifySelectors: true
+          removeComments: true
         })
       }
 
@@ -273,7 +270,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
     if (result) {
       // Petit délai pour s'assurer que le DOM est mis à jour
       setTimeout(() => {
-        const dialogContent = document.querySelector('[role="dialog"]')
+        const dialogContent = document.querySelector('[role="dialog"]') as HTMLElement
         if (dialogContent) {
           dialogContent.style.width = '1044px'
           dialogContent.style.maxWidth = 'none'
@@ -328,7 +325,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                 <p className="text-sm text-gray-500 mb-4">
                   Supports: .{fileType} files
                 </p>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="cursor-pointer btn-outline-hover">
                   Select Files
                 </Button>
                 <input
@@ -383,7 +380,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                         variant="ghost"
                         size="sm"
                         onClick={() => removeFile(file.id)}
-                        className="h-8 w-8 p-0"
+                        className="h-8 w-8 p-0 cursor-pointer"
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -435,7 +432,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                   onClick={processFiles}
                   disabled={files.length === 0 || isProcessing}
                   size="lg"
-                  className="w-full"
+                  className="w-full cursor-pointer"
                 >
                   {isProcessing ? (
                     <>
@@ -471,7 +468,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                           variant="outline"
                           size="sm"
                           onClick={copyResult}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-2 cursor-pointer btn-outline-hover"
                         >
                           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                           {copied ? 'Copied!' : 'Copy'}
@@ -480,7 +477,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                           variant="outline"
                           size="sm"
                           onClick={downloadResult}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-2 cursor-pointer btn-outline-hover"
                         >
                           <Download className="h-4 w-4" />
                           Download
@@ -489,6 +486,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                           variant="outline"
                           size="sm"
                           onClick={() => onResult(result, fileType)}
+                          className="cursor-pointer btn-outline-hover"
                         >
                           Use Result
                         </Button>
@@ -507,7 +505,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
         </div>
 
         <div className="flex justify-end gap-2 pt-4 border-t">
-          <Button variant="outline" onClick={handleClose}>
+          <Button variant="outline" onClick={handleClose} className="cursor-pointer btn-outline-hover">
             Close
           </Button>
         </div>

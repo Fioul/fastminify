@@ -19,6 +19,8 @@ import {
   JSONOptions, 
   PHPOptions 
 } from '@/lib/types'
+import { TbFiles } from "react-icons/tb";
+import { Eraser } from 'lucide-react'
 
 interface ToolbarProps {
   locale: string
@@ -41,8 +43,6 @@ interface ToolbarProps {
   onCssOptionsChange: (options: CSSOptions) => void
   onJsonOptionsChange: (options: JSONOptions) => void
   onPhpOptionsChange: (options: PHPOptions) => void
-  onMinify: () => void
-  onUnminify: () => void
   onConcat: () => void
   onClear: () => void
 }
@@ -68,8 +68,6 @@ export default function Toolbar({
   onCssOptionsChange,
   onJsonOptionsChange,
   onPhpOptionsChange,
-  onMinify,
-  onUnminify,
   onConcat,
   onClear,
 }: ToolbarProps) {
@@ -89,7 +87,7 @@ export default function Toolbar({
                   onJsOptionsChange({ ...jsOptions, ecmaVersion: value })
                 }
               >
-                <SelectTrigger className="w-36 h-9">
+                <SelectTrigger className="w-36 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -111,7 +109,7 @@ export default function Toolbar({
                   onJsOptionsChange({ ...jsOptions, compressionLevel: value })
                 }
               >
-                <SelectTrigger className="w-36 h-9">
+                <SelectTrigger className="w-36 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -131,7 +129,7 @@ export default function Toolbar({
                   onJsOptionsChange({ ...jsOptions, browserSupport: value })
                 }
               >
-                <SelectTrigger className="w-32 h-9">
+                <SelectTrigger className="w-32 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -154,6 +152,7 @@ export default function Toolbar({
                       onCheckedChange={(checked) => 
                         onJsOptionsChange({ ...jsOptions, preserveClassNames: checked })
                       }
+                      className="cursor-pointer"
                     />
                     <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
                     <TooltipInfo content="Preserves ES6 class names (UserCard, AdminCard, etc.) in aggressive mode." />
@@ -166,6 +165,7 @@ export default function Toolbar({
                       onCheckedChange={(checked) => 
                         onJsOptionsChange({ ...jsOptions, preserveFunctionNames: checked })
                       }
+                      className="cursor-pointer"
                     />
                     <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
                     <TooltipInfo content="Preserves function names to facilitate debugging and stack traces in aggressive mode." />
@@ -180,13 +180,14 @@ export default function Toolbar({
                   onCheckedChange={(checked) => 
                     onJsOptionsChange({ ...jsOptions, removeConsole: checked })
                   }
+                  className="cursor-pointer"
                 />
                 <Label htmlFor="remove-console" className="text-xs">Remove console</Label>
                 <TooltipInfo content="Removes all console.log(), console.warn(), etc. calls from the final code. Works in all compression modes." />
               </div>
               
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-debugger"
                   checked={jsOptions.removeDebugger}
                   onCheckedChange={(checked) => 
@@ -212,7 +213,7 @@ export default function Toolbar({
                   onCssOptionsChange({ ...cssOptions, compressionLevel: value })
                 }
               >
-                <SelectTrigger className="w-36 h-9">
+                <SelectTrigger className="w-36 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -232,7 +233,7 @@ export default function Toolbar({
                   onCssOptionsChange({ ...cssOptions, browserSupport: value })
                 }
               >
-                <SelectTrigger className="w-32 h-9">
+                <SelectTrigger className="w-32 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -245,7 +246,7 @@ export default function Toolbar({
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-comments"
                   checked={cssOptions.removeComments}
                   onCheckedChange={(checked) => 
@@ -271,7 +272,7 @@ export default function Toolbar({
                   onJsonOptionsChange({ ...jsonOptions, compressionLevel: value })
                 }
               >
-                <SelectTrigger className="w-36 h-9">
+                <SelectTrigger className="w-36 h-9 cursor-pointer">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -283,7 +284,7 @@ export default function Toolbar({
             </div>
 
             <div className="flex items-center gap-2">
-              <Switch
+              <Switch className="cursor-pointer"
                 id="optimize-numbers"
                 checked={jsonOptions.optimizeNumbers}
                 onCheckedChange={(checked) => 
@@ -296,7 +297,7 @@ export default function Toolbar({
 
             {jsonOptions.optimizeNumbers && (
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="scientific-notation"
                   checked={jsonOptions.useScientificNotation}
                   onCheckedChange={(checked) => 
@@ -310,7 +311,7 @@ export default function Toolbar({
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-empty-keys"
                   checked={jsonOptions.removeEmptyKeys}
                   onCheckedChange={(checked) => 
@@ -322,7 +323,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-null-values"
                   checked={jsonOptions.removeNullValues}
                   onCheckedChange={(checked) => 
@@ -334,7 +335,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-empty-objects"
                   checked={jsonOptions.removeEmptyObjects}
                   onCheckedChange={(checked) => 
@@ -349,7 +350,7 @@ export default function Toolbar({
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="sort-object-keys"
                   checked={jsonOptions.sortObjectKeys}
                   onCheckedChange={(checked) => 
@@ -361,7 +362,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-empty-arrays"
                   checked={jsonOptions.removeEmptyArrays}
                   onCheckedChange={(checked) => 
@@ -373,7 +374,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="fix-errors"
                   checked={jsonOptions.fixCommonErrors}
                   onCheckedChange={(checked) => 
@@ -392,7 +393,7 @@ export default function Toolbar({
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="include-null"
                   checked={phpOptions.includeNullValues}
                   onCheckedChange={(checked) => 
@@ -404,7 +405,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-empty-arrays"
                   checked={phpOptions.removeEmptyArrays}
                   onCheckedChange={(checked) => 
@@ -416,7 +417,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="remove-empty-objects"
                   checked={phpOptions.removeEmptyObjects}
                   onCheckedChange={(checked) => 
@@ -428,7 +429,7 @@ export default function Toolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <Switch
+                <Switch className="cursor-pointer"
                   id="sort-keys"
                   checked={phpOptions.sortKeys}
                   onCheckedChange={(checked) => 
@@ -460,7 +461,7 @@ export default function Toolbar({
                     value={leftType}
                     onValueChange={onLeftTypeChange}
                   >
-                    <SelectTrigger className="w-[140px] h-9">
+                    <SelectTrigger className="w-[140px] h-9 cursor-pointer">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -472,7 +473,7 @@ export default function Toolbar({
                   </Select>
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <Switch
+                  <Switch className="cursor-pointer"
                     checked={autoDetectLeft}
                     onCheckedChange={onAutoDetectLeftChange}
                   />
@@ -488,7 +489,7 @@ export default function Toolbar({
                     value={rightType}
                     onValueChange={onRightTypeChange}
                   >
-                    <SelectTrigger className="w-[140px] h-9">
+                    <SelectTrigger className="w-[140px] h-9 cursor-pointer">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -500,7 +501,7 @@ export default function Toolbar({
                   </Select>
                 </div>
                 <div className="flex items-center gap-2 mb-1">
-                  <Switch
+                  <Switch className="cursor-pointer"
                     checked={autoDetectRight}
                     onCheckedChange={onAutoDetectRightChange}
                   />
@@ -514,37 +515,22 @@ export default function Toolbar({
 
             <div className="flex gap-2 flex-wrap">
               <Button 
-                onClick={onMinify} 
-                disabled={isLoading || !leftCode.trim()} 
-                size="sm"
-                className="btn-warm text-primary-foreground relative overflow-hidden"
-              >
-                {isLoading ? 'Processing…' : `${t('common.minify')} →`}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={onUnminify} 
-                disabled={isLoading || !rightCode.trim()} 
-                size="sm"
-              >
-                ← {t('common.unminify')}
-              </Button>
-              <Button 
                 variant="outline" 
                 onClick={onConcat} 
                 disabled={isLoading} 
                 size="sm"
-                className="border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                className="cursor-pointer"
               >
-                📁 {t('common.concat')}
+                <TbFiles className="size-4" /> {t('common.concat')}
               </Button>
               <Button 
-                variant="secondary" 
+                variant="outline" 
                 onClick={onClear} 
                 disabled={!leftCode.trim() && !rightCode.trim()} 
                 size="sm"
+                className="cursor-pointer"
               >
-                {t('common.clear')}
+                <Eraser className="h-4 w-4" /> {t('common.clear')}
               </Button>
             </div>
           </div>

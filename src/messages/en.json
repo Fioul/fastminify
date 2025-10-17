@@ -7,7 +7,7 @@
     "auto": "Auto",
     "minify": "Minify",
     "unminify": "Unminify",
-    "concat": "Concat",
+    "concat": "Concat files",
     "clear": "Clear all",
     "clearLeft": "Clear left",
     "clearRight": "Clear right"
