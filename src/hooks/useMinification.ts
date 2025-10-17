@@ -138,14 +138,18 @@ export function useMinification() {
               errorMessage = 'Invalid JSON syntax. Please check your JSON code and ensure it\'s properly formatted.'
             }
           } else {
-            errorMessage = `Invalid ${leftType.toUpperCase()} code. Please ensure the code matches the selected type.`
+            if (leftType === 'php') {
+              errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+            } else {
+              errorMessage = `Invalid ${leftType.toUpperCase()} code. Please ensure the code matches the selected type.`
+            }
           }
         } else if (error.message.includes('CSS')) {
           errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
           errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
         } else if (error.message.includes('PHP')) {
-          errorMessage = 'Invalid data for PHP serialization. Please provide valid JSON/JavaScript object.'
+          errorMessage = 'Invalid data for PHP serialization. Please provide valid JSON data, not PHP code.'
         } else {
           errorMessage = `Minification failed: ${error.message}`
         }
@@ -202,14 +206,18 @@ export function useMinification() {
           if (rightType === 'json') {
             errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
           } else {
-            errorMessage = `Invalid ${rightType.toUpperCase()} code. Please ensure the code matches the selected type.`
+            if (rightType === 'php') {
+              errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+            } else {
+              errorMessage = `Invalid ${rightType.toUpperCase()} code. Please ensure the code matches the selected type.`
+            }
           }
         } else if (error.message.includes('CSS')) {
           errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
           errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
         } else if (error.message.includes('PHP')) {
-          errorMessage = 'Invalid PHP serialized data. Please provide valid PHP serialized string.'
+          errorMessage = 'Invalid PHP serialized data. Please provide valid PHP serialized string for unserialization.'
         } else {
           errorMessage = `Unminification failed: ${error.message}`
         }
@@ -227,7 +235,7 @@ export function useMinification() {
     setLeftCode(code)
     
     // Auto-detect language if enabled and code is not empty
-    // But don't override if user has manually selected PHP Serialized
+    // But don't override if user has manually selected PHP Serialize
     if (autoDetectLeft && code.trim() && leftType !== 'php') {
       const detectedLanguage = detectCodeLanguage(code)
       if (detectedLanguage !== leftType) {
@@ -236,7 +244,7 @@ export function useMinification() {
           'js': 'JavaScript',
           'css': 'CSS',
           'json': 'JSON',
-          'php': 'PHP Serialized'
+          'php': 'PHP Serialize'
         }
         toast.success(`Left language auto-detected: ${languageNames[detectedLanguage]}`)
       }
@@ -249,7 +257,7 @@ export function useMinification() {
     setRightCode(code)
     
     // Auto-detect language if enabled and code is not empty
-    // But don't override if user has manually selected PHP Serialized
+    // But don't override if user has manually selected PHP Serialize
     if (autoDetectRight && code.trim() && rightType !== 'php') {
       const detectedLanguage = detectCodeLanguage(code)
       if (detectedLanguage !== rightType) {
@@ -258,7 +266,7 @@ export function useMinification() {
           'js': 'JavaScript',
           'css': 'CSS',
           'json': 'JSON',
-          'php': 'PHP Serialized'
+          'php': 'PHP Serialize'
         }
         toast.success(`Right language auto-detected: ${languageNames[detectedLanguage]}`)
       }

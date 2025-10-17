@@ -6,6 +6,7 @@ export interface JavaScriptOptions {
   preserveClassNames: boolean
   preserveFunctionNames: boolean
   removeConsole: boolean
+  removeDebugger: boolean
 }
 
 // CSS options interface

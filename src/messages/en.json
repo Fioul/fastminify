@@ -15,7 +15,7 @@
     "javascript": "JavaScript",
     "css": "CSS",
     "json": "JSON",
-    "php": "PHP Serialized"
+    "php": "PHP Serialize"
   },
   "placeholders": {
     "normalCode": "Paste your normal code here...",

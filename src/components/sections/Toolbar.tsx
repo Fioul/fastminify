@@ -389,8 +389,8 @@ export default function Toolbar({
         return (
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Level</Label>
-              <TooltipInfo content="PHP serialization level. Basic = simple, Deep = complex structures, Custom = advanced." />
+              <Label className="text-sm font-medium">Mode</Label>
+              <TooltipInfo content="PHP serialization mode. Serialize = data to string, Unserialize = string to data." />
               <Select
                 value={phpOptions.serializationLevel}
                 onValueChange={(value: 'basic' | 'deep' | 'custom') => 
@@ -401,8 +401,8 @@ export default function Toolbar({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="basic">Basic</SelectItem>
-                  <SelectItem value="deep">Deep</SelectItem>
+                  <SelectItem value="basic">Serialize</SelectItem>
+                  <SelectItem value="deep">Unserialize</SelectItem>
                   <SelectItem value="custom">Custom</SelectItem>
                 </SelectContent>
               </Select>
