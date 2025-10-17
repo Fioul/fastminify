@@ -42,6 +42,8 @@ export default function Page({ params }: PageProps) {
         setRightType,
         setAutoDetectLeft,
         setAutoDetectRight,
+        handleLeftTypeChange,
+        handleRightTypeChange,
         setJsOptions,
         setCssOptions,
         setJsonOptions,
@@ -88,8 +90,8 @@ export default function Page({ params }: PageProps) {
                     isLoading={isLoading}
                     leftCode={leftCode}
                     rightCode={rightCode}
-                    onLeftTypeChange={setLeftType}
-                    onRightTypeChange={setRightType}
+                    onLeftTypeChange={handleLeftTypeChange}
+                    onRightTypeChange={handleRightTypeChange}
                     onAutoDetectLeftChange={setAutoDetectLeft}
                     onAutoDetectRightChange={setAutoDetectRight}
                     onJsOptionsChange={setJsOptions}

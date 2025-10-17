@@ -24,8 +24,8 @@ import { Eraser } from 'lucide-react'
 
 interface ToolbarProps {
   locale: string
-  leftType: 'js' | 'css' | 'json' | 'php'
-  rightType: 'js' | 'css' | 'json' | 'php'
+  leftType: 'js' | 'css' | 'json' | 'php' | null
+  rightType: 'js' | 'css' | 'json' | 'php' | null
   autoDetectLeft: boolean
   autoDetectRight: boolean
   jsOptions: JavaScriptOptions
@@ -458,11 +458,11 @@ export default function Toolbar({
                 <div>
                   <Label className="text-sm font-medium mb-2 block">{t('common.normalCode')}</Label>
                   <Select
-                    value={leftType}
+                    value={leftType || ''}
                     onValueChange={onLeftTypeChange}
                   >
                     <SelectTrigger className="w-[140px] h-9 cursor-pointer">
-                      <SelectValue />
+                      <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="js">{t('languages.javascript')}</SelectItem>
@@ -486,11 +486,11 @@ export default function Toolbar({
                 <div>
                   <Label className="text-sm font-medium mb-2 block">{t('common.minifiedCode')}</Label>
                   <Select
-                    value={rightType}
+                    value={rightType || ''}
                     onValueChange={onRightTypeChange}
                   >
                     <SelectTrigger className="w-[140px] h-9 cursor-pointer">
-                      <SelectValue />
+                      <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="js">{t('languages.javascript')}</SelectItem>

@@ -23,10 +23,12 @@ export function useMinification() {
   const [rightCode, setRightCode] = useState('')
   const [stats, setStats] = useState<Stats | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [leftType, setLeftType] = useState<LanguageType>('js')
-  const [rightType, setRightType] = useState<LanguageType>('js')
+  const [leftType, setLeftType] = useState<LanguageType | null>(null)
+  const [rightType, setRightType] = useState<LanguageType | null>(null)
   const [autoDetectLeft, setAutoDetectLeft] = useState(true)
   const [autoDetectRight, setAutoDetectRight] = useState(true)
+  const [leftTypeManuallySet, setLeftTypeManuallySet] = useState(false)
+  const [rightTypeManuallySet, setRightTypeManuallySet] = useState(false)
   const [lastOperation, setLastOperation] = useState<OperationType>(null)
   const [leftModalOpen, setLeftModalOpen] = useState(false)
   const [rightModalOpen, setRightModalOpen] = useState(false)
@@ -39,7 +41,8 @@ export function useMinification() {
     browserSupport: 'modern',
     preserveClassNames: false,
     preserveFunctionNames: false,
-    removeConsole: false
+    removeConsole: false,
+    removeDebugger: false
   })
   
   const [cssOptions, setCssOptions] = useState<CSSOptions>({
@@ -64,6 +67,7 @@ export function useMinification() {
     removeEmptyObjects: false,
     removeEmptyArrays: false,
     sortObjectKeys: false,
+    removeDuplicateKeys: false,
     validateBeforeMinify: true,
     fixCommonErrors: true
   })
@@ -87,7 +91,25 @@ export function useMinification() {
 
     try {
       let processed = ''
-      const type = leftType
+      let type = leftType
+      
+      // Auto-detect language if none selected
+      if (!type) {
+        type = detectCodeLanguage(sourceCode)
+        setLeftType(type)
+        setLeftTypeManuallySet(false)
+        const languageNames = {
+          'js': 'JavaScript',
+          'css': 'CSS',
+          'json': 'JSON',
+          'php': 'PHP Serialize'
+        }
+        toast.success(`Language auto-detected: ${languageNames[type]}`)
+      }
+      
+      if (!type) {
+        throw new Error('Unable to determine language type')
+      }
 
       if (type === 'js') {
         processed = await minifyJavaScript(sourceCode, jsOptions)
@@ -106,10 +128,11 @@ export function useMinification() {
       }
 
       setRightCode(processed)
-      setRightType(type) // Same type as input
+      // Set right type to match the detected/selected left type
+      setRightType(type)
       setStats({
-        original: sourceCode.length,
-        result: processed.length,
+        original: sourceCode.length, // Input: left code
+        result: processed.length,    // Output: right code (minified)
       })
       setLastOperation('minify')
 
@@ -135,13 +158,13 @@ export function useMinification() {
             } else {
               errorMessage = 'Invalid JSON syntax. Please check your JSON code and ensure it\'s properly formatted.'
             }
-          } else {
-            if (leftType === 'php') {
-              errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
             } else {
-              errorMessage = `Invalid ${leftType.toUpperCase()} code. Please ensure the code matches the selected type.`
+              if (leftType === 'php') {
+                errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+              } else {
+                errorMessage = `Invalid ${leftType?.toUpperCase() || 'unknown'} code. Please ensure the code matches the selected type.`
+              }
             }
-          }
         } else if (error.message.includes('CSS')) {
           errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
@@ -171,7 +194,25 @@ export function useMinification() {
 
     try {
       let processed = ''
-      const type = rightType
+      let type = rightType
+      
+      // Auto-detect language if none selected
+      if (!type) {
+        type = detectCodeLanguage(sourceCode)
+        setRightType(type)
+        setRightTypeManuallySet(false)
+        const languageNames = {
+          'js': 'JavaScript',
+          'css': 'CSS',
+          'json': 'JSON',
+          'php': 'PHP Serialize'
+        }
+        toast.success(`Language auto-detected: ${languageNames[type]}`)
+      }
+      
+      if (!type) {
+        throw new Error('Unable to determine language type')
+      }
 
       if (type === 'js') {
         processed = unminifyJS(sourceCode)
@@ -185,10 +226,11 @@ export function useMinification() {
       }
 
       setLeftCode(processed)
-      setLeftType(type) // Same type as input
+      // Set left type to match the detected/selected right type
+      setLeftType(type)
       setStats({
-        original: sourceCode.length,
-        result: processed.length,
+        original: sourceCode.length, // Input: right code
+        result: processed.length,    // Output: left code (unminified)
       })
       setLastOperation('unminify')
 
@@ -203,13 +245,13 @@ export function useMinification() {
         if (error.message.includes('JSON')) {
           if (rightType === 'json') {
             errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
-          } else {
-            if (rightType === 'php') {
-              errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
             } else {
-              errorMessage = `Invalid ${rightType.toUpperCase()} code. Please ensure the code matches the selected type.`
+              if (rightType === 'php') {
+                errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+              } else {
+                errorMessage = `Invalid ${rightType?.toUpperCase() || 'unknown'} code. Please ensure the code matches the selected type.`
+              }
             }
-          }
         } else if (error.message.includes('CSS')) {
           errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
@@ -232,9 +274,8 @@ export function useMinification() {
     const code = value || ''
     setLeftCode(code)
     
-    // Auto-detect language if enabled and code is not empty
-    // But don't override if user has manually selected PHP Serialize
-    if (autoDetectLeft && code.trim() && leftType !== 'php') {
+    // Always detect language when code changes (if not manually set)
+    if (code.trim() && !leftTypeManuallySet) {
       const detectedLanguage = detectCodeLanguage(code)
       if (detectedLanguage !== leftType) {
         setLeftType(detectedLanguage)
@@ -254,9 +295,8 @@ export function useMinification() {
     const code = value || ''
     setRightCode(code)
     
-    // Auto-detect language if enabled and code is not empty
-    // But don't override if user has manually selected PHP Serialize
-    if (autoDetectRight && code.trim() && rightType !== 'php') {
+    // Always detect language when code changes (if not manually set)
+    if (code.trim() && !rightTypeManuallySet) {
       const detectedLanguage = detectCodeLanguage(code)
       if (detectedLanguage !== rightType) {
         setRightType(detectedLanguage)
@@ -315,21 +355,31 @@ export function useMinification() {
   // Clear left editor only
   const handleClearLeft = () => {
     setLeftCode('')
-    if (lastOperation === 'unminify') {
-      setStats(null)
-      setLastOperation(null)
-    }
+    // Always clear stats when clearing an editor as they become invalid
+    setStats(null)
+    setLastOperation(null)
     toast.success('Left editor cleared!')
   }
 
   // Clear right editor only
   const handleClearRight = () => {
     setRightCode('')
-    if (lastOperation === 'minify') {
-      setStats(null)
-      setLastOperation(null)
-    }
+    // Always clear stats when clearing an editor as they become invalid
+    setStats(null)
+    setLastOperation(null)
     toast.success('Right editor cleared!')
+  }
+
+  // Handle manual left type change
+  const handleLeftTypeChange = (type: LanguageType) => {
+    setLeftType(type)
+    setLeftTypeManuallySet(true)
+  }
+
+  // Handle manual right type change
+  const handleRightTypeChange = (type: LanguageType) => {
+    setRightType(type)
+    setRightTypeManuallySet(true)
   }
 
   // Download right code as file
@@ -348,7 +398,7 @@ export function useMinification() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `fastminify-minified-${timestamp}.${extensions[rightType]}`
+    a.download = `fastminify-minified-${timestamp}.${rightType ? extensions[rightType] : 'txt'}`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -387,7 +437,7 @@ export function useMinification() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `fastminify-normal-${timestamp}.${extensions[leftType]}`
+    a.download = `fastminify-normal-${timestamp}.${leftType ? extensions[leftType] : 'txt'}`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -426,7 +476,7 @@ export function useMinification() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `fastminify-minified-${timestamp}.${extensions[rightType]}`
+    a.download = `fastminify-minified-${timestamp}.${rightType ? extensions[rightType] : 'txt'}`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -478,6 +528,10 @@ export function useMinification() {
     setCssOptions,
     setJsonOptions,
     setPhpOptions,
+    
+    // Manual type handlers
+    handleLeftTypeChange,
+    handleRightTypeChange,
     
     // Actions
     processMinify,

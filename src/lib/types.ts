@@ -33,6 +33,7 @@ export interface JSONOptions {
   removeEmptyObjects: boolean
   removeEmptyArrays: boolean
   sortObjectKeys: boolean
+  removeDuplicateKeys: boolean
   validateBeforeMinify: boolean
   fixCommonErrors: boolean
 }

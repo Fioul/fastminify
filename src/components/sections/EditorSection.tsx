@@ -13,8 +13,8 @@ interface EditorSectionProps {
   locale: string
   leftCode: string
   rightCode: string
-  leftType: 'js' | 'css' | 'json' | 'php'
-  rightType: 'js' | 'css' | 'json' | 'php'
+  leftType: 'js' | 'css' | 'json' | 'php' | null
+  rightType: 'js' | 'css' | 'json' | 'php' | null
   stats: { original: number; result: number } | null
   lastOperation: 'minify' | 'unminify' | null
   leftModalOpen: boolean
