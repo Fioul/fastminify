@@ -10,7 +10,27 @@
     "concat": "Concat files",
     "clear": "Clear all",
     "clearLeft": "Clear left",
-    "clearRight": "Clear right"
+    "clearRight": "Clear right",
+    "copy": "Copy",
+    "download": "Download",
+    "clearEditor": "Clear editor",
+    "closeModal": "Close modal",
+    "toggleTheme": "Toggle theme",
+    "selectLanguage": "Select language",
+    "noChange": "No change",
+    "saved": "Saved",
+    "added": "Added",
+    "minificationResult": "Minification Result",
+    "unminificationResult": "Unminification Result",
+    "minifyCode": "Minify code",
+    "unminifyCode": "Unminify code",
+    "copyCode": "Copy code",
+    "downloadCode": "Download code",
+    "openInModal": "Open in modal",
+    "copied": "Copied!",
+    "adSpace": "Ad Space",
+    "closeFloatingAd": "Close floating ad",
+    "selectFileType": "Select the type of files you want to concatenate"
   },
   "languages": {
     "javascript": "JavaScript",
@@ -236,19 +256,19 @@
       "seoImpact": {
         "title": "SEO Impact",
         "items": [
-          "Improves Google's Core Web Vitals",
-          "Reduces page loading times",
-          "Increases conversion rates",
-          "Improves mobile experience"
+          "Improves Google's <strong>Core Web Vitals</strong>",
+          "Reduces page <strong>loading times</strong>",
+          "Increases <strong>conversion rates</strong>",
+          "Improves <strong>mobile experience</strong>"
         ]
       },
       "technicalOptimizations": {
         "title": "Technical optimizations",
         "items": [
-          "Removes unnecessary spaces",
-          "Shortens variable names",
-          "Optimizes expressions",
-          "GZIP compression compatible"
+          "Removes <strong>unnecessary spaces</strong>",
+          "Shortens <strong>variable names</strong>",
+          "Optimizes <strong>expressions</strong>",
+          "<strong>GZIP</strong> compression compatible"
         ]
       }
     },

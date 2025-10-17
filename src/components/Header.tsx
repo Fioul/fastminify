@@ -73,7 +73,7 @@ export default function Header({ locale = 'en' }: HeaderProps) {
             size="icon"
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             className="w-10 h-10 cursor-pointer"
-            aria-label="Toggle theme"
+            aria-label={t('common.toggleTheme')}
           >
             {theme === 'light' ? (
               <Sun className="w-5 h-5" />

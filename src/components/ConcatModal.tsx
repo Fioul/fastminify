@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { TooltipInfo } from '@/components/TooltipInfo'
+import { useTranslations } from '@/hooks/useTranslations'
 import { 
   Select,
   SelectContent,
@@ -56,9 +57,11 @@ interface ConcatModalProps {
   isOpen: boolean
   onClose: () => void
   onResult: (result: string, type: 'js' | 'css') => void
+  locale: string
 }
 
-export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalProps) {
+export default function ConcatModal({ isOpen, onClose, onResult, locale }: ConcatModalProps) {
+  const { t } = useTranslations(locale)
   const [files, setFiles] = useState<FileItem[]>([])
   const [fileType, setFileType] = useState<'js' | 'css'>('js')
   const [addComments, setAddComments] = useState(true)
@@ -308,7 +311,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                 <SelectItem value="css">CSS</SelectItem>
               </SelectContent>
             </Select>
-            <TooltipInfo content="Select the type of files you want to concatenate" />
+            <TooltipInfo content={t('common.selectFileType')} />
           </div>
 
           {/* Drop Zone */}
@@ -471,7 +474,7 @@ export default function ConcatModal({ isOpen, onClose, onResult }: ConcatModalPr
                           className="flex items-center gap-2 cursor-pointer btn-outline-hover"
                         >
                           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                          {copied ? 'Copied!' : 'Copy'}
+                          {copied ? t('common.copied') : t('common.copy')}
                         </Button>
                         <Button
                           variant="outline"

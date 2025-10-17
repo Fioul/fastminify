@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button'
 interface AdPlaceholderProps {
   type: 'sidebar-left' | 'sidebar-right' | 'mobile-banner' | 'floating-banner'
   onClose?: () => void
+  t: (key: string) => string
 }
 
-export default function AdPlaceholder({ type, onClose }: AdPlaceholderProps) {
+export default function AdPlaceholder({ type, onClose, t }: AdPlaceholderProps) {
   const getAdConfig = () => {
     switch (type) {
       case 'sidebar-left':
@@ -15,28 +16,28 @@ export default function AdPlaceholder({ type, onClose }: AdPlaceholderProps) {
           className: 'hidden xl:block xl:col-span-2',
           containerClass: 'fixed top-28 left-12 z-30',
           size: 'w-[160px] h-[600px]',
-          label: 'Ad Space\n160x600'
+          label: `${t('common.adSpace')}\n160x600`
         }
       case 'sidebar-right':
         return {
           className: 'hidden xl:block xl:col-span-2',
           containerClass: 'fixed top-28 right-12 z-30',
           size: 'w-[160px] h-[600px]',
-          label: 'Ad Space\n160x600'
+          label: `${t('common.adSpace')}\n160x600`
         }
       case 'mobile-banner':
         return {
           className: 'mt-8 flex justify-center xl:hidden',
           containerClass: '',
           size: 'w-[320px] h-[50px]',
-          label: 'Ad Space\n320x50'
+          label: `${t('common.adSpace')}\n320x50`
         }
       case 'floating-banner':
         return {
           className: 'fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t shadow-lg hidden xl:block',
           containerClass: 'container max-w-[1440px] mx-auto px-4 py-3',
           size: 'w-[728px] h-[90px]',
-          label: 'Floating Ad Space\n728x90',
+          label: `Floating ${t('common.adSpace')}\n728x90`,
           showClose: true
         }
       default:
@@ -44,7 +45,7 @@ export default function AdPlaceholder({ type, onClose }: AdPlaceholderProps) {
           className: '',
           containerClass: '',
           size: 'w-[160px] h-[600px]',
-          label: 'Ad Space'
+          label: t('common.adSpace')
         }
     }
   }
@@ -71,7 +72,7 @@ export default function AdPlaceholder({ type, onClose }: AdPlaceholderProps) {
                 size="sm"
                 onClick={onClose}
                 className="ml-4 text-muted-foreground hover:text-foreground"
-                aria-label="Close floating ad"
+                aria-label={t('common.closeFloatingAd')}
               >
                 ✕
               </Button>

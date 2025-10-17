@@ -7,7 +7,7 @@ interface ContentSectionsProps {
 }
 
 export default function ContentSections({ locale }: ContentSectionsProps) {
-  const { t } = useTranslations(locale)
+  const { t, tArray } = useTranslations(locale)
 
   return (
     <div className="max-w-4xl mx-auto mt-24 space-y-16">
@@ -240,22 +240,12 @@ function init() {
               {t('content.seoOptimization.seoImpact.title')}
             </h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Improves Google's <strong>Core Web Vitals</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Reduces page <strong>loading times</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Increases <strong>conversion rates</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Improves <strong>mobile experience</strong></span>
-              </li>
+              {tArray('content.seoOptimization.seoImpact.items').map((item: string, index: number) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
+                </li>
+              ))}
             </ul>
           </div>
           
@@ -264,22 +254,12 @@ function init() {
               {t('content.seoOptimization.technicalOptimizations.title')}
             </h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Removes <strong>unnecessary spaces</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Shortens <strong>variable names</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>Optimizes <strong>expressions</strong></span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span><strong>GZIP</strong> compression compatible</span>
-              </li>
+              {tArray('content.seoOptimization.technicalOptimizations.items').map((item: string, index: number) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
+                </li>
+              ))}
             </ul>
           </div>
         </div>

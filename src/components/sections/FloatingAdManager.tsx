@@ -3,7 +3,11 @@
 import { useState } from 'react'
 import AdPlaceholder from './AdPlaceholder'
 
-export default function FloatingAdManager() {
+interface FloatingAdManagerProps {
+  t: (key: string) => string
+}
+
+export default function FloatingAdManager({ t }: FloatingAdManagerProps) {
   const [isFloatingAdVisible, setIsFloatingAdVisible] = useState(true)
 
   const handleCloseFloatingAd = () => {
@@ -18,6 +22,7 @@ export default function FloatingAdManager() {
     <AdPlaceholder 
       type="floating-banner" 
       onClose={handleCloseFloatingAd}
+      t={t}
     />
   )
 }

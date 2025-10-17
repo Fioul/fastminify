@@ -148,6 +148,7 @@ export default function Page({ params }: PageProps) {
                         setRightType(type)
                         setConcatModalOpen(false)
                     }}
+                    locale={locale}
                 />
             </div>
         </div>

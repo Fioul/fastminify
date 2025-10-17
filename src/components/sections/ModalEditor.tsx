@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import CodeEditor from '@/components/CodeEditor'
 import { Copy, Download, X, Eraser } from 'lucide-react'
+import { useTranslations } from '@/hooks/useTranslations'
 
 interface ModalEditorProps {
   isOpen: boolean
@@ -16,6 +17,7 @@ interface ModalEditorProps {
   onCopy: () => void
   onDownload: () => void
   onClear: () => void
+  locale: string
 }
 
 export default function ModalEditor({
@@ -29,7 +31,9 @@ export default function ModalEditor({
   onCopy,
   onDownload,
   onClear,
+  locale,
 }: ModalEditorProps) {
+  const { t } = useTranslations(locale)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
@@ -47,10 +51,10 @@ export default function ModalEditor({
                 onClick={onCopy}
                 disabled={!code.trim()}
                 className="h-8 px-3"
-                title="Copy code"
+                title={t('common.copyCode')}
               >
                 <Copy className="h-4 w-4 mr-2" />
-                Copy
+                {t('common.copy')}
               </Button>
               <Button
                 variant="ghost"
@@ -58,10 +62,10 @@ export default function ModalEditor({
                 onClick={onDownload}
                 disabled={!code.trim()}
                 className="h-8 px-3"
-                title="Download code"
+                title={t('common.downloadCode')}
               >
                 <Download className="h-4 w-4 mr-2" />
-                Download
+                {t('common.download')}
               </Button>
               <Button
                 variant="ghost"
@@ -69,17 +73,17 @@ export default function ModalEditor({
                 onClick={onClear}
                 disabled={!code.trim()}
                 className="h-8 px-3"
-                title="Clear editor"
+                title={t('common.clearEditor')}
               >
                 <Eraser className="h-4 w-4 mr-2" />
-                Clear
+                {t('common.clear')}
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
                 className="h-8 w-8 p-0"
-                title="Close modal"
+                title={t('common.closeModal')}
               >
                 <X className="h-4 w-4" />
               </Button>

@@ -91,7 +91,7 @@ export default function EditorSection({
     if (stats.result > stats.original) {
       return `Expanded: ${((stats.result / stats.original - 1) * 100).toFixed(1)}%`
     }
-    return 'No change'
+    return t('common.noChange')
   }
 
   const getCompressionColor = () => {
@@ -105,11 +105,11 @@ export default function EditorSection({
     if (!stats) return ''
     if (stats.result < stats.original) {
       const saved = stats.original - stats.result
-      return `Saved: ${formatFileSize(saved)}`
+      return `${t('common.saved')}: ${formatFileSize(saved)}`
     }
     if (stats.result > stats.original) {
       const added = stats.result - stats.original
-      return `Added: ${formatFileSize(added)}`
+      return `${t('common.added')}: ${formatFileSize(added)}`
     }
     return ''
   }
@@ -123,7 +123,7 @@ export default function EditorSection({
           <div className="space-y-4">
             <div className="text-center">
               <h3 className="font-semibold text-sm mb-2">
-                {operation === 'minify' ? 'Minification Result' : 'Unminification Result'}
+                {operation === 'minify' ? t('common.minificationResult') : t('common.unminificationResult')}
               </h3>
             </div>
             <div className="grid grid-cols-2 gap-4 text-sm">
@@ -174,7 +174,7 @@ export default function EditorSection({
                 onClick={onMinify}
                 disabled={isLoading || !leftCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
-                title="Minify code"
+                title={t('common.minifyCode')}
               >
                 <Play className="h-3 w-3 mr-1" />
                 {t('common.minify')}
@@ -185,7 +185,7 @@ export default function EditorSection({
                 onClick={onLeftCopy}
                 disabled={!leftCode.trim()}
                 className="h-8 w-8 p-0"
-                title="Copy code"
+                title={t('common.copyCode')}
               >
                 <Copy className="h-4 w-4" />
               </Button>
@@ -195,7 +195,7 @@ export default function EditorSection({
                 onClick={onLeftDownload}
                 disabled={!leftCode.trim()}
                 className="h-8 w-8 p-0"
-                title="Download code"
+                title={t('common.downloadCode')}
               >
                 <Download className="h-4 w-4" />
               </Button>
@@ -214,7 +214,7 @@ export default function EditorSection({
                 size="sm"
                 onClick={onLeftModalOpen}
                 className="h-8 w-8 p-0"
-                title="Open in modal"
+                title={t('common.openInModal')}
               >
                 <Maximize2 className="h-4 w-4" />
               </Button>
@@ -244,7 +244,7 @@ export default function EditorSection({
                 size="sm"
                 onClick={onRightModalOpen}
                 className="h-8 w-8 p-0"
-                title="Open in modal"
+                title={t('common.openInModal')}
               >
                 <Maximize2 className="h-4 w-4" />
               </Button>
@@ -264,7 +264,7 @@ export default function EditorSection({
                 onClick={onRightDownload}
                 disabled={!rightCode.trim()}
                 className="h-8 w-8 p-0"
-                title="Download code"
+                title={t('common.downloadCode')}
               >
                 <Download className="h-4 w-4" />
               </Button>
@@ -274,7 +274,7 @@ export default function EditorSection({
                 onClick={onRightCopy}
                 disabled={!rightCode.trim()}
                 className="h-8 w-8 p-0"
-                title="Copy code"
+                title={t('common.copyCode')}
               >
                 <Copy className="h-4 w-4" />
               </Button>
@@ -284,7 +284,7 @@ export default function EditorSection({
                 onClick={onUnminify}
                 disabled={isLoading || !rightCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
-                title="Unminify code"
+                title={t('common.unminifyCode')}
               >
                 <Undo2 className="h-3 w-3 mr-1" />
                 {t('common.unminify')}
@@ -320,6 +320,7 @@ export default function EditorSection({
         onCopy={onLeftCopy}
         onDownload={onLeftDownload}
         onClear={onClearLeft}
+        locale={locale}
       />
 
       <ModalEditor
@@ -335,6 +336,7 @@ export default function EditorSection({
         onCopy={onRightCopy}
         onDownload={onRightDownload}
         onClear={onClearRight}
+        locale={locale}
       />
     </div>
   )

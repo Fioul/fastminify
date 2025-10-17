@@ -10,7 +10,27 @@
     "concat": "Concaténation de fichiers",
     "clear": "Effacer tout",
     "clearLeft": "Effacer gauche",
-    "clearRight": "Effacer droite"
+    "clearRight": "Effacer droite",
+    "copy": "Copier",
+    "download": "Télécharger",
+    "clearEditor": "Effacer l'éditeur",
+    "closeModal": "Fermer la modal",
+    "toggleTheme": "Basculer le thème",
+    "selectLanguage": "Sélectionner le langage",
+    "noChange": "Aucun changement",
+    "saved": "Économisé",
+    "added": "Ajouté",
+    "minificationResult": "Résultat de minification",
+    "unminificationResult": "Résultat de déminification",
+    "minifyCode": "Minifier le code",
+    "unminifyCode": "Déminifier le code",
+    "copyCode": "Copier le code",
+    "downloadCode": "Télécharger le code",
+    "openInModal": "Ouvrir dans une modal",
+    "copied": "Copié !",
+    "adSpace": "Espace publicitaire",
+    "closeFloatingAd": "Fermer la publicité flottante",
+    "selectFileType": "Sélectionnez le type de fichiers que vous souhaitez concaténer"
   },
   "languages": {
     "javascript": "JavaScript",
@@ -281,19 +301,19 @@
       "seoImpact": {
         "title": "Impact SEO",
         "items": [
-          "Améliore les Core Web Vitals de Google",
-          "Réduit les temps de chargement des pages",
-          "Augmente les taux de conversion",
-          "Améliore l'expérience mobile"
+          "Améliore les <strong>Core Web Vitals</strong> de Google",
+          "Réduit les temps de <strong>chargement des pages</strong>",
+          "Augmente les <strong>taux de conversion</strong>",
+          "Améliore l'<strong>expérience mobile</strong>"
         ]
       },
       "technicalOptimizations": {
         "title": "Optimisations techniques",
         "items": [
-          "Supprime les espaces inutiles",
-          "Raccourcit les noms de variables",
-          "Optimise les expressions",
-          "Compatible avec la compression GZIP"
+          "Supprime les <strong>espaces inutiles</strong>",
+          "Raccourcit les <strong>noms de variables</strong>",
+          "Optimise les <strong>expressions</strong>",
+          "Compatible avec la compression <strong>GZIP</strong>"
         ]
       }
     },
