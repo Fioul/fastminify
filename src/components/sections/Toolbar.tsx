@@ -80,7 +80,7 @@ export default function Toolbar({
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
               <Label className="text-sm font-medium">ECMAScript</Label>
-              <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers)." />
+              <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers). Overrides Browser Support setting." />
               <Select
                 value={jsOptions.ecmaVersion}
                 onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
@@ -122,7 +122,7 @@ export default function Toolbar({
             
             <div className="flex items-center gap-2">
               <Label className="text-sm font-medium">Browser</Label>
-              <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers." />
+              <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers. Can be overridden by ECMAScript setting." />
               <Select
                 value={jsOptions.browserSupport}
                 onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
@@ -180,7 +180,19 @@ export default function Toolbar({
                   }
                 />
                 <Label htmlFor="remove-console" className="text-xs">Remove console</Label>
-                <TooltipInfo content="Removes all console.log(), console.warn(), etc. calls from the final code." />
+                <TooltipInfo content="Removes all console.log(), console.warn(), etc. calls from the final code. Works in all compression modes." />
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="remove-debugger"
+                  checked={jsOptions.removeDebugger}
+                  onCheckedChange={(checked) => 
+                    onJsOptionsChange({ ...jsOptions, removeDebugger: checked })
+                  }
+                />
+                <Label htmlFor="remove-debugger" className="text-xs">Remove debugger</Label>
+                <TooltipInfo content="Removes all debugger statements from the final code. Works in all compression modes." />
               </div>
             </div>
           </div>

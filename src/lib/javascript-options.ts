@@ -31,7 +31,6 @@ export const ecmaVersionMap = {
 export const compressionLevelMap = {
   'conservative': {
     compress: {
-      drop_console: false,
       drop_debugger: true,
       unsafe: false,
       passes: 1
@@ -40,7 +39,6 @@ export const compressionLevelMap = {
   },
   'normal': {
     compress: {
-      drop_console: false,
       drop_debugger: true,
       unsafe: false,
       passes: 2
@@ -53,7 +51,6 @@ export const compressionLevelMap = {
   },
   'aggressive': {
     compress: {
-      drop_console: true,
       drop_debugger: true,
       unsafe: true,
       passes: 3,
@@ -104,8 +101,8 @@ export async function minifyJavaScript(
       ...browserConfig,
       compress: {
         ...compressionConfig.compress,
-        drop_console: options.removeConsole || compressionConfig.compress.drop_console,
-        drop_debugger: options.removeDebugger || compressionConfig.compress.drop_debugger
+        drop_console: options.removeConsole,
+        drop_debugger: options.removeDebugger
       },
       mangle: options.compressionLevel === 'conservative' ? 
         (options.preserveClassNames || options.preserveFunctionNames ? {
