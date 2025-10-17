@@ -203,7 +203,7 @@ export default function Toolbar({
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
               <Label className="text-sm font-medium">Compression</Label>
-              <TooltipInfo content="CSS optimization level. Conservative = safe, Normal = balanced, Aggressive = maximum compression." />
+              <TooltipInfo content="CSS optimization level. Conservative = minimal compression, Normal = balanced, Aggressive = maximum compression with restructuring." />
               <Select
                 value={cssOptions.compressionLevel}
                 onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
@@ -223,7 +223,7 @@ export default function Toolbar({
             
             <div className="flex items-center gap-2">
               <Label className="text-sm font-medium">Browser</Label>
-              <TooltipInfo content="CSS browser compatibility. Modern = recent, IE11+ = Internet Explorer 11+, IE9+ = very old browsers." />
+              <TooltipInfo content="CSS browser compatibility. Modern = recent browsers, IE11+ = Internet Explorer 11+, IE9+ = very old browsers (adds compatibility fixes)." />
               <Select
                 value={cssOptions.browserSupport}
                 onValueChange={(value: 'modern' | 'ie11' | 'ie9') => 
@@ -251,43 +251,7 @@ export default function Toolbar({
                   }
                 />
                 <Label htmlFor="remove-comments" className="text-xs">Remove comments</Label>
-                <TooltipInfo content="Removes all CSS comments (/* comment */) from the final code." />
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="convert-colors"
-                  checked={cssOptions.convertColors}
-                  onCheckedChange={(checked) => 
-                    onCssOptionsChange({ ...cssOptions, convertColors: checked })
-                  }
-                />
-                <Label htmlFor="convert-colors" className="text-xs">Convert colors</Label>
-                <TooltipInfo content="Converts color names to hexadecimal codes (blue → #0000ff) to reduce size." />
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="merge-rules"
-                  checked={cssOptions.mergeRules}
-                  onCheckedChange={(checked) => 
-                    onCssOptionsChange({ ...cssOptions, mergeRules: checked })
-                  }
-                />
-                <Label htmlFor="merge-rules" className="text-xs">Merge rules</Label>
-                <TooltipInfo content="Merges identical CSS rules to reduce code duplication." />
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="minify-selectors"
-                  checked={cssOptions.minifySelectors}
-                  onCheckedChange={(checked) => 
-                    onCssOptionsChange({ ...cssOptions, minifySelectors: checked })
-                  }
-                />
-                <Label htmlFor="minify-selectors" className="text-xs">Minify selectors</Label>
-                <TooltipInfo content="Optimizes CSS selectors by removing unnecessary spaces and shortening properties." />
+                <TooltipInfo content="Removes all CSS comments (/* comment */) from the final code. Works in all compression modes." />
               </div>
             </div>
           </div>

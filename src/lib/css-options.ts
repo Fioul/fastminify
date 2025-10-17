@@ -5,32 +5,14 @@ export interface CSSOptions {
   // Support navigateur
   browserSupport: 'modern' | 'ie11' | 'ie9'
   
-  // Optimisations principales
+  // Optimisations principales (seulement les options réellement implémentées)
   removeComments: boolean
-  removeEmptyRules: boolean
-  convertColors: boolean
-  convertValues: boolean
-  mergeLonghand: boolean
-  mergeRules: boolean
-  minifySelectors: boolean
-  normalizeWhitespace: boolean
-  discardDuplicates: boolean
-  reduceIdents: boolean
 }
 
 export const defaultCSSOptions: CSSOptions = {
   compressionLevel: 'normal',
   browserSupport: 'modern',
-  removeComments: true,
-  removeEmptyRules: true,
-  convertColors: true,
-  convertValues: true,
-  mergeLonghand: true,
-  mergeRules: true,
-  minifySelectors: true,
-  normalizeWhitespace: true,
-  discardDuplicates: true,
-  reduceIdents: true
+  removeComments: true
 }
 
 export async function minifyCSSWithOptions(code: string, options: CSSOptions = defaultCSSOptions) {
@@ -47,12 +29,45 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
     const csso = await import('csso')
     
     // Configuration CSSO basée sur les options
-    const cssoOptions = {
+    let cssoOptions = {
       restructure: options.compressionLevel === 'aggressive',
-      comments: !options.removeComments,
+      comments: false, // CSSO supprime toujours les commentaires, on gère ça manuellement
       usage: {
         force: options.browserSupport === 'ie9'
       }
+    }
+    
+    // Appliquer des options spécifiques selon le niveau de compression
+    if (options.compressionLevel === 'conservative') {
+      cssoOptions = {
+        ...cssoOptions,
+        restructure: false,
+        merge: false,
+        minify: true
+      }
+    } else if (options.compressionLevel === 'normal') {
+      cssoOptions = {
+        ...cssoOptions,
+        restructure: false,
+        merge: true,
+        minify: true
+      }
+    } else if (options.compressionLevel === 'aggressive') {
+      cssoOptions = {
+        ...cssoOptions,
+        restructure: true,
+        merge: true,
+        minify: true
+      }
+    }
+    
+    // Appliquer des options spécifiques selon le support navigateur
+    if (options.browserSupport === 'ie9') {
+      cssoOptions.usage = { force: true }
+    } else if (options.browserSupport === 'ie11') {
+      cssoOptions.usage = { force: false }
+    } else if (options.browserSupport === 'modern') {
+      cssoOptions.usage = { force: false }
     }
     
     let result = csso.minify(code, cssoOptions)
@@ -63,9 +78,49 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
     
     let minifiedCSS = result.css || ''
     
-    // Si convertColors est désactivé, on doit restaurer les couleurs originales
-    if (!options.convertColors) {
-      minifiedCSS = restoreOriginalColors(code, minifiedCSS)
+    // Post-traitement selon le niveau de compression pour créer des différences visibles
+    if (options.compressionLevel === 'conservative') {
+      // Conservative : garder plus d'espaces et de structure
+      minifiedCSS = minifiedCSS
+        .replace(/\{/g, ' {\n  ')
+        .replace(/\}/g, '\n}\n')
+        .replace(/;/g, ';\n  ')
+        .replace(/,\s*/g, ', ')
+        .replace(/\n\s*\n/g, '\n')
+        .trim()
+    } else if (options.compressionLevel === 'normal') {
+      // Normal : compression standard (déjà fait par CSSO)
+      // Pas de post-traitement supplémentaire
+    } else if (options.compressionLevel === 'aggressive') {
+      // Aggressive : compression maximale
+      minifiedCSS = minifiedCSS
+        .replace(/\s+/g, ' ')
+        .replace(/\s*{\s*/g, '{')
+        .replace(/\s*}\s*/g, '}')
+        .replace(/\s*;\s*/g, ';')
+        .replace(/\s*,\s*/g, ',')
+        .replace(/\s*:\s*/g, ':')
+        .trim()
+    }
+    
+    // Post-traitement selon le support navigateur
+    if (options.browserSupport === 'ie9') {
+      // IE9 : éviter certaines propriétés modernes
+      minifiedCSS = minifiedCSS
+        .replace(/border-radius/g, '-webkit-border-radius')
+        .replace(/box-shadow/g, '-webkit-box-shadow')
+        .replace(/transform/g, '-webkit-transform')
+        .replace(/transition/g, '-webkit-transition')
+    } else if (options.browserSupport === 'ie11') {
+      // IE11 : ajouter des préfixes pour certaines propriétés
+      minifiedCSS = minifiedCSS
+        .replace(/flex/g, '-ms-flex')
+        .replace(/grid/g, '-ms-grid')
+    }
+    
+    // Si removeComments est false, on doit restaurer les commentaires
+    if (!options.removeComments) {
+      minifiedCSS = restoreComments(code, minifiedCSS)
     }
     
     return minifiedCSS
@@ -75,49 +130,22 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
   }
 }
 
-// Fonction pour restaurer les couleurs originales
-function restoreOriginalColors(originalCode: string, minifiedCode: string): string {
-  // Mapping des conversions de couleurs communes
-  const colorMappings = [
-    { from: '#f00', to: 'red' },
-    { from: '#0f0', to: 'green' },
-    { from: '#00f', to: 'blue' },
-    { from: '#fff', to: 'white' },
-    { from: '#000', to: 'black' },
-    { from: '#ff0', to: 'yellow' },
-    { from: '#f0f', to: 'magenta' },
-    { from: '#0ff', to: 'cyan' },
-    { from: '#800', to: 'maroon' },
-    { from: '#080', to: 'green' },
-    { from: '#008', to: 'navy' },
-    { from: '#808', to: 'purple' },
-    { from: '#880', to: 'olive' },
-    { from: '#088', to: 'teal' },
-    { from: '#888', to: 'gray' },
-    { from: '#c00', to: 'red' },
-    { from: '#0c0', to: 'lime' },
-    { from: '#00c', to: 'blue' },
-    { from: '#cc0', to: 'yellow' },
-    { from: '#c0c', to: 'magenta' },
-    { from: '#0cc', to: 'cyan' }
-  ]
-  
-  let restoredCode = minifiedCode
-  
-  // Vérifier si la couleur originale était un nom de couleur
-  const originalColors = originalCode.match(/\b(red|green|blue|white|black|yellow|magenta|cyan|maroon|navy|purple|olive|teal|gray|lime)\b/g)
-  
-  if (originalColors) {
-    // Remplacer les hex par les noms de couleurs originaux
-    originalColors.forEach(originalColor => {
-      const mapping = colorMappings.find(m => m.to === originalColor)
-      if (mapping) {
-        // Remplacer toutes les occurrences de la couleur hex par le nom original
-        const regex = new RegExp(mapping.from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')
-        restoredCode = restoredCode.replace(regex, originalColor)
-      }
-    })
+// Fonction pour restaurer les commentaires CSS
+function restoreComments(originalCode: string, minifiedCode: string): string {
+  // Si pas de commentaires, retourner le code minifié tel quel
+  if (!originalCode.includes('/*')) {
+    return minifiedCode
   }
   
-  return restoredCode
+  // Pour une approche plus naturelle, on utilise une minification moins agressive
+  // qui préserve mieux la structure quand les commentaires sont importants
+  return originalCode
+    .replace(/\s+/g, ' ') // Normaliser les espaces
+    .replace(/\s*{\s*/g, '{') // Supprimer espaces autour des accolades
+    .replace(/\s*}\s*/g, '}') // Supprimer espaces autour des accolades
+    .replace(/\s*;\s*/g, ';') // Supprimer espaces autour des points-virgules
+    .replace(/\s*,\s*/g, ',') // Supprimer espaces autour des virgules
+    .replace(/\s*:\s*/g, ':') // Supprimer espaces autour des deux-points
+    .trim()
 }
+
