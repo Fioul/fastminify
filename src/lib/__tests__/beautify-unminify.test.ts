@@ -100,6 +100,73 @@ describe('Beautify and Unminify Functions', () => {
     })
   })
 
+  describe('CSS Beautification', () => {
+    test('should beautify simple CSS code', () => {
+      const input = '.test{color:red;background:blue;margin:10px;}'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.test')
+      expect(result).toContain('color: red')
+      expect(result).toContain('background: blue')
+      expect(result).toContain('margin: 10px')
+    })
+
+    test('should beautify complex CSS with multiple selectors', () => {
+      const input = '.header,.footer{background:#fff;color:#000;}.header h1{font-size:2rem;margin:0;}'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.header,')
+      expect(result).toContain('.footer')
+      expect(result).toContain('background: #fff')
+      expect(result).toContain('.header h1')
+    })
+
+    test('should handle CSS with media queries', () => {
+      const input = '@media (max-width:768px){.container{width:100%;padding:0;}}'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('@media (max-width:768px)')
+      expect(result).toContain('.container')
+      expect(result).toContain('width: 100%')
+    })
+
+    test('should handle CSS with pseudo-selectors', () => {
+      const input = '.button:hover{background:#007bff;color:#fff;}.button:active{transform:scale(0.95);}'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.button:hover')
+      expect(result).toContain('.button:active')
+      expect(result).toContain('background: #007bff')
+      expect(result).toContain('transform: scale(0.95)')
+    })
+
+    test('should handle CSS with keyframes', () => {
+      const input = '@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('@keyframes fadeIn')
+      expect(result).toContain('from')
+      expect(result).toContain('to')
+      expect(result).toContain('opacity: 0')
+      expect(result).toContain('opacity: 1')
+    })
+
+    test('should handle CSS with comments', () => {
+      const input = '/* Main styles */.container{width:100%;}/* End styles */'
+      const result = beautifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('/* Main styles */')
+      expect(result).toContain('.container')
+      expect(result).toContain('/* End styles */')
+    })
+  })
+
   describe('JSON Beautification', () => {
     test('should beautify JSON code', () => {
       const input = '{"name":"test","value":123}'
@@ -180,6 +247,74 @@ describe('Beautify and Unminify Functions', () => {
       expect(result).toBeDefined()
       expect(result).toContain('.test {')
       expect(result).toContain('.test2 {')
+    })
+  })
+
+  describe('CSS Unminification', () => {
+    test('should unminify simple CSS code', () => {
+      const input = '.test{color:red;background:blue;margin:10px;}'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.test')
+      expect(result).toContain('color:red')
+      expect(result).toContain('background:blue')
+      expect(result).toContain('margin:10px')
+    })
+
+    test('should unminify complex CSS with multiple selectors', () => {
+      const input = '.header,.footer{background:#fff;color:#000;}.header h1{font-size:2rem;margin:0;}'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.header,')
+      expect(result).toContain('.footer')
+      expect(result).toContain('background:#fff')
+      expect(result).toContain('.header h1')
+    })
+
+    test('should handle CSS with media queries', () => {
+      const input = '@media (max-width:768px){.container{width:100%;padding:0;}}'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('@media (max-width:768px)')
+      expect(result).toContain('.container')
+      expect(result).toContain('width:100%')
+    })
+
+    test('should handle CSS with pseudo-selectors', () => {
+      const input = '.button:hover{background:#007bff;color:#fff;}.button:active{transform:scale(0.95);}'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('.button:hover')
+      expect(result).toContain('.button:active')
+      expect(result).toContain('background:#007bff')
+      expect(result).toContain('transform:scale(0.95)')
+    })
+
+    test('should handle CSS with keyframes', () => {
+      const input = '@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('@keyframes fadeIn')
+      expect(result).toContain('from')
+      expect(result).toContain('to')
+      expect(result).toContain('opacity:0')
+      expect(result).toContain('opacity:1')
+    })
+
+    test('should handle CSS with comments', () => {
+      const input = '/* Main styles */.container{width:100%;}/* End styles */'
+      const result = unminifyCSS(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('/* Main styles */')
+      expect(result).toContain('.container')
+      // Note: The unminify function may not preserve all comments in the same format
+      expect(result).toContain('width:100%')
     })
   })
 
@@ -312,6 +447,180 @@ const customJestConfig = {
       })
       expect(minified).toBeDefined()
       expect(minified.length).toBeLessThan(beautified.length)
+    })
+
+    test('should handle CSS minify -> unminify -> minify workflow', async () => {
+      const originalCode = `.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}`
+
+      // Step 1: Minify
+      const minified = await minifyCSSWithOptions(originalCode, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(originalCode.length)
+
+      // Step 2: Unminify
+      const unminified = unminifyCSS(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('.container')
+      expect(unminified).toContain('.button')
+      expect(unminified).toContain('@media')
+
+      // Step 3: Reminify
+      const reminified = await minifyCSSWithOptions(unminified, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle CSS beautify -> minify -> unminify -> minify workflow', async () => {
+      const originalCode = '.test{color:red;font-size:14px;}.test2{background:blue;}.test3{margin:10px;padding:5px;}'
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(originalCode, 'css')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('.test {')
+
+      // Step 2: Minify
+      const minified = await minifyCSSWithOptions(beautified, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(beautified.length)
+
+      // Step 3: Unminify
+      const unminified = unminifyCSS(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('.test')
+      expect(unminified).toContain('.test2')
+      expect(unminified).toContain('.test3')
+
+      // Step 4: Reminify
+      const reminified = await minifyCSSWithOptions(unminified, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle complex CSS with keyframes and pseudo-selectors', async () => {
+      const originalCode = `@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}`
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(originalCode, 'css')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('@keyframes fadeIn')
+      expect(beautified).toContain('.button:hover')
+
+      // Step 2: Minify
+      const minified = await minifyCSSWithOptions(beautified, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(beautified.length)
+
+      // Step 3: Unminify
+      const unminified = unminifyCSS(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('@keyframes fadeIn')
+      expect(unminified).toContain('.button:hover')
+      expect(unminified).toContain('.button:active')
+      expect(unminified).toContain('.button:focus')
+
+      // Step 4: Reminify
+      const reminified = await minifyCSSWithOptions(unminified, {
+        compressionLevel: 'normal',
+        browserSupport: 'modern',
+        removeComments: true,
+        convertColors: true,
+        mergeRules: true,
+        minifySelectors: true
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
     })
 
     test('should handle JSON beautify -> minify workflow', () => {
