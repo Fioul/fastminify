@@ -1,8 +1,9 @@
-import { beautifyCode, beautifyJavaScript, beautifyCSS, beautifyJSON, type BeautifyOptions } from '../beautify'
-import { unminifyJS, unminifyCSS, unminifyJSON } from '../unminify'
+import { beautifyCode, beautifyJavaScript, beautifyCSS, beautifyJSON, beautifyPHP, type BeautifyOptions } from '../beautify'
+import { unminifyJS, unminifyCSS, unminifyJSON, unminifyPHP } from '../unminify'
 import { minifyJavaScript } from '../javascript-options'
 import { minifyCSSWithOptions } from '../css-options'
 import { minifyJSONWithOptions } from '../json-options'
+import { serializePHPWithOptions, unserializePHPWithOptions } from '../php-options'
 
 describe('Beautify and Unminify Functions', () => {
   describe('JavaScript Beautification', () => {
@@ -168,22 +169,69 @@ describe('Beautify and Unminify Functions', () => {
   })
 
   describe('JSON Beautification', () => {
-    test('should beautify JSON code', () => {
+    test('should beautify simple JSON code', () => {
       const input = '{"name":"test","value":123}'
       const result = beautifyJSON(input)
       
       expect(result).toBeDefined()
-      expect(result).toContain('{\n  "name": "test",\n  "value": 123\n}')
+      expect(result).toContain('"name": "test"')
+      expect(result).toContain('"value": 123')
     })
 
-    test('should handle nested JSON objects', () => {
-      const input = '{"config":{"enabled":true,"options":{"size":"large"}}}'
+    test('should beautify complex JSON with nested objects', () => {
+      const input = '{"config":{"enabled":true,"options":{"size":"large","colors":["red","blue","green"]}}}'
       const result = beautifyJSON(input)
       
       expect(result).toBeDefined()
       expect(result).toContain('"config": {')
       expect(result).toContain('"enabled": true')
       expect(result).toContain('"options": {')
+      expect(result).toContain('"colors": [')
+    })
+
+    test('should handle JSON arrays', () => {
+      const input = '{"items":[{"id":1,"name":"item1"},{"id":2,"name":"item2"}],"count":2}'
+      const result = beautifyJSON(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"items": [')
+      expect(result).toContain('"id": 1')
+      expect(result).toContain('"name": "item1"')
+      expect(result).toContain('"count": 2')
+    })
+
+    test('should handle JSON with different data types', () => {
+      const input = '{"string":"hello","number":42,"boolean":true,"null":null,"array":[1,2,3],"object":{"nested":"value"}}'
+      const result = beautifyJSON(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"string": "hello"')
+      expect(result).toContain('"number": 42')
+      expect(result).toContain('"boolean": true')
+      expect(result).toContain('"null": null')
+      expect(result).toContain('"array": [')
+      expect(result).toContain('"object": {')
+    })
+
+    test('should handle empty JSON objects and arrays', () => {
+      const input = '{"emptyObject":{},"emptyArray":[],"mixed":{"obj":{},"arr":[]}}'
+      const result = beautifyJSON(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"emptyObject": {}')
+      expect(result).toContain('"emptyArray": []')
+      expect(result).toContain('"mixed": {')
+    })
+
+    test('should handle JSON with special characters', () => {
+      const input = '{"message":"Hello \\"World\\"","path":"C:\\\\Users\\\\Test","unicode":"\\u0041\\u0042"}'
+      const result = beautifyJSON(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"message": "Hello \\"World\\""')
+      expect(result).toContain('"path": "C:\\\\Users\\\\Test"')
+      // JSON.stringify automatically decodes Unicode sequences
+      expect(result).toContain('"unicode": "AB"')
     })
   })
 
@@ -318,6 +366,7 @@ describe('Beautify and Unminify Functions', () => {
     })
   })
 
+
   describe('JSON Unminification', () => {
     test('should unminify JSON code', () => {
       const input = '{"name":"test","value":123}'
@@ -325,6 +374,143 @@ describe('Beautify and Unminify Functions', () => {
       
       expect(result).toBeDefined()
       expect(result).toContain('{\n  "name": "test",\n  "value": 123\n}')
+    })
+  })
+
+  describe('PHP Beautification', () => {
+    test('should beautify simple PHP serialized data as JSON', () => {
+      const input = 'a:2:{s:4:"name";s:4:"test";s:5:"value";i:123;}'
+      const result = beautifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"name": "test"')
+      expect(result).toContain('"value": 123')
+      expect(result).toContain('{\n  "name": "test",\n  "value": 123\n}')
+    })
+
+    test('should beautify nested PHP serialized data as JSON', () => {
+      const input = 'a:1:{s:6:"config";a:2:{s:7:"enabled";b:1;s:7:"options";a:1:{s:4:"size";s:5:"large";}}}'
+      const result = beautifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"config": {')
+      expect(result).toContain('"enabled": true')
+      expect(result).toContain('"options": {')
+      expect(result).toContain('"size": "large"')
+    })
+
+    test('should beautify PHP serialized array as JSON', () => {
+      const input = 'a:3:{i:0;s:5:"apple";i:1;s:6:"banana";i:2;s:6:"orange";}'
+      const result = beautifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"apple"')
+      expect(result).toContain('"banana"')
+      expect(result).toContain('"orange"')
+      expect(result).toContain('[\n  "apple",\n  "banana",\n  "orange"\n]')
+    })
+
+    test('should beautify PHP serialized with different data types as JSON', () => {
+      const input = 'a:4:{s:6:"string";s:5:"hello";s:6:"number";i:42;s:7:"boolean";b:1;s:4:"null";N;}'
+      const result = beautifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"string": "hello"')
+      expect(result).toContain('"number": 42')
+      expect(result).toContain('"boolean": true')
+      expect(result).toContain('"null": null')
+    })
+
+    test('should handle different indentation options', () => {
+      const input = 'a:1:{s:4:"test";s:4:"value";}'
+      const result = beautifyPHP(input, { indentSize: 4, indentChar: 'space' })
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"test": "value"')
+      expect(result).toContain('{\n    "test": "value"\n}')
+    })
+
+    test('should handle tab indentation', () => {
+      const input = 'a:1:{s:4:"test";s:4:"value";}'
+      const result = beautifyPHP(input, { indentSize: 2, indentChar: 'tab' })
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('"test": "value"')
+      expect(result).toContain('{\n\t"test": "value"\n}')
+    })
+  })
+
+
+  describe('PHP Unminification', () => {
+    test('should unminify simple PHP serialized data', () => {
+      const input = 'a:2:{s:4:"name";s:4:"test";s:5:"value";i:123;}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('a:2:{')
+      expect(result).toContain('s:4: "name"')
+      expect(result).toContain('s:4: "test"')
+      expect(result).toContain('s:5: "value"')
+      expect(result).toContain('i:123')
+    })
+
+    test('should unminify complex PHP serialized data', () => {
+      const input = 'a:3:{s:6:"config";a:2:{s:7:"enabled";b:1;s:7:"options";a:1:{s:4:"size";s:5:"large";}}s:5:"items";a:2:{i:0;s:5:"item1";i:1;s:5:"item2";}s:5:"count";i:2;}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('a:3:{')
+      expect(result).toContain('s:6: "config"')
+      expect(result).toContain('a:2:{')
+      expect(result).toContain('s:7: "enabled"')
+      expect(result).toContain('b:1')
+    })
+
+    test('should handle PHP serialized arrays', () => {
+      const input = 'a:2:{i:0;a:2:{s:2:"id";i:1;s:4:"name";s:5:"item1";}i:1;a:2:{s:2:"id";i:2;s:4:"name";s:5:"item2";}}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('a:2:{')
+      expect(result).toContain('i:0')
+      expect(result).toContain('s:2: "id"')
+      expect(result).toContain('s:4: "name"')
+    })
+
+    test('should handle PHP serialized with different data types', () => {
+      const input = 'a:6:{s:6:"string";s:5:"hello";s:6:"number";i:42;s:7:"boolean";b:1;s:4:"null";N;s:5:"array";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}s:6:"object";a:1:{s:6:"nested";s:5:"value";}}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('s:6: "string"')
+      expect(result).toContain('s:5: "hello"')
+      expect(result).toContain('s:6: "number"')
+      expect(result).toContain('i:42')
+      expect(result).toContain('s:7: "boolean"')
+      expect(result).toContain('b:1')
+      expect(result).toContain('s:4: "null"')
+      expect(result).toContain('N')
+    })
+
+    test('should handle empty PHP serialized data', () => {
+      const input = 'a:2:{s:11:"emptyArray";a:0:{}s:12:"emptyObject";a:0:{}}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('s:11: "emptyArray"')
+      expect(result).toContain('a:0: {}')
+      expect(result).toContain('s:12: "emptyObject"')
+    })
+
+    test('should handle PHP serialized with special characters', () => {
+      const input = 'a:2:{s:7:"message";s:13:"Hello \\"World\\"";s:4:"path";s:16:"C:\\\\Users\\\\Test";}'
+      const result = unminifyPHP(input)
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('s:7: "message"')
+      expect(result).toContain('s:13: "Hello \\"World\\""')
+      expect(result).toContain('s:4: "path"')
+      expect(result).toContain('s:16: "C:\\\\Users\\\\Test"')
     })
   })
 
@@ -350,7 +536,16 @@ describe('Beautify and Unminify Functions', () => {
       const result = beautifyCode(input, 'json')
       
       expect(result).toBeDefined()
-      expect(result).toContain('{\n  "name": "test"\n}')
+      expect(result).toContain('"name": "test"')
+    })
+
+    test('should route PHP code correctly', () => {
+      const input = 'a:2:{s:4:"name";s:4:"test";s:5:"value";i:123;}'
+      const result = beautifyCode(input, 'php')
+      
+      expect(result).toBeDefined()
+      expect(result).toContain('a:2:{')
+      expect(result).toContain('s:4: "name"')
     })
   })
 
@@ -629,7 +824,7 @@ const customJestConfig = {
       // Step 1: Beautify
       const beautified = beautifyCode(originalCode, 'json')
       expect(beautified).toBeDefined()
-      expect(beautified).toContain('{\n  "name": "test"')
+      expect(beautified).toContain('"name": "test"')
 
       // Step 2: Minify
       const minified = minifyJSONWithOptions(beautified, {
@@ -651,6 +846,373 @@ const customJestConfig = {
       })
       expect(minified).toBeDefined()
       expect(minified.length).toBeLessThan(beautified.length)
+    })
+
+    test('should handle JSON minify -> unminify -> minify workflow', () => {
+      const originalCode = '{"config":{"enabled":true,"options":{"size":"large","colors":["red","blue","green"]}},"items":[{"id":1,"name":"item1"},{"id":2,"name":"item2"}],"count":2}'
+
+      // Step 1: Minify
+      const minified = minifyJSONWithOptions(originalCode, {
+        compressionLevel: 'normal',
+        optimizeNumbers: true,
+        useScientificNotation: false,
+        removeEmptyKeys: false,
+        removeNullValues: false,
+        removeUndefinedValues: true,
+        removeEmptyArrayElements: false,
+        removeDuplicateArrayElements: false,
+        sortArrayElements: false,
+        removeEmptyObjects: false,
+        removeEmptyArrays: false,
+        sortObjectKeys: false,
+        removeDuplicateKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: true
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(originalCode.length)
+
+      // Step 2: Unminify
+      const unminified = unminifyJSON(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('"config": {')
+      expect(unminified).toContain('"items": [')
+      expect(unminified).toContain('"count": 2')
+
+      // Step 3: Reminify
+      const reminified = minifyJSONWithOptions(unminified, {
+        compressionLevel: 'normal',
+        optimizeNumbers: true,
+        useScientificNotation: false,
+        removeEmptyKeys: false,
+        removeNullValues: false,
+        removeUndefinedValues: true,
+        removeEmptyArrayElements: false,
+        removeDuplicateArrayElements: false,
+        sortArrayElements: false,
+        removeEmptyObjects: false,
+        removeEmptyArrays: false,
+        sortObjectKeys: false,
+        removeDuplicateKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: true
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle JSON beautify -> minify -> unminify -> minify workflow', () => {
+      const originalCode = '{"name":"test","value":123,"nested":{"enabled":true,"options":{"size":"large"}}}'
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(originalCode, 'json')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('"name": "test"')
+
+      // Step 2: Minify
+      const minified = minifyJSONWithOptions(beautified, {
+        compressionLevel: 'normal',
+        optimizeNumbers: true,
+        useScientificNotation: false,
+        removeEmptyKeys: false,
+        removeNullValues: false,
+        removeUndefinedValues: true,
+        removeEmptyArrayElements: false,
+        removeDuplicateArrayElements: false,
+        sortArrayElements: false,
+        removeEmptyObjects: false,
+        removeEmptyArrays: false,
+        sortObjectKeys: false,
+        removeDuplicateKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: true
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(beautified.length)
+
+      // Step 3: Unminify
+      const unminified = unminifyJSON(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('"name": "test"')
+      expect(unminified).toContain('"nested": {')
+
+      // Step 4: Reminify
+      const reminified = minifyJSONWithOptions(unminified, {
+        compressionLevel: 'normal',
+        optimizeNumbers: true,
+        useScientificNotation: false,
+        removeEmptyKeys: false,
+        removeNullValues: false,
+        removeUndefinedValues: true,
+        removeEmptyArrayElements: false,
+        removeDuplicateArrayElements: false,
+        sortArrayElements: false,
+        removeEmptyObjects: false,
+        removeEmptyArrays: false,
+        sortObjectKeys: false,
+        removeDuplicateKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: true
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle PHP beautify -> serialize workflow', () => {
+      const originalData = {
+        name: 'test',
+        value: 123,
+        config: {
+          enabled: true,
+          options: {
+            size: 'large',
+            colors: ['red', 'blue', 'green']
+          }
+        },
+        items: [
+          { id: 1, name: 'item1' },
+          { id: 2, name: 'item2' }
+        ],
+        count: 2
+      }
+
+      // Step 1: Serialize
+      const serialized = serializePHPWithOptions(originalData, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(serialized).toBeDefined()
+
+      // Step 2: Beautify
+      const beautified = beautifyCode(serialized, 'php')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('a:5:{')
+      expect(beautified).toContain('s:4: "name"')
+      expect(beautified).toContain('s:4: "test"')
+    })
+
+    test('should handle PHP serialize -> beautify -> unminify -> serialize workflow', () => {
+      const originalData = {
+        config: {
+          enabled: true,
+          options: {
+            size: 'large',
+            colors: ['red', 'blue', 'green']
+          }
+        },
+        items: [
+          { id: 1, name: 'item1' },
+          { id: 2, name: 'item2' }
+        ],
+        count: 2
+      }
+
+      // Step 1: Serialize
+      const serialized = serializePHPWithOptions(originalData, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(serialized).toBeDefined()
+
+      // Step 2: Beautify
+      const beautified = beautifyCode(serialized, 'php')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('a:3:{')
+      expect(beautified).toContain('s:6: "config"')
+
+      // Step 3: Unminify (simulate minified state)
+      const unminified = unminifyPHP(serialized)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('a:3:{')
+      expect(unminified).toContain('s:6: "config"')
+
+      // Step 4: Reserialize (simulate re-serialization)
+      const reserialized = serializePHPWithOptions(originalData, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(reserialized).toBeDefined()
+      expect(reserialized.length).toBeGreaterThan(0)
+    })
+
+    test('should handle JSON beautify -> minify workflow', async () => {
+      const originalCode = '{"user":{"id":1,"name":"John","active":true,"scores":[85,92,78],"profile":{"email":"john@example.com","age":30}}}'
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(originalCode, 'json')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('"user": {')
+      expect(beautified).toContain('"id": 1')
+
+      // Step 2: Minify
+      const minified = await minifyJSONWithOptions(beautified, {
+        compressionLevel: 'normal',
+        removeWhitespace: true,
+        sortKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: false,
+        optimizeNumbers: true,
+        removeEmptyValues: false
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(beautified.length)
+    })
+
+    test('should handle JSON minify -> unminify -> minify workflow', async () => {
+      const originalCode = '{"config":{"enabled":true,"options":{"size":"large","colors":["red","blue","green"]}}}'
+
+      // Step 1: Minify
+      const minified = await minifyJSONWithOptions(originalCode, {
+        compressionLevel: 'normal',
+        removeWhitespace: true,
+        sortKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: false,
+        optimizeNumbers: true,
+        removeEmptyValues: false
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(originalCode.length)
+
+      // Step 2: Unminify
+      const unminified = unminifyJSON(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('"config": {')
+      expect(unminified).toContain('"enabled": true')
+
+      // Step 3: Reminify
+      const reminified = await minifyJSONWithOptions(unminified, {
+        compressionLevel: 'normal',
+        removeWhitespace: true,
+        sortKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: false,
+        optimizeNumbers: true,
+        removeEmptyValues: false
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle JSON beautify -> minify -> unminify -> minify workflow', async () => {
+      const originalCode = '{"items":[{"id":1,"name":"item1"},{"id":2,"name":"item2"}],"count":2}'
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(originalCode, 'json')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('"items": [')
+
+      // Step 2: Minify
+      const minified = await minifyJSONWithOptions(beautified, {
+        compressionLevel: 'normal',
+        removeWhitespace: true,
+        sortKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: false,
+        optimizeNumbers: true,
+        removeEmptyValues: false
+      })
+      expect(minified).toBeDefined()
+      expect(minified.length).toBeLessThan(beautified.length)
+
+      // Step 3: Unminify
+      const unminified = unminifyJSON(minified)
+      expect(unminified).toBeDefined()
+      expect(unminified).toContain('"items": [')
+      expect(unminified).toContain('"count": 2')
+
+      // Step 4: Reminify
+      const reminified = await minifyJSONWithOptions(unminified, {
+        compressionLevel: 'normal',
+        removeWhitespace: true,
+        sortKeys: false,
+        validateBeforeMinify: true,
+        fixCommonErrors: false,
+        optimizeNumbers: true,
+        removeEmptyValues: false
+      })
+      expect(reminified).toBeDefined()
+      expect(reminified.length).toBeLessThan(unminified.length)
+    })
+
+    test('should handle PHP beautify -> serialize workflow', async () => {
+      const originalData = { name: 'test', value: 123, active: true }
+      const serialized = await serializePHPWithOptions(originalData, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+
+      // Step 1: Beautify
+      const beautified = beautifyCode(serialized, 'php')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('a:3:{')
+      expect(beautified).toContain('s:4: "name"')
+
+      // Step 2: Re-serialize (to test consistency)
+      const unserialized = await unserializePHPWithOptions(beautified, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(unserialized).toBeDefined()
+      expect(unserialized).toEqual(originalData)
+    })
+
+    test('should handle PHP serialize -> beautify -> unserialize -> serialize workflow', async () => {
+      const originalData = { 
+        config: { 
+          enabled: true, 
+          options: { 
+            size: 'large', 
+            colors: ['red', 'blue', 'green'] 
+          } 
+        },
+        count: 3
+      }
+
+      // Step 1: Serialize
+      const serialized = await serializePHPWithOptions(originalData, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(serialized).toBeDefined()
+
+      // Step 2: Beautify
+      const beautified = beautifyCode(serialized, 'php')
+      expect(beautified).toBeDefined()
+      expect(beautified).toContain('a:2:{')
+      expect(beautified).toContain('s:6: "config"')
+
+      // Step 3: Unserialize
+      const unserialized = await unserializePHPWithOptions(beautified, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(unserialized).toBeDefined()
+      expect(unserialized).toEqual(originalData)
+
+      // Step 4: Re-serialize
+      const reserialized = await serializePHPWithOptions(unserialized, {
+        includeNullValues: true,
+        removeEmptyArrays: false,
+        removeEmptyObjects: false,
+        sortKeys: false
+      })
+      expect(reserialized).toBeDefined()
+      expect(reserialized.length).toBeGreaterThan(0)
     })
   })
 

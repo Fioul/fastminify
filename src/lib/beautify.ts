@@ -98,13 +98,22 @@ export function beautifyCSS(code: string, options: BeautifyOptions = defaultBeau
 }
 
 /**
- * Beautify JSON code
+ * Beautify JSON code using JSON.stringify with proper indentation
  */
 export function beautifyJSON(code: string, options: BeautifyOptions = defaultBeautifyOptions): string {
   try {
-    // Parse and stringify with proper indentation
+    if (!code || typeof code !== 'string') {
+      throw new Error('Invalid JSON code provided')
+    }
+    
+    const indentChar = options.indentChar === 'tab' ? '\t' : ' '
+    const indentSize = options.indentChar === 'tab' ? 1 : options.indentSize
+    const indent = indentChar.repeat(indentSize)
+    
+    // Parse JSON to validate syntax
     const parsed = JSON.parse(code)
-    const indent = options.indentChar === 'tab' ? '\t' : ' '.repeat(options.indentSize)
+    
+    // Stringify with proper indentation
     return JSON.stringify(parsed, null, indent)
   } catch (error) {
     console.error('JSON beautification error:', error)
@@ -113,9 +122,46 @@ export function beautifyJSON(code: string, options: BeautifyOptions = defaultBea
 }
 
 /**
+ * Beautify PHP serialized data by converting to JSON and beautifying
+ * This function unserializes PHP data, converts to JSON, and beautifies it
+ */
+export function beautifyPHP(code: string, options: BeautifyOptions = defaultBeautifyOptions): string {
+  try {
+    if (!code || typeof code !== 'string') {
+      throw new Error('Invalid PHP serialized data provided')
+    }
+    
+    // Import the PHP unserialize function
+    const { unserializePHPWithOptions } = require('./php-options')
+    const { defaultPHPOptions } = require('./php-options')
+    
+    // Step 1: Unserialize PHP data to JavaScript object
+    const unserialized = unserializePHPWithOptions(code, defaultPHPOptions)
+    
+    // Step 2: Convert to JSON and beautify
+    const jsonString = JSON.stringify(unserialized, null, 2)
+    
+    // Step 3: Apply custom indentation if different from default
+    if (options.indentSize !== 2 || options.indentChar !== 'space') {
+      const indentChar = options.indentChar === 'tab' ? '\t' : ' '
+      const indentSize = options.indentChar === 'tab' ? 1 : options.indentSize
+      const indent = indentChar.repeat(indentSize)
+      
+      const parsed = JSON.parse(jsonString)
+      return JSON.stringify(parsed, null, indent)
+    }
+    
+    return jsonString
+  } catch (error) {
+    console.error('PHP beautification error:', error)
+    return code
+  }
+}
+
+/**
  * Main beautify function that routes to the appropriate beautifier
  */
-export function beautifyCode(code: string, language: 'js' | 'css' | 'json', options: BeautifyOptions = defaultBeautifyOptions): string {
+export function beautifyCode(code: string, language: 'js' | 'css' | 'json' | 'php', options: BeautifyOptions = defaultBeautifyOptions): string {
   switch (language) {
     case 'js':
       return beautifyJavaScript(code, options)
@@ -123,6 +169,8 @@ export function beautifyCode(code: string, language: 'js' | 'css' | 'json', opti
       return beautifyCSS(code, options)
     case 'json':
       return beautifyJSON(code, options)
+    case 'php':
+      return beautifyPHP(code, options)
     default:
       return code
   }

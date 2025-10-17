@@ -282,9 +282,9 @@ export function useMinification() {
       return
     }
 
-    // Only support JS, CSS, and JSON for beautification
-    if (leftType !== 'js' && leftType !== 'css' && leftType !== 'json') {
-      toast.error('Beautification is only supported for JavaScript, CSS, and JSON.')
+    // Only support JS, CSS, JSON, and PHP for beautification
+    if (leftType !== 'js' && leftType !== 'css' && leftType !== 'json' && leftType !== 'php') {
+      toast.error('Beautification is only supported for JavaScript, CSS, JSON, and PHP Serialize.')
       return
     }
 

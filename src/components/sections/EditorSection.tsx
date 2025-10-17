@@ -110,11 +110,8 @@ export default function EditorSection({
     // Must have code in left editor
     if (!leftCode.trim()) return false
     
-    // Must not be PHP Serialize
-    if (leftType === 'php') return false
-    
     // Must be a supported language for beautification
-    return leftType === 'js' || leftType === 'css' || leftType === 'json'
+    return leftType === 'js' || leftType === 'css' || leftType === 'json' || leftType === 'php'
   }
 
   const getSavedSize = () => {
