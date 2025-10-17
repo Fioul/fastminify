@@ -57,6 +57,11 @@ export function useMinification() {
     useScientificNotation: false,
     removeEmptyKeys: false,
     removeNullValues: false,
+    removeUndefinedValues: true,
+    removeEmptyArrayElements: false,
+    removeDuplicateArrayElements: false,
+    sortArrayElements: false,
+    validateBeforeMinify: true,
     fixCommonErrors: true
   })
   

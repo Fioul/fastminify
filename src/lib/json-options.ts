@@ -57,6 +57,10 @@ function fixCommonJSONErrors(code: string): string {
   // Corriger les clés sans guillemets (simple regex, pas parfait)
   fixed = fixed.replace(/([{,]\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '$1"$2":')
   
+  // Corriger les valeurs sans guillemets (identifiants non-quotés)
+  // Pattern: "key": value (où value n'est pas entre guillemets et n'est pas un nombre/boolean/null)
+  fixed = fixed.replace(/"([^"]+)"\s*:\s*([a-zA-Z_$][a-zA-Z0-9_$]*)(?=\s*[,}])/g, '"$1":"$2"')
+  
   // Corriger les virgules en trop
   fixed = fixed.replace(/,(\s*[}\]])/g, '$1')
   
