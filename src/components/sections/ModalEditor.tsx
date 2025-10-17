@@ -3,18 +3,19 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import CodeEditor from '@/components/CodeEditor'
-import { Copy, Download, X } from 'lucide-react'
+import { Copy, Download, X, Eraser } from 'lucide-react'
 
 interface ModalEditorProps {
   isOpen: boolean
   onClose: () => void
   title: string
   code: string
-  language: string
+  language: 'javascript' | 'css' | 'html' | 'json'
   placeholder: string
   onCodeChange: (value: string | undefined) => void
   onCopy: () => void
   onDownload: () => void
+  onClear: () => void
 }
 
 export default function ModalEditor({
@@ -27,6 +28,7 @@ export default function ModalEditor({
   onCodeChange,
   onCopy,
   onDownload,
+  onClear,
 }: ModalEditorProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -60,6 +62,17 @@ export default function ModalEditor({
               >
                 <Download className="h-4 w-4 mr-2" />
                 Download
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClear}
+                disabled={!code.trim()}
+                className="h-8 px-3"
+                title="Clear editor"
+              >
+                <Eraser className="h-4 w-4 mr-2" />
+                Clear
               </Button>
               <Button
                 variant="ghost"

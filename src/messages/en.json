@@ -7,7 +7,9 @@
     "auto": "Auto",
     "minify": "Minify",
     "unminify": "Unminify",
-    "clear": "Clear"
+    "clear": "Clear all",
+    "clearLeft": "Clear left",
+    "clearRight": "Clear right"
   },
   "languages": {
     "javascript": "JavaScript",

@@ -44,6 +44,8 @@ export default function Page({ params }: PageProps) {
         handleRightCodeChange,
         handleCopy,
         handleClear,
+        handleClearLeft,
+        handleClearRight,
         handleDownload,
         handleLeftCopy,
         handleLeftDownload,
@@ -94,29 +96,31 @@ export default function Page({ params }: PageProps) {
                 {/* MAIN CONTENT - EDITORS SECTION */}
                 <div className="flex justify-center mb-6">
                     <div className="max-w-[930px] w-full">
-                        <EditorSection
-                            locale={locale}
-                            leftCode={leftCode}
-                            rightCode={rightCode}
-                            leftType={leftType}
-                            rightType={rightType}
-                            stats={stats}
-                            lastOperation={lastOperation}
-                            leftModalOpen={leftModalOpen}
-                            rightModalOpen={rightModalOpen}
-                            onLeftCodeChange={handleLeftCodeChange}
-                            onRightCodeChange={handleRightCodeChange}
-                            onCopy={handleCopy}
-                            onDownload={handleDownload}
-                            onLeftCopy={handleLeftCopy}
-                            onLeftDownload={handleLeftDownload}
-                            onRightCopy={handleRightCopy}
-                            onRightDownload={handleRightDownload}
-                            onLeftModalOpen={handleLeftModalOpen}
-                            onLeftModalClose={handleLeftModalClose}
-                            onRightModalOpen={handleRightModalOpen}
-                            onRightModalClose={handleRightModalClose}
-                        />
+                <EditorSection
+                    locale={locale}
+                    leftCode={leftCode}
+                    rightCode={rightCode}
+                    leftType={leftType}
+                    rightType={rightType}
+                    stats={stats}
+                    lastOperation={lastOperation}
+                    leftModalOpen={leftModalOpen}
+                    rightModalOpen={rightModalOpen}
+                    onLeftCodeChange={handleLeftCodeChange}
+                    onRightCodeChange={handleRightCodeChange}
+                    onCopy={handleCopy}
+                    onDownload={handleDownload}
+                    onLeftCopy={handleLeftCopy}
+                    onLeftDownload={handleLeftDownload}
+                    onRightCopy={handleRightCopy}
+                    onRightDownload={handleRightDownload}
+                    onLeftModalOpen={handleLeftModalOpen}
+                    onLeftModalClose={handleLeftModalClose}
+                    onRightModalOpen={handleRightModalOpen}
+                    onRightModalClose={handleRightModalClose}
+                    onClearLeft={handleClearLeft}
+                    onClearRight={handleClearRight}
+                />
                 </div>
             </div>
 

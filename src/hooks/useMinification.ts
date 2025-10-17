@@ -268,7 +268,7 @@ export function useMinification() {
     try {
       document.execCommand('copy')
       toast.success('Copied to clipboard!')
-    } catch (err) {
+    } catch {
       toast.error('Unable to copy.')
     }
     document.body.removeChild(textarea)
@@ -296,6 +296,26 @@ export function useMinification() {
     setStats(null)
     setLastOperation(null)
     toast.success('Editors cleared!')
+  }
+
+  // Clear left editor only
+  const handleClearLeft = () => {
+    setLeftCode('')
+    if (lastOperation === 'unminify') {
+      setStats(null)
+      setLastOperation(null)
+    }
+    toast.success('Left editor cleared!')
+  }
+
+  // Clear right editor only
+  const handleClearRight = () => {
+    setRightCode('')
+    if (lastOperation === 'minify') {
+      setStats(null)
+      setLastOperation(null)
+    }
+    toast.success('Right editor cleared!')
   }
 
   // Download right code as file
@@ -452,6 +472,8 @@ export function useMinification() {
     handleRightCodeChange,
     handleCopy,
     handleClear,
+    handleClearLeft,
+    handleClearRight,
     handleDownload,
     handleLeftCopy,
     handleLeftDownload,

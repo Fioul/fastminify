@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
-import { Copy, Download, Maximize2 } from 'lucide-react'
+import { Copy, Download, Maximize2, Eraser } from 'lucide-react'
 import ModalEditor from './ModalEditor'
 
 interface EditorSectionProps {
@@ -31,6 +31,8 @@ interface EditorSectionProps {
   onLeftModalClose: () => void
   onRightModalOpen: () => void
   onRightModalClose: () => void
+  onClearLeft: () => void
+  onClearRight: () => void
 }
 
 export default function EditorSection({
@@ -45,8 +47,6 @@ export default function EditorSection({
   rightModalOpen,
   onLeftCodeChange,
   onRightCodeChange,
-  onCopy,
-  onDownload,
   onLeftCopy,
   onLeftDownload,
   onRightCopy,
@@ -55,6 +55,8 @@ export default function EditorSection({
   onLeftModalClose,
   onRightModalOpen,
   onRightModalClose,
+  onClearLeft,
+  onClearRight,
 }: EditorSectionProps) {
   const { t } = useTranslations(locale)
 
@@ -183,6 +185,16 @@ export default function EditorSection({
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={onClearLeft}
+                disabled={!leftCode.trim()}
+                className="h-8 w-8 p-0"
+                title={t('common.clearLeft')}
+              >
+                <Eraser className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={onLeftModalOpen}
                 className="h-8 w-8 p-0"
                 title="Open in modal"
@@ -234,6 +246,16 @@ export default function EditorSection({
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={onClearRight}
+                disabled={!rightCode.trim()}
+                className="h-8 w-8 p-0"
+                title={t('common.clearRight')}
+              >
+                <Eraser className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={onRightModalOpen}
                 className="h-8 w-8 p-0"
                 title="Open in modal"
@@ -269,6 +291,7 @@ export default function EditorSection({
         onCodeChange={onLeftCodeChange}
         onCopy={onLeftCopy}
         onDownload={onLeftDownload}
+        onClear={onClearLeft}
       />
 
       <ModalEditor
@@ -283,6 +306,7 @@ export default function EditorSection({
         onCodeChange={onRightCodeChange}
         onCopy={onRightCopy}
         onDownload={onRightDownload}
+        onClear={onClearRight}
       />
     </div>
   )
