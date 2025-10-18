@@ -26,14 +26,17 @@ echo "🔧 Configuration initiale du serveur $SERVER..."
 ssh $USER@$SERVER << EOF
     set -e
     
-    echo "📦 Installation de Node.js 18+..."
-    # Pour Ubuntu/Debian
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-    apt-get install -y nodejs
-    
-    # Vérifier l'installation
-    node --version
-    npm --version
+    echo "📦 Vérification de Node.js..."
+    # Vérifier si Node.js est déjà installé
+    if command -v node >/dev/null 2>&1; then
+        echo "✅ Node.js déjà installé: $(node --version)"
+        echo "✅ npm version: $(npm --version)"
+    else
+        echo "❌ Node.js n'est pas installé sur ce serveur"
+        echo "📋 Veuillez installer Node.js 22 sur votre serveur d'hébergement"
+        echo "   Contactez votre hébergeur ou consultez leur documentation"
+        exit 1
+    fi
     
     echo "📁 Création du répertoire de l'application..."
     mkdir -p $APP_DIR
@@ -48,13 +51,21 @@ ssh $USER@$SERVER << EOF
     echo "🔨 Construction de l'application..."
     npm run build
     
-    echo "📦 Installation de PM2 (gestionnaire de processus)..."
-    npm install -g pm2
-    
-    echo "🚀 Démarrage de l'application avec PM2..."
-    pm2 start npm --name "fastminify" -- start
-    pm2 save
-    pm2 startup
+    echo "📦 Vérification de PM2..."
+    # Vérifier si PM2 est disponible
+    if command -v pm2 >/dev/null 2>&1; then
+        echo "✅ PM2 déjà installé: $(pm2 --version)"
+        echo "🚀 Démarrage de l'application avec PM2..."
+        pm2 start npm --name "fastminify" -- start
+        pm2 save
+    else
+        echo "⚠️ PM2 non disponible, démarrage simple de l'application..."
+        echo "📋 Pour une gestion avancée des processus, installez PM2:"
+        echo "   npm install -g pm2"
+        echo "🚀 Démarrage de l'application..."
+        nohup npm start > app.log 2>&1 &
+        echo "✅ Application démarrée en arrière-plan (PID: $!)"
+    fi
     
     echo "✅ Configuration terminée!"
     echo "🌐 Application accessible sur: http://$SERVER:3000"

@@ -17,7 +17,7 @@
     "test:playwright:ui": "playwright test --ui",
     "deploy": "./scripts/quick-deploy.sh",
     "deploy:setup": "./scripts/setup-server.sh",
-    "deploy:manual": "./scripts/deploy-git.sh",
+    "deploy:manual": "./scripts/deploy-manual.sh",
     "server:logs": "./scripts/server-commands.sh logs",
     "server:status": "./scripts/server-commands.sh status",
     "server:restart": "./scripts/server-commands.sh restart"
@@ -60,7 +60,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
