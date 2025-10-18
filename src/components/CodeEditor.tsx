@@ -42,17 +42,19 @@ export default function CodeEditor({
     if (!editor) return
 
     const checkScrollableContent = () => {
-      const scrollHeight = editor.getScrollHeight()
-      const layoutInfo = editor.getLayoutInfo()
-      const isScrollable = scrollHeight > layoutInfo.height
-      setHasScrollableContent(isScrollable)
-      
-      // Force layout update to ensure scrollbar is properly calculated
-      editor.layout()
+      try {
+        const scrollHeight = editor.getScrollHeight()
+        const layoutInfo = editor.getLayoutInfo()
+        const isScrollable = scrollHeight > layoutInfo.height + 10 // Add small margin for better detection
+        setHasScrollableContent(isScrollable)
+      } catch (error) {
+        // If there's an error, assume not scrollable to allow page scrolling
+        setHasScrollableContent(false)
+      }
     }
 
-    // Check initially
-    checkScrollableContent()
+    // Check initially with a small delay
+    const initialTimeout = setTimeout(checkScrollableContent, 50)
 
     // Listen for content changes
     const model = editor.getModel()
@@ -60,13 +62,19 @@ export default function CodeEditor({
     let layoutDisposable: any = null
 
     if (model) {
-      contentDisposable = model.onDidChangeContent(checkScrollableContent)
+      contentDisposable = model.onDidChangeContent(() => {
+        // Immediate check
+        checkScrollableContent()
+        // Also check after a delay for layout changes
+        setTimeout(checkScrollableContent, 100)
+      })
     }
 
     // Listen for layout changes (resize, etc.)
     layoutDisposable = editor.onDidLayoutChange(checkScrollableContent)
 
     return () => {
+      clearTimeout(initialTimeout)
       if (contentDisposable) {
         contentDisposable.dispose()
       }
@@ -81,16 +89,27 @@ export default function CodeEditor({
     const editor = editorRef.current as any
     if (!editor) return
 
-    // Small delay to allow Monaco to process the content
-    const timeoutId = setTimeout(() => {
-      editor.layout()
-      const scrollHeight = editor.getScrollHeight()
-      const layoutInfo = editor.getLayoutInfo()
-      const isScrollable = scrollHeight > layoutInfo.height
-      setHasScrollableContent(isScrollable)
-    }, 100)
+    // Multiple checks at different intervals to catch all cases
+    const timeouts = [
+      setTimeout(() => {
+        editor.layout()
+        const scrollHeight = editor.getScrollHeight()
+        const layoutInfo = editor.getLayoutInfo()
+        const isScrollable = scrollHeight > layoutInfo.height + 10
+        setHasScrollableContent(isScrollable)
+      }, 50),
+      setTimeout(() => {
+        editor.layout()
+        const scrollHeight = editor.getScrollHeight()
+        const layoutInfo = editor.getLayoutInfo()
+        const isScrollable = scrollHeight > layoutInfo.height + 10
+        setHasScrollableContent(isScrollable)
+      }, 200)
+    ]
 
-    return () => clearTimeout(timeoutId)
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout))
+    }
   }, [value])
 
   // Monaco Editor options
@@ -109,7 +128,7 @@ export default function CodeEditor({
       horizontal: 'auto' as const,
       verticalScrollbarSize: 12,
       horizontalScrollbarSize: 12,
-      handleMouseWheel: true, // Always enable mouse wheel handling
+      handleMouseWheel: hasScrollableContent, // Only handle mouse wheel when there's scrollable content
       useShadows: true,
       verticalHasArrows: false,
       horizontalHasArrows: false,
