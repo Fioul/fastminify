@@ -461,7 +461,7 @@ export default function Toolbar({
                     value={leftType || ''}
                     onValueChange={onLeftTypeChange}
                   >
-                    <SelectTrigger className="w-[140px] h-9 cursor-pointer">
+                    <SelectTrigger className="w-[140px] h-9 cursor-pointer" data-testid="left-type">
                       <SelectValue placeholder={t('common.selectLanguage')} />
                     </SelectTrigger>
                     <SelectContent>
@@ -489,7 +489,7 @@ export default function Toolbar({
                     value={rightType || ''}
                     onValueChange={onRightTypeChange}
                   >
-                    <SelectTrigger className="w-[140px] h-9 cursor-pointer">
+                    <SelectTrigger className="w-[140px] h-9 cursor-pointer" data-testid="right-type">
                       <SelectValue placeholder={t('common.selectLanguage')} />
                     </SelectTrigger>
                     <SelectContent>

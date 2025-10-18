@@ -205,6 +205,7 @@ export default function EditorSection({
                 disabled={isLoading || !leftCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
                 title={getMinifyButtonTitle()}
+                data-testid="minify-button"
               >
                 <Play className="h-3 w-3 mr-1" />
                 {getMinifyButtonText()}
@@ -267,6 +268,7 @@ export default function EditorSection({
             language={leftType === 'js' ? 'javascript' : 
                      leftType === 'css' ? 'css' : 
                      leftType === 'json' ? 'json' : 'javascript'}
+            data-testid="left-editor"
             placeholder={t('placeholders.normalCode')}
             height="100%"
           />
@@ -326,6 +328,7 @@ export default function EditorSection({
                 disabled={isLoading || !rightCode.trim()}
                 className="h-8 px-3 text-xs font-medium"
                 title={getUnminifyButtonTitle()}
+                data-testid="unminify-button"
               >
                 <Undo2 className="h-3 w-3 mr-1" />
                 {getUnminifyButtonText()}
@@ -339,6 +342,7 @@ export default function EditorSection({
             language={rightType === 'js' ? 'javascript' : 
                      rightType === 'css' ? 'css' : 
                      rightType === 'json' ? 'json' : 'javascript'}
+            data-testid="right-editor"
             placeholder={t('placeholders.minifiedCode')}
             height="100%"
           />

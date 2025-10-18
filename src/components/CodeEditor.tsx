@@ -22,6 +22,7 @@ interface CodeEditorProps {
   placeholder?: string
   height?: string
   readOnly?: boolean
+  'data-testid'?: string
 }
 
 export default function CodeEditor({
@@ -30,7 +31,8 @@ export default function CodeEditor({
   language,
   placeholder = 'Paste or drop your code here...',
   height = '600px',
-  readOnly = false
+  readOnly = false,
+  'data-testid': dataTestId
 }: CodeEditorProps) {
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
@@ -164,7 +166,7 @@ export default function CodeEditor({
   const editorTheme = theme === 'dark' ? 'vs-dark' : 'vs-light'
 
   return (
-    <div className="w-full h-full border rounded-md overflow-hidden">
+    <div className="w-full h-full border rounded-md overflow-hidden" data-testid={dataTestId}>
       <MonacoEditor
         height={height}
         language={language}
