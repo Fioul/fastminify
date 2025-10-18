@@ -60,7 +60,8 @@
     "options": "Options",
     "concatenateAndMinify": "Concaténer et minifier {count} fichier{plural}",
     "concatenateAndMinifySingle": "Concaténer et minifier {count} fichier",
-    "useResult": "Utiliser le résultat"
+    "useResult": "Utiliser le résultat",
+    "filesOrderHelp": "L'ordre des fichiers peut être défini en les glissant-déposant"
   },
   "languages": {
     "javascript": "JavaScript",

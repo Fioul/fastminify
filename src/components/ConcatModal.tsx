@@ -64,8 +64,8 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
   const { t } = useTranslations(locale)
   const [files, setFiles] = useState<FileItem[]>([])
   const [fileType, setFileType] = useState<'js' | 'css'>('js')
-  const [addComments, setAddComments] = useState(true)
-  const [addNewlines, setAddNewlines] = useState(true)
+  const [addComments, setAddComments] = useState(false)
+  const [addNewlines, setAddNewlines] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [result, setResult] = useState('')
   const [copied, setCopied] = useState(false)
@@ -154,15 +154,26 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
     setFiles(prev => prev.filter(file => file.id !== id))
   }
 
+  const handleFileTypeChange = (value: 'js' | 'css') => {
+    setFileType(value)
+    // Effacer la liste des fichiers quand on change de langage
+    setFiles([])
+    setResult('')
+  }
+
   // Fonction pour nettoyer les commentaires existants
   const cleanComments = (content: string, type: 'js' | 'css'): string => {
     if (type === 'js') {
-      // Supprimer les commentaires de ligne (//) et de bloc (/* */) en JavaScript
-      return content
-        .replace(/\/\*[\s\S]*?\*\//g, '') // Commentaires de bloc /* */
-        .replace(/\/\/.*$/gm, '') // Commentaires de ligne //
-        .replace(/\n\s*\n\s*\n/g, '\n\n') // Nettoyer les lignes vides multiples
-        .trim()
+      // Supprimer les commentaires de bloc /* */ d'abord
+      let cleaned = content.replace(/\/\*[\s\S]*?\*\//g, '')
+      
+      // Puis supprimer les commentaires de ligne // (en évitant les chaînes de caractères)
+      cleaned = cleaned.replace(/\/\/.*$/gm, '')
+      
+      // Nettoyer les lignes vides multiples
+      cleaned = cleaned.replace(/\n\s*\n\s*\n/g, '\n\n')
+      
+      return cleaned.trim()
     } else {
       // Supprimer les commentaires CSS (/* */)
       return content
@@ -178,6 +189,14 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
     setIsProcessing(true)
     setResult('')
 
+    // Scroll vers le bas de la modal pour voir le résultat
+    setTimeout(() => {
+      const modalContent = document.querySelector('[role="dialog"] .overflow-y-auto') as HTMLElement
+      if (modalContent) {
+        modalContent.scrollTo({ top: modalContent.scrollHeight, behavior: 'smooth' })
+      }
+    }, 100)
+
     try {
       let concatenated = ''
       
@@ -185,7 +204,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         const file = files[i]
         
         // Nettoyer le contenu des commentaires existants
-        const cleanedContent = cleanComments(file.content, fileType)
+        const cleanedContent = file.content // Temporairement désactivé pour debug
         
         // Minifier le contenu de chaque fichier individuellement
         let minifiedContent = cleanedContent
@@ -208,7 +227,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         }
         
         // Ajouter de l'espacement avant le fichier (sauf pour le premier)
-        if (i > 0) {
+        if (i > 0 && (addComments || addNewlines)) {
           concatenated += '\n'
         }
         
@@ -225,12 +244,20 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         concatenated += minifiedContent
         
         // Ajouter un newline après le contenu pour séparer du prochain fichier
-        if (i < files.length - 1) {
+        if (i < files.length - 1 && (addComments || addNewlines)) {
           concatenated += '\n'
         }
       }
 
       setResult(concatenated)
+      
+      // Scroll vers le bas pour voir le résultat
+      setTimeout(() => {
+        const modalContent = document.querySelector('[role="dialog"] .overflow-y-auto') as HTMLElement
+        if (modalContent) {
+          modalContent.scrollTo({ top: modalContent.scrollHeight, behavior: 'smooth' })
+        }
+      }, 200)
     } catch (error) {
       console.error('Error processing files:', error)
       setResult('Error processing files. Please check your files and try again.')
@@ -294,25 +321,11 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
     }
   }, [isOpen])
 
-  // Forcer le re-render quand le résultat change pour s'assurer que la largeur est appliquée
-  React.useEffect(() => {
-    if (result) {
-      // Petit délai pour s'assurer que le DOM est mis à jour
-      setTimeout(() => {
-        const dialogContent = document.querySelector('[role="dialog"]') as HTMLElement
-        if (dialogContent) {
-          dialogContent.style.width = '1044px'
-          dialogContent.style.maxWidth = 'none'
-        }
-      }, 100)
-    }
-  }, [result])
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent 
-        className={`${result ? '!w-[90vw] !max-w-[1200px]' : 'max-w-4xl'} max-h-[90vh] overflow-hidden flex flex-col transition-all duration-300`}
-        style={result ? { width: '90vw', maxWidth: '1200px' } : {}}
+        className="!max-w-[40vw] max-h-[90vh] overflow-hidden flex flex-col"
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -322,13 +335,13 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto">
-          <div className={`grid gap-6 transition-all duration-300 ${result ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'}`}>
-            {/* Left side - Files and options */}
+          <div className="grid gap-6 transition-all duration-300 grid-cols-1">
+            {/* Files and options */}
             <div className="space-y-6">
           {/* File Type Selection */}
           <div className="flex items-center gap-4">
             <Label className="text-sm font-medium">{t('common.fileType')}</Label>
-            <Select value={fileType} onValueChange={(value: 'js' | 'css') => setFileType(value)}>
+            <Select value={fileType} onValueChange={handleFileTypeChange}>
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
@@ -374,6 +387,9 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">{t('common.filesToConcatenate').replace('{count}', files.length.toString())}</CardTitle>
+                <p className="text-sm text-gray-500 mt-1">
+                  {t('common.filesOrderHelp')}
+                </p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -485,53 +501,54 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                   </p>
                 </div>
               )}
+
+              {/* Result Section (only when there's a result) */}
+              {result && (
+                <div className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg">{t('common.result')}</CardTitle>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={copyResult}
+                            className="flex items-center gap-2 cursor-pointer btn-outline-hover"
+                          >
+                            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                            {copied ? t('common.copied') : t('common.copy')}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={downloadResult}
+                            className="flex items-center gap-2 cursor-pointer btn-outline-hover"
+                          >
+                            <Download className="h-4 w-4" />
+                            {t('common.download')}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onResult(result, fileType)}
+                            className="cursor-pointer btn-outline-hover"
+                          >
+                            {t('common.useResult')}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-[54vh] text-sm whitespace-pre-wrap break-words w-full">
+                        {result}
+                      </pre>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
             </div>
 
-            {/* Right side - Result (only when there's a result) */}
-            {result && (
-              <div className="space-y-6 p-6">
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{t('common.result')}</CardTitle>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={copyResult}
-                          className="flex items-center gap-2 cursor-pointer btn-outline-hover"
-                        >
-                          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                          {copied ? t('common.copied') : t('common.copy')}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={downloadResult}
-                          className="flex items-center gap-2 cursor-pointer btn-outline-hover"
-                        >
-                          <Download className="h-4 w-4" />
-                          {t('common.download')}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onResult(result, fileType)}
-                          className="cursor-pointer btn-outline-hover"
-                        >
-                          {t('common.useResult')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-auto max-h-[50vh] text-sm whitespace-pre-wrap break-words w-full">
-                      {result}
-                    </pre>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
           </div>
         </div>
 
