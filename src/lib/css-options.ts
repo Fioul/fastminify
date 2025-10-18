@@ -31,7 +31,7 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
     // Configuration CSSO basée sur les options
     let cssoOptions = {
       restructure: options.compressionLevel === 'aggressive',
-      comments: false, // CSSO supprime toujours les commentaires, on gère ça manuellement
+      comments: !options.removeComments, // Respecter l'option removeComments
       usage: {
         force: options.browserSupport === 'ie9'
       }

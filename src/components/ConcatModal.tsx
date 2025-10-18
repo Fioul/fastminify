@@ -200,7 +200,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         minified = await minifyCSSWithOptions(concatenated, {
           compressionLevel: 'normal',
           browserSupport: 'modern',
-          removeComments: true
+          removeComments: !addComments // Only remove comments if addComments is false
         })
       }
 
