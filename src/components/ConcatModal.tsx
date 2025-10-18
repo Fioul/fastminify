@@ -211,9 +211,15 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         // Ajouter le contenu nettoyé du fichier
         concatenated += cleanedContent
         
-        // Ajouter un saut de ligne après le contenu du fichier seulement si addNewlines est activé
-        if (addNewlines && i < files.length - 1) {
-          concatenated += '\n'
+        // Ajouter un saut de ligne après le contenu du fichier
+        if (i < files.length - 1) {
+          if (addComments) {
+            // Si on a des commentaires, ajouter un newline après le contenu
+            concatenated += '\n'
+          } else if (addNewlines) {
+            // Si seulement espacement, ajouter 2 newlines
+            concatenated += '\n\n'
+          }
         }
       }
 

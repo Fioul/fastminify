@@ -142,9 +142,15 @@ function concatenateFiles(
     // Add cleaned file content
     concatenated += cleanedContent
     
-    // Add newline after file content only if addNewlines is enabled
-    if (addNewlines && i < files.length - 1) {
-      concatenated += '\n'
+    // Add newline after file content
+    if (i < files.length - 1) {
+      if (addComments) {
+        // If we have comments, add a newline after content
+        concatenated += '\n'
+      } else if (addNewlines) {
+        // If only spacing, add 2 newlines
+        concatenated += '\n\n'
+      }
     }
   }
   
