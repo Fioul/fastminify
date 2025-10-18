@@ -5,10 +5,21 @@
 
 set -e
 
-SERVER=${1:-"votre-serveur.com"}
-USER=${2:-"root"}
-APP_DIR="/var/www/fastminify"
-REPO_URL="https://github.com/votre-username/fastminify.git"  # Remplacez par votre repo
+# Charger la configuration locale si elle existe
+if [ -f "deploy.config.local.sh" ]; then
+    source deploy.config.local.sh
+    echo "📋 Configuration chargée depuis deploy.config.local.sh"
+    SERVER=${1:-$DEPLOY_SERVER}
+    USER=${2:-$DEPLOY_USER}
+    APP_DIR=${DEPLOY_APP_DIR}
+    REPO_URL=${DEPLOY_REPO_URL}
+else
+    echo "⚠️ Fichier deploy.config.local.sh non trouvé, utilisation des valeurs par défaut"
+    SERVER=${1:-"votre-serveur.com"}
+    USER=${2:-"root"}
+    APP_DIR="/var/www/fastminify"
+    REPO_URL="https://github.com/votre-username/fastminify.git"
+fi
 
 echo "🔧 Configuration initiale du serveur $SERVER..."
 
