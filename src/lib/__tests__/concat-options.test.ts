@@ -19,6 +19,31 @@ const mockJSFiles = [
   }
 ]
 
+const mockJSFilesWithComments = [
+  {
+    id: '1',
+    name: 'utils.js',
+    content: `// This is a utility function
+function add(a, b) { 
+  /* Add two numbers */
+  return a + b; 
+}`,
+    type: 'js' as const,
+    size: 100
+  },
+  {
+    id: '2', 
+    name: 'api.js',
+    content: `// API functions
+function fetchData() { 
+  /* Fetch data from API */
+  return fetch("/api/data"); 
+}`,
+    type: 'js' as const,
+    size: 150
+  }
+]
+
 const mockCSSFiles = [
   {
     id: '1',
@@ -36,6 +61,49 @@ const mockCSSFiles = [
   }
 ]
 
+const mockCSSFilesWithComments = [
+  {
+    id: '1',
+    name: 'reset.css',
+    content: `/* CSS Reset */
+* { 
+  margin: 0; 
+  padding: 0; 
+}`,
+    type: 'css' as const,
+    size: 50
+  },
+  {
+    id: '2',
+    name: 'components.css', 
+    content: `/* Button styles */
+.btn { 
+  padding: 10px; 
+  background: blue; 
+}`,
+    type: 'css' as const,
+    size: 80
+  }
+]
+
+// Helper function to clean existing comments
+function cleanComments(content: string, type: 'js' | 'css'): string {
+  if (type === 'js') {
+    // Remove line comments (//) and block comments (/* */) in JavaScript
+    return content
+      .replace(/\/\*[\s\S]*?\*\//g, '') // Block comments /* */
+      .replace(/\/\/.*$/gm, '') // Line comments //
+      .replace(/\n\s*\n\s*\n/g, '\n\n') // Clean multiple empty lines
+      .trim()
+  } else {
+    // Remove CSS comments (/* */)
+    return content
+      .replace(/\/\*[\s\S]*?\*\//g, '') // CSS comments /* */
+      .replace(/\n\s*\n\s*\n/g, '\n\n') // Clean multiple empty lines
+      .trim()
+  }
+}
+
 // Helper function to simulate concatenation logic
 function concatenateFiles(
   files: Array<{ name: string; content: string; type: 'js' | 'css' }>,
@@ -47,6 +115,9 @@ function concatenateFiles(
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     
+    // Clean existing comments from file content
+    const cleanedContent = cleanComments(file.content, file.type)
+    
     // Add file name as comment
     if (addComments) {
       if (file.type === 'js') {
@@ -56,12 +127,12 @@ function concatenateFiles(
       }
     }
     
-    // Add file content
-    concatenated += file.content
+    // Add cleaned file content
+    concatenated += cleanedContent
     
-    // Add newlines between files
+    // Add newlines between files (2 empty lines for better visibility)
     if (addNewlines && i < files.length - 1) {
-      concatenated += '\n\n'
+      concatenated += '\n\n\n' // 3 newlines = 2 empty lines
     }
   }
   
@@ -91,8 +162,8 @@ describe('Concatenation Options', () => {
     test('should add newlines between files when enabled', () => {
       const result = concatenateFiles(mockJSFiles, false, true)
       
-      // Should contain double newlines between files
-      expect(result).toMatch(/function add\(a, b\) \{ return a \+ b; \}\n\nfunction fetchData\(\)/)
+      // Should contain triple newlines between files (2 empty lines)
+      expect(result).toMatch(/function add\(a, b\) \{ return a \+ b; \}\n\n\nfunction fetchData\(\)/)
     })
 
     test('should not add newlines between files when disabled', () => {
@@ -108,7 +179,27 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('// utils.js')
       expect(result).toContain('// api.js')
-      expect(result).toMatch(/\/\/ utils\.js\nfunction add\(a, b\) \{ return a \+ b; \}\n\n\/\/ api\.js\nfunction fetchData\(\)/)
+      expect(result).toMatch(/\/\/ utils\.js\nfunction add\(a, b\) \{ return a \+ b; \}\n\n\n\/\/ api\.js\nfunction fetchData\(\)/)
+    })
+
+    test('should remove existing comments and add file name comments', () => {
+      const result = concatenateFiles(mockJSFilesWithComments, true, false)
+      
+      // Should contain file name comments
+      expect(result).toContain('// utils.js')
+      expect(result).toContain('// api.js')
+      
+      // Should not contain original comments
+      expect(result).not.toContain('// This is a utility function')
+      expect(result).not.toContain('/* Add two numbers */')
+      expect(result).not.toContain('// API functions')
+      expect(result).not.toContain('/* Fetch data from API */')
+      
+      // Should contain clean function code
+      expect(result).toContain('function add(a, b) {')
+      expect(result).toContain('return a + b;')
+      expect(result).toContain('function fetchData() {')
+      expect(result).toContain('return fetch("/api/data");')
     })
 
     test('should work with minification - comments removed (normal behavior)', async () => {
@@ -154,8 +245,8 @@ describe('Concatenation Options', () => {
     test('should add newlines between files when enabled', () => {
       const result = concatenateFiles(mockCSSFiles, false, true)
       
-      // Should contain double newlines between files
-      expect(result).toMatch(/\* \{ margin: 0; padding: 0; \}\n\n\.btn \{ padding: 10px; background: blue; \}/)
+      // Should contain triple newlines between files (2 empty lines)
+      expect(result).toMatch(/\* \{ margin: 0; padding: 0; \}\n\n\n\.btn \{ padding: 10px; background: blue; \}/)
     })
 
     test('should not add newlines between files when disabled', () => {
@@ -171,7 +262,27 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('/* reset.css */')
       expect(result).toContain('/* components.css */')
-      expect(result).toMatch(/\/\* reset\.css \*\/\n\* \{ margin: 0; padding: 0; \}\n\n\/\* components\.css \*\/\n\.btn \{ padding: 10px; background: blue; \}/)
+      expect(result).toMatch(/\/\* reset\.css \*\/\n\* \{ margin: 0; padding: 0; \}\n\n\n\/\* components\.css \*\/\n\.btn \{ padding: 10px; background: blue; \}/)
+    })
+
+    test('should remove existing CSS comments and add file name comments', () => {
+      const result = concatenateFiles(mockCSSFilesWithComments, true, false)
+      
+      // Should contain file name comments
+      expect(result).toContain('/* reset.css */')
+      expect(result).toContain('/* components.css */')
+      
+      // Should not contain original comments
+      expect(result).not.toContain('/* CSS Reset */')
+      expect(result).not.toContain('/* Button styles */')
+      
+      // Should contain clean CSS code
+      expect(result).toContain('* {')
+      expect(result).toContain('margin: 0;')
+      expect(result).toContain('padding: 0;')
+      expect(result).toContain('.btn {')
+      expect(result).toContain('padding: 10px;')
+      expect(result).toContain('background: blue;')
     })
 
     test('should work with minification - comments removed by default', async () => {
@@ -229,8 +340,8 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('// empty1.js')
       expect(result).toContain('// empty2.js')
-      // Should have newlines between comments for empty files (3 newlines: comment + content + newlines)
-      expect(result).toMatch(/\/\/ empty1\.js\n\n\n\/\/ empty2\.js/)
+      // Should have newlines between comments for empty files (4 newlines: comment + content + 2 empty lines)
+      expect(result).toMatch(/\/\/ empty1\.js\n\n\n\n\/\/ empty2\.js/)
     })
   })
 })

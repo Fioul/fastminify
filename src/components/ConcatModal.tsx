@@ -154,6 +154,24 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
     setFiles(prev => prev.filter(file => file.id !== id))
   }
 
+  // Fonction pour nettoyer les commentaires existants
+  const cleanComments = (content: string, type: 'js' | 'css'): string => {
+    if (type === 'js') {
+      // Supprimer les commentaires de ligne (//) et de bloc (/* */) en JavaScript
+      return content
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Commentaires de bloc /* */
+        .replace(/\/\/.*$/gm, '') // Commentaires de ligne //
+        .replace(/\n\s*\n\s*\n/g, '\n\n') // Nettoyer les lignes vides multiples
+        .trim()
+    } else {
+      // Supprimer les commentaires CSS (/* */)
+      return content
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Commentaires CSS /* */
+        .replace(/\n\s*\n\s*\n/g, '\n\n') // Nettoyer les lignes vides multiples
+        .trim()
+    }
+  }
+
   const processFiles = async () => {
     if (files.length === 0) return
 
@@ -166,6 +184,9 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
         
+        // Nettoyer le contenu des commentaires existants
+        const cleanedContent = cleanComments(file.content, fileType)
+        
         // Ajouter le nom du fichier en commentaire
         if (addComments) {
           if (fileType === 'js') {
@@ -175,12 +196,12 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
           }
         }
         
-        // Ajouter le contenu du fichier
-        concatenated += file.content
+        // Ajouter le contenu nettoyé du fichier
+        concatenated += cleanedContent
         
-        // Ajouter une nouvelle ligne entre les fichiers
+        // Ajouter des nouvelles lignes entre les fichiers (2 lignes pour plus de visibilité)
         if (addNewlines && i < files.length - 1) {
-          concatenated += '\n\n'
+          concatenated += '\n\n\n' // 3 newlines = 2 lignes vides
         }
       }
 
