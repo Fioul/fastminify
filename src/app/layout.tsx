@@ -33,6 +33,14 @@ export const metadata: Metadata = {
         'web performance',
     ],
     authors: [{name: 'FastMinify'}],
+    robots: {
+        index: false,
+        follow: false,
+        googleBot: {
+            index: false,
+            follow: false,
+        },
+    },
     openGraph: {
         title: 'FastMinify — Free Online JS & CSS Minifier',
         description:
