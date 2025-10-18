@@ -1,0 +1,70 @@
+{
+  "name": "FastMinify Regression Tests",
+  "version": "1.0.0",
+  "description": "Configuration pour les tests de régression de FastMinify",
+  "testSuites": [
+    {
+      "name": "JavaScript Minification",
+      "file": "src/lib/__tests__/javascript-options.test.ts",
+      "critical": true,
+      "description": "Tests de minification JavaScript avec Terser"
+    },
+    {
+      "name": "CSS Minification", 
+      "file": "src/lib/__tests__/minify-css.test.ts",
+      "critical": true,
+      "description": "Tests de minification CSS avec CSSNano"
+    },
+    {
+      "name": "JSON Minification",
+      "file": "src/lib/__tests__/minify-json.test.ts", 
+      "critical": true,
+      "description": "Tests de minification JSON"
+    },
+    {
+      "name": "PHP Serialization",
+      "file": "src/lib/__tests__/php-serializer.test.ts",
+      "critical": false,
+      "description": "Tests de sérialisation/désérialisation PHP"
+    }
+  ],
+  "thresholds": {
+    "passRate": 0.85,
+    "coverage": {
+      "branches": 0.80,
+      "functions": 0.80,
+      "lines": 0.80,
+      "statements": 0.80
+    },
+    "performance": {
+      "maxDuration": 10000,
+      "maxMemory": 100000000
+    }
+  },
+  "environments": {
+    "development": {
+      "watch": true,
+      "verbose": true,
+      "bail": false
+    },
+    "ci": {
+      "watch": false,
+      "verbose": false,
+      "bail": true,
+      "coverage": true
+    },
+    "production": {
+      "watch": false,
+      "verbose": false,
+      "bail": true,
+      "coverage": true,
+      "strict": true
+    }
+  },
+  "reporting": {
+    "formats": ["text", "json", "html"],
+    "outputDir": "test-results",
+    "includeCoverage": true,
+    "includePerformance": true
+  }
+}

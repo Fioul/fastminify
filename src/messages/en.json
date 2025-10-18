@@ -1,0 +1,315 @@
+{
+  "common": {
+    "subtitle": "Code Minifier",
+    "description": "Minify your code from left to right, unminify from right to left — free, fast, and private.",
+    "normalCode": "Normal Code",
+    "minifiedCode": "Minified Code",
+    "auto": "Auto",
+    "minify": "Minify",
+    "unminify": "Unminify",
+    "serialize": "Serialize",
+    "unserialize": "Unserialize",
+    "concat": "Concat files",
+    "clear": "Clear all",
+    "clearLeft": "Clear left",
+    "clearRight": "Clear right",
+    "copy": "Copy",
+    "download": "Download",
+    "clearEditor": "Clear editor",
+    "closeModal": "Close modal",
+    "toggleTheme": "Toggle theme",
+    "selectLanguage": "Select language",
+    "noChange": "No change",
+    "saved": "Saved",
+    "added": "Added",
+    "minificationResult": "Minification Result",
+    "unminificationResult": "Unminification Result",
+    "minifyCode": "Minify code",
+    "unminifyCode": "Unminify code",
+    "serializeCode": "Serialize code",
+    "unserializeCode": "Unserialize code",
+    "beautifyCode": "Beautify code",
+    "beautify": "Beautify",
+    "copyCode": "Copy code",
+    "downloadCode": "Download code",
+    "openInModal": "Open in modal",
+    "copied": "Copied!",
+    "adSpace": "Ad Space",
+    "closeFloatingAd": "Close floating ad",
+    "selectFileType": "Select the type of files you want to concatenate",
+    "concatenateFiles": "Concatenate Files",
+    "fileType": "File Type",
+    "dropFilesHere": "Drop files here or click to browse",
+    "supportsFiles": "Supports: .{type} files",
+    "selectFiles": "Select Files",
+    "filesToConcatenate": "Files to Concatenate ({count})",
+    "dragToReorder": "Drag to reorder",
+    "addFileNamesAsComments": "Add file names as comments",
+    "addFileNamesAsCommentsDesc": "Add file names as comments in the output",
+    "addNewlinesBetweenFiles": "Add newlines between files",
+    "addNewlinesBetweenFilesDesc": "Add blank lines between concatenated files",
+    "processFiles": "Process Files",
+    "processingFiles": "Processing files...",
+    "concatenatingFiles": "Concatenating files...",
+    "result": "Result",
+    "downloadResult": "Download Result",
+    "clearFiles": "Clear Files",
+    "noFilesSelected": "No files selected",
+    "addFilesToStart": "Add files to start",
+    "errorProcessingFiles": "Error processing files. Please check your files and try again.",
+    "options": "Options",
+    "concatenateAndMinify": "Concatenate & Minify {count} file{plural}",
+    "concatenateAndMinifySingle": "Concatenate & Minify {count} file",
+    "useResult": "Use Result",
+    "filesOrderHelp": "File order can be defined by drag and drop"
+  },
+  "languages": {
+    "javascript": "JavaScript",
+    "css": "CSS",
+    "json": "JSON",
+    "php": "PHP Serialize"
+  },
+  "placeholders": {
+    "normalCode": "Paste your normal code here...",
+    "minifiedCode": "Paste your minified code here..."
+  },
+  "tooltips": {
+    "autoDetect": "Automatically detect the programming language when you paste or type code"
+  },
+  "navigation": {
+    "home": "Code Minifier",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About FastMinify",
+    "subtitle": "The fastest, most reliable online minifier for JavaScript and CSS",
+    "technologies": {
+      "title": "Technologies used",
+      "subtitle": "FastMinify is built with the most modern and performant web technologies",
+      "nextjs": {
+        "title": "Next.js 15",
+        "description": "React framework with App Router, Server Components and SEO optimizations"
+      },
+      "terser": {
+        "title": "Terser",
+        "description": "High-performance and optimized JavaScript minification engine"
+      },
+      "csso": {
+        "title": "CSSO",
+        "description": "Advanced CSS optimizer with intelligent compression and syntax analysis"
+      },
+      "monaco": {
+        "title": "Monaco Editor",
+        "description": "Professional code editor with syntax highlighting and autocompletion"
+      },
+      "typescript": {
+        "title": "TypeScript",
+        "description": "Static typing for better security and code maintainability"
+      },
+      "tailwind": {
+        "title": "Tailwind CSS",
+        "description": "Utility-first CSS framework for responsive and performant design"
+      }
+    },
+    "process": {
+      "title": "Conversion process",
+      "subtitle": "Discover how FastMinify intelligently and securely transforms your code",
+      "analysis": {
+        "title": "Code analysis",
+        "description": "The code is analyzed client-side to identify syntax, possible optimizations and data structures"
+      },
+      "optimization": {
+        "title": "Intelligent optimization",
+        "description": "Application of advanced compression algorithms according to code type and selected options"
+      },
+      "compression": {
+        "title": "Final compression",
+        "description": "Generation of optimized code with preserved functionality and statistics display"
+      }
+    },
+    "algorithms": {
+      "title": "Minification algorithms",
+      "subtitle": "Each code type uses specialized algorithms for optimal compression",
+      "javascript": {
+        "title": "JavaScript",
+        "optimizations": [
+          "Remove spaces and comments",
+          "Minify variable names",
+          "Optimize expressions",
+          "Eliminate dead code",
+          "Compress character strings"
+        ]
+      },
+      "css": {
+        "title": "CSS",
+        "optimizations": [
+          "Remove unnecessary spaces",
+          "Convert colors (blue → #0000ff)",
+          "Merge identical rules",
+          "Optimize selectors",
+          "Remove redundant properties"
+        ]
+      }
+    },
+    "performance": {
+      "title": "Performance and security",
+      "subtitle": "FastMinify guarantees optimal performance and maximum security for your data",
+      "speed": {
+        "title": "Processing speed",
+        "description": "Instant client-side processing without network latency, even for large files"
+      },
+      "security": {
+        "title": "Total privacy",
+        "description": "No data is sent to our servers. All processing is done locally in your browser"
+      },
+      "reliability": {
+        "title": "Guaranteed reliability",
+        "description": "Tested and proven algorithms, with guaranteed preservation of original code functionality"
+      }
+    },
+    "opensource": {
+      "title": "Transparency and open source",
+      "subtitle": "FastMinify is completely transparent and open source to guarantee your trust",
+      "transparency": {
+        "title": "Total transparency",
+        "items": [
+          "Completely transparent source code",
+          "Open minification algorithms",
+          "Public security audit",
+          "Encouraged community contribution"
+        ]
+      },
+      "updates": {
+        "title": "Continuous evolution",
+        "items": [
+          "Regular updates",
+          "Free new features",
+          "Support for latest web standards",
+          "Continuous performance improvements"
+        ]
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Found a bug? Have a suggestion? We'd love to hear from you!",
+    "sendMessage": "Send us a message",
+    "name": "Name",
+    "email": "Email",
+    "typeOfMessage": "Type of message",
+    "subject": "Subject",
+    "message": "Message",
+    "sendButton": "Send Message",
+    "getInTouch": "Get in touch",
+    "getInTouchText": "We're always looking to improve FastMinify. Whether you've found a bug, have a feature request, or just want to say hello, we'd love to hear from you.",
+    "commonIssues": "Common issues",
+    "minificationNotWorking": "Minification not working?",
+    "minificationNotWorkingText": "Make sure your code is valid JavaScript or CSS. Check the browser console for errors.",
+    "codeNotCopying": "Code not copying?",
+    "codeNotCopyingText": "Try using the copy button or manually select and copy the text.",
+    "themeNotSaving": "Theme not saving?",
+    "themeNotSavingText": "Check if your browser allows localStorage. Try refreshing the page.",
+    "messageTypes": {
+      "bug": "Bug Report",
+      "feature": "Feature Request",
+      "question": "Question",
+      "other": "Other"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "your@email.com",
+      "subject": "Brief description",
+      "message": "Please describe your issue or suggestion in detail..."
+    },
+    "validation": {
+      "required": "Please fill in all required fields.",
+      "success": "Thank you for your message! We'll get back to you soon."
+    }
+  },
+  "footer": {
+    "description": "Free online tool to minify code instantly — fast, modern, and privacy-friendly."
+  },
+  "content": {
+    "hero": {
+      "badges": {
+        "free": "100% Free",
+        "private": "No data sent",
+        "instant": "Instant processing"
+      }
+    },
+    "whyMinify": {
+      "title": "What is code minification?",
+      "subtitle": "Code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names.",
+      "benefits": {
+        "performance": {
+          "title": "File size reduction",
+          "description": "Minification can reduce JavaScript and CSS file sizes by 30-70%, significantly improving page load times."
+        },
+        "bandwidth": {
+          "title": "Bandwidth optimization",
+          "description": "Smaller files mean less data transfer, reducing bandwidth costs and improving user experience on slower connections."
+        },
+        "security": {
+          "title": "Code obfuscation",
+          "description": "Minified code is harder to read and reverse-engineer, providing a basic level of code protection."
+        }
+      }
+    },
+    "languages": {
+      "title": "Supported languages",
+      "javascript": "JavaScript",
+      "css": "CSS",
+      "json": "JSON",
+      "php": "PHP Serialization"
+    },
+    "howItWorks": {
+      "title": "How does it work?",
+      "subtitle": "Our minification tool is designed to be simple, fast and secure.",
+      "steps": {
+        "paste": {
+          "title": "Paste your code",
+          "description": "Copy and paste your code into the left editor. Our automatic detection recognizes the language."
+        },
+        "configure": {
+          "title": "Configure options",
+          "description": "Customize minification according to your needs: compatibility, compression, optimizations."
+        },
+        "getResult": {
+          "title": "Get the result",
+          "description": "Your minified code appears instantly. Download or copy the result."
+        }
+      }
+    },
+    "seoOptimization": {
+      "title": "SEO and Performance Optimization",
+      "subtitle": "Code minification directly improves your search engine ranking and your site's user experience.",
+      "seoImpact": {
+        "title": "SEO Impact",
+        "items": [
+          "Improves Google's <strong>Core Web Vitals</strong>",
+          "Reduces page <strong>loading times</strong>",
+          "Increases <strong>conversion rates</strong>",
+          "Improves <strong>mobile experience</strong>"
+        ]
+      },
+      "technicalOptimizations": {
+        "title": "Technical optimizations",
+        "items": [
+          "Removes <strong>unnecessary spaces</strong>",
+          "Shortens <strong>variable names</strong>",
+          "Optimizes <strong>expressions</strong>",
+          "<strong>GZIP</strong> compression compatible"
+        ]
+      }
+    },
+    "codeExamples": {
+      "title": "Minification examples",
+      "subtitle": "Discover how minification transforms your code to optimize performance.",
+      "javascript": "JavaScript",
+      "css": "CSS",
+      "originalCode": "Original code:",
+      "minifiedCode": "Minified code:"
+    }
+  }
+}

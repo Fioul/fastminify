@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡️ FastMinify
 
-## Getting Started
+> Free online tool to minify JavaScript and CSS instantly — fast, modern, and privacy-friendly.
 
-First, run the development server:
+![FastMinify Screenshot](public/preview.png)
 
+## 🧠 Overview
+FastMinify is a minimalist web app built with Next.js, designed to provide instant JS and CSS minification directly in the browser. It focuses on speed, UX clarity, and modern web performance, without collecting any user data.
+
+## 🚀 Features
+- 🧩 Instant minification for JavaScript and CSS (client-side, no upload)
+- ⚙️ Options: Safe / Aggressive compression, ES5 / ES6 compatibility
+- 🎨 Modern UI with Shadcn/UI
+- 🌙 Dark mode automatically supported
+- 📊 Statistics showing size saved and compression rate
+- 📋 Copy & Download results easily
+- 🔔 Toast notifications via Sonner
+- 💻 100% static — no backend, fully privacy-safe
+
+## 🧰 Tech Stack
+| Layer | Technology |
+|-------|-------------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | TailwindCSS |
+| UI Library | Shadcn/UI |
+| Notifications | Sonner |
+| JS Minification | Terser |
+| CSS Minification | CSSO |
+| Hosting | Vercel |
+
+## ⚙️ Installation & Development
 ```bash
+git clone https://github.com/<yourusername>/fastminify.git
+cd fastminify
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+App available at → http://localhost:3000
+
+### Build for production
+```bash
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧱 Project structure
+```
+fastminify/
+├── app/
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── CodeEditor.tsx
+│   ├── OptionsPanel.tsx
+│   └── ResultPanel.tsx
+├── lib/
+│   ├── minify-js.ts
+│   ├── minify-css.ts
+│   └── utils.ts
+├── public/
+│   └── favicon.ico
+└── README.md
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧩 Environment & Build
+| Command | Description |
+|----------|-------------|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Build production bundle |
+| `npm start` | Launch production server |
+| `vercel` | Deploy to Vercel instantly |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📈 SEO & Performance
+- Metadata via `layout.tsx`
+- OpenGraph & Twitter tags
+- Lighthouse score >95
+- Hosted on Vercel Edge
 
-## Learn More
+## 🛡️ Privacy
+- 100% client-side minification
+- No tracking or code upload
+- Clipboard API only used locally
 
-To learn more about Next.js, take a look at the following resources:
+## 🧑‍💻 Author
+**FastMinify** — Built by techniConcept
+> “Code faster. Load faster.”
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 License
+MIT © 2025
