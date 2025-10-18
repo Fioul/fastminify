@@ -118,21 +118,33 @@ function concatenateFiles(
     // Clean existing comments from file content
     const cleanedContent = cleanComments(file.content, file.type)
     
-    // Add file name as comment
+    // Smart spacing logic
+    if (i > 0) {
+      // Add spacing before file (except for first one)
+      if (addComments && addNewlines) {
+        // Both options enabled: 2 newlines before comment
+        concatenated += '\n\n'
+      } else if (addNewlines) {
+        // Only spacing option: 2 newlines between files
+        concatenated += '\n\n'
+      }
+    }
+    
+    // Add file name as comment with spacing
     if (addComments) {
       if (file.type === 'js') {
-        concatenated += `// ${file.name}\n`
+        concatenated += `\n// ${file.name}\n`
       } else {
-        concatenated += `/* ${file.name} */\n`
+        concatenated += `\n/* ${file.name} */\n`
       }
     }
     
     // Add cleaned file content
     concatenated += cleanedContent
     
-    // Add newlines between files (2 empty lines for better visibility)
+    // Add newline after file content only if addNewlines is enabled
     if (addNewlines && i < files.length - 1) {
-      concatenated += '\n\n\n' // 3 newlines = 2 empty lines
+      concatenated += '\n'
     }
   }
   
@@ -148,6 +160,9 @@ describe('Concatenation Options', () => {
       expect(result).toContain('// api.js')
       expect(result).toContain('function add(a, b) { return a + b; }')
       expect(result).toContain('function fetchData() { return fetch("/api/data"); }')
+      // Comments should have newlines before and after
+      expect(result).toMatch(/\n\/\/ utils\.js\n/)
+      expect(result).toMatch(/\n\/\/ api\.js\n/)
     })
 
     test('should not add file names as comments when disabled', () => {
@@ -162,14 +177,14 @@ describe('Concatenation Options', () => {
     test('should add newlines between files when enabled', () => {
       const result = concatenateFiles(mockJSFiles, false, true)
       
-      // Should contain triple newlines between files (2 empty lines)
+      // Should contain triple newlines between files (2 empty lines + 1 newline after first file)
       expect(result).toMatch(/function add\(a, b\) \{ return a \+ b; \}\n\n\nfunction fetchData\(\)/)
     })
 
     test('should not add newlines between files when disabled', () => {
       const result = concatenateFiles(mockJSFiles, false, false)
       
-      // Should not contain double newlines between files
+      // Should not contain any newlines between files
       expect(result).not.toMatch(/function add\(a, b\) \{ return a \+ b; \}\n\nfunction fetchData\(\)/)
       expect(result).toMatch(/function add\(a, b\) \{ return a \+ b; \}function fetchData\(\)/)
     })
@@ -179,7 +194,8 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('// utils.js')
       expect(result).toContain('// api.js')
-      expect(result).toMatch(/\/\/ utils\.js\nfunction add\(a, b\) \{ return a \+ b; \}\n\n\n\/\/ api\.js\nfunction fetchData\(\)/)
+      // With both options: 2 newlines before comment, then comment with newlines, then 1 newline after first file
+      expect(result).toMatch(/function add\(a, b\) \{ return a \+ b; \}\n\n\n\/\/ api\.js\nfunction fetchData\(\)/)
     })
 
     test('should remove existing comments and add file name comments', () => {
@@ -231,6 +247,9 @@ describe('Concatenation Options', () => {
       expect(result).toContain('/* components.css */')
       expect(result).toContain('* { margin: 0; padding: 0; }')
       expect(result).toContain('.btn { padding: 10px; background: blue; }')
+      // Comments should have newlines before and after
+      expect(result).toMatch(/\n\/\* reset\.css \*\/\n/)
+      expect(result).toMatch(/\n\/\* components\.css \*\/\n/)
     })
 
     test('should not add file names as comments when disabled', () => {
@@ -245,14 +264,14 @@ describe('Concatenation Options', () => {
     test('should add newlines between files when enabled', () => {
       const result = concatenateFiles(mockCSSFiles, false, true)
       
-      // Should contain triple newlines between files (2 empty lines)
+      // Should contain triple newlines between files (2 empty lines + 1 newline after first file)
       expect(result).toMatch(/\* \{ margin: 0; padding: 0; \}\n\n\n\.btn \{ padding: 10px; background: blue; \}/)
     })
 
     test('should not add newlines between files when disabled', () => {
       const result = concatenateFiles(mockCSSFiles, false, false)
       
-      // Should not contain double newlines between files
+      // Should not contain any newlines between files
       expect(result).not.toMatch(/\* \{ margin: 0; padding: 0; \}\n\n\.btn \{ padding: 10px; background: blue; \}/)
       expect(result).toMatch(/\* \{ margin: 0; padding: 0; \}\.btn \{ padding: 10px; background: blue; \}/)
     })
@@ -262,7 +281,8 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('/* reset.css */')
       expect(result).toContain('/* components.css */')
-      expect(result).toMatch(/\/\* reset\.css \*\/\n\* \{ margin: 0; padding: 0; \}\n\n\n\/\* components\.css \*\/\n\.btn \{ padding: 10px; background: blue; \}/)
+      // With both options: 2 newlines before comment, then comment with newlines, then 1 newline after first file
+      expect(result).toMatch(/\* \{ margin: 0; padding: 0; \}\n\n\n\/\* components\.css \*\/\n\.btn \{ padding: 10px; background: blue; \}/)
     })
 
     test('should remove existing CSS comments and add file name comments', () => {
@@ -340,7 +360,7 @@ describe('Concatenation Options', () => {
       
       expect(result).toContain('// empty1.js')
       expect(result).toContain('// empty2.js')
-      // Should have newlines between comments for empty files (4 newlines: comment + content + 2 empty lines)
+      // Should have newlines between comments for empty files (4 newlines: comment + content + 2 empty lines + 1 newline after first file)
       expect(result).toMatch(/\/\/ empty1\.js\n\n\n\n\/\/ empty2\.js/)
     })
   })

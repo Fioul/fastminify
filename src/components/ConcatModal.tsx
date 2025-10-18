@@ -187,21 +187,33 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         // Nettoyer le contenu des commentaires existants
         const cleanedContent = cleanComments(file.content, fileType)
         
-        // Ajouter le nom du fichier en commentaire
+        // Logique d'espacement intelligente
+        if (i > 0) {
+          // Ajouter de l'espacement avant le fichier (sauf pour le premier)
+          if (addComments && addNewlines) {
+            // Les deux options activées : 2 sauts de ligne avant le commentaire
+            concatenated += '\n\n'
+          } else if (addNewlines) {
+            // Seulement l'option espacement : 2 sauts de ligne entre fichiers
+            concatenated += '\n\n'
+          }
+        }
+        
+        // Ajouter le nom du fichier en commentaire avec espacement
         if (addComments) {
           if (fileType === 'js') {
-            concatenated += `// ${file.name}\n`
+            concatenated += `\n// ${file.name}\n`
           } else {
-            concatenated += `/* ${file.name} */\n`
+            concatenated += `\n/* ${file.name} */\n`
           }
         }
         
         // Ajouter le contenu nettoyé du fichier
         concatenated += cleanedContent
         
-        // Ajouter des nouvelles lignes entre les fichiers (2 lignes pour plus de visibilité)
+        // Ajouter un saut de ligne après le contenu du fichier seulement si addNewlines est activé
         if (addNewlines && i < files.length - 1) {
-          concatenated += '\n\n\n' // 3 newlines = 2 lignes vides
+          concatenated += '\n'
         }
       }
 
