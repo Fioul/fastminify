@@ -2,14 +2,63 @@
 
 ## 🚀 Déploiement en Production
 
-### Prérequis
+### Méthode 1: Déploiement automatisé avec Git + SSH (Recommandé)
+
+#### Prérequis
+- Accès SSH à votre serveur d'hébergement
+- Repository Git (GitHub, GitLab, etc.)
+- Votre domaine configuré
+
+#### Configuration initiale
+
+1. **Personnalisez la configuration** :
+```bash
+# Copiez et modifiez le fichier de configuration
+cp deploy.config.sh deploy.config.local.sh
+# Éditez deploy.config.local.sh avec vos informations
+```
+
+2. **Configuration initiale du serveur** :
+```bash
+# Exécutez le script de configuration (une seule fois)
+source deploy.config.local.sh
+./scripts/setup-server.sh $DEPLOY_SERVER $DEPLOY_USER
+```
+
+#### Déploiements futurs
+
+```bash
+# Déploiement simple (depuis votre machine locale)
+source deploy.config.local.sh
+./scripts/deploy-git.sh $DEPLOY_SERVER $DEPLOY_BRANCH
+```
+
+#### Commandes de maintenance
+
+```bash
+# Voir les logs
+./scripts/server-commands.sh logs $DEPLOY_SERVER
+
+# Redémarrer l'application
+./scripts/server-commands.sh restart $DEPLOY_SERVER
+
+# Voir le statut
+./scripts/server-commands.sh status $DEPLOY_SERVER
+
+# Mise à jour manuelle
+./scripts/server-commands.sh update $DEPLOY_SERVER
+```
+
+### Méthode 2: Déploiement manuel (Alternative)
+
+#### Prérequis
 - Node.js 18+ installé sur votre serveur
 - Accès SSH à votre serveur d'hébergement
 - Votre domaine configuré
 
-### Étapes de déploiement
+#### Étapes de déploiement
 
-#### 1. Préparation locale
+1. **Préparation locale** :
 ```bash
 # Construire l'application
 npm run build
@@ -18,14 +67,14 @@ npm run build
 npm start
 ```
 
-#### 2. Upload sur le serveur
+2. **Upload sur le serveur** :
 Uploadez ces dossiers/fichiers sur votre serveur :
 - `.next/` (dossier de build)
 - `public/` (fichiers statiques)
 - `package.json`
 - `package-lock.json`
 
-#### 3. Configuration du serveur
+3. **Configuration du serveur** :
 ```bash
 # Sur votre serveur
 cd /path/to/your/app
