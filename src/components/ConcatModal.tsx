@@ -187,63 +187,50 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         // Nettoyer le contenu des commentaires existants
         const cleanedContent = cleanComments(file.content, fileType)
         
-        // Logique d'espacement intelligente
+        // Minifier le contenu de chaque fichier individuellement
+        let minifiedContent = cleanedContent
+        if (fileType === 'js') {
+          minifiedContent = await minifyJavaScript(cleanedContent, {
+            ecmaVersion: 'es2020',
+            compressionLevel: 'normal',
+            browserSupport: 'modern',
+            preserveClassNames: false,
+            preserveFunctionNames: false,
+            removeConsole: false,
+            removeDebugger: false
+          })
+        } else {
+          minifiedContent = await minifyCSSWithOptions(cleanedContent, {
+            compressionLevel: 'normal',
+            browserSupport: 'modern',
+            removeComments: true // Toujours supprimer les commentaires du contenu
+          })
+        }
+        
+        // Ajouter de l'espacement avant le fichier (sauf pour le premier)
         if (i > 0) {
-          // Ajouter de l'espacement avant le fichier (sauf pour le premier)
-          if (addComments && addNewlines) {
-            // Les deux options activées : 2 sauts de ligne avant le commentaire
-            concatenated += '\n\n'
-          } else if (addNewlines) {
-            // Seulement l'option espacement : 2 sauts de ligne entre fichiers
-            concatenated += '\n\n'
-          }
+          concatenated += '\n'
         }
         
         // Ajouter le nom du fichier en commentaire avec espacement
         if (addComments) {
           if (fileType === 'js') {
-            concatenated += `\n// ${file.name}\n`
+            concatenated += `// ${file.name}\n`
           } else {
-            concatenated += `\n/* ${file.name} */\n`
+            concatenated += `/* ${file.name} */\n`
           }
         }
         
-        // Ajouter le contenu nettoyé du fichier
-        concatenated += cleanedContent
+        // Ajouter le contenu minifié du fichier
+        concatenated += minifiedContent
         
-        // Ajouter un saut de ligne après le contenu du fichier
+        // Ajouter un newline après le contenu pour séparer du prochain fichier
         if (i < files.length - 1) {
-          if (addComments) {
-            // Si on a des commentaires, ajouter un newline après le contenu
-            concatenated += '\n'
-          } else if (addNewlines) {
-            // Si seulement espacement, ajouter 2 newlines
-            concatenated += '\n\n'
-          }
+          concatenated += '\n'
         }
       }
 
-      // Minifier le résultat
-      let minified = concatenated
-      if (fileType === 'js') {
-        minified = await minifyJavaScript(concatenated, {
-          ecmaVersion: 'es2020',
-          compressionLevel: 'normal',
-          browserSupport: 'modern',
-          preserveClassNames: false,
-          preserveFunctionNames: false,
-          removeConsole: false,
-          removeDebugger: false
-        })
-      } else {
-        minified = await minifyCSSWithOptions(concatenated, {
-          compressionLevel: 'normal',
-          browserSupport: 'modern',
-          removeComments: !addComments // Only remove comments if addComments is false
-        })
-      }
-
-      setResult(minified)
+      setResult(concatenated)
     } catch (error) {
       console.error('Error processing files:', error)
       setResult('Error processing files. Please check your files and try again.')
@@ -450,6 +437,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                   id="add-comments"
                   checked={addComments}
                   onCheckedChange={setAddComments}
+                  className="cursor-pointer"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -463,6 +451,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
                   id="add-newlines"
                   checked={addNewlines}
                   onCheckedChange={setAddNewlines}
+                  className="cursor-pointer"
                 />
               </div>
             </CardContent>

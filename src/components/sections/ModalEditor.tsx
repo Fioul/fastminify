@@ -148,7 +148,7 @@ export default function ModalEditor({
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
-                className="h-8 w-8 p-0"
+                className="h-8 w-8 p-0 cursor-pointer"
                 title={t('common.closeModal')}
               >
                 <X className="h-4 w-4" />
