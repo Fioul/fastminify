@@ -124,6 +124,13 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       "availability": "https://schema.org/InStock",
       "validFrom": "2025-01-01"
     },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
     "featureList": t.features,
     "softwareHelp": {
       "@type": "CreativeWork",
