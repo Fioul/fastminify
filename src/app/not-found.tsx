@@ -21,8 +21,8 @@ export default function NotFound() {
     <>
       <Header locale={locale} />
       <div className="gradient-bg min-h-screen flex items-center justify-center pt-16">
-      <div className="container max-w-[1440px] mx-auto px-4 py-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container max-w-[1600px] mx-auto px-4 py-10">
+        <div className="max-w-5xl mx-auto text-center">
           
           {/* 404 Number with Animation */}
           <div className="mb-8">

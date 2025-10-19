@@ -13,7 +13,7 @@ export default function LegalPage({ params }: LegalPageProps) {
 
   return (
     <div className="gradient-bg">
-      <div className="container max-w-[1440px] mx-auto px-4 py-10">
+      <div className="container max-w-[1600px] mx-auto px-4 py-10">
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             {t('legal.title')}
@@ -26,7 +26,7 @@ export default function LegalPage({ params }: LegalPageProps) {
           </p>
         </div>
 
-        <section className="max-w-4xl mx-auto mb-16">
+        <section className="max-w-5xl mx-auto mb-16">
           <div className="bg-card text-card-foreground rounded-2xl p-8 space-y-6 border border-border shadow-lg">
             <div className="space-y-8">
               <section>
