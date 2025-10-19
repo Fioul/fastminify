@@ -6,6 +6,8 @@ import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
 import ClientFooter from '@/components/ClientFooter'
 import ClientScripts from '@/components/ClientScripts'
+import StructuredData from '@/components/StructuredData'
+import FaviconHead from '@/components/FaviconHead'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
 
@@ -85,8 +87,8 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
         <head>
-            <link rel="icon" type="image/png" href="/favicon.png?v=2" />
-            <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
+            <FaviconHead />
+            <StructuredData locale="en" pageType="home" />
         </head>
         <body
             className={cn(
