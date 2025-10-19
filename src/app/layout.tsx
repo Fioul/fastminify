@@ -8,6 +8,7 @@ import ClientFooter from '@/components/ClientFooter'
 import ClientScripts from '@/components/ClientScripts'
 import StructuredData from '@/components/StructuredData'
 import FaviconHead from '@/components/FaviconHead'
+import CookieConsent from '@/components/CookieConsent'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
 
@@ -89,6 +90,7 @@ export default async function RootLayout({
         <head>
             <FaviconHead />
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
+            <meta name="apple-mobile-web-app-title" content="Fast Minify" />
             <StructuredData locale="en" pageType="home" />
         </head>
         <body
@@ -117,6 +119,7 @@ export default async function RootLayout({
                     </main>
                     <ClientFooter />
                 </div>
+                <CookieConsent locale="en" />
             </ThemeProvider>
 
         {/* Sonner toast notifications */}
