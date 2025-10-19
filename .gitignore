@@ -48,3 +48,7 @@ debug-screenshot.png
 
 # consent logs (privacy sensitive)
 /logs/
+
+# Generated sitemap and robots.txt (will be generated on build)
+/public/sitemap.xml
+/public/robots.txt
