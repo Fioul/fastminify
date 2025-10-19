@@ -96,7 +96,7 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
     <>
       {/* Cookie Banner */}
       <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4">
-        <Card className="max-w-4xl mx-auto bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border shadow-lg">
+        <Card className="max-w-4xl mx-auto bg-background/98 backdrop-blur-md supports-[backdrop-filter]:bg-background/85 border shadow-lg">
           <div className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-start gap-4">
               <div className="flex-1">
@@ -162,8 +162,8 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
 
       {/* Preferences Modal */}
       {showPreferences && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm">
-          <Card className="w-full max-w-2xl bg-background border shadow-xl max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm">
+          <Card className="w-full max-w-2xl bg-background/98 backdrop-blur-md border shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-semibold text-foreground">
