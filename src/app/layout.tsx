@@ -6,6 +6,7 @@ import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
+import ClientScripts from '@/components/ClientScripts'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
 
@@ -85,26 +86,6 @@ export default async function RootLayout({
         <head>
             <link rel="icon" type="image/png" href="/favicon.png?v=2" />
             <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
-            
-            {/* Google Tag Manager */}
-            <script
-                dangerouslySetInnerHTML={{
-                  __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W7QNL7VB');`
-                }}
-            />
-            {/* End Google Tag Manager */}
-            
-            {/* Google AdSense */}
-            <script 
-                async 
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5768156413311714"
-                crossOrigin="anonymous"
-            />
-            {/* End Google AdSense */}
         </head>
         <body
             className={cn(
@@ -125,6 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         
             <ThemeProvider>
+                <ClientScripts />
                 <div className="min-h-screen flex flex-col">
                     <main className="flex-1">
                         {children}
