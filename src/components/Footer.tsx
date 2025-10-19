@@ -62,7 +62,7 @@ export default function Footer({ locale }: FooterProps) {
             </div>
 
             {/* Copyright - Below, smaller and italic */}
-            <div className="text-xs text-muted-foreground italic text-right">
+            <div className="text-xs text-muted-foreground italic text-center md:text-right">
               &copy; 2025 FastMinify. All rights reserved.
             </div>
           </div>
