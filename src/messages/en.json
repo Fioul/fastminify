@@ -1,7 +1,7 @@
 {
   "common": {
-    "subtitle": "Code Minifier",
-    "description": "Minify your code from left to right, unminify from right to left — free, fast, and private.",
+    "subtitle": "Online JavaScript, CSS & JSON Minifier",
+    "description": "Minify your JavaScript, CSS and JSON code from left to right, unminify from right to left — free, fast, and private. Online minification tool with no registration required.",
     "normalCode": "Normal Code",
     "minifiedCode": "Minified Code",
     "auto": "Auto",
@@ -260,8 +260,8 @@
       }
     },
     "whyMinify": {
-      "title": "What is code minification?",
-      "subtitle": "Code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names.",
+      "title": "What is JavaScript and CSS code minification?",
+      "subtitle": "JavaScript and CSS code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names to optimize web performance.",
       "benefits": {
         "performance": {
           "title": "File size reduction",

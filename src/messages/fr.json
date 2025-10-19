@@ -1,7 +1,7 @@
 {
   "common": {
-    "subtitle": "Minificateur de Code",
-    "description": "Minifiez votre code de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé.",
+    "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
+    "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -305,8 +305,8 @@
       }
     },
     "whyMinify": {
-      "title": "Qu'est-ce que la minification de code ?",
-      "subtitle": "La minification de code est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables.",
+      "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
+      "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
