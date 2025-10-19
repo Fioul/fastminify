@@ -334,79 +334,63 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "description": "FastMinify Privacy Policy - Protection of your personal data",
-    "lastUpdated": "Last updated: October 18, 2024",
+    "description": "FastMinify Privacy Policy - How we handle your data",
+    "lastUpdated": "Last updated: October 2025",
     "introduction": {
-      "title": "Introduction",
-      "content": "FastMinify is committed to protecting your privacy and personal data. This privacy policy explains how we collect, use, and protect your information when you use our online code minification service."
+      "title": "Data Processing",
+      "content": "FastMinify processes your code locally in your browser. We do not store, collect, or transmit your code to our servers. This tool is designed to be completely private and secure."
     },
     "dataCollection": {
-      "title": "Data Collection",
-      "content": "We only collect data necessary for the operation of our service:",
+      "title": "What We Collect",
+      "content": "We only collect anonymous usage data through:",
       "types": {
-        "usage": "Anonymized usage data to improve the service",
-        "analytics": "Traffic statistics via Google Analytics",
-        "cookies": "Technical and preference cookies",
-        "ads": "Advertising data via Google AdSense"
+        "analytics": "Google Analytics (with your consent) - anonymous traffic statistics",
+        "cookies": "Essential cookies for language preferences and functionality",
+        "ads": "Advertising data via Google AdSense (no personal data collected)"
       }
     },
     "cookies": {
-      "title": "Cookies and Similar Technologies",
-      "content": "Our site uses cookies to improve your user experience and analyze traffic.",
+      "title": "Cookies",
+      "content": "We use minimal cookies:",
       "types": {
-        "title": "Types of cookies used:",
-        "essential": "Essential cookies for site functionality",
-        "analytics": "Analytics cookies (Google Analytics)",
-        "advertising": "Advertising cookies (Google AdSense)"
+        "title": "Cookie types:",
+        "essential": "Essential cookies for site functionality (always active)",
+        "analytics": "Google Analytics cookies (optional, requires consent)",
+        "advertising": "Advertising cookies (no personal data)"
       }
     },
     "googleServices": {
-      "title": "Integrated Google Services",
-      "content": "Our site uses Google services for analytics and advertising:",
-      "analytics": "Google Analytics helps us understand how visitors interact with our site. Data is anonymized and used only for statistical purposes.",
-      "adsense": "Google AdSense displays personalized advertisements. These ads use cookies to show you relevant ads."
+      "title": "Third-Party Services",
+      "content": "We use Google services:",
+      "analytics": "Google Analytics: Anonymous traffic statistics (you can opt-out)",
+      "adsense": "Google AdSense: Displays advertisements (no personal data collected)"
     },
     "dataRights": {
-      "title": "Your Data Rights",
-      "content": "In accordance with GDPR, you have the following rights:",
+      "title": "Your Rights",
+      "content": "Since we don't store personal data, you can:",
       "rights": {
-        "access": "Right of access to your personal data",
-        "rectification": "Right to rectification of inaccurate data",
-        "erasure": "Right to erasure of your data",
-        "portability": "Right to data portability",
-        "objection": "Right to object to data processing"
+        "optout": "Opt-out of Google Analytics at any time",
+        "cookies": "Manage cookie preferences in your browser",
+        "adblock": "Use ad-blockers if you prefer"
       }
     },
     "dataSecurity": {
-      "title": "Data Security",
-      "content": "We implement appropriate security measures to protect your data against unauthorized access, modification, disclosure, or destruction. Your code is processed securely and is not stored permanently."
+      "title": "Security",
+      "content": "Your code is processed entirely in your browser and never sent to our servers. No data is stored or transmitted."
     },
     "contact": {
-      "title": "Contact",
-      "content": "For any questions regarding this privacy policy or the exercise of your rights, you can contact us at contact@fastminify.com."
+      "title": "Questions",
+      "content": "For questions about this privacy policy, please contact us through our website."
     },
-    "footer": "This privacy policy may be updated periodically. We will inform you of any significant changes."
+    "footer": "This privacy policy may be updated. Check back periodically for changes."
   },
   "legal": {
     "title": "Legal Notice",
-    "description": "FastMinify Legal Notice - Legal information about the site",
-    "lastUpdated": "Last updated: October 18, 2024",
-    "publisher": {
-      "title": "Site Publisher",
-      "name": "Name",
-      "website": "Website",
-      "email": "Email",
-      "country": "Country"
-    },
-    "hosting": {
-      "title": "Hosting",
-      "provider": "Hosting Provider",
-      "address": "Address",
-      "website": "Website"
-    },
+    "description": "FastMinify Legal Notice - Terms of use",
+    "lastUpdated": "Last updated: October 2025",
     "service": {
       "title": "Service Description",
-      "description": "FastMinify is a free online tool for minifying, beautifying, and optimizing JavaScript, CSS, JSON, and PHP code. Our service offers:",
+      "description": "FastMinify is a free online tool for minifying, beautifying, and optimizing JavaScript, CSS, JSON, and PHP code. All processing is done locally in your browser.",
       "features": {
         "minification": "JavaScript, CSS, and JSON code minification",
         "beautification": "Code beautification and formatting",
@@ -416,32 +400,49 @@
     },
     "intellectualProperty": {
       "title": "Intellectual Property",
-      "content": "The content of this site (texts, images, logos, design) is protected by copyright. The code you minify remains your property. FastMinify claims no rights to the code you process.",
-      "warning": "Important: The code you submit to our service remains your property. We do not store your code permanently."
+      "content": "The FastMinify website content is protected by copyright. Your code remains your property - we never store or claim rights to your code.",
+      "warning": "Important: Your code is processed locally and never sent to our servers."
     },
     "liability": {
-      "title": "Liability Limitation",
-      "content": "FastMinify is provided \"as is\" without warranty of any kind. We strive to provide a reliable service, but we cannot guarantee:",
+      "title": "Terms of Use",
+      "content": "FastMinify is provided \"as is\" without warranty. We cannot guarantee:",
       "limitations": {
-        "accuracy": "Absolute accuracy of minification results",
+        "accuracy": "Perfect accuracy of minification results",
         "availability": "Continuous service availability",
-        "damages": "Absence of damages resulting from service use",
-        "thirdParty": "Proper functioning of third-party services (Google Analytics, AdSense)"
+        "damages": "Absence of damages from service use"
       }
     },
     "cookies": {
       "title": "Cookies",
-      "content": "This site uses cookies to improve your experience. By continuing to use the site, you accept our use of cookies.",
-      "moreInfo": "For more information, see our Privacy Policy."
-    },
-    "governingLaw": {
-      "title": "Governing Law",
-      "content": "These legal notices are governed by French law. In case of dispute, French courts will have jurisdiction."
+      "content": "This site uses essential cookies for functionality and optional analytics cookies. You can manage preferences in your browser.",
+      "moreInfo": "See our Privacy Policy for details."
     },
     "modifications": {
-      "title": "Modifications",
-      "content": "We reserve the right to modify these legal notices at any time. Modifications will take effect upon their publication on the site."
+      "title": "Changes",
+      "content": "We may update these terms at any time. Continued use constitutes acceptance of changes."
     },
-    "footer": "These legal notices comply with current French legislation."
+    "footer": "Use of this service implies acceptance of these terms."
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "subtitle": "Looks like this page went on a coffee break! ☕",
+    "description": "The page you're looking for seems to have vanished into the digital void. But don't worry, even the best code sometimes has bugs!",
+    "suggestions": {
+      "title": "Here's what you can do:",
+      "items": [
+        "Check the URL for typos (we all make mistakes!)",
+        "Go back to the homepage and try again",
+        "Use our awesome minifier while you're here",
+        "Take a deep breath and try again"
+      ]
+    },
+    "actions": {
+      "home": "Back to Home",
+      "minify": "Start Minifying"
+    },
+    "fun": {
+      "quote": "404: The page you're looking for is in another castle! 🏰",
+      "joke": "Why did the web page go to therapy? Because it had too many issues! 😄"
+    }
   }
 }

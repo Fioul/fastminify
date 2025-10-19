@@ -46,26 +46,11 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
               {t('privacy.dataCollection.content')}
             </p>
-            <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-              <ul className="space-y-2 text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataCollection.types.usage')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataCollection.types.analytics')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataCollection.types.cookies')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataCollection.types.ads')}</span>
-                </li>
-              </ul>
-            </div>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li>{t('privacy.dataCollection.types.analytics')}</li>
+              <li>{t('privacy.dataCollection.types.cookies')}</li>
+              <li>{t('privacy.dataCollection.types.ads')}</li>
+            </ul>
           </section>
 
           {/* COOKIES */}
@@ -133,30 +118,11 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-lg text-muted-foreground leading-relaxed mb-4">
               {t('privacy.dataRights.content')}
             </p>
-            <div className="bg-gray-50 dark:bg-gray-950 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-              <ul className="space-y-2 text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataRights.rights.access')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataRights.rights.rectification')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataRights.rights.erasure')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataRights.rights.portability')}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{t('privacy.dataRights.rights.objection')}</span>
-                </li>
-              </ul>
-            </div>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li>{t('privacy.dataRights.rights.optout')}</li>
+              <li>{t('privacy.dataRights.rights.cookies')}</li>
+              <li>{t('privacy.dataRights.rights.adblock')}</li>
+            </ul>
           </section>
 
           {/* DATA SECURITY */}

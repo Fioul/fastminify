@@ -26,9 +26,6 @@ export default async function LocaleLayout({
         
         {/* CLIENT-SIDE AD MANAGER */}
         <ClientAdManager locale={locale} />
-        
-        {/* Add bottom padding to prevent content from being hidden behind floating ad */}
-        <div className="h-24 xl:block hidden"></div>
       </div>
     </>
   )
