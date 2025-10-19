@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import ClientAdManager from '@/components/ClientAdManager'
-import { AdProvider } from '@/contexts/AdContext'
 
 interface LocaleLayoutProps {
   children: React.ReactNode
@@ -20,7 +19,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <AdProvider>
+    <>
       <Header locale={locale} />
       <div className="pt-16">
         {children}
@@ -28,7 +27,7 @@ export default async function LocaleLayout({
         {/* CLIENT-SIDE AD MANAGER */}
         <ClientAdManager locale={locale} />
       </div>
-    </AdProvider>
+    </>
   )
 }
 
