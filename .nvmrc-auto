@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Script d'auto-switch NVM pour FastMinify
+# Ce script détecte NVM et utilise automatiquement Node.js 22
+
+# Vérifier si NVM est disponible
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+    # Charger NVM
+    source "$HOME/.nvm/nvm.sh"
+    
+    # Vérifier si le fichier .nvmrc existe
+    if [ -f ".nvmrc" ]; then
+        NODE_VERSION=$(cat .nvmrc)
+        echo "🔄 NVM détecté - Passage à Node.js $NODE_VERSION..."
+        
+        # Vérifier si la version est installée
+        if nvm list | grep -q "v$NODE_VERSION"; then
+            nvm use $NODE_VERSION
+            echo "✅ Node.js $NODE_VERSION activé"
+        else
+            echo "📦 Installation de Node.js $NODE_VERSION..."
+            nvm install $NODE_VERSION
+            nvm use $NODE_VERSION
+            echo "✅ Node.js $NODE_VERSION installé et activé"
+        fi
+    else
+        echo "⚠️ Fichier .nvmrc non trouvé"
+    fi
+else
+    echo "ℹ️ NVM non détecté - Utilisation de la version Node.js par défaut"
+fi
