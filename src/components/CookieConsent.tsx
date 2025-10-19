@@ -11,26 +11,44 @@ import { X, Settings, Check, X as XIcon } from 'lucide-react'
 
 interface CookieConsentProps {
   locale: string
+  forceShow?: boolean
+  onClose?: () => void
 }
 
-export default function CookieConsent({ locale }: CookieConsentProps) {
+export default function CookieConsent({ locale, forceShow = false, onClose }: CookieConsentProps) {
   const { t } = useTranslations(locale)
   const pathname = usePathname()
   const [showBanner, setShowBanner] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
   const [analyticsEnabled, setAnalyticsEnabled] = useState(true)
+  const [isVisible, setIsVisible] = useState(false)
+  const [isPreferencesVisible, setIsPreferencesVisible] = useState(false)
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const consent = localStorage.getItem('cookie-consent')
-    if (!consent) {
+    if (forceShow) {
       setShowBanner(true)
+      // Load current consent state
+      const consent = localStorage.getItem('cookie-consent')
+      if (consent) {
+        const consentData = JSON.parse(consent)
+        setAnalyticsEnabled(consentData.analytics)
+      }
+      // Trigger fade in animation
+      setTimeout(() => setIsVisible(true), 10)
     } else {
-      const consentData = JSON.parse(consent)
-      setAnalyticsEnabled(consentData.analytics)
-      updateGoogleConsent(consentData.analytics)
+      // Check if user has already made a choice
+      const consent = localStorage.getItem('cookie-consent')
+      if (!consent) {
+        setShowBanner(true)
+        // Trigger fade in animation
+        setTimeout(() => setIsVisible(true), 10)
+      } else {
+        const consentData = JSON.parse(consent)
+        setAnalyticsEnabled(consentData.analytics)
+        updateGoogleConsent(consentData.analytics)
+      }
     }
-  }, [])
+  }, [forceShow])
 
   const updateGoogleConsent = (analytics: boolean) => {
     // Update Google Consent Mode V2
@@ -159,9 +177,11 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
-    setShowBanner(false)
     setAnalyticsEnabled(true)
     updateGoogleConsent(true)
+    
+    // Close with animation
+    handleCloseBanner()
   }
 
   const handleRejectAll = async () => {
@@ -180,9 +200,11 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
-    setShowBanner(false)
     setAnalyticsEnabled(false)
     updateGoogleConsent(false)
+    
+    // Close with animation
+    handleCloseBanner()
   }
 
   const handleSavePreferences = async () => {
@@ -201,13 +223,30 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
-    setShowBanner(false)
     setShowPreferences(false)
     updateGoogleConsent(analyticsEnabled)
+    
+    // Close with animation
+    handleCloseBanner()
   }
 
   const handleCustomize = () => {
     setShowPreferences(true)
+    // Trigger fade in animation for preferences
+    setTimeout(() => setIsPreferencesVisible(true), 10)
+  }
+
+  const handleCloseBanner = () => {
+    setIsVisible(false)
+    setTimeout(() => {
+      setShowBanner(false)
+      if (onClose) onClose()
+    }, 300) // Match transition duration
+  }
+
+  const handleClosePreferences = () => {
+    setIsPreferencesVisible(false)
+    setTimeout(() => setShowPreferences(false), 300) // Match transition duration
   }
 
   if (!showBanner) return null
@@ -215,7 +254,9 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
   return (
     <>
       {/* Cookie Banner */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4">
+      <div className={`fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4 transition-opacity duration-300 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}>
         <Card className="max-w-4xl mx-auto bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 border shadow-lg">
           <div className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-start gap-4">
@@ -282,7 +323,9 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
 
       {/* Preferences Modal */}
       {showPreferences && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm">
+        <div className={`fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          isPreferencesVisible ? 'opacity-100' : 'opacity-0'
+        }`}>
           <Card className="w-full max-w-2xl bg-background/95 backdrop-blur-md border shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4 sm:mb-6">
@@ -292,7 +335,7 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setShowPreferences(false)}
+                  onClick={handleClosePreferences}
                   className="shrink-0"
                 >
                   <X className="w-5 h-5" />
@@ -352,7 +395,7 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
               <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6 sm:mt-8">
                 <Button
                   variant="outline"
-                  onClick={() => setShowPreferences(false)}
+                  onClick={handleClosePreferences}
                   className="w-full sm:w-auto order-2 sm:order-1"
                 >
                   {t('cookies.preferences.cancel')}

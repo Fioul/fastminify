@@ -7,20 +7,16 @@ import Logo from '@/components/Logo'
 import { usePathname } from 'next/navigation'
 import CookieConsent from '@/components/CookieConsent'
 
-interface FooterProps {
-  locale?: string
-}
-
-export default function Footer({ locale }: FooterProps) {
+export default function ClientFooter() {
   const pathname = usePathname()
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const [currentLocale, setCurrentLocale] = useState('en')
   
   // Détecter la locale depuis l'URL
   useEffect(() => {
-    const detectedLocale = locale || (pathname.startsWith('/fr') ? 'fr' : 'en')
+    const detectedLocale = pathname.startsWith('/fr') ? 'fr' : 'en'
     setCurrentLocale(detectedLocale)
-  }, [pathname, locale])
+  }, [pathname])
   
   const { t } = useTranslations(currentLocale)
 
@@ -63,7 +59,7 @@ export default function Footer({ locale }: FooterProps) {
 
             {/* Copyright - Below, smaller and italic */}
             <div className="text-xs text-muted-foreground italic text-right">
-              &copy; 2025 FastMinify. All rights reserved.
+              &copy; 2025 FastMinify. {t('footer.copyright')}
             </div>
           </div>
         </div>

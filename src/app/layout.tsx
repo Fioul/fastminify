@@ -4,8 +4,7 @@ import './globals.css'
 import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
-import Footer from '@/components/Footer'
-import CookieConsent from '@/components/CookieConsent'
+import ClientFooter from '@/components/ClientFooter'
 import ClientScripts from '@/components/ClientScripts'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
@@ -65,24 +64,13 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode
-}) {
-    // Detect locale from URL
-    const headersList = await headers()
-    const pathname = headersList.get('x-pathname') || ''
-    
-    // Extract locale from pathname
-    let locale = 'en' // default
-    if (pathname.startsWith('/fr')) {
-        locale = 'fr'
-    } else if (pathname.startsWith('/en')) {
-        locale = 'en'
-    }
+                                           children,
+                                       }: {
+        children: React.ReactNode
+    }) {
 
     return (
-        <html lang={locale} suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
         <head>
             <link rel="icon" type="image/png" href="/favicon.png?v=2" />
             <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
@@ -111,8 +99,7 @@ export default async function RootLayout({
                     <main className="flex-1">
                         {children}
                     </main>
-                    <Footer locale={locale} />
-                    <CookieConsent locale={locale} />
+                    <ClientFooter />
                 </div>
             </ThemeProvider>
 

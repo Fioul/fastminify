@@ -17,6 +17,7 @@
     "download": "Télécharger",
     "clearEditor": "Effacer l'éditeur",
     "closeModal": "Fermer la modal",
+    "closeModalShort": "Fermer",
     "toggleTheme": "Basculer le thème",
     "selectLanguage": "Sélectionner le langage",
     "noChange": "Aucun changement",
@@ -282,8 +283,10 @@
       "title": "Légal",
       "privacy": "Politique de confidentialité",
       "legal": "Mentions légales",
+      "cookies": "Gérer les cookies",
       "robots": "Robots.txt"
     },
+    "copyright": "Tous droits réservés.",
     "support": {
       "title": "Support",
       "contact": "Contact",
