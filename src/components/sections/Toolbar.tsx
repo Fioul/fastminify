@@ -454,7 +454,7 @@ export default function Toolbar({
 
   return (
     <div className="flex justify-center mb-6">
-      <Card className="p-4 card-warm w-full max-w-[1200px]">
+      <Card className="p-4 card-warm w-full max-w-[1000px]">
         <CardContent className="p-0">
           <div className="flex flex-wrap gap-4 items-center justify-between">
             <div className="flex flex-wrap gap-4 items-center">
