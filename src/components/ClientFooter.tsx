@@ -58,7 +58,7 @@ export default function ClientFooter() {
             </div>
 
             {/* Copyright - Below, smaller and italic */}
-            <div className="text-xs text-muted-foreground italic text-right">
+            <div className="text-xs text-muted-foreground italic text-center">
               &copy; 2025 FastMinify. {t('footer.copyright')}
             </div>
           </div>
