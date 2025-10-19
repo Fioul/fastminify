@@ -403,6 +403,12 @@
         "essential": "Cookies essentiels pour le fonctionnement du site (toujours actifs)",
         "analytics": "Cookies Google Analytics (optionnels, nécessitent un consentement)",
         "advertising": "Cookies publicitaires (aucune donnée personnelle)"
+      },
+      "retention": {
+        "title": "Durée de conservation :",
+        "essential": "Cookies essentiels : session ou 1 an maximum",
+        "analytics": "Cookies Analytics : 2 ans maximum",
+        "advertising": "Cookies publicitaires : 13 mois maximum"
       }
     },
     "googleServices": {
@@ -423,6 +429,26 @@
     "dataSecurity": {
       "title": "Sécurité",
       "content": "Votre code est traité entièrement dans votre navigateur et n'est jamais envoyé vers nos serveurs. Aucune donnée n'est stockée ou transmise."
+    },
+    "dataTransfers": {
+      "title": "Transferts de données hors UE",
+      "content": "Certains de nos services tiers peuvent transférer des données vers des pays situés en dehors de l'Union européenne :",
+      "transfers": {
+        "google": "Google (Analytics, AdSense) : États-Unis",
+        "purpose": "Ces transferts sont nécessaires pour le fonctionnement de nos services d'analyse et de publicité."
+      },
+      "safeguards": {
+        "title": "Garanties légales :",
+        "adequacy": "Décision d'adéquation de la Commission européenne concernant les États-Unis",
+        "contractual": "Clauses contractuelles types approuvées par la Commission européenne",
+        "certification": "Certification Privacy Shield (si applicable)"
+      },
+      "rights": {
+        "title": "Vos droits :",
+        "object": "Vous pouvez vous opposer à ces transferts en désactivant les cookies d'analyse",
+        "information": "Vous pouvez demander des informations sur les garanties mises en place",
+        "complaint": "Vous pouvez déposer une plainte auprès de l'autorité de contrôle compétente"
+      }
     },
     "contact": {
       "title": "Questions",
