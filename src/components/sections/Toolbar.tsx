@@ -313,7 +313,7 @@ export default function Toolbar({
               </div>
             )}
 
-            <div className="flex items-center gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="flex items-center gap-2">
                 <Switch className="cursor-pointer"
                   id="remove-empty-keys"
@@ -352,7 +352,7 @@ export default function Toolbar({
 
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="flex items-center gap-2">
                 <Switch className="cursor-pointer"
                   id="sort-object-keys"
