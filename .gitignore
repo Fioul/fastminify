@@ -45,3 +45,6 @@ next-env.d.ts
 playwright-report/
 test-results/
 debug-screenshot.png
+
+# consent logs (privacy sensitive)
+/logs/

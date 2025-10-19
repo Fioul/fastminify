@@ -42,9 +42,108 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
         ad_personalization: 'granted'
       })
     }
+
+    // If analytics is disabled, clear Analytics cookies
+    if (!analytics) {
+      clearAnalyticsCookies()
+    }
   }
 
-  const handleAcceptAll = () => {
+  const clearAnalyticsCookies = () => {
+    if (typeof window === 'undefined') return
+
+    // List of common Google Analytics cookies to clear
+    const analyticsCookies = [
+      '_ga',
+      '_ga_*', // Wildcard for GA4 cookies
+      '_gid',
+      '_gat',
+      '_gat_*', // Wildcard for GA4 cookies
+      '_gcl_au', // Google Ads conversion tracking
+      '_gcl_aw', // Google Ads conversion tracking
+      '_gcl_dc', // Google Ads conversion tracking
+      '_fbp', // Facebook Pixel (if used)
+      '_fbc', // Facebook Pixel (if used)
+    ]
+
+    // Clear cookies by setting them to expire in the past
+    analyticsCookies.forEach(cookiePattern => {
+      if (cookiePattern.includes('*')) {
+        // Handle wildcard cookies
+        const baseName = cookiePattern.replace('*', '')
+        Object.keys(document.cookie.split(';').reduce((cookies, cookie) => {
+          const [name] = cookie.trim().split('=')
+          if (name && name.startsWith(baseName)) {
+            cookies[name] = true
+          }
+          return cookies
+        }, {} as Record<string, boolean>)).forEach(cookieName => {
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.${window.location.hostname}`
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`
+        })
+      } else {
+        // Handle specific cookies
+        document.cookie = `${cookiePattern}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.${window.location.hostname}`
+        document.cookie = `${cookiePattern}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`
+      }
+    })
+
+    // Clear localStorage analytics data
+    const analyticsKeys = Object.keys(localStorage).filter(key => 
+      key.startsWith('_ga') || 
+      key.startsWith('_gid') || 
+      key.startsWith('_gat') ||
+      key.startsWith('_gcl') ||
+      key.startsWith('_fbp') ||
+      key.startsWith('_fbc')
+    )
+    
+    analyticsKeys.forEach(key => {
+      localStorage.removeItem(key)
+    })
+
+    // Clear sessionStorage analytics data
+    const sessionAnalyticsKeys = Object.keys(sessionStorage).filter(key => 
+      key.startsWith('_ga') || 
+      key.startsWith('_gid') || 
+      key.startsWith('_gat') ||
+      key.startsWith('_gcl') ||
+      key.startsWith('_fbp') ||
+      key.startsWith('_fbc')
+    )
+    
+    sessionAnalyticsKeys.forEach(key => {
+      sessionStorage.removeItem(key)
+    })
+
+    // Reset Google Analytics if it exists
+    if (typeof window !== 'undefined' && window.gtag) {
+      // Send a page view with analytics disabled to stop tracking
+      window.gtag('config', 'GA_MEASUREMENT_ID', {
+        send_page_view: false
+      })
+    }
+  }
+
+  const logConsent = async (choices: { necessary: boolean; analytics: boolean; advertising: boolean }) => {
+    try {
+      await fetch('/api/consent-log', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          choices,
+          source: 'cookie-banner'
+        })
+      })
+    } catch (error) {
+      console.error('Failed to log consent:', error)
+      // Don't block the user experience if logging fails
+    }
+  }
+
+  const handleAcceptAll = async () => {
     const consent = {
       necessary: true,
       analytics: true,
@@ -52,13 +151,20 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
       timestamp: new Date().toISOString()
     }
     
+    // Log consent to server
+    await logConsent({
+      necessary: true,
+      analytics: true,
+      advertising: true
+    })
+    
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
     setShowBanner(false)
     setAnalyticsEnabled(true)
     updateGoogleConsent(true)
   }
 
-  const handleRejectAll = () => {
+  const handleRejectAll = async () => {
     const consent = {
       necessary: true,
       analytics: false,
@@ -66,19 +172,33 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
       timestamp: new Date().toISOString()
     }
     
+    // Log consent to server
+    await logConsent({
+      necessary: true,
+      analytics: false,
+      advertising: true
+    })
+    
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
     setShowBanner(false)
     setAnalyticsEnabled(false)
     updateGoogleConsent(false)
   }
 
-  const handleSavePreferences = () => {
+  const handleSavePreferences = async () => {
     const consent = {
       necessary: true,
       analytics: analyticsEnabled,
       advertising: true, // AdSense always enabled
       timestamp: new Date().toISOString()
     }
+    
+    // Log consent to server
+    await logConsent({
+      necessary: true,
+      analytics: analyticsEnabled,
+      advertising: true
+    })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
     setShowBanner(false)
@@ -96,7 +216,7 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
     <>
       {/* Cookie Banner */}
       <div className="fixed bottom-0 left-0 right-0 z-50 p-2 sm:p-4">
-        <Card className="max-w-4xl mx-auto bg-background/98 backdrop-blur-md supports-[backdrop-filter]:bg-background/85 border shadow-lg">
+        <Card className="max-w-4xl mx-auto bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 border shadow-lg">
           <div className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-start gap-4">
               <div className="flex-1">
@@ -163,7 +283,7 @@ export default function CookieConsent({ locale }: CookieConsentProps) {
       {/* Preferences Modal */}
       {showPreferences && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm">
-          <Card className="w-full max-w-2xl bg-background/98 backdrop-blur-md border shadow-xl max-h-[90vh] overflow-y-auto">
+          <Card className="w-full max-w-2xl bg-background/95 backdrop-blur-md border shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <h2 className="text-lg sm:text-xl font-semibold text-foreground">
