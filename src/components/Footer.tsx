@@ -17,7 +17,9 @@ export default function Footer({ locale = 'en' }: FooterProps) {
         <div className="flex flex-col md:flex-row items-start justify-between gap-6">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Logo className="h-8 w-8" />
+            <Link href={`/${locale}`}>
+              <Logo size="sm" />
+            </Link>
           </div>
 
           {/* Legal Menu */}
