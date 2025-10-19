@@ -487,5 +487,31 @@
       "quote": "404 : La page que vous cherchez est dans un autre château ! 🏰",
       "joke": "Pourquoi la page web est-elle allée chez le psy ? Parce qu'elle avait trop de problèmes ! 😄"
     }
+  },
+  "cookies": {
+    "title": "Préférences des Cookies",
+    "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
+    "privacyPolicy": "Politique de Confidentialité",
+    "legalNotice": "Mentions Légales",
+    "acceptAll": "Tout Accepter",
+    "reject": "Rejeter",
+    "customize": "Personnaliser",
+    "preferences": {
+      "title": "Préférences des Cookies",
+      "cancel": "Annuler",
+      "save": "Sauvegarder",
+      "necessary": {
+        "title": "Cookies Nécessaires",
+        "description": "Essentiels au bon fonctionnement du site web. Ces cookies ne peuvent pas être désactivés."
+      },
+      "analytics": {
+        "title": "Cookies d'Analyse",
+        "description": "Nous aident à comprendre comment les visiteurs interagissent avec notre site en collectant des informations anonymes."
+      },
+      "advertising": {
+        "title": "Cookies Publicitaires",
+        "description": "Utilisés pour afficher des publicités pertinentes et mesurer les performances publicitaires. Requis pour la monétisation du site."
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
 import Footer from '@/components/Footer'
+import CookieConsent from '@/components/CookieConsent'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
 
@@ -123,14 +124,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         
-        <ThemeProvider>
-            <div className="min-h-screen flex flex-col">
-                <main className="flex-1">
-                    {children}
-                </main>
-                <Footer locale={locale} />
-            </div>
-        </ThemeProvider>
+            <ThemeProvider>
+                <div className="min-h-screen flex flex-col">
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                    <Footer locale={locale} />
+                    <CookieConsent locale={locale} />
+                </div>
+            </ThemeProvider>
 
         {/* Sonner toast notifications */}
         <Toaster
