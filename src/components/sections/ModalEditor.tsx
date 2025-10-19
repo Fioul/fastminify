@@ -102,8 +102,8 @@ export default function ModalEditor({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
         ref={modalRef}
-        className="!max-w-[75vw] !max-h-[90vh] w-full h-full p-0 flex flex-col" 
-        style={{ maxWidth: '75vw', maxHeight: '90vh' }}
+        className="!max-w-[75vw] lg:!max-w-[75vw] md:!max-w-[95vw] sm:!max-w-[95vw] !max-w-[95vw] !max-h-[90vh] w-full h-full p-0 flex flex-col" 
+        style={{ maxHeight: '90vh' }}
         showCloseButton={false}
         onWheel={handleWheel}
       >

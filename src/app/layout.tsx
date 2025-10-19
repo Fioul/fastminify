@@ -84,6 +84,18 @@ export default async function RootLayout({
         <head>
             <link rel="icon" type="image/png" href="/favicon.png?v=2" />
             <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
+            
+            {/* Google Tag Manager */}
+            <script
+                dangerouslySetInnerHTML={{
+                  __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W7QNL7VB');`
+                }}
+            />
+            {/* End Google Tag Manager */}
         </head>
         <body
             className={cn(
@@ -92,6 +104,17 @@ export default async function RootLayout({
                 nunitoSans.variable
             )}
         >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+            <iframe 
+                src="https://www.googletagmanager.com/ns.html?id=GTM-W7QNL7VB"
+                height="0" 
+                width="0" 
+                style={{display:'none',visibility:'hidden'}}
+            />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+        
         <ThemeProvider>
             <div className="min-h-screen flex flex-col">
                 <main className="flex-1">

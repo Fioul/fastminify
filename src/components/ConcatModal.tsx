@@ -325,7 +325,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent 
-        className="!max-w-[40vw] max-h-[90vh] overflow-hidden flex flex-col"
+        className="!max-w-[40vw] xl:!max-w-[40vw] lg:!max-w-[60vw] md:!max-w-[80vw] !max-w-[95vw] max-h-[90vh] overflow-hidden flex flex-col"
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
