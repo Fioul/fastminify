@@ -89,6 +89,7 @@ export default async function RootLayout({
         <head>
             <FaviconHead />
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
+            <meta name="google-site-verification" content="Nzj-do5irpcyqevRHYdKgceiX7zKmKgSBTWDxWiN658" />
             <StructuredData locale="en" pageType="home" />
         </head>
         <body
