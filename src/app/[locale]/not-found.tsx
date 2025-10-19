@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useTranslations } from '@/hooks/useTranslations'
 import { Button } from '@/components/ui/button'
 import { Home } from 'lucide-react'
-import ClientAdManager from '@/components/ClientAdManager'
 import Header from '@/components/Header'
 import { FaCode, FaRocket, FaBolt, FaMagic } from 'react-icons/fa'
 
@@ -88,8 +87,6 @@ export default function NotFound({ params }: NotFoundProps) {
         </div>
       </div>
       
-      {/* AD MANAGER */}
-      <ClientAdManager locale={locale} />
       </div>
     </>
   )
