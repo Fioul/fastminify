@@ -228,7 +228,27 @@
     }
   },
   "footer": {
-    "description": "Free online tool to minify code instantly — fast, modern, and privacy-friendly."
+    "description": "Free online tool to minify code instantly — fast, modern, and privacy-friendly.",
+    "product": {
+      "title": "Product",
+      "home": "Home",
+      "about": "About",
+      "features": "Features"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "legal": "Legal Notice",
+      "robots": "Robots.txt"
+    },
+    "support": {
+      "title": "Support",
+      "contact": "Contact",
+      "issues": "Report Bug",
+      "github": "Source Code"
+    },
+    "rights": "All rights reserved.",
+    "hosting": "Hosted on"
   },
   "content": {
     "hero": {
@@ -311,5 +331,117 @@
       "originalCode": "Original code:",
       "minifiedCode": "Minified code:"
     }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "FastMinify Privacy Policy - Protection of your personal data",
+    "lastUpdated": "Last updated: October 18, 2024",
+    "introduction": {
+      "title": "Introduction",
+      "content": "FastMinify is committed to protecting your privacy and personal data. This privacy policy explains how we collect, use, and protect your information when you use our online code minification service."
+    },
+    "dataCollection": {
+      "title": "Data Collection",
+      "content": "We only collect data necessary for the operation of our service:",
+      "types": {
+        "usage": "Anonymized usage data to improve the service",
+        "analytics": "Traffic statistics via Google Analytics",
+        "cookies": "Technical and preference cookies",
+        "ads": "Advertising data via Google AdSense"
+      }
+    },
+    "cookies": {
+      "title": "Cookies and Similar Technologies",
+      "content": "Our site uses cookies to improve your user experience and analyze traffic.",
+      "types": {
+        "title": "Types of cookies used:",
+        "essential": "Essential cookies for site functionality",
+        "analytics": "Analytics cookies (Google Analytics)",
+        "advertising": "Advertising cookies (Google AdSense)"
+      }
+    },
+    "googleServices": {
+      "title": "Integrated Google Services",
+      "content": "Our site uses Google services for analytics and advertising:",
+      "analytics": "Google Analytics helps us understand how visitors interact with our site. Data is anonymized and used only for statistical purposes.",
+      "adsense": "Google AdSense displays personalized advertisements. These ads use cookies to show you relevant ads."
+    },
+    "dataRights": {
+      "title": "Your Data Rights",
+      "content": "In accordance with GDPR, you have the following rights:",
+      "rights": {
+        "access": "Right of access to your personal data",
+        "rectification": "Right to rectification of inaccurate data",
+        "erasure": "Right to erasure of your data",
+        "portability": "Right to data portability",
+        "objection": "Right to object to data processing"
+      }
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "content": "We implement appropriate security measures to protect your data against unauthorized access, modification, disclosure, or destruction. Your code is processed securely and is not stored permanently."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "For any questions regarding this privacy policy or the exercise of your rights, you can contact us at contact@fastminify.com."
+    },
+    "footer": "This privacy policy may be updated periodically. We will inform you of any significant changes."
+  },
+  "legal": {
+    "title": "Legal Notice",
+    "description": "FastMinify Legal Notice - Legal information about the site",
+    "lastUpdated": "Last updated: October 18, 2024",
+    "publisher": {
+      "title": "Site Publisher",
+      "name": "Name",
+      "website": "Website",
+      "email": "Email",
+      "country": "Country"
+    },
+    "hosting": {
+      "title": "Hosting",
+      "provider": "Hosting Provider",
+      "address": "Address",
+      "website": "Website"
+    },
+    "service": {
+      "title": "Service Description",
+      "description": "FastMinify is a free online tool for minifying, beautifying, and optimizing JavaScript, CSS, JSON, and PHP code. Our service offers:",
+      "features": {
+        "minification": "JavaScript, CSS, and JSON code minification",
+        "beautification": "Code beautification and formatting",
+        "concatenation": "Multiple file concatenation",
+        "phpSerialization": "PHP serialization and unserialization"
+      }
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "The content of this site (texts, images, logos, design) is protected by copyright. The code you minify remains your property. FastMinify claims no rights to the code you process.",
+      "warning": "Important: The code you submit to our service remains your property. We do not store your code permanently."
+    },
+    "liability": {
+      "title": "Liability Limitation",
+      "content": "FastMinify is provided \"as is\" without warranty of any kind. We strive to provide a reliable service, but we cannot guarantee:",
+      "limitations": {
+        "accuracy": "Absolute accuracy of minification results",
+        "availability": "Continuous service availability",
+        "damages": "Absence of damages resulting from service use",
+        "thirdParty": "Proper functioning of third-party services (Google Analytics, AdSense)"
+      }
+    },
+    "cookies": {
+      "title": "Cookies",
+      "content": "This site uses cookies to improve your experience. By continuing to use the site, you accept our use of cookies.",
+      "moreInfo": "For more information, see our Privacy Policy."
+    },
+    "governingLaw": {
+      "title": "Governing Law",
+      "content": "These legal notices are governed by French law. In case of dispute, French courts will have jurisdiction."
+    },
+    "modifications": {
+      "title": "Modifications",
+      "content": "We reserve the right to modify these legal notices at any time. Modifications will take effect upon their publication on the site."
+    },
+    "footer": "These legal notices comply with current French legislation."
   }
 }
