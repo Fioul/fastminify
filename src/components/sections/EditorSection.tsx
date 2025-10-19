@@ -194,7 +194,7 @@ export default function EditorSection({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* LEFT EDITOR */}
       <div>
-        <div className="h-[270px] flex flex-col">
+        <div className="h-[350px] flex flex-col">
           <div className="flex items-center justify-between mb-2">
             <Label className="text-sm font-medium">{t('common.normalCode')}</Label>
             <div className="flex gap-1">
@@ -279,7 +279,7 @@ export default function EditorSection({
 
       {/* RIGHT EDITOR */}
       <div>
-        <div className="h-[270px] flex flex-col">
+        <div className="h-[350px] flex flex-col">
           <div className="flex items-center justify-between mb-2">
             <div className="flex gap-1">
               <Button

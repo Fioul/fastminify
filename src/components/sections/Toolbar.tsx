@@ -77,102 +77,106 @@ export default function Toolbar({
     switch (leftType) {
       case 'js':
         return (
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">ECMAScript</Label>
-              <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers). Overrides Browser Support setting." />
-              <Select
-                value={jsOptions.ecmaVersion}
-                onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
-                  onJsOptionsChange({ ...jsOptions, ecmaVersion: value })
-                }
-              >
-                <SelectTrigger className="w-36 h-9 cursor-pointer">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="es5">ES5</SelectItem>
-                  <SelectItem value="es2015">ES2015</SelectItem>
-                  <SelectItem value="es2017">ES2017</SelectItem>
-                  <SelectItem value="es2020">ES2020</SelectItem>
-                  <SelectItem value="es2022">ES2022</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Compression</Label>
-              <TooltipInfo content="Optimization level. Conservative = safe and readable, Normal = balanced, Aggressive = maximum compression." />
-              <Select
-                value={jsOptions.compressionLevel}
-                onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
-                  onJsOptionsChange({ ...jsOptions, compressionLevel: value })
-                }
-              >
-                <SelectTrigger className="w-36 h-9 cursor-pointer">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="conservative">Conservative</SelectItem>
-                  <SelectItem value="normal">Normal</SelectItem>
-                  <SelectItem value="aggressive">Aggressive</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Browser</Label>
-              <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers. Can be overridden by ECMAScript setting." />
-              <Select
-                value={jsOptions.browserSupport}
-                onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
-                  onJsOptionsChange({ ...jsOptions, browserSupport: value })
-                }
-              >
-                <SelectTrigger className="w-32 h-9 cursor-pointer">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="modern">Modern</SelectItem>
-                  <SelectItem value="ie11">IE11+</SelectItem>
-                  <SelectItem value="ie9">IE9+</SelectItem>
-                  <SelectItem value="all">All</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              {/* Options qui ne s'affichent que pour le mode Aggressive */}
-              {jsOptions.compressionLevel === 'aggressive' && (
-                <>
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="preserve-classnames"
-                      checked={jsOptions.preserveClassNames}
-                      onCheckedChange={(checked) => 
-                        onJsOptionsChange({ ...jsOptions, preserveClassNames: checked })
-                      }
-                      className="cursor-pointer"
-                    />
-                    <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
-                    <TooltipInfo content="Preserves ES6 class names (UserCard, AdminCard, etc.) in aggressive mode." />
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="preserve-functions"
-                      checked={jsOptions.preserveFunctionNames}
-                      onCheckedChange={(checked) => 
-                        onJsOptionsChange({ ...jsOptions, preserveFunctionNames: checked })
-                      }
-                      className="cursor-pointer"
-                    />
-                    <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
-                    <TooltipInfo content="Preserves function names to facilitate debugging and stack traces in aggressive mode." />
-                  </div>
-                </>
-              )}
+          <div className="flex flex-col gap-4">
+            {/* Première ligne : ECMAScript, Compression, Browser */}
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Label className="text-sm font-medium">ECMAScript</Label>
+                <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers). Overrides Browser Support setting." />
+                <Select
+                  value={jsOptions.ecmaVersion}
+                  onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
+                    onJsOptionsChange({ ...jsOptions, ecmaVersion: value })
+                  }
+                >
+                  <SelectTrigger className="w-36 h-9 cursor-pointer">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="es5">ES5</SelectItem>
+                    <SelectItem value="es2015">ES2015</SelectItem>
+                    <SelectItem value="es2017">ES2017</SelectItem>
+                    <SelectItem value="es2020">ES2020</SelectItem>
+                    <SelectItem value="es2022">ES2022</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               
+              <div className="flex items-center gap-2">
+                <Label className="text-sm font-medium">Compression</Label>
+                <TooltipInfo content="Optimization level. Conservative = safe and readable, Normal = balanced, Aggressive = maximum compression." />
+                <Select
+                  value={jsOptions.compressionLevel}
+                  onValueChange={(value: 'conservative' | 'normal' | 'aggressive') => 
+                    onJsOptionsChange({ ...jsOptions, compressionLevel: value })
+                  }
+                >
+                  <SelectTrigger className="w-36 h-9 cursor-pointer">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="conservative">Conservative</SelectItem>
+                    <SelectItem value="normal">Normal</SelectItem>
+                    <SelectItem value="aggressive">Aggressive</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Label className="text-sm font-medium">Browser</Label>
+                <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers. Can be overridden by ECMAScript setting." />
+                <Select
+                  value={jsOptions.browserSupport}
+                  onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
+                    onJsOptionsChange({ ...jsOptions, browserSupport: value })
+                  }
+                >
+                  <SelectTrigger className="w-32 h-9 cursor-pointer">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="modern">Modern</SelectItem>
+                    <SelectItem value="ie11">IE11+</SelectItem>
+                    <SelectItem value="ie9">IE9+</SelectItem>
+                    <SelectItem value="all">All</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            {/* Deuxième ligne : Options qui ne s'affichent que pour le mode Aggressive */}
+            {jsOptions.compressionLevel === 'aggressive' && (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="preserve-classnames"
+                    checked={jsOptions.preserveClassNames}
+                    onCheckedChange={(checked) => 
+                      onJsOptionsChange({ ...jsOptions, preserveClassNames: checked })
+                    }
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="preserve-classnames" className="text-xs">Keep class names</Label>
+                  <TooltipInfo content="Preserves ES6 class names (UserCard, AdminCard, etc.) in aggressive mode." />
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Switch
+                    id="preserve-functions"
+                    checked={jsOptions.preserveFunctionNames}
+                    onCheckedChange={(checked) => 
+                      onJsOptionsChange({ ...jsOptions, preserveFunctionNames: checked })
+                    }
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="preserve-functions" className="text-xs">Keep function names</Label>
+                  <TooltipInfo content="Preserves function names to facilitate debugging and stack traces in aggressive mode." />
+                </div>
+              </div>
+            )}
+            
+            {/* Troisième ligne : Remove console et Remove debugger */}
+            <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <Switch
                   id="remove-console"
@@ -450,7 +454,7 @@ export default function Toolbar({
 
   return (
     <div className="flex justify-center mb-6">
-      <Card className="p-4 card-warm w-full max-w-[930px]">
+      <Card className="p-4 card-warm w-full max-w-[1000px]">
         <CardContent className="p-0">
           <div className="flex flex-wrap gap-4 items-center justify-between">
             <div className="flex flex-wrap gap-4 items-center">

@@ -10,7 +10,7 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
   const { t, tArray } = useTranslations(locale)
 
   return (
-    <div className="max-w-4xl mx-auto mt-24 space-y-16">
+    <div className="max-w-5xl mx-auto mt-24 space-y-16">
       {/* WHY MINIFY SECTION */}
       <section className="text-center space-y-6">
         <h2 className="text-3xl font-bold text-foreground">

@@ -13,7 +13,7 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
 
   return (
     <div className="gradient-bg">
-      <div className="container max-w-[1440px] mx-auto px-4 py-10">
+      <div className="container max-w-[1600px] mx-auto px-4 py-10">
         
         {/* HERO SECTION */}
         <div className="text-center space-y-4 mb-12">
@@ -26,7 +26,7 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
         </div>
 
         {/* CONTENT SECTION */}
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           
           {/* INTRODUCTION */}
           <section className="space-y-4">

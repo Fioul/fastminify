@@ -4,7 +4,6 @@ import './globals.css'
 import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
-import {AdProvider} from '@/contexts/AdContext'
 import Footer from '@/components/Footer'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
@@ -94,14 +93,12 @@ export default async function RootLayout({
             )}
         >
         <ThemeProvider>
-            <AdProvider>
-                <div className="min-h-screen flex flex-col">
-                    <main className="flex-1">
-                        {children}
-                    </main>
-                    <Footer locale={locale} />
-                </div>
-            </AdProvider>
+            <div className="min-h-screen flex flex-col">
+                <main className="flex-1">
+                    {children}
+                </main>
+                <Footer locale={locale} />
+            </div>
         </ThemeProvider>
 
         {/* Sonner toast notifications */}

@@ -14,7 +14,7 @@ export default function AboutPage({ params }: AboutPageProps) {
 
   return (
     <div className="gradient-bg">
-      <div className="container max-w-[1440px] mx-auto px-4 py-10">
+      <div className="container max-w-[1600px] mx-auto px-4 py-10">
         
         {/* HERO SECTION */}
         <div className="text-center space-y-4 mb-12">
@@ -27,7 +27,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         </div>
 
         {/* TECHNOLOGIES SECTION */}
-        <section className="max-w-4xl mx-auto mb-16">
+        <section className="max-w-5xl mx-auto mb-16">
           <div className="text-center space-y-6 mb-12">
             <h2 className="text-3xl font-bold text-foreground">
               {t('about.technologies.title')}
@@ -115,7 +115,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         </section>
 
         {/* CONVERSION PROCESS SECTION */}
-        <section className="max-w-4xl mx-auto mb-16">
+        <section className="max-w-5xl mx-auto mb-16">
           <div className="text-center space-y-6 mb-12">
             <h2 className="text-3xl font-bold text-foreground">
               {t('about.process.title')}
@@ -159,7 +159,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         </section>
 
         {/* ALGORITHMS SECTION */}
-        <section className="max-w-4xl mx-auto mb-16">
+        <section className="max-w-5xl mx-auto mb-16">
           <div className="text-center space-y-6 mb-12">
             <h2 className="text-3xl font-bold text-foreground">
               {t('about.algorithms.title')}
@@ -207,7 +207,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         </section>
 
         {/* PERFORMANCE SECTION */}
-        <section className="max-w-4xl mx-auto mb-16">
+        <section className="max-w-5xl mx-auto mb-16">
           <div className="text-center space-y-6 mb-12">
             <h2 className="text-3xl font-bold text-foreground">
               {t('about.performance.title')}
@@ -263,7 +263,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         </section>
 
         {/* OPEN SOURCE SECTION */}
-        <section className="max-w-4xl mx-auto">
+        <section className="max-w-5xl mx-auto">
           <div className="mt-24 bg-gray-50 dark:bg-gray-950 rounded-2xl p-8 space-y-6 border border-gray-200 dark:border-gray-700">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-foreground">

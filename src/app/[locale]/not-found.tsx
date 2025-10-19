@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useTranslations } from '@/hooks/useTranslations'
 import { Button } from '@/components/ui/button'
 import { Home } from 'lucide-react'
-import ClientAdManager from '@/components/ClientAdManager'
 import Header from '@/components/Header'
 import { FaCode, FaRocket, FaBolt, FaMagic } from 'react-icons/fa'
 
@@ -23,8 +22,8 @@ export default function NotFound({ params }: NotFoundProps) {
     <>
       <Header locale={locale} />
       <div className="gradient-bg min-h-screen flex items-center justify-center pt-16">
-      <div className="container max-w-[1440px] mx-auto px-4 py-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container max-w-[1600px] mx-auto px-4 py-10">
+        <div className="max-w-5xl mx-auto text-center">
           
           {/* 404 Number with Animation */}
           <div className="mb-8">
@@ -88,8 +87,6 @@ export default function NotFound({ params }: NotFoundProps) {
         </div>
       </div>
       
-      {/* AD MANAGER */}
-      <ClientAdManager locale={locale} />
       </div>
     </>
   )
