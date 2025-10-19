@@ -88,6 +88,7 @@ export default async function RootLayout({
         <html lang="en" suppressHydrationWarning>
         <head>
             <FaviconHead />
+            <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <StructuredData locale="en" pageType="home" />
         </head>
         <body
