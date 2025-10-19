@@ -1,6 +1,8 @@
 'use client'
 
 import { useTranslations } from '@/hooks/useTranslations'
+import Link from 'next/link'
+import Logo from '@/components/Logo'
 
 interface FooterProps {
   locale?: string
@@ -11,12 +13,33 @@ export default function Footer({ locale = 'en' }: FooterProps) {
 
   return (
     <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-[1440px] mx-auto px-4 py-6">
-        <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">
-          <p>&copy; 2025 FastMinify. All rights reserved.</p>
-          <p className="text-center">
-            {t('footer.description')}
-          </p>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-6">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Logo className="h-8 w-8" />
+          </div>
+
+          {/* Legal Menu */}
+          <div className="flex flex-wrap gap-6">
+            <Link
+              href={`/${locale}/privacy`}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {t('footer.legal.privacy')}
+            </Link>
+            <Link
+              href={`/${locale}/legal`}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {t('footer.legal.legal')}
+            </Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-sm text-muted-foreground">
+            &copy; 2025 FastMinify. All rights reserved.
+          </div>
         </div>
       </div>
     </footer>
