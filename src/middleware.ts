@@ -21,9 +21,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301)
   }
   
-  // Si on accède à la racine, rediriger vers /en
+  // Si on accède à la racine, vérifier la langue préférée
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/en', request.url))
+    const preferredLanguage = request.cookies.get('preferred-language')?.value
+    const defaultLocale = (preferredLanguage && ['en', 'fr'].includes(preferredLanguage)) ? preferredLanguage : 'en'
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url))
   }
   
   // Vérifier si l'URL contient une locale valide
@@ -31,9 +33,11 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
   
-  // Si pas de locale, rediriger vers /en
+  // Si pas de locale, vérifier la langue préférée
   if (pathnameIsMissingLocale) {
-    return NextResponse.redirect(new URL(`/en${pathname}`, request.url))
+    const preferredLanguage = request.cookies.get('preferred-language')?.value
+    const defaultLocale = (preferredLanguage && ['en', 'fr'].includes(preferredLanguage)) ? preferredLanguage : 'en'
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url))
   }
   
   // Ajouter le pathname dans les headers pour le layout

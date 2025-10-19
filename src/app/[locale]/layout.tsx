@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import ClientAdManager from '@/components/ClientAdManager'
-import LanguageRedirector from '@/components/LanguageRedirector'
 
 interface LocaleLayoutProps {
   children: React.ReactNode
@@ -22,7 +21,6 @@ export default async function LocaleLayout({
   return (
     <>
       <Header locale={locale} />
-      <LanguageRedirector currentLocale={locale} />
       <div className="pt-16">
         {children}
         

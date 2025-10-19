@@ -12,8 +12,9 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
   const pathname = usePathname()
 
   const switchLanguage = (newLocale: string) => {
-    // Sauvegarder la langue dans localStorage
+    // Sauvegarder la langue dans localStorage ET dans un cookie
     localStorage.setItem('preferred-language', newLocale)
+    document.cookie = `preferred-language=${newLocale}; path=/; max-age=31536000` // 1 an
     
     // Remplacer la locale dans le pathname
     const newPath = pathname.replace(/^\/[a-z]{2}/, `/${newLocale}`)
