@@ -467,5 +467,27 @@
       "content": "Nous pouvons modifier ces conditions à tout moment. L'utilisation continue constitue une acceptation des modifications."
     },
     "footer": "L'utilisation de ce service implique l'acceptation de ces conditions."
+  },
+  "notFound": {
+    "title": "Oups ! Page Introuvable",
+    "subtitle": "On dirait que cette page est partie en pause café ! ☕",
+    "description": "La page que vous cherchez semble avoir disparu dans le vide numérique. Mais ne vous inquiétez pas, même le meilleur code a parfois des bugs !",
+    "suggestions": {
+      "title": "Voici ce que vous pouvez faire :",
+      "items": [
+        "Vérifiez l'URL pour des fautes de frappe (on fait tous des erreurs !)",
+        "Retournez à la page d'accueil et réessayez",
+        "Utilisez notre super minificateur pendant que vous y êtes",
+        "Prenez une grande inspiration et réessayez"
+      ]
+    },
+    "actions": {
+      "home": "Retour à l'Accueil",
+      "minify": "Commencer à Minifier"
+    },
+    "fun": {
+      "quote": "404 : La page que vous cherchez est dans un autre château ! 🏰",
+      "joke": "Pourquoi la page web est-elle allée chez le psy ? Parce qu'elle avait trop de problèmes ! 😄"
+    }
   }
 }

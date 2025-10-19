@@ -422,5 +422,27 @@
       "content": "We may update these terms at any time. Continued use constitutes acceptance of changes."
     },
     "footer": "Use of this service implies acceptance of these terms."
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "subtitle": "Looks like this page went on a coffee break! ☕",
+    "description": "The page you're looking for seems to have vanished into the digital void. But don't worry, even the best code sometimes has bugs!",
+    "suggestions": {
+      "title": "Here's what you can do:",
+      "items": [
+        "Check the URL for typos (we all make mistakes!)",
+        "Go back to the homepage and try again",
+        "Use our awesome minifier while you're here",
+        "Take a deep breath and try again"
+      ]
+    },
+    "actions": {
+      "home": "Back to Home",
+      "minify": "Start Minifying"
+    },
+    "fun": {
+      "quote": "404: The page you're looking for is in another castle! 🏰",
+      "joke": "Why did the web page go to therapy? Because it had too many issues! 😄"
+    }
   }
 }
