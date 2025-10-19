@@ -12,6 +12,9 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
   const pathname = usePathname()
 
   const switchLanguage = (newLocale: string) => {
+    // Sauvegarder la langue dans localStorage
+    localStorage.setItem('preferred-language', newLocale)
+    
     // Remplacer la locale dans le pathname
     const newPath = pathname.replace(/^\/[a-z]{2}/, `/${newLocale}`)
     router.push(newPath)
