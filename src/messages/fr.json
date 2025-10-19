@@ -1,7 +1,7 @@
 {
   "common": {
-    "subtitle": "Minificateur de Code",
-    "description": "Minifiez votre code de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé.",
+    "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
+    "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -17,6 +17,7 @@
     "download": "Télécharger",
     "clearEditor": "Effacer l'éditeur",
     "closeModal": "Fermer la modal",
+    "closeModalShort": "Fermer",
     "toggleTheme": "Basculer le thème",
     "selectLanguage": "Sélectionner le langage",
     "noChange": "Aucun changement",
@@ -282,8 +283,10 @@
       "title": "Légal",
       "privacy": "Politique de confidentialité",
       "legal": "Mentions légales",
+      "cookies": "Gérer les cookies",
       "robots": "Robots.txt"
     },
+    "copyright": "Tous droits réservés.",
     "support": {
       "title": "Support",
       "contact": "Contact",
@@ -302,8 +305,8 @@
       }
     },
     "whyMinify": {
-      "title": "Qu'est-ce que la minification de code ?",
-      "subtitle": "La minification de code est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables.",
+      "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
+      "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
@@ -400,6 +403,12 @@
         "essential": "Cookies essentiels pour le fonctionnement du site (toujours actifs)",
         "analytics": "Cookies Google Analytics (optionnels, nécessitent un consentement)",
         "advertising": "Cookies publicitaires (aucune donnée personnelle)"
+      },
+      "retention": {
+        "title": "Durée de conservation :",
+        "essential": "Cookies essentiels : session ou 1 an maximum",
+        "analytics": "Cookies Analytics : 2 ans maximum",
+        "advertising": "Cookies publicitaires : 13 mois maximum"
       }
     },
     "googleServices": {
@@ -420,6 +429,26 @@
     "dataSecurity": {
       "title": "Sécurité",
       "content": "Votre code est traité entièrement dans votre navigateur et n'est jamais envoyé vers nos serveurs. Aucune donnée n'est stockée ou transmise."
+    },
+    "dataTransfers": {
+      "title": "Transferts de données hors UE",
+      "content": "Certains de nos services tiers peuvent transférer des données vers des pays situés en dehors de l'Union européenne :",
+      "transfers": {
+        "google": "Google (Analytics, AdSense) : États-Unis",
+        "purpose": "Ces transferts sont nécessaires pour le fonctionnement de nos services d'analyse et de publicité."
+      },
+      "safeguards": {
+        "title": "Garanties légales :",
+        "adequacy": "Décision d'adéquation de la Commission européenne concernant les États-Unis",
+        "contractual": "Clauses contractuelles types approuvées par la Commission européenne",
+        "certification": "Certification Privacy Shield (si applicable)"
+      },
+      "rights": {
+        "title": "Vos droits :",
+        "object": "Vous pouvez vous opposer à ces transferts en désactivant les cookies d'analyse",
+        "information": "Vous pouvez demander des informations sur les garanties mises en place",
+        "complaint": "Vous pouvez déposer une plainte auprès de l'autorité de contrôle compétente"
+      }
     },
     "contact": {
       "title": "Questions",
@@ -486,6 +515,32 @@
     "fun": {
       "quote": "404 : La page que vous cherchez est dans un autre château ! 🏰",
       "joke": "Pourquoi la page web est-elle allée chez le psy ? Parce qu'elle avait trop de problèmes ! 😄"
+    }
+  },
+  "cookies": {
+    "title": "Préférences des Cookies",
+    "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
+    "privacyPolicy": "Politique de Confidentialité",
+    "legalNotice": "Mentions Légales",
+    "acceptAll": "Tout Accepter",
+    "reject": "Rejeter",
+    "customize": "Personnaliser",
+    "preferences": {
+      "title": "Préférences des Cookies",
+      "cancel": "Annuler",
+      "save": "Sauvegarder",
+      "necessary": {
+        "title": "Cookies Nécessaires",
+        "description": "Essentiels au bon fonctionnement du site web. Ces cookies ne peuvent pas être désactivés."
+      },
+      "analytics": {
+        "title": "Cookies d'Analyse",
+        "description": "Nous aident à comprendre comment les visiteurs interagissent avec notre site en collectant des informations anonymes."
+      },
+      "advertising": {
+        "title": "Cookies Publicitaires",
+        "description": "Utilisés pour afficher des publicités pertinentes et mesurer les performances publicitaires. Requis pour la monétisation du site."
+      }
     }
   }
 }

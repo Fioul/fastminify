@@ -4,7 +4,8 @@ import './globals.css'
 import '../styles/fonts.css'
 import {Toaster} from '@/components/ui/sonner'
 import {ThemeProvider} from '@/components/ThemeProvider'
-import Footer from '@/components/Footer'
+import ClientFooter from '@/components/ClientFooter'
+import ClientScripts from '@/components/ClientScripts'
 import {cn} from '@/lib/utils'
 import { headers } from 'next/headers'
 
@@ -20,31 +21,44 @@ const nunitoSans = Nunito_Sans({
 
 // SEO / Meta configuration
 export const metadata: Metadata = {
-    title: 'FastMinify — Online JS & CSS Minifier',
+    title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier Tool',
     description:
-        'FastMinify is a free online tool to minify JavaScript and CSS instantly. Optimize your code, reduce file size and improve loading times.',
+        'Minify JavaScript, CSS and JSON code online instantly with our free tool. Reduce file size, improve loading times, and optimize web performance. No registration required.',
     keywords: [
-        'minify',
-        'javascript',
-        'css',
+        'minify javascript',
+        'minify css',
+        'minify json',
+        'javascript minifier',
+        'css minifier',
+        'json minifier',
+        'online minifier',
+        'minify js online',
+        'minify css online',
+        'minify json online',
+        'free javascript minifier',
+        'free css minifier',
+        'free json minifier',
         'online tool',
-        'fast',
-        'minifier',
         'web performance',
+        'code optimization',
+        'minification tool',
+        'compress javascript',
+        'compress css',
+        'compress json',
     ],
     authors: [{name: 'FastMinify'}],
     robots: {
-        index: false,
-        follow: false,
+        index: true,
+        follow: true,
         googleBot: {
-            index: false,
-            follow: false,
+            index: true,
+            follow: true,
         },
     },
     openGraph: {
-        title: 'FastMinify — Free Online JS & CSS Minifier',
+        title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier Tool',
         description:
-            'Minify JavaScript and CSS code instantly. Optimize file size for faster web performance.',
+            'Minify JavaScript, CSS and JSON code online instantly. Free tool to reduce file size and improve web performance. No registration required.',
         url: 'https://fastminify.com',
         siteName: 'FastMinify',
         locale: 'en_US',
@@ -52,8 +66,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'FastMinify — Online JS & CSS Minifier',
-        description: 'Minify JavaScript and CSS online in one click!',
+        title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier',
+        description: 'Minify JavaScript, CSS and JSON code online instantly. Free, fast, and private!',
     },
     icons: {
         icon: '/favicon.png?v=2',
@@ -63,39 +77,16 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode
-}) {
-    // Detect locale from URL
-    const headersList = await headers()
-    const pathname = headersList.get('x-pathname') || ''
-    
-    // Extract locale from pathname
-    let locale = 'en' // default
-    if (pathname.startsWith('/fr')) {
-        locale = 'fr'
-    } else if (pathname.startsWith('/en')) {
-        locale = 'en'
-    }
+                                           children,
+                                       }: {
+        children: React.ReactNode
+    }) {
 
     return (
-        <html lang={locale} suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
         <head>
             <link rel="icon" type="image/png" href="/favicon.png?v=2" />
             <link rel="shortcut icon" type="image/png" href="/favicon.png?v=2" />
-            
-            {/* Google Tag Manager */}
-            <script
-                dangerouslySetInnerHTML={{
-                  __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W7QNL7VB');`
-                }}
-            />
-            {/* End Google Tag Manager */}
         </head>
         <body
             className={cn(
@@ -115,14 +106,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         
-        <ThemeProvider>
-            <div className="min-h-screen flex flex-col">
-                <main className="flex-1">
-                    {children}
-                </main>
-                <Footer locale={locale} />
-            </div>
-        </ThemeProvider>
+            <ThemeProvider>
+                <ClientScripts />
+                <div className="min-h-screen flex flex-col">
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                    <ClientFooter />
+                </div>
+            </ThemeProvider>
 
         {/* Sonner toast notifications */}
         <Toaster

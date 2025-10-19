@@ -1,7 +1,7 @@
 {
   "common": {
-    "subtitle": "Code Minifier",
-    "description": "Minify your code from left to right, unminify from right to left — free, fast, and private.",
+    "subtitle": "Online JavaScript, CSS & JSON Minifier",
+    "description": "Minify your JavaScript, CSS and JSON code from left to right, unminify from right to left — free, fast, and private. Online minification tool with no registration required.",
     "normalCode": "Normal Code",
     "minifiedCode": "Minified Code",
     "auto": "Auto",
@@ -17,6 +17,7 @@
     "download": "Download",
     "clearEditor": "Clear editor",
     "closeModal": "Close modal",
+    "closeModalShort": "Close",
     "toggleTheme": "Toggle theme",
     "selectLanguage": "Select language",
     "noChange": "No change",
@@ -237,8 +238,10 @@
       "title": "Legal",
       "privacy": "Privacy Policy",
       "legal": "Legal Notice",
+      "cookies": "Manage Cookies",
       "robots": "Robots.txt"
     },
+    "copyright": "All rights reserved.",
     "support": {
       "title": "Support",
       "contact": "Contact",
@@ -257,8 +260,8 @@
       }
     },
     "whyMinify": {
-      "title": "What is code minification?",
-      "subtitle": "Code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names.",
+      "title": "What is JavaScript and CSS code minification?",
+      "subtitle": "JavaScript and CSS code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names to optimize web performance.",
       "benefits": {
         "performance": {
           "title": "File size reduction",
@@ -355,6 +358,12 @@
         "essential": "Essential cookies for site functionality (always active)",
         "analytics": "Google Analytics cookies (optional, requires consent)",
         "advertising": "Advertising cookies (no personal data)"
+      },
+      "retention": {
+        "title": "Retention period:",
+        "essential": "Essential cookies: session or 1 year maximum",
+        "analytics": "Analytics cookies: 2 years maximum",
+        "advertising": "Advertising cookies: 13 months maximum"
       }
     },
     "googleServices": {
@@ -375,6 +384,26 @@
     "dataSecurity": {
       "title": "Security",
       "content": "Your code is processed entirely in your browser and never sent to our servers. No data is stored or transmitted."
+    },
+    "dataTransfers": {
+      "title": "Data transfers outside the EU",
+      "content": "Some of our third-party services may transfer data to countries located outside the European Union:",
+      "transfers": {
+        "google": "Google (Analytics, AdSense): United States",
+        "purpose": "These transfers are necessary for the operation of our analytics and advertising services."
+      },
+      "safeguards": {
+        "title": "Legal safeguards:",
+        "adequacy": "European Commission adequacy decision regarding the United States",
+        "contractual": "Standard contractual clauses approved by the European Commission",
+        "certification": "Privacy Shield certification (if applicable)"
+      },
+      "rights": {
+        "title": "Your rights:",
+        "object": "You can object to these transfers by disabling analytics cookies",
+        "information": "You can request information about the safeguards in place",
+        "complaint": "You can lodge a complaint with the competent supervisory authority"
+      }
     },
     "contact": {
       "title": "Questions",
@@ -441,6 +470,32 @@
     "fun": {
       "quote": "404: The page you're looking for is in another castle! 🏰",
       "joke": "Why did the web page go to therapy? Because it had too many issues! 😄"
+    }
+  },
+  "cookies": {
+    "title": "Cookie Preferences",
+    "description": "We use cookies to enhance your experience and analyze site usage. You can customize your preferences below.",
+    "privacyPolicy": "Privacy Policy",
+    "legalNotice": "Legal Notice",
+    "acceptAll": "Accept All",
+    "reject": "Reject",
+    "customize": "Customize",
+    "preferences": {
+      "title": "Cookie Preferences",
+      "cancel": "Cancel",
+      "save": "Save Preferences",
+      "necessary": {
+        "title": "Necessary Cookies",
+        "description": "Essential for the website to function properly. These cannot be disabled."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "description": "Help us understand how visitors interact with our website by collecting anonymous information."
+      },
+      "advertising": {
+        "title": "Advertising Cookies",
+        "description": "Used to display relevant advertisements and measure ad performance. Required for site monetization."
+      }
     }
   }
 }

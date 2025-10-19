@@ -65,7 +65,7 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
               <h3 className="font-semibold text-foreground mb-3">
                 {t('privacy.cookies.types.title')}
               </h3>
-              <ul className="space-y-2 text-muted-foreground">
+              <ul className="space-y-2 text-muted-foreground mb-4">
                 <li className="flex items-start gap-2">
                   <span className="text-primary">•</span>
                   <span>{t('privacy.cookies.types.essential')}</span>
@@ -77,6 +77,24 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
                 <li className="flex items-start gap-2">
                   <span className="text-primary">•</span>
                   <span>{t('privacy.cookies.types.advertising')}</span>
+                </li>
+              </ul>
+              
+              <h4 className="font-semibold text-foreground mb-3">
+                {t('privacy.cookies.retention.title')}
+              </h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>{t('privacy.cookies.retention.essential')}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>{t('privacy.cookies.retention.analytics')}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>{t('privacy.cookies.retention.advertising')}</span>
                 </li>
               </ul>
             </div>
@@ -133,6 +151,49 @@ export default function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-lg text-muted-foreground leading-relaxed">
               {t('privacy.dataSecurity.content')}
             </p>
+          </section>
+
+          {/* DATA TRANSFERS */}
+          <section className="space-y-4">
+            <h2 className="text-3xl font-bold text-foreground">
+              {t('privacy.dataTransfers.title')}
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+              {t('privacy.dataTransfers.content')}
+            </p>
+            
+            <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800 mb-6">
+              <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">
+                {t('privacy.dataTransfers.transfers.google')}
+              </h3>
+              <p className="text-blue-700 dark:text-blue-300 text-sm">
+                {t('privacy.dataTransfers.transfers.purpose')}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">
+                  {t('privacy.dataTransfers.safeguards.title')}
+                </h3>
+                <ul className="list-disc list-inside text-muted-foreground space-y-2">
+                  <li>{t('privacy.dataTransfers.safeguards.adequacy')}</li>
+                  <li>{t('privacy.dataTransfers.safeguards.contractual')}</li>
+                  <li>{t('privacy.dataTransfers.safeguards.certification')}</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">
+                  {t('privacy.dataTransfers.rights.title')}
+                </h3>
+                <ul className="list-disc list-inside text-muted-foreground space-y-2">
+                  <li>{t('privacy.dataTransfers.rights.object')}</li>
+                  <li>{t('privacy.dataTransfers.rights.information')}</li>
+                  <li>{t('privacy.dataTransfers.rights.complaint')}</li>
+                </ul>
+              </div>
+            </div>
           </section>
 
           {/* CONTACT */}
