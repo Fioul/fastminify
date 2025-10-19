@@ -379,79 +379,63 @@
   },
   "privacy": {
     "title": "Politique de Confidentialité",
-    "description": "Politique de confidentialité de FastMinify - Protection de vos données personnelles",
-    "lastUpdated": "Dernière mise à jour : 18 octobre 2024",
+    "description": "Politique de confidentialité FastMinify - Comment nous gérons vos données",
+    "lastUpdated": "Dernière mise à jour : Octobre 2025",
     "introduction": {
-      "title": "Introduction",
-      "content": "FastMinify s'engage à protéger votre vie privée et vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez notre service de minification de code en ligne."
+      "title": "Traitement des Données",
+      "content": "FastMinify traite votre code localement dans votre navigateur. Nous ne stockons, ne collectons ni ne transmettons votre code vers nos serveurs. Cet outil est conçu pour être complètement privé et sécurisé."
     },
     "dataCollection": {
-      "title": "Collecte de Données",
-      "content": "Nous collectons uniquement les données nécessaires au fonctionnement de notre service :",
+      "title": "Ce Que Nous Collectons",
+      "content": "Nous ne collectons que des données d'utilisation anonymes via :",
       "types": {
-        "usage": "Données d'utilisation anonymisées pour améliorer le service",
-        "analytics": "Statistiques de trafic via Google Analytics",
-        "cookies": "Cookies techniques et de préférences",
-        "ads": "Données publicitaires via Google AdSense"
+        "analytics": "Google Analytics (avec votre consentement) - statistiques de trafic anonymes",
+        "cookies": "Cookies essentiels pour les préférences de langue et la fonctionnalité",
+        "ads": "Données publicitaires via Google AdSense (aucune donnée personnelle collectée)"
       }
     },
     "cookies": {
-      "title": "Cookies et Technologies Similaires",
-      "content": "Notre site utilise des cookies pour améliorer votre expérience utilisateur et analyser le trafic.",
+      "title": "Cookies",
+      "content": "Nous utilisons des cookies minimaux :",
       "types": {
-        "title": "Types de cookies utilisés :",
-        "essential": "Cookies essentiels au fonctionnement du site",
-        "analytics": "Cookies d'analyse (Google Analytics)",
-        "advertising": "Cookies publicitaires (Google AdSense)"
+        "title": "Types de cookies :",
+        "essential": "Cookies essentiels pour le fonctionnement du site (toujours actifs)",
+        "analytics": "Cookies Google Analytics (optionnels, nécessitent un consentement)",
+        "advertising": "Cookies publicitaires (aucune donnée personnelle)"
       }
     },
     "googleServices": {
-      "title": "Services Google Intégrés",
-      "content": "Notre site utilise des services Google pour l'analyse et la publicité :",
-      "analytics": "Google Analytics nous aide à comprendre comment les visiteurs interagissent avec notre site. Les données sont anonymisées et utilisées uniquement à des fins statistiques.",
-      "adsense": "Google AdSense affiche des publicités personnalisées. Ces publicités utilisent des cookies pour vous proposer des annonces pertinentes."
+      "title": "Services Tiers",
+      "content": "Nous utilisons les services Google :",
+      "analytics": "Google Analytics : Statistiques de trafic anonymes (vous pouvez vous désabonner)",
+      "adsense": "Google AdSense : Affiche des publicités (aucune donnée personnelle collectée)"
     },
     "dataRights": {
-      "title": "Vos Droits sur les Données",
-      "content": "Conformément au RGPD, vous disposez des droits suivants :",
+      "title": "Vos Droits",
+      "content": "Puisque nous ne stockons pas de données personnelles, vous pouvez :",
       "rights": {
-        "access": "Droit d'accès à vos données personnelles",
-        "rectification": "Droit de rectification des données inexactes",
-        "erasure": "Droit à l'effacement de vos données",
-        "portability": "Droit à la portabilité de vos données",
-        "objection": "Droit d'opposition au traitement de vos données"
+        "optout": "Vous désabonner de Google Analytics à tout moment",
+        "cookies": "Gérer les préférences de cookies dans votre navigateur",
+        "adblock": "Utiliser des bloqueurs de publicité si vous préférez"
       }
     },
     "dataSecurity": {
-      "title": "Sécurité des Données",
-      "content": "Nous mettons en place des mesures de sécurité appropriées pour protéger vos données contre l'accès non autorisé, la modification, la divulgation ou la destruction. Votre code est traité de manière sécurisée et n'est pas stocké de manière permanente."
+      "title": "Sécurité",
+      "content": "Votre code est traité entièrement dans votre navigateur et n'est jamais envoyé vers nos serveurs. Aucune donnée n'est stockée ou transmise."
     },
     "contact": {
-      "title": "Contact",
-      "content": "Pour toute question concernant cette politique de confidentialité ou l'exercice de vos droits, vous pouvez nous contacter à l'adresse contact@fastminify.com."
+      "title": "Questions",
+      "content": "Pour des questions sur cette politique de confidentialité, veuillez nous contacter via notre site web."
     },
-    "footer": "Cette politique de confidentialité peut être mise à jour périodiquement. Nous vous informerons de tout changement important."
+    "footer": "Cette politique de confidentialité peut être mise à jour. Consultez périodiquement pour les changements."
   },
   "legal": {
     "title": "Mentions Légales",
-    "description": "Mentions légales de FastMinify - Informations légales sur le site",
-    "lastUpdated": "Dernière mise à jour : 18 octobre 2024",
-    "publisher": {
-      "title": "Éditeur du Site",
-      "name": "Nom",
-      "website": "Site web",
-      "email": "Email",
-      "country": "Pays"
-    },
-    "hosting": {
-      "title": "Hébergement",
-      "provider": "Hébergeur",
-      "address": "Adresse",
-      "website": "Site web"
-    },
+    "description": "Mentions légales FastMinify - Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour : Octobre 2025",
     "service": {
       "title": "Description du Service",
-      "description": "FastMinify est un outil en ligne gratuit permettant de minifier, beautifier et optimiser du code JavaScript, CSS, JSON et PHP. Notre service propose :",
+      "description": "FastMinify est un outil en ligne gratuit permettant de minifier, beautifier et optimiser du code JavaScript, CSS, JSON et PHP. Tout le traitement est effectué localement dans votre navigateur.",
       "features": {
         "minification": "Minification de code JavaScript, CSS et JSON",
         "beautification": "Beautification et formatage de code",
@@ -461,32 +445,27 @@
     },
     "intellectualProperty": {
       "title": "Propriété Intellectuelle",
-      "content": "Le contenu de ce site (textes, images, logos, design) est protégé par le droit d'auteur. L'utilisation du code que vous minifiez reste votre propriété. FastMinify ne revendique aucun droit sur le code que vous traitez.",
-      "warning": "Important : Le code que vous soumettez à notre service reste votre propriété. Nous ne stockons pas votre code de manière permanente."
+      "content": "Le contenu du site FastMinify est protégé par le droit d'auteur. Votre code reste votre propriété - nous ne stockons jamais ni ne revendiquons de droits sur votre code.",
+      "warning": "Important : Votre code est traité localement et n'est jamais envoyé vers nos serveurs."
     },
     "liability": {
-      "title": "Limitation de Responsabilité",
-      "content": "FastMinify est fourni \"en l'état\" sans garantie d'aucune sorte. Nous nous efforçons de fournir un service fiable, mais nous ne pouvons garantir :",
+      "title": "Conditions d'Utilisation",
+      "content": "FastMinify est fourni \"en l'état\" sans garantie. Nous ne pouvons garantir :",
       "limitations": {
-        "accuracy": "L'exactitude absolue des résultats de minification",
+        "accuracy": "L'exactitude parfaite des résultats de minification",
         "availability": "La disponibilité continue du service",
-        "damages": "L'absence de dommages résultant de l'utilisation du service",
-        "thirdParty": "Le bon fonctionnement des services tiers (Google Analytics, AdSense)"
+        "damages": "L'absence de dommages résultant de l'utilisation du service"
       }
     },
     "cookies": {
       "title": "Cookies",
-      "content": "Ce site utilise des cookies pour améliorer votre expérience. En continuant à utiliser le site, vous acceptez notre utilisation des cookies.",
-      "moreInfo": "Pour plus d'informations, consultez notre Politique de Confidentialité."
-    },
-    "governingLaw": {
-      "title": "Droit Applicable",
-      "content": "Ces mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront compétents."
+      "content": "Ce site utilise des cookies essentiels pour le fonctionnement et des cookies d'analyse optionnels. Vous pouvez gérer les préférences dans votre navigateur.",
+      "moreInfo": "Consultez notre Politique de Confidentialité pour plus de détails."
     },
     "modifications": {
       "title": "Modifications",
-      "content": "Nous nous réservons le droit de modifier ces mentions légales à tout moment. Les modifications entreront en vigueur dès leur publication sur le site."
+      "content": "Nous pouvons modifier ces conditions à tout moment. L'utilisation continue constitue une acceptation des modifications."
     },
-    "footer": "Ces mentions légales sont conformes à la législation française en vigueur."
+    "footer": "L'utilisation de ce service implique l'acceptation de ces conditions."
   }
 }

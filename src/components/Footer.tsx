@@ -4,13 +4,19 @@ import { useTranslations } from '@/hooks/useTranslations'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
 import DynamicPadding from '@/components/DynamicPadding'
+import { usePathname } from 'next/navigation'
 
 interface FooterProps {
   locale?: string
 }
 
-export default function Footer({ locale = 'en' }: FooterProps) {
-  const { t } = useTranslations(locale)
+export default function Footer({ locale }: FooterProps) {
+  const pathname = usePathname()
+  
+  // Détecter la locale depuis l'URL
+  const currentLocale = locale || (pathname.startsWith('/fr') ? 'fr' : 'en')
+  
+  const { t } = useTranslations(currentLocale)
 
   return (
     <>
@@ -19,7 +25,7 @@ export default function Footer({ locale = 'en' }: FooterProps) {
           <div className="flex flex-col md:flex-row items-start justify-between gap-6">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href={`/${locale}`}>
+              <Link href={`/${currentLocale}`}>
                 <Logo size="sm" />
               </Link>
             </div>
@@ -27,13 +33,13 @@ export default function Footer({ locale = 'en' }: FooterProps) {
             {/* Legal Menu */}
             <div className="flex flex-wrap gap-6">
               <Link
-                href={`/${locale}/privacy`}
+                href={`/${currentLocale}/privacy`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {t('footer.legal.privacy')}
               </Link>
               <Link
-                href={`/${locale}/legal`}
+                href={`/${currentLocale}/legal`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {t('footer.legal.legal')}
