@@ -13,20 +13,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W7QNL7VB');`
     document.head.appendChild(gtmScript)
 
-    // Google AdSense
-    const adsenseScript = document.createElement('script')
-    adsenseScript.async = true
-    adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5768156413311714'
-    adsenseScript.crossOrigin = 'anonymous'
-    document.head.appendChild(adsenseScript)
+    // Google AdSense - Now handled by meta tag in layout.tsx
 
     // Cleanup function
     return () => {
       if (gtmScript.parentNode) {
         gtmScript.parentNode.removeChild(gtmScript)
-      }
-      if (adsenseScript.parentNode) {
-        adsenseScript.parentNode.removeChild(adsenseScript)
       }
     }
   }, [])

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import AboutPageClient from './AboutPageClient'
+import StructuredData from '@/components/StructuredData'
 
 interface AboutPageProps {
   params: Promise<{ locale: string }>
@@ -53,5 +54,10 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
 export default async function AboutPage({ params }: AboutPageProps) {
   const { locale } = await params
   
-  return <AboutPageClient locale={locale} />
+  return (
+    <>
+      <StructuredData locale={locale} pageType="about" />
+      <AboutPageClient locale={locale} />
+    </>
+  )
 }
