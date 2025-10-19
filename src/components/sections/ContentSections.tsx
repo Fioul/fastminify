@@ -41,8 +41,8 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
-                  <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items) {
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                  <pre className="whitespace-pre">{`function calculateTotal(items) {
     let total = 0;
     
     for (let i = 0; i < items.length; i++) {
@@ -74,8 +74,8 @@ function init() {
             <div className="space-y-4">
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
-                  <pre className="whitespace-pre-wrap break-all">{`.header {
+                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                  <pre className="whitespace-pre">{`.header {
     background-color: #ffffff;
     padding: 20px;
     margin-bottom: 10px;

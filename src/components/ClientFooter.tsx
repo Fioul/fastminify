@@ -35,7 +35,7 @@ export default function ClientFooter() {
               </div>
 
               {/* Legal Menu - Right aligned, vertical on mobile */}
-              <div className="flex flex-col md:items-end gap-2">
+              <div className="flex flex-col items-center md:items-end gap-2">
                 <Link
                   href={`/${currentLocale}/privacy`}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -58,7 +58,7 @@ export default function ClientFooter() {
             </div>
 
             {/* Copyright - Below, smaller and italic */}
-            <div className="text-xs text-muted-foreground italic text-right">
+            <div className="text-xs text-muted-foreground italic text-center md:text-right">
               &copy; 2025 FastMinify. {t('footer.copyright')}
             </div>
           </div>
