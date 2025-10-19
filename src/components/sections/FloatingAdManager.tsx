@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import AdPlaceholder from './AdPlaceholder'
+import { useAdContext } from '@/contexts/AdContext'
 
 interface FloatingAdManagerProps {
   t: (key: string) => string
 }
 
 export default function FloatingAdManager({ t }: FloatingAdManagerProps) {
-  const [isFloatingAdVisible, setIsFloatingAdVisible] = useState(true)
+  const { isFloatingAdVisible, setIsFloatingAdVisible } = useAdContext()
 
   const handleCloseFloatingAd = () => {
     setIsFloatingAdVisible(false)
