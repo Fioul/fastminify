@@ -46,7 +46,7 @@ const Header = memo(function Header({ locale = 'en' }: HeaderProps) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo and brand */}
-        <Link href={`/${locale}`}>
+        <Link href={`/${locale}`} aria-label={t('navigation.home')}>
           <Logo size="md" />
         </Link>
 

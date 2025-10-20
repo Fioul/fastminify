@@ -65,10 +65,11 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
   return (
     <div 
       className={`${className} ${sizeClasses[size]} flex items-center`}
+      aria-hidden="true"
       dangerouslySetInnerHTML={{ 
         __html: svgContent.replace(
           /<svg([^>]*)>/,
-          '<svg$1 style="width: 100%; height: 100%; object-fit: contain;">'
+          '<svg$1 aria-hidden="true" focusable="false" style="width: 100%; height: 100%; object-fit: contain;">'
         )
       }}
     />

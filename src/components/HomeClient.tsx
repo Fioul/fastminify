@@ -5,7 +5,6 @@ import { useMinification } from '@/hooks/useMinification'
 import { useForceScrollLockDisable } from '@/hooks/useForceScrollLockDisable'
 import Toolbar from '@/components/sections/Toolbar'
 import EditorSection from '@/components/sections/EditorSection'
-import ContentSections from '@/components/sections/ContentSections'
 import dynamic from 'next/dynamic'
 
 const ConcatModal = dynamic(() => import('@/components/ConcatModal'), {
@@ -129,7 +128,6 @@ export default function HomeClient({ locale }: HomeClientProps) {
         </div>
       </div>
 
-      <ContentSections locale={locale} />
 
       <ConcatModal
         isOpen={concatModalOpen}

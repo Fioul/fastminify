@@ -28,6 +28,9 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
         size="sm"
         onClick={() => switchLanguage('en')}
         className="px-2 py-1 text-xs cursor-pointer"
+        aria-pressed={currentLocale === 'en'}
+        aria-label="Switch language to English"
+        title="English"
       >
         EN
       </Button>
@@ -36,6 +39,9 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
         size="sm"
         onClick={() => switchLanguage('fr')}
         className="px-2 py-1 text-xs cursor-pointer"
+        aria-pressed={currentLocale === 'fr'}
+        aria-label="Basculer la langue en français"
+        title="Français"
       >
         FR
       </Button>
