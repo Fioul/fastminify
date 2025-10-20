@@ -41,6 +41,7 @@ const Header = memo(function Header({ locale = 'en' }: HeaderProps) {
   const navItems = [
     { href: `/${locale}`, label: t('navigation.home') },
     { href: getLocalizedUrl(locale as 'en' | 'fr', 'about'), label: t('navigation.about') },
+    { href: getLocalizedUrl(locale as 'en' | 'fr', 'support'), label: t('navigation.support') },
   ]
 
   return (

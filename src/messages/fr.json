@@ -78,6 +78,7 @@
   "navigation": {
     "home": "Minificateur de Code",
     "about": "À propos",
+    "support": "Support",
     "contact": "Contact"
   },
   "about": {
@@ -289,6 +290,7 @@
     "copyright": "Tous droits réservés.",
     "support": {
       "title": "Support",
+      "support": "Soutenir",
       "contact": "Contact",
       "issues": "Signaler un bug",
       "github": "Code source"
@@ -541,6 +543,49 @@
         "title": "Cookies Publicitaires",
         "description": "Utilisés pour afficher des publicités pertinentes et mesurer les performances publicitaires. Requis pour la monétisation du site."
       }
+    }
+  },
+  "support": {
+    "hero": {
+      "title": "Soutenez FastMinify",
+      "subtitle": "FastMinify est un projet gratuit et open source. Votre soutien nous aide à maintenir et améliorer ce service pour toute la communauté.",
+      "badges": {
+        "gratuit": "100% Gratuit",
+        "opensource": "Open Source",
+        "community": "Communauté"
+      }
+    },
+    "why": {
+      "title": "Pourquoi nous soutenir ?",
+      "hosting": {
+        "title": "Hébergement et infrastructure",
+        "description": "Les coûts de serveurs, CDN et domaines pour maintenir FastMinify accessible 24h/24."
+      },
+      "development": {
+        "title": "Développement continu",
+        "description": "Nouvelles fonctionnalités, corrections de bugs et améliorations de performance régulières."
+      },
+      "features": {
+        "title": "Nouvelles fonctionnalités",
+        "description": "Support de nouveaux langages, outils avancés et optimisations pour une meilleure expérience utilisateur."
+      }
+    },
+    "methods": {
+      "title": "Comment nous soutenir",
+      "direct": {
+        "title": "Soutien direct",
+        "description": "Aidez-nous directement avec un don ponctuel ou récurrent."
+      },
+      "indirect": {
+        "title": "Soutien indirect via GoMining",
+        "description": "Soutenez-nous indirectement en utilisant notre lien de parrainage GoMining.",
+        "button": "Soutenir via GoMining",
+        "disclaimer": "GoMining n'est pas un placement garanti. Les performances passées ne préjugent pas des résultats futurs. Ce lien de parrainage nous permet de recevoir une commission sans coût supplémentaire pour vous."
+      }
+    },
+    "thankyou": {
+      "title": "Merci pour votre soutien !",
+      "description": "Chaque contribution, même la plus petite, nous aide à maintenir FastMinify gratuit et à l'améliorer continuellement. Votre soutien fait la différence pour toute notre communauté de développeurs."
     }
   }
 }

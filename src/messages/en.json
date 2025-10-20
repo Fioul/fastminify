@@ -78,6 +78,7 @@
   "navigation": {
     "home": "Code Minifier",
     "about": "About",
+    "support": "Support",
     "contact": "Contact"
   },
   "about": {
@@ -244,6 +245,7 @@
     "copyright": "All rights reserved.",
     "support": {
       "title": "Support",
+      "support": "Support",
       "contact": "Contact",
       "issues": "Report Bug",
       "github": "Source Code"
@@ -496,6 +498,49 @@
         "title": "Advertising Cookies",
         "description": "Used to display relevant advertisements and measure ad performance. Required for site monetization."
       }
+    }
+  },
+  "support": {
+    "hero": {
+      "title": "Support FastMinify",
+      "subtitle": "FastMinify is a free and open source project. Your support helps us maintain and improve this service for the entire community.",
+      "badges": {
+        "gratuit": "100% Free",
+        "opensource": "Open Source",
+        "community": "Community"
+      }
+    },
+    "why": {
+      "title": "Why support us?",
+      "hosting": {
+        "title": "Hosting and infrastructure",
+        "description": "Server costs, CDN and domains to keep FastMinify accessible 24/7."
+      },
+      "development": {
+        "title": "Continuous development",
+        "description": "New features, bug fixes and regular performance improvements."
+      },
+      "features": {
+        "title": "New features",
+        "description": "Support for new languages, advanced tools and optimizations for a better user experience."
+      }
+    },
+    "methods": {
+      "title": "How to support us",
+      "direct": {
+        "title": "Direct support",
+        "description": "Help us directly with a one-time or recurring donation."
+      },
+      "indirect": {
+        "title": "Indirect support via GoMining",
+        "description": "Support us indirectly by using our GoMining referral link.",
+        "button": "Support via GoMining",
+        "disclaimer": "GoMining is not a guaranteed investment. Past performance does not guarantee future results. This referral link allows us to receive a commission at no additional cost to you."
+      }
+    },
+    "thankyou": {
+      "title": "Thank you for your support!",
+      "description": "Every contribution, even the smallest one, helps us keep FastMinify free and continuously improve it. Your support makes a difference for our entire developer community."
     }
   }
 }

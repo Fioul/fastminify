@@ -2,11 +2,13 @@
 export const localizedRoutes = {
   en: {
     about: '/about',
+    support: '/support',
     legal: '/legal',
     privacy: '/privacy',
   },
   fr: {
     about: '/a-propos',
+    support: '/support',
     legal: '/mentions-legales', 
     privacy: '/confidentialite',
   },

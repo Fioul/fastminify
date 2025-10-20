@@ -4,7 +4,7 @@ import React from 'react'
 
 interface StructuredDataProps {
   locale: string
-  pageType?: 'home' | 'about' | 'privacy' | 'legal'
+  pageType?: 'home' | 'about' | 'support' | 'privacy' | 'legal'
 }
 
 export default function StructuredData({ locale, pageType = 'home' }: StructuredDataProps) {
@@ -163,9 +163,14 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
         "url": baseUrl
       },
       {
-        "@type": "SiteNavigationElement", 
+        "@type": "SiteNavigationElement",
         "name": isFrench ? "À propos" : "About",
         "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/about`
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": isFrench ? "Support" : "Support",
+        "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/support`
       },
       {
         "@type": "SiteNavigationElement",
@@ -260,6 +265,40 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     "inLanguage": isFrench ? "fr" : "en"
   } : null
   
+  // SupportPage Schema
+  const supportPageSchema = pageType === 'support' ? {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": isFrench ? "Soutenez FastMinify" : "Support FastMinify",
+    "description": isFrench ? 
+      "Soutenez FastMinify, le projet gratuit et open source. Aidez-nous à maintenir et améliorer ce service de minification pour toute la communauté." :
+      "Support FastMinify, the free and open source project. Help us maintain and improve this minification service for the entire community.",
+    "url": currentUrl,
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "description": isFrench ? 
+        "Projet open source de minification de code JavaScript, CSS et JSON" :
+        "Open source project for JavaScript, CSS and JSON code minification",
+      "url": baseUrl,
+      "foundingDate": "2024-12-01",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl
+    },
+    "inLanguage": isFrench ? "fr" : "en",
+    "dateModified": new Date().toISOString().split('T')[0]
+  } : null
+
   // WebPage Schema for Privacy/Legal pages
   const webPageSchema = (pageType === 'privacy' || pageType === 'legal') ? {
     "@context": "https://schema.org",
@@ -290,6 +329,7 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     ...(howToSchema ? [howToSchema] : []),
     ...(pageType === 'home' ? [faqSchema] : []),
     ...(aboutPageSchema ? [aboutPageSchema] : []),
+    ...(supportPageSchema ? [supportPageSchema] : []),
     ...(webPageSchema ? [webPageSchema] : [])
   ]
   
