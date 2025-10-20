@@ -62,7 +62,6 @@ fastminify/
 │   ├── minify-css.ts
 │   └── utils.ts
 ├── public/
-│   └── favicon.ico
 └── README.md
 ```
 
