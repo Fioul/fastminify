@@ -1,6 +1,6 @@
 {
   "name": "fastminify",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -21,7 +21,7 @@
     "cleanup:logs": "node scripts/cleanup-consent-logs.js",
     "postinstall": "node scripts/copy-monaco.js",
     "postbuild": "next-sitemap",
-    "sitemap": "next-sitemap",
+    "sitemap": "next-sitemap --config next-sitemap.config.js",
     "server:logs": "./scripts/server-commands.sh logs",
     "server:status": "./scripts/server-commands.sh status",
     "server:restart": "./scripts/server-commands.sh restart"
