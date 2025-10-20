@@ -83,6 +83,7 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
         <head>
+            <meta charSet="utf-8" />
             <FaviconHead />
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <meta name="apple-mobile-web-app-title" content="Fast Minify" />
@@ -92,7 +93,6 @@ export default async function RootLayout({
             {/* Preload critical fonts */}
             {/* Performance hints */}
             <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-            <meta httpEquiv="x-dns-prefetch-control" content="on" />
         </head>
         <body
             className={cn(
