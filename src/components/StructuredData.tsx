@@ -105,7 +105,7 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "1.0",
-    "datePublished": "2025-01-01",
+    "datePublished": "2024-12-01",
     "dateModified": new Date().toISOString().split('T')[0],
     "author": {
       "@type": "Organization",
@@ -123,13 +123,6 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock",
       "validFrom": "2025-01-01"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "1",
-      "bestRating": "5",
-      "worstRating": "1"
     },
     "featureList": t.features,
     "softwareHelp": {
@@ -154,14 +147,6 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       "@type": "Organization",
       "name": "FastMinify",
       "url": baseUrl
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${baseUrl}/search?q={search_term_string}`
-      },
-      "query-input": "required name=search_term_string"
     }
   }
   
@@ -224,8 +209,7 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       "@type": "HowToStep",
       "position": index + 1,
       "name": isFrench ? `Étape ${index + 1}` : `Step ${index + 1}`,
-      "text": step,
-      "url": `${baseUrl}#step-${index + 1}`
+      "text": step
     }))
   } : null
   
@@ -243,13 +227,70 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     }))
   }
   
+  // AboutPage Schema
+  const aboutPageSchema = pageType === 'about' ? {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": isFrench ? "À propos de FastMinify" : "About FastMinify",
+    "description": isFrench ? 
+      "Découvrez FastMinify, le minificateur JavaScript, CSS et JSON en ligne le plus rapide et fiable. Outil gratuit, privé et sécurisé pour optimiser votre code." :
+      "Learn about FastMinify, the fastest and most reliable online JavaScript, CSS and JSON minifier. Free, private, and secure tool to optimize your code.",
+    "url": currentUrl,
+    "mainEntity": {
+      "@type": "WebApplication",
+      "name": "FastMinify",
+      "description": t.appDescription,
+      "url": baseUrl,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl
+    },
+    "inLanguage": isFrench ? "fr" : "en"
+  } : null
+  
+  // WebPage Schema for Privacy/Legal pages
+  const webPageSchema = (pageType === 'privacy' || pageType === 'legal') ? {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageType === 'privacy' ? 
+      (isFrench ? "Politique de confidentialité - FastMinify" : "Privacy Policy - FastMinify") :
+      (isFrench ? "Mentions légales - FastMinify" : "Legal Notice - FastMinify"),
+    "description": pageType === 'privacy' ?
+      (isFrench ? "Politique de confidentialité de FastMinify. Découvrez comment nous protégeons vos données et respectons votre vie privée." :
+       "FastMinify privacy policy. Learn how we protect your data and respect your privacy.") :
+      (isFrench ? "Mentions légales de FastMinify. Informations légales et conditions d'utilisation." :
+       "FastMinify legal notice. Legal information and terms of use."),
+    "url": currentUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl
+    },
+    "inLanguage": isFrench ? "fr" : "en",
+    "dateModified": new Date().toISOString().split('T')[0]
+  } : null
+  
   // Combine all schemas
   const schemas = [
     webApplicationSchema,
     webSiteSchema,
     siteNavigationSchema,
     ...(howToSchema ? [howToSchema] : []),
-    ...(pageType === 'home' ? [faqSchema] : [])
+    ...(pageType === 'home' ? [faqSchema] : []),
+    ...(aboutPageSchema ? [aboutPageSchema] : []),
+    ...(webPageSchema ? [webPageSchema] : [])
   ]
   
   return (
