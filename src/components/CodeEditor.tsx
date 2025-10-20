@@ -46,7 +46,7 @@ export default function CodeEditor({
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
   const [hasScrollableContent, setHasScrollableContent] = React.useState(false)
-  const [shouldLoad, setShouldLoad] = React.useState(false)
+  const [shouldLoad, setShouldLoad] = React.useState(true)
   const containerRef = React.useRef<HTMLDivElement | null>(null)
   const targetLanguage = language === 'html' ? 'plaintext' : language
   const [currentLanguage, setCurrentLanguage] = React.useState<'plaintext' | 'javascript' | 'css' | 'json'>(
@@ -262,7 +262,6 @@ export default function CodeEditor({
       ref={containerRef}
       className="w-full h-full border rounded-md overflow-hidden"
       data-testid={dataTestId}
-      onClick={() => setShouldLoad(true)}
     >
       {shouldLoad ? (
       <MonacoEditor
