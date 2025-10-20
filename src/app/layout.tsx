@@ -87,9 +87,8 @@ export default async function RootLayout({
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <meta name="apple-mobile-web-app-title" content="Fast Minify" />
             <StructuredData locale="en" pageType="home" />
-            {/* Preload critical resources */}
-            <link rel="preload" href="/logo-black.svg" as="image" type="image/svg+xml" />
-            <link rel="preload" href="/logo-white.svg" as="image" type="image/svg+xml" />
+            {/* Preload critical resources - only if used immediately */}
+            {/* Logos are loaded dynamically by Logo component, no preload needed */}
             {/* Preload critical fonts */}
             {/* Performance hints */}
             <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />

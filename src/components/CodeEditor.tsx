@@ -245,7 +245,13 @@ export default function CodeEditor({
     // Remove focus borders
     outline: 'none',
     // Remove selection borders
-    selectionHighlight: false
+    selectionHighlight: false,
+    // Désactiver les fonctionnalités qui nécessitent des workers
+    semanticHighlighting: { enabled: false },
+    colorDecorators: false,
+    codeLens: false,
+    occurrencesHighlight: 'off' as const,
+    wordHighlight: false
   }), [placeholder, readOnly, hasScrollableContent])
 
   // Theme mapping
@@ -270,30 +276,32 @@ export default function CodeEditor({
           try {
             editorRef.current = editor
             
-            // Configuration ESM: workers optimisés pour js/css/json uniquement
+            // Désactiver complètement les workers et les fonctionnalités avancées
             if (monaco?.editor) {
-              // Configuration défensive des workers
               try {
                 ;(window as any).MonacoEnvironment = {
-                  getWorkerUrl: function (moduleId: string, label: string) {
-                    // Workers ESM optimisés
-                    const workerMap: Record<string, string> = {
-                      'json': '/monaco/vs/assets/json.worker-DghZTZS7.js',
-                      'css': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
-                      'scss': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
-                      'less': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
-                      'typescript': '/monaco/vs/assets/ts.worker-C4E4vgbE.js',
-                      'javascript': '/monaco/vs/assets/ts.worker-C4E4vgbE.js'
-                    }
-                    
-                    const workerUrl = workerMap[label] || '/monaco/vs/assets/editor.worker-DM0G1eFj.js'
-                    console.log(`Monaco worker: ${label} -> ${workerUrl}`)
-                    return workerUrl
+                  getWorker: function () {
+                    // Retourner un worker vide pour éviter les erreurs
+                    return new Worker('data:text/javascript,')
+                  }
+                }
+                
+                // Désactiver les fonctionnalités qui nécessitent des workers
+                const editor = monaco.editor
+                if (editor) {
+                  // Désactiver la coloration sémantique
+                  editor.setModelMarkers = () => {}
+                  
+                  // Désactiver les suggestions
+                  const languages = monaco.languages
+                  if (languages) {
+                    languages.registerCompletionItemProvider = () => ({ dispose: () => {} })
+                    languages.registerHoverProvider = () => ({ dispose: () => {} })
+                    languages.registerDocumentSymbolProvider = () => ({ dispose: () => {} })
                   }
                 }
               } catch (e) {
                 console.warn('Monaco worker configuration failed:', e)
-                // Fallback: laisser Monaco gérer les workers
               }
             }
             
