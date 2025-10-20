@@ -19,8 +19,7 @@ import {
   JSONOptions, 
   PHPOptions 
 } from '@/lib/types'
-import { TbFiles } from "react-icons/tb";
-import { Eraser } from 'lucide-react'
+import { TbFiles, Eraser } from '@/lib/icons'
 
 interface ToolbarProps {
   locale: string

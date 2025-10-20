@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useTranslations } from '@/hooks/useTranslations'
-import { SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
+import { SiNextdotjs, SiTypescript, SiTailwindcss } from '@/lib/icons'
 import { getVersion } from '@/lib/version'
 
 interface AboutPageClientProps {

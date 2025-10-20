@@ -4,9 +4,9 @@ import React from 'react'
 import Link from 'next/link'
 import { useTranslations } from '@/hooks/useTranslations'
 import { Button } from '@/components/ui/button'
-import { Home } from 'lucide-react'
+import { Home } from '@/lib/icons'
 import Header from '@/components/Header'
-import { FaCode, FaRocket, FaBolt, FaMagic } from 'react-icons/fa'
+import { FaCode, FaRocket, FaBolt, FaMagic } from '@/lib/icons'
 
 interface NotFoundProps {
   params: Promise<{ locale: string }>

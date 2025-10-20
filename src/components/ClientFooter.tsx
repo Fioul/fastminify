@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { useTranslations } from '@/hooks/useTranslations'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import CookieConsent from '@/components/CookieConsent'
 import { getVersion } from '@/lib/version'
 
-export default function ClientFooter() {
+const ClientFooter = memo(function ClientFooter() {
   const pathname = usePathname()
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const [currentLocale, setCurrentLocale] = useState('en')
@@ -77,4 +77,6 @@ export default function ClientFooter() {
       )}
     </>
   )
-}
+})
+
+export default ClientFooter

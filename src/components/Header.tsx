@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Moon, Sun, Menu, X } from 'lucide-react'
+import { Moon, Sun, Menu, X } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
@@ -15,7 +15,7 @@ interface HeaderProps {
   locale?: string
 }
 
-export default function Header({ locale = 'en' }: HeaderProps) {
+const Header = memo(function Header({ locale = 'en' }: HeaderProps) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -150,4 +150,6 @@ export default function Header({ locale = 'en' }: HeaderProps) {
       )}
     </header>
   )
-}
+})
+
+export default Header

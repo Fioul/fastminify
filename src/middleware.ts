@@ -21,19 +21,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301)
   }
   
-  // Si on accède à la racine, vérifier la langue préférée
+  // If accessing root, check preferred language
   if (pathname === '/') {
     const preferredLanguage = request.cookies.get('preferred-language')?.value
     const defaultLocale = (preferredLanguage && ['en', 'fr'].includes(preferredLanguage)) ? preferredLanguage : 'en'
     return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url))
   }
   
-  // Vérifier si l'URL contient une locale valide
+  // Check if URL contains valid locale
   const pathnameIsMissingLocale = ['en', 'fr'].every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
   
-  // Si pas de locale, vérifier la langue préférée
+  // If no locale, check preferred language
   if (pathnameIsMissingLocale) {
     const preferredLanguage = request.cookies.get('preferred-language')?.value
     const defaultLocale = (preferredLanguage && ['en', 'fr'].includes(preferredLanguage)) ? preferredLanguage : 'en'
