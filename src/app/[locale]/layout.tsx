@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
+import CookieConsent from '@/components/CookieConsent'
 
 interface LocaleLayoutProps {
   children: React.ReactNode
@@ -22,8 +23,8 @@ export default async function LocaleLayout({
       <Header locale={locale} />
       <div className="pt-16">
         {children}
-        
       </div>
+      <CookieConsent locale={locale} />
     </>
   )
 }
