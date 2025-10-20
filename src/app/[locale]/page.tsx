@@ -1,79 +1,16 @@
-'use client'
+// Server shell: seul l'éditeur et la toolbar restent côté client
 
 import React from 'react'
-import { useMinification } from '@/hooks/useMinification'
-import { useForceScrollLockDisable } from '@/hooks/useForceScrollLockDisable'
 import HeroSection from '@/components/sections/HeroSection'
-import Toolbar from '@/components/sections/Toolbar'
-import EditorSection from '@/components/sections/EditorSection'
+import HomeClient from '@/components/HomeClient'
 import ContentSections from '@/components/sections/ContentSections'
-import dynamic from 'next/dynamic'
-
-const ConcatModal = dynamic(() => import('@/components/ConcatModal'), {
-  ssr: false,
-  loading: () => null
-})
 
 interface PageProps {
     params: Promise<{ locale: string }>
 }
 
-export default function Page({ params }: PageProps) {
-    // Use React.use() to unwrap the Promise
-    const { locale } = React.use(params)
-    
-    // Force disable scroll lock pour éviter le décalage du contenu
-    useForceScrollLockDisable()
-    
-    // State for concat modal
-    const [concatModalOpen, setConcatModalOpen] = React.useState(false)
-    
-    // Use the custom minification hook
-    const {
-        leftCode,
-        rightCode,
-        stats,
-        isLoading,
-        leftType,
-        rightType,
-        autoDetectLeft,
-        autoDetectRight,
-        lastOperation,
-        jsOptions,
-        cssOptions,
-        jsonOptions,
-        phpOptions,
-        setLeftType,
-        setRightType,
-        setAutoDetectLeft,
-        setAutoDetectRight,
-        handleLeftTypeChange,
-        handleRightTypeChange,
-        setJsOptions,
-        setCssOptions,
-        setJsonOptions,
-        setPhpOptions,
-        processMinify,
-        processUnminify,
-        processBeautify,
-        handleLeftCodeChange,
-        handleRightCodeChange,
-        handleCopy,
-        handleClear,
-        handleClearLeft,
-        handleClearRight,
-        handleDownload,
-        handleLeftCopy,
-        handleLeftDownload,
-        handleRightCopy,
-        handleRightDownload,
-        leftModalOpen,
-        rightModalOpen,
-        handleLeftModalOpen,
-        handleLeftModalClose,
-        handleRightModalOpen,
-        handleRightModalClose,
-    } = useMinification()
+export default async function Page({ params }: PageProps) {
+    const { locale } = await params
 
 
     return (
@@ -82,81 +19,13 @@ export default function Page({ params }: PageProps) {
             {/* HERO SECTION */}
                 <HeroSection locale={locale} />
 
-                {/* TOOLBAR */}
-                <Toolbar
-                    locale={locale}
-                    leftType={leftType}
-                    rightType={rightType}
-                    autoDetectLeft={autoDetectLeft}
-                    autoDetectRight={autoDetectRight}
-                    jsOptions={jsOptions}
-                    cssOptions={cssOptions}
-                    jsonOptions={jsonOptions}
-                    phpOptions={phpOptions}
-                    isLoading={isLoading}
-                    leftCode={leftCode}
-                    rightCode={rightCode}
-                    onLeftTypeChange={handleLeftTypeChange}
-                    onRightTypeChange={handleRightTypeChange}
-                    onAutoDetectLeftChange={setAutoDetectLeft}
-                    onAutoDetectRightChange={setAutoDetectRight}
-                    onJsOptionsChange={setJsOptions}
-                    onCssOptionsChange={setCssOptions}
-                    onJsonOptionsChange={setJsonOptions}
-                    onPhpOptionsChange={setPhpOptions}
-                    onConcat={() => setConcatModalOpen(true)}
-                    onClear={handleClear}
-                />
-
-                {/* MAIN CONTENT - EDITORS SECTION */}
-                <div className="flex justify-center mb-6">
-                    <div className="max-w-[1200px] w-full">
-                <EditorSection
-                    locale={locale}
-                    leftCode={leftCode}
-                    rightCode={rightCode}
-                    leftType={leftType}
-                    rightType={rightType}
-                    stats={stats}
-                    lastOperation={lastOperation}
-                    leftModalOpen={leftModalOpen}
-                    rightModalOpen={rightModalOpen}
-                    onLeftCodeChange={handleLeftCodeChange}
-                    onRightCodeChange={handleRightCodeChange}
-                    onCopy={handleCopy}
-                    onDownload={handleDownload}
-                    onLeftCopy={handleLeftCopy}
-                    onLeftDownload={handleLeftDownload}
-                    onRightCopy={handleRightCopy}
-                    onRightDownload={handleRightDownload}
-                    onLeftModalOpen={handleLeftModalOpen}
-                    onLeftModalClose={handleLeftModalClose}
-                    onRightModalOpen={handleRightModalOpen}
-                    onRightModalClose={handleRightModalClose}
-                    onClearLeft={handleClearLeft}
-                    onClearRight={handleClearRight}
-                    onMinify={processMinify}
-                    onUnminify={processUnminify}
-                    onBeautify={processBeautify}
-                    isLoading={isLoading}
-                />
-                </div>
-            </div>
+                {/* Contenu interactif côté client */}
+                <HomeClient locale={locale} />
 
             {/* CONTENT SECTIONS FOR SEO */}
                 <ContentSections locale={locale} />
                 
-                {/* CONCAT MODAL */}
-                <ConcatModal
-                    isOpen={concatModalOpen}
-                    onClose={() => setConcatModalOpen(false)}
-                    onResult={(result, type) => {
-                        handleRightCodeChange(result)
-                        setRightType(type)
-                        setConcatModalOpen(false)
-                    }}
-                    locale={locale}
-                />
+                {/* Le modal et l'éditeur sont gérés dans HomeClient */}
             </div>
         </div>
     )

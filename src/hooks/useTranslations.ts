@@ -1,4 +1,4 @@
-'use client'
+// Note: utilisable côté serveur et client
 
 import enMessages from '@/messages/en.json'
 import frMessages from '@/messages/fr.json'

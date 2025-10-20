@@ -1,4 +1,4 @@
-'use client'
+// Server component: aucun état ni effet, peut être rendu côté serveur
 
 import { useTranslations } from '@/hooks/useTranslations'
 
