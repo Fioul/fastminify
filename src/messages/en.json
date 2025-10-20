@@ -503,7 +503,7 @@
   "support": {
     "hero": {
       "title": "Support FastMinify",
-      "subtitle": "FastMinify is a free and open source project. Your support helps us maintain and improve this service for the entire community.",
+      "subtitle": "FastMinify is a free and open source project. Your support helps us maintain and improve this service.",
       "badges": {
         "gratuit": "100% Free",
         "opensource": "Open Source",

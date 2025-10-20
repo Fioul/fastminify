@@ -44,21 +44,6 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('support.hero.subtitle')}
           </p>
-          
-          <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <Badge variant="secondary" className="px-4 py-2 text-sm">
-              <Heart className="w-4 h-4 mr-2" />
-              {t('support.hero.badges.gratuit')}
-            </Badge>
-            <Badge variant="secondary" className="px-4 py-2 text-sm">
-              <Code className="w-4 h-4 mr-2" />
-              {t('support.hero.badges.opensource')}
-            </Badge>
-            <Badge variant="secondary" className="px-4 py-2 text-sm">
-              <Users className="w-4 h-4 mr-2" />
-              {t('support.hero.badges.community')}
-            </Badge>
-          </div>
         </div>
 
         {/* Why Support Section */}
@@ -67,47 +52,47 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
             {t('support.why.title')}
           </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="card-warm">
-              <CardHeader>
-                <div className="p-3 bg-primary/10 rounded-lg w-fit mb-4">
-                  <Server className="w-6 h-6 text-primary" />
+              <CardHeader className="flex flex-row items-start space-y-0 space-x-4">
+                <div className="flex-shrink-0 pt-1">
+                  <Server className="w-5 h-5 text-primary" />
                 </div>
-                <CardTitle>{t('support.why.hosting.title')}</CardTitle>
+                <div className="space-y-2">
+                  <CardTitle className="text-lg">{t('support.why.hosting.title')}</CardTitle>
+                  <p className="text-muted-foreground text-sm">
+                    {t('support.why.hosting.description')}
+                  </p>
+                </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  {t('support.why.hosting.description')}
-                </p>
-              </CardContent>
             </Card>
 
             <Card className="card-warm">
-              <CardHeader>
-                <div className="p-3 bg-primary/10 rounded-lg w-fit mb-4">
-                  <Zap className="w-6 h-6 text-primary" />
+              <CardHeader className="flex flex-row items-start space-y-0 space-x-4">
+                <div className="flex-shrink-0 pt-1">
+                  <Zap className="w-5 h-5 text-primary" />
                 </div>
-                <CardTitle>{t('support.why.development.title')}</CardTitle>
+                <div className="space-y-2">
+                  <CardTitle className="text-lg">{t('support.why.development.title')}</CardTitle>
+                  <p className="text-muted-foreground text-sm">
+                    {t('support.why.development.description')}
+                  </p>
+                </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  {t('support.why.development.description')}
-                </p>
-              </CardContent>
             </Card>
 
             <Card className="card-warm">
-              <CardHeader>
-                <div className="p-3 bg-primary/10 rounded-lg w-fit mb-4">
-                  <Gift className="w-6 h-6 text-primary" />
+              <CardHeader className="flex flex-row items-start space-y-0 space-x-4">
+                <div className="flex-shrink-0 pt-1">
+                  <Gift className="w-5 h-5 text-primary" />
                 </div>
-                <CardTitle>{t('support.why.features.title')}</CardTitle>
+                <div className="space-y-2">
+                  <CardTitle className="text-lg">{t('support.why.features.title')}</CardTitle>
+                  <p className="text-muted-foreground text-sm">
+                    {t('support.why.features.description')}
+                  </p>
+                </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  {t('support.why.features.description')}
-                </p>
-              </CardContent>
             </Card>
           </div>
         </div>
@@ -118,7 +103,7 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
             {t('support.methods.title')}
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
             {/* Direct Support */}
             <Card className="card-warm">
               <CardHeader>
@@ -175,7 +160,7 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button 
-                  className="btn-warm w-full h-12"
+                  className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground"
                   onClick={() => window.open('https://gomining.com/ref/fastminify', '_blank')}
                 >
                   <Gift className="w-4 h-4 mr-3" />
@@ -195,17 +180,6 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
           </div>
         </div>
 
-        {/* Thank You Section */}
-        <div className="text-center space-y-6">
-          <div className="p-8 bg-primary/5 rounded-2xl border border-primary/20">
-            <h3 className="text-2xl font-bold mb-4">
-              {t('support.thankyou.title')}
-            </h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t('support.thankyou.description')}
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   )
