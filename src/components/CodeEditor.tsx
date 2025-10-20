@@ -17,7 +17,11 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
 })
 
 // Configure self-hosted Monaco paths (served from /public/monaco)
-loader.config({ paths: { vs: '/monaco/vs' } })
+loader.config({ 
+  paths: { vs: '/monaco/vs' },
+  // ESM: charger seulement js/css/json, pas de loader.js
+  'vs/nls': { availableLanguages: { '*': 'fr' } }
+})
 
 // Initialise Monaco de manière défensive pour éviter les erreurs silencieuses
 let monacoInitStarted = false
@@ -267,10 +271,31 @@ export default function CodeEditor({
         onMount={(editor, monaco) => {
           try {
             editorRef.current = editor
+            
+            // Configuration ESM: workers optimisés pour js/css/json uniquement
+            if (monaco?.editor) {
+              // Mapper les workers spécifiques ESM
+              ;(window as any).MonacoEnvironment = {
+                getWorkerUrl: function (moduleId: string, label: string) {
+                  if (label === 'json') {
+                    return '/monaco/vs/assets/json.worker-DghZTZS7.js'
+                  }
+                  if (label === 'css' || label === 'scss' || label === 'less') {
+                    return '/monaco/vs/assets/css.worker-cO8rX8Iy.js'
+                  }
+                  if (label === 'typescript' || label === 'javascript') {
+                    return '/monaco/vs/assets/ts.worker-C4E4vgbE.js'
+                  }
+                  return '/monaco/vs/assets/editor.worker-DM0G1eFj.js'
+                }
+              }
+            }
+            
             // Défensif: vérifier que workers se résolvent
             if (!monacoInitStarted && monaco?.editor) {
               monacoInitStarted = true
             }
+            
             // Alléger le langage JS: désactiver la validation sémantique (grosse charge côté worker TS)
             try {
               // Typescript/JS defaults existent uniquement si le module TS est chargé
@@ -285,18 +310,21 @@ export default function CodeEditor({
                 target: 99 // ESNext
               })
             } catch (_) {}
+            
             // Upgrade au premier focus pour charger le langage réel
             const upgradeLanguage = () => {
               if (hasUpgradedRef.current) return
               hasUpgradedRef.current = true
               setCurrentLanguage(targetLanguage)
             }
+            
             // focus dans l'éditeur
             const disposable = editor.onDidFocusEditorText(upgradeLanguage)
             // fallback: premier input/click dans la zone
             const node = (editor as any).getDomNode?.() as HTMLElement | undefined
             const clickHandler = () => upgradeLanguage()
             node?.addEventListener('pointerdown', clickHandler, { once: true, passive: true })
+            
             // cleanup listeners
             ;(editor as any)._perfCleanup = () => {
               disposable?.dispose?.()
@@ -305,8 +333,7 @@ export default function CodeEditor({
           } catch (e) {
             console.error('Monaco initialization: error:', e)
           }
-        }
-        }
+        }}
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
       ) : (
