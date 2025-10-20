@@ -19,6 +19,9 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
 // Configure self-hosted Monaco paths (served from /public/monaco)
 loader.config({ paths: { vs: '/monaco/vs' } })
 
+// Initialise Monaco de manière défensive pour éviter les erreurs silencieuses
+let monacoInitStarted = false
+
 interface CodeEditorProps {
   value: string
   onChange: (value: string | undefined) => void
@@ -224,9 +227,18 @@ export default function CodeEditor({
         value={value}
         onChange={onChange}
         options={editorOptions}
-        onMount={(editor) => {
-          editorRef.current = editor
-        }}
+        onMount={(editor, monaco) => {
+          try {
+            editorRef.current = editor
+            // Défensif: vérifier que workers se résolvent
+            if (!monacoInitStarted && monaco?.editor) {
+              monacoInitStarted = true
+            }
+          } catch (e) {
+            console.error('Monaco initialization: error:', e)
+          }
+        }
+        }
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
       ) : (

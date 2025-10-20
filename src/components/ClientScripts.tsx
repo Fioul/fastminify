@@ -23,8 +23,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     window.addEventListener('pointerdown', markInteracted, { once: true, passive: true })
     window.addEventListener('keydown', markInteracted, { once: true })
 
-    const consentStr = typeof window !== 'undefined' ? localStorage.getItem('cookie-consent') : null
-    const consent = consentStr ? JSON.parse(consentStr) : null
+    let consent: any = null
+    try {
+      const consentStr = typeof window !== 'undefined' ? localStorage.getItem('cookie-consent') : null
+      consent = consentStr ? JSON.parse(consentStr) : null
+    } catch (e) {
+      // JSON invalide, ignorer et attendre l'évènement
+      consent = null
+    }
 
     const scheduleLoad = () => {
       const run = () => interacted && loadGTM()
