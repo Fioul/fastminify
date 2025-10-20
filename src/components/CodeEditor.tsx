@@ -18,9 +18,7 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
 
 // Configure self-hosted Monaco paths (served from /public/monaco)
 loader.config({ 
-  paths: { vs: '/monaco/vs' },
-  // ESM: charger seulement js/css/json, pas de loader.js
-  'vs/nls': { availableLanguages: { '*': 'fr' } }
+  paths: { vs: '/monaco/vs' }
 })
 
 // Initialise Monaco de manière défensive pour éviter les erreurs silencieuses
@@ -274,20 +272,28 @@ export default function CodeEditor({
             
             // Configuration ESM: workers optimisés pour js/css/json uniquement
             if (monaco?.editor) {
-              // Mapper les workers spécifiques ESM
-              ;(window as any).MonacoEnvironment = {
-                getWorkerUrl: function (moduleId: string, label: string) {
-                  if (label === 'json') {
-                    return '/monaco/vs/assets/json.worker-DghZTZS7.js'
+              // Configuration défensive des workers
+              try {
+                ;(window as any).MonacoEnvironment = {
+                  getWorkerUrl: function (moduleId: string, label: string) {
+                    // Workers ESM optimisés
+                    const workerMap: Record<string, string> = {
+                      'json': '/monaco/vs/assets/json.worker-DghZTZS7.js',
+                      'css': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
+                      'scss': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
+                      'less': '/monaco/vs/assets/css.worker-cO8rX8Iy.js',
+                      'typescript': '/monaco/vs/assets/ts.worker-C4E4vgbE.js',
+                      'javascript': '/monaco/vs/assets/ts.worker-C4E4vgbE.js'
+                    }
+                    
+                    const workerUrl = workerMap[label] || '/monaco/vs/assets/editor.worker-DM0G1eFj.js'
+                    console.log(`Monaco worker: ${label} -> ${workerUrl}`)
+                    return workerUrl
                   }
-                  if (label === 'css' || label === 'scss' || label === 'less') {
-                    return '/monaco/vs/assets/css.worker-cO8rX8Iy.js'
-                  }
-                  if (label === 'typescript' || label === 'javascript') {
-                    return '/monaco/vs/assets/ts.worker-C4E4vgbE.js'
-                  }
-                  return '/monaco/vs/assets/editor.worker-DM0G1eFj.js'
                 }
+              } catch (e) {
+                console.warn('Monaco worker configuration failed:', e)
+                // Fallback: laisser Monaco gérer les workers
               }
             }
             
