@@ -46,7 +46,12 @@ export default function CodeEditor({
   const [hasScrollableContent, setHasScrollableContent] = React.useState(false)
   const [shouldLoad, setShouldLoad] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement | null>(null)
-  const effectiveLanguage = language === 'html' ? 'plaintext' : language
+  const targetLanguage = language === 'html' ? 'plaintext' : language
+  const [currentLanguage, setCurrentLanguage] = React.useState<'plaintext' | 'javascript' | 'css' | 'json'>(
+    // démarre en plaintext pour retarder le chargement des workers lourds
+    'plaintext'
+  )
+  const hasUpgradedRef = React.useRef(false)
 
   // Charger Monaco en idle ou quand la zone devient visible, et aussi au clic si l'utilisateur souhaite accélérer
   React.useEffect(() => {
@@ -186,6 +191,14 @@ export default function CodeEditor({
     readOnly,
     placeholder: placeholder,
     padding: { top: 16, bottom: 16 },
+    // Réduction des coûts CPU: désactiver fonctionnalités coûteuses
+    quickSuggestions: false,
+    suggestOnTriggerCharacters: false,
+    parameterHints: { enabled: false },
+    hover: { enabled: false },
+    wordBasedSuggestions: 'off' as const,
+    folding: false,
+    links: false,
     scrollbar: {
       vertical: 'auto' as const,
       horizontal: 'auto' as const,
@@ -236,7 +249,7 @@ export default function CodeEditor({
       {shouldLoad ? (
       <MonacoEditor
         height={height}
-        language={effectiveLanguage}
+        language={currentLanguage}
         theme={editorTheme}
         value={value}
         onChange={onChange}
@@ -247,6 +260,37 @@ export default function CodeEditor({
             // Défensif: vérifier que workers se résolvent
             if (!monacoInitStarted && monaco?.editor) {
               monacoInitStarted = true
+            }
+            // Alléger le langage JS: désactiver la validation sémantique (grosse charge côté worker TS)
+            try {
+              // Typescript/JS defaults existent uniquement si le module TS est chargé
+              const ts = (monaco as any).languages?.typescript
+              ts?.javascriptDefaults?.setDiagnosticsOptions?.({
+                noSemanticValidation: true,
+                noSyntaxValidation: false
+              })
+              ts?.javascriptDefaults?.setCompilerOptions?.({
+                allowNonTsExtensions: true,
+                checkJs: false,
+                target: 99 // ESNext
+              })
+            } catch (_) {}
+            // Upgrade au premier focus pour charger le langage réel
+            const upgradeLanguage = () => {
+              if (hasUpgradedRef.current) return
+              hasUpgradedRef.current = true
+              setCurrentLanguage(targetLanguage)
+            }
+            // focus dans l'éditeur
+            const disposable = editor.onDidFocusEditorText(upgradeLanguage)
+            // fallback: premier input/click dans la zone
+            const node = (editor as any).getDomNode?.() as HTMLElement | undefined
+            const clickHandler = () => upgradeLanguage()
+            node?.addEventListener('pointerdown', clickHandler, { once: true, passive: true })
+            // cleanup listeners
+            ;(editor as any)._perfCleanup = () => {
+              disposable?.dispose?.()
+              node?.removeEventListener('pointerdown', clickHandler)
             }
           } catch (e) {
             console.error('Monaco initialization: error:', e)
