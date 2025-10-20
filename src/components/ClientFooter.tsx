@@ -6,11 +6,13 @@ import Link from 'next/link'
 import Logo from '@/components/Logo'
 import { usePathname } from 'next/navigation'
 import CookieConsent from '@/components/CookieConsent'
+import { getVersion } from '@/lib/version'
 
 export default function ClientFooter() {
   const pathname = usePathname()
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const [currentLocale, setCurrentLocale] = useState('en')
+  const version = getVersion()
   
   // Détecter la locale depuis l'URL
   useEffect(() => {
@@ -59,7 +61,7 @@ export default function ClientFooter() {
 
             {/* Copyright - Below, smaller and italic */}
             <div className="text-xs text-muted-foreground italic text-center md:text-right">
-              &copy; 2025 FastMinify. {t('footer.copyright')}
+              &copy; 2025 FastMinify. {t('footer.copyright')} • v{version}
             </div>
           </div>
         </div>

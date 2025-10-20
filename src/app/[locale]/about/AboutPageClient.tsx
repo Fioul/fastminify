@@ -3,6 +3,7 @@
 import React from 'react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si'
+import { getVersion } from '@/lib/version'
 
 interface AboutPageClientProps {
   locale: string
@@ -10,6 +11,7 @@ interface AboutPageClientProps {
 
 export default function AboutPageClient({ locale }: AboutPageClientProps) {
   const { t, tArray } = useTranslations(locale)
+  const version = getVersion()
 
   return (
     <div className="gradient-bg">
@@ -23,6 +25,10 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t('about.subtitle')}
           </p>
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+            Version {version}
+          </div>
         </div>
 
         {/* TECHNOLOGIES SECTION */}
