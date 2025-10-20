@@ -37,6 +37,46 @@ export default function CodeEditor({
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
   const [hasScrollableContent, setHasScrollableContent] = React.useState(false)
+  const [shouldLoad, setShouldLoad] = React.useState(false)
+  const containerRef = React.useRef<HTMLDivElement | null>(null)
+
+  // Defer loading of Monaco until idle or visible/user interaction
+  React.useEffect(() => {
+    // Idle callback
+    const ric: any = (window as any).requestIdleCallback
+    let idleId: any
+    if (typeof ric === 'function') {
+      idleId = ric(() => setShouldLoad(true), { timeout: 2000 })
+    } else {
+      const timeoutId = setTimeout(() => setShouldLoad(true), 1500)
+      idleId = { cancel: () => clearTimeout(timeoutId) }
+    }
+
+    // Intersection Observer: load when visible
+    const el = containerRef.current
+    let observer: IntersectionObserver | null = null
+    if (el && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setShouldLoad(true)
+            observer?.disconnect()
+            break
+          }
+        }
+      }, { rootMargin: '100px' })
+      observer.observe(el)
+    }
+
+    return () => {
+      if (idleId && typeof (window as any).cancelIdleCallback === 'function') {
+        ;(window as any).cancelIdleCallback(idleId)
+      } else if (idleId && idleId.cancel) {
+        idleId.cancel()
+      }
+      observer?.disconnect()
+    }
+  }, [])
 
   // Check if editor has scrollable content and update handleMouseWheel accordingly
   React.useEffect(() => {
@@ -166,7 +206,13 @@ export default function CodeEditor({
   const editorTheme = theme === 'dark' ? 'vs-dark' : 'vs-light'
 
   return (
-    <div className="w-full h-full border rounded-md overflow-hidden" data-testid={dataTestId}>
+    <div
+      ref={containerRef}
+      className="w-full h-full border rounded-md overflow-hidden"
+      data-testid={dataTestId}
+      onClick={() => setShouldLoad(true)}
+    >
+      {shouldLoad ? (
       <MonacoEditor
         height={height}
         language={language}
@@ -179,6 +225,11 @@ export default function CodeEditor({
         }}
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
+      ) : (
+        <div className="flex items-center justify-center h-full bg-muted/30 rounded-md select-none cursor-text">
+          <div className="text-muted-foreground text-sm">Tap or scroll to load editor…</div>
+        </div>
+      )}
     </div>
   )
 }
