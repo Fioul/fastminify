@@ -31,7 +31,7 @@ const ClientFooter = memo(function ClientFooter() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               {/* Logo */}
               <div className="flex-shrink-0">
-                <Link href={`/${currentLocale}`}>
+                <Link href={`/${currentLocale}`} aria-label={t('navigation.home')}>
                   <Logo size="lg" />
                 </Link>
               </div>
