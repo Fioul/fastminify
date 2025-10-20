@@ -3,7 +3,7 @@ module.exports = {
   siteUrl: process.env.SITE_URL || 'https://fastminify.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: ['/api/*', '/logs/*'],
+  exclude: ['/api/*', '/logs/*', '/test-refactored', '/en/a-propos', '/en/mentions-legales', '/en/confidentialite'],
   alternateRefs: [
     {
       href: 'https://fastminify.com/en',
@@ -13,6 +13,16 @@ module.exports = {
       href: 'https://fastminify.com/fr',
       hreflang: 'fr',
     },
+  ],
+  additionalPaths: async (config) => [
+    // Routes françaises localisées
+    await config.transform(config, '/fr/a-propos'),
+    await config.transform(config, '/fr/mentions-legales'),
+    await config.transform(config, '/fr/confidentialite'),
+    // Routes anglaises localisées
+    await config.transform(config, '/en/about'),
+    await config.transform(config, '/en/legal'),
+    await config.transform(config, '/en/privacy'),
   ],
   transform: async (config, path) => {
     // Custom priority and changefreq for different pages

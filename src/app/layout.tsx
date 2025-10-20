@@ -119,7 +119,7 @@ export default async function RootLayout({
                     </main>
                     <ClientFooter />
                 </div>
-                <CookieConsent locale="en" />
+                {/* CookieConsent moved to [locale]/layout.tsx */}
             </ThemeProvider>
 
         {/* Sonner toast notifications */}

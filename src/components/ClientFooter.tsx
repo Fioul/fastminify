@@ -7,6 +7,7 @@ import Logo from '@/components/Logo'
 import { usePathname } from 'next/navigation'
 import CookieConsent from '@/components/CookieConsent'
 import { getVersion } from '@/lib/version'
+import { getLocalizedUrl } from '@/lib/routes'
 
 const ClientFooter = memo(function ClientFooter() {
   const pathname = usePathname()
@@ -39,13 +40,13 @@ const ClientFooter = memo(function ClientFooter() {
               {/* Legal Menu - Right aligned, vertical on mobile */}
               <div className="flex flex-col items-center md:items-end gap-2">
                 <Link
-                  href={`/${currentLocale}/privacy`}
+                  href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'privacy')}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {t('footer.legal.privacy')}
                 </Link>
                 <Link
-                  href={`/${currentLocale}/legal`}
+                  href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'legal')}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {t('footer.legal.legal')}

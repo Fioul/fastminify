@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useTranslations } from '@/hooks/useTranslations'
+import { getLocalizedUrl } from '@/lib/routes'
 
 interface HeaderProps {
   locale?: string
@@ -39,7 +40,7 @@ const Header = memo(function Header({ locale = 'en' }: HeaderProps) {
   // Navigation items configuration
   const navItems = [
     { href: `/${locale}`, label: t('navigation.home') },
-    { href: `/${locale}/about`, label: t('navigation.about') },
+    { href: getLocalizedUrl(locale as 'en' | 'fr', 'about'), label: t('navigation.about') },
   ]
 
   return (
