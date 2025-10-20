@@ -46,8 +46,9 @@ export default function CodeEditor({
   const [hasScrollableContent, setHasScrollableContent] = React.useState(false)
   const [shouldLoad, setShouldLoad] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement | null>(null)
+  const effectiveLanguage = language === 'html' ? 'plaintext' : language
 
-  // Defer loading of Monaco until idle or visible/user interaction
+  // Charger Monaco en idle ou quand la zone devient visible, et aussi au clic si l'utilisateur souhaite accélérer
   React.useEffect(() => {
     // Idle callback
     const ric: any = (window as any).requestIdleCallback
@@ -84,6 +85,19 @@ export default function CodeEditor({
       observer?.disconnect()
     }
   }, [])
+
+  // Injecte la CSS de Monaco seulement au moment du chargement effectif
+  React.useEffect(() => {
+    if (!shouldLoad) return
+    const id = 'monaco-editor-main-css'
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link')
+      link.id = id
+      link.rel = 'stylesheet'
+      link.href = '/monaco/vs/editor/editor.main.css'
+      document.head.appendChild(link)
+    }
+  }, [shouldLoad])
 
   // Check if editor has scrollable content and update handleMouseWheel accordingly
   React.useEffect(() => {
@@ -222,7 +236,7 @@ export default function CodeEditor({
       {shouldLoad ? (
       <MonacoEditor
         height={height}
-        language={language}
+        language={effectiveLanguage}
         theme={editorTheme}
         value={value}
         onChange={onChange}
@@ -242,8 +256,11 @@ export default function CodeEditor({
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
       ) : (
-        <div className="flex items-center justify-center h-full bg-muted/30 rounded-md select-none cursor-text">
-          <div className="text-muted-foreground text-sm">Tap or scroll to load editor…</div>
+        <div
+          className="flex items-center justify-center h-full w-full bg-muted/30 rounded-md select-none cursor-text hover:bg-muted/40 transition"
+          onClick={() => setShouldLoad(true)}
+        >
+          <div className="text-muted-foreground text-sm">Loading will start automatically… (click to load now)</div>
         </div>
       )}
     </div>
