@@ -1,33 +1,23 @@
-// Import dynamique pour éviter les problèmes de cache Next.js
-let packageJson: any = null
+// Source unique de vérité: injectée par Next via next.config.ts (npm_package_version)
 
-const loadPackageJson = async () => {
-  if (!packageJson) {
-    try {
-      packageJson = await import('../../package.json')
-    } catch (error) {
-      console.warn('Could not load package.json, using fallback version')
-      packageJson = { version: '1.0.1' }
-    }
-  }
-  return packageJson
-}
+const fallbackVersion = '1.0.0'
 
 export const getVersion = (): string => {
-  // Fallback immédiat pour éviter les problèmes de SSR
-  return '1.0.1'
+  if (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_APP_VERSION) {
+    return process.env.NEXT_PUBLIC_APP_VERSION
+  }
+  if (typeof window !== 'undefined' && (window as any).NEXT_PUBLIC_APP_VERSION) {
+    return (window as any).NEXT_PUBLIC_APP_VERSION
+  }
+  return fallbackVersion
 }
 
-export const getVersionAsync = async (): Promise<string> => {
-  const pkg = await loadPackageJson()
-  return pkg.version || '1.0.1'
-}
+export const getVersionAsync = async (): Promise<string> => getVersion()
 
 export const getVersionInfo = async () => {
-  const pkg = await loadPackageJson()
   return {
-    version: pkg.version || '1.0.1',
-    name: pkg.name || 'fastminify',
-    description: pkg.description || 'Free, fast and private online JavaScript, CSS and JSON minifier'
+    version: getVersion(),
+    name: 'fastminify',
+    description: 'Free, fast and private online JavaScript, CSS and JSON minifier',
   }
 }
