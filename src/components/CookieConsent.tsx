@@ -177,6 +177,9 @@ export default function CookieConsent({ locale, forceShow = false, onClose }: Co
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('cookie-consent-update', { detail: { analytics: true } }))
+    }
     setAnalyticsEnabled(true)
     updateGoogleConsent(true)
     
@@ -200,6 +203,9 @@ export default function CookieConsent({ locale, forceShow = false, onClose }: Co
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('cookie-consent-update', { detail: { analytics: false } }))
+    }
     setAnalyticsEnabled(false)
     updateGoogleConsent(false)
     
@@ -223,6 +229,9 @@ export default function CookieConsent({ locale, forceShow = false, onClose }: Co
     })
     
     localStorage.setItem('cookie-consent', JSON.stringify(consent))
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('cookie-consent-update', { detail: { analytics: analyticsEnabled } }))
+    }
     setShowPreferences(false)
     updateGoogleConsent(analyticsEnabled)
     
