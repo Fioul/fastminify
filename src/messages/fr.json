@@ -547,8 +547,8 @@
   },
   "support": {
     "hero": {
-      "title": "Soutenez FastMinify",
-      "subtitle": "FastMinify est un projet gratuit et open source. Votre soutien nous aide à maintenir et améliorer ce service.",
+      "title": "Soutenez Fast Minify",
+      "subtitle": "Fast Minify est un projet gratuit et indépendant. Votre soutien nous aide à maintenir et améliorer ce service.",
       "badges": {
         "gratuit": "100% Gratuit",
         "opensource": "Open Source",
@@ -559,22 +559,29 @@
       "title": "Pourquoi nous soutenir ?",
       "hosting": {
         "title": "Hébergement et infrastructure",
-        "description": "Les coûts de serveurs, CDN et domaines pour maintenir FastMinify accessible 24h/24."
+        "description": "Les coûts de serveurs et domaines pour maintenir Fast Minify accessible 24h/24."
       },
       "development": {
         "title": "Développement continu",
-        "description": "Nouvelles fonctionnalités, corrections de bugs et améliorations de performance régulières."
+        "description": "Nouvelles fonctionnalités, corrections de bugs et mises à jour régulières des fonctionnalités existantes."
       },
       "features": {
         "title": "Nouvelles fonctionnalités",
-        "description": "Support de nouveaux langages, outils avancés et optimisations pour une meilleure expérience utilisateur."
+        "description": "Support de nouveaux langages, nouveaux outils et optimisations pour une meilleure expérience utilisateur."
       }
     },
     "methods": {
       "title": "Comment nous soutenir",
       "direct": {
         "title": "Soutien direct",
-        "description": "Aidez-nous directement avec un don ponctuel ou récurrent."
+        "description": "Aidez-nous directement avec un don ponctuel ou récurrent.",
+        "crypto": {
+          "title": "Transfert crypto",
+          "bitcoin": "Bitcoin",
+          "ethereum": "Ethereum",
+          "copy": "Copier",
+          "copied": "Copié !"
+        }
       },
       "indirect": {
         "title": "Soutien indirect via GoMining",

@@ -502,8 +502,8 @@
   },
   "support": {
     "hero": {
-      "title": "Support FastMinify",
-      "subtitle": "FastMinify is a free and open source project. Your support helps us maintain and improve this service.",
+      "title": "Support Fast Minify",
+      "subtitle": "Fast Minify is a free and independent project. Your support helps us maintain and improve this service.",
       "badges": {
         "gratuit": "100% Free",
         "opensource": "Open Source",
@@ -514,22 +514,29 @@
       "title": "Why support us?",
       "hosting": {
         "title": "Hosting and infrastructure",
-        "description": "Server costs, CDN and domains to keep FastMinify accessible 24/7."
+        "description": "Server costs and domains to keep Fast Minify accessible 24/7."
       },
       "development": {
         "title": "Continuous development",
-        "description": "New features, bug fixes and regular performance improvements."
+        "description": "New features, bug fixes and regular updates of existing features."
       },
       "features": {
         "title": "New features",
-        "description": "Support for new languages, advanced tools and optimizations for a better user experience."
+        "description": "Support for new languages, new tools and optimizations for a better user experience."
       }
     },
     "methods": {
       "title": "How to support us",
       "direct": {
         "title": "Direct support",
-        "description": "Help us directly with a one-time or recurring donation."
+        "description": "Help us directly with a one-time or recurring donation.",
+        "crypto": {
+          "title": "Crypto transfer",
+          "bitcoin": "Bitcoin",
+          "ethereum": "Ethereum",
+          "copy": "Copy",
+          "copied": "Copied!"
+        }
       },
       "indirect": {
         "title": "Indirect support via GoMining",

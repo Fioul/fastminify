@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { useTranslations } from '@/hooks/useTranslations'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import CryptoModal from '@/components/CryptoModal'
 import { 
   Heart, 
   Coffee, 
@@ -16,7 +18,9 @@ import {
   Zap,
   Users,
   Shield,
-  ArrowRight
+  ArrowRight,
+  SiBitcoin,
+  SiEthereum
 } from '@/lib/icons'
 
 interface SupportPageClientProps {
@@ -25,6 +29,7 @@ interface SupportPageClientProps {
 
 export default function SupportPageClient({ locale }: SupportPageClientProps) {
   const { t } = useTranslations(locale)
+  const [isCryptoModalOpen, setIsCryptoModalOpen] = useState(false)
 
   return (
     <div className="gradient-bg">
@@ -138,10 +143,10 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
                   <Button 
                     variant="outline" 
                     className="btn-outline-hover justify-start h-12"
-                    onClick={() => window.open('https://github.com/sponsors/fastminify', '_blank')}
+                    onClick={() => setIsCryptoModalOpen(true)}
                   >
-                    <Heart className="w-4 h-4 mr-3" />
-                    GitHub Sponsors
+                    <SiBitcoin className="w-4 h-4 mr-3" />
+                    {t('support.methods.direct.crypto.title')}
                   </Button>
                 </div>
               </CardContent>
@@ -180,6 +185,12 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
           </div>
         </div>
 
+        {/* Crypto Modal */}
+        <CryptoModal 
+          isOpen={isCryptoModalOpen}
+          onClose={() => setIsCryptoModalOpen(false)}
+          locale={locale}
+        />
       </div>
     </div>
   )

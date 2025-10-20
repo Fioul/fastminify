@@ -48,7 +48,9 @@ export {
 export { 
   SiNextdotjs, 
   SiTypescript, 
-  SiTailwindcss 
+  SiTailwindcss,
+  SiBitcoin,
+  SiEthereum
 } from 'react-icons/si'
 
 export { 
