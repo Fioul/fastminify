@@ -72,11 +72,6 @@ export const metadata: Metadata = {
         title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier',
         description: 'Minify JavaScript, CSS and JSON code online instantly. Free, fast, and private!',
     },
-    icons: {
-        icon: '/favicon.png?v=2',
-        shortcut: '/favicon.png?v=2',
-        apple: '/favicon.png?v=2',
-    },
 }
 
 export default async function RootLayout({

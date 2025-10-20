@@ -51,13 +51,13 @@
   --card-foreground: oklch(0.15 0.01 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0.01 0);
-  --primary: oklch(0.65 0.18 35); /* Orange vibrant */
+  --primary: #f97316; /* Orange vibrant du logo */
   --primary-foreground: oklch(0.98 0.01 0);
   --secondary: oklch(0.98 0.001 0);
   --secondary-foreground: oklch(0.15 0.01 0);
   --muted: oklch(0.98 0.001 0);
   --muted-foreground: oklch(0.55 0.01 0);
-  --accent: oklch(0.7 0.15 35); /* Orange plus doux */
+  --accent: #fb923c; /* Orange plus doux */
   --accent-foreground: oklch(0.98 0.01 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.001 0);
@@ -85,13 +85,13 @@
   --card-foreground: oklch(0.95 0.01 0);
   --popover: oklch(0.15 0.02 240);
   --popover-foreground: oklch(0.95 0.01 0);
-  --primary: oklch(0.65 0.18 35); /* Orange vibrant (même que clair) */
+  --primary: #f97316; /* Orange vibrant du logo */
   --primary-foreground: oklch(0.12 0.02 240);
   --secondary: oklch(0.18 0.02 240); /* Bleu marine plus clair */
   --secondary-foreground: oklch(0.95 0.01 0);
   --muted: oklch(0.22 0.02 240); /* Muted plus clair */
   --muted-foreground: oklch(0.75 0.01 0); /* Texte muted plus visible */
-  --accent: oklch(0.7 0.15 35); /* Orange doré */
+  --accent: oklch(0.8 0.12 35); /* Orange doré */
   --accent-foreground: oklch(0.12 0.02 240);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(0.25 0.02 240); /* Bordure bleu marine */
