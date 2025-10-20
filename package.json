@@ -19,6 +19,7 @@
     "deploy:setup": "./scripts/setup-server.sh",
     "deploy:manual": "./scripts/deploy-manual.sh",
     "cleanup:logs": "node scripts/cleanup-consent-logs.js",
+    "postinstall": "node scripts/copy-monaco.js",
     "postbuild": "next-sitemap",
     "sitemap": "next-sitemap",
     "server:logs": "./scripts/server-commands.sh logs",

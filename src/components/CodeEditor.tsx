@@ -3,6 +3,7 @@
 import React from 'react'
 import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
+import { loader } from '@monaco-editor/react'
 import { useMemo, useEffect, useRef } from 'react'
 
 // Dynamically import Monaco Editor to avoid SSR issues
@@ -14,6 +15,9 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
     </div>
   )
 })
+
+// Configure self-hosted Monaco paths (served from /public/monaco)
+loader.config({ paths: { vs: '/monaco/vs' } })
 
 interface CodeEditorProps {
   value: string
