@@ -249,7 +249,7 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     webSiteSchema,
     siteNavigationSchema,
     ...(howToSchema ? [howToSchema] : []),
-    faqSchema
+    ...(pageType === 'home' ? [faqSchema] : [])
   ]
   
   return (
