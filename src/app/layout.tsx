@@ -83,7 +83,6 @@ export default async function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
         <head>
-            <meta charSet="utf-8" />
             <FaviconHead />
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <meta name="apple-mobile-web-app-title" content="Fast Minify" />

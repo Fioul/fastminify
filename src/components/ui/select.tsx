@@ -41,6 +41,8 @@ function SelectTrigger({
         className
       )}
       aria-label={props['aria-label'] || 'Select option'}
+      type={undefined}
+      aria-controls={undefined}
       {...props}
     >
       {children}
