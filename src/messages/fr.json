@@ -584,10 +584,44 @@
         }
       },
       "indirect": {
-        "title": "Soutien indirect via GoMining",
-        "description": "Soutenez-nous indirectement en utilisant notre lien de parrainage GoMining.",
-        "button": "Soutenir via GoMining",
-        "disclaimer": "GoMining n'est pas un placement garanti. Les performances passées ne préjugent pas des résultats futurs. Ce lien de parrainage nous permet de recevoir une commission sans coût supplémentaire pour vous."
+        "title": "Envie de miner du Bitcoin ?",
+        "description": "Rejoins GoMining et mine tes Bitcoin dès maintenant",
+        "button": "En savoir plus",
+        "modal": {
+          "title": "GoMining - Minez du Bitcoin dès aujourd'hui",
+          "subtitle": "Devenez propriétaire de puissance de calcul et recevez vos récompenses quotidiennes",
+          "whatIs": {
+            "title": "Qu'est-ce que GoMining ?",
+            "description": "GoMining est une plateforme qui vous permet de devenir propriétaire de puissance de calcul Bitcoin dans des centres de données physiques. Vous n'achetez pas de Bitcoin, mais la capacité de les miner."
+          },
+          "howItWorks": {
+            "title": "Comment ça marche ?",
+            "step1": "Vous achetez de la puissance de calcul (TH/s) liée à un centre de données physique",
+            "step2": "Vos mineurs travaillent 24h/24 pour miner du Bitcoin",
+            "step3": "Vous recevez vos récompenses quotidiennes directement sur votre portefeuille",
+            "step4": "Vous pouvez retirer vos gains quand vous le souhaitez"
+          },
+          "benefits": {
+            "title": "Avantages",
+            "item1": "Propriété réelle de puissance de calcul",
+            "item2": "Récompenses quotidiennes automatiques",
+            "item3": "Retraits flexibles et instantanés",
+            "item4": "Pas de maintenance technique requise",
+            "item5": "ROI estimé : ~30%",
+            "item5Note": "(varie selon le cours du Bitcoin, la difficulté du réseau et les coûts d'électricité)"
+          },
+          "referral": {
+            "title": "Bonus de parrainage",
+            "description": "Utilisez notre lien de parrainage et bénéficiez d'avantages exclusifs :",
+            "bonus": "5% TH supplémentaire sur votre premier mineur",
+            "condition": "Valable dans les 30 jours suivant votre inscription",
+            "support": "En plus de votre bonus, ce lien nous permet de recevoir une commission qui soutient directement le développement de Fast Minify. C'est une façon de nous aider tout en profitant de vos avantages !",
+            "link": "Lien de parrainage",
+            "code": "Code de référence : WNJQTRC"
+          },
+          "disclaimer": "GoMining n'est pas un placement garanti. Les performances passées ne préjugent pas des résultats futurs. Le mining de Bitcoin comporte des risques liés à la volatilité du cours et à la difficulté du réseau. Investissez uniquement ce que vous pouvez vous permettre de perdre.",
+          "cta": "Commencer à miner"
+        }
       }
     },
     "thankyou": {

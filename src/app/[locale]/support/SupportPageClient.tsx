@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import CryptoModal from '@/components/CryptoModal'
+import GoMiningModal from '@/components/GoMiningModal'
 import { 
   Heart, 
   Coffee, 
@@ -30,6 +31,7 @@ interface SupportPageClientProps {
 export default function SupportPageClient({ locale }: SupportPageClientProps) {
   const { t } = useTranslations(locale)
   const [isCryptoModalOpen, setIsCryptoModalOpen] = useState(false)
+  const [isGoMiningModalOpen, setIsGoMiningModalOpen] = useState(false)
 
   return (
     <div className="gradient-bg">
@@ -166,7 +168,7 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
               <CardContent className="space-y-4">
                 <Button 
                   className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground"
-                  onClick={() => window.open('https://gomining.com/ref/fastminify', '_blank')}
+                  onClick={() => setIsGoMiningModalOpen(true)}
                 >
                   <Gift className="w-4 h-4 mr-3" />
                   {t('support.methods.indirect.button')}
@@ -189,6 +191,13 @@ export default function SupportPageClient({ locale }: SupportPageClientProps) {
         <CryptoModal 
           isOpen={isCryptoModalOpen}
           onClose={() => setIsCryptoModalOpen(false)}
+          locale={locale}
+        />
+
+        {/* GoMining Modal */}
+        <GoMiningModal 
+          isOpen={isGoMiningModalOpen}
+          onClose={() => setIsGoMiningModalOpen(false)}
           locale={locale}
         />
       </div>

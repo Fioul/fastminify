@@ -33,6 +33,8 @@ export {
   Zap,
   Users,
   Shield,
+  Clock,
+  DollarSign,
   // ConcatModal specific icons
   GripVertical,
   Upload,

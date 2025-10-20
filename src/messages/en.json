@@ -539,10 +539,44 @@
         }
       },
       "indirect": {
-        "title": "Indirect support via GoMining",
-        "description": "Support us indirectly by using our GoMining referral link.",
-        "button": "Support via GoMining",
-        "disclaimer": "GoMining is not a guaranteed investment. Past performance does not guarantee future results. This referral link allows us to receive a commission at no additional cost to you."
+        "title": "Want to mine Bitcoin?",
+        "description": "Join GoMining and start mining your Bitcoin now",
+        "button": "Learn more",
+        "modal": {
+          "title": "GoMining - Start mining Bitcoin today",
+          "subtitle": "Become a hash power owner and receive daily rewards",
+          "whatIs": {
+            "title": "What is GoMining?",
+            "description": "GoMining is a platform that allows you to become the owner of Bitcoin hash power in physical data centers. You don't buy Bitcoin, but the capacity to mine them."
+          },
+          "howItWorks": {
+            "title": "How does it work?",
+            "step1": "You buy hash power (TH/s) linked to a physical data center",
+            "step2": "Your miners work 24/7 to mine Bitcoin",
+            "step3": "You receive daily rewards directly to your wallet",
+            "step4": "You can withdraw your earnings whenever you want"
+          },
+          "benefits": {
+            "title": "Benefits",
+            "item1": "Real ownership of hash power",
+            "item2": "Automatic daily rewards",
+            "item3": "Flexible and instant withdrawals",
+            "item4": "No technical maintenance required",
+            "item5": "Estimated ROI: ~30%",
+            "item5Note": "(varies with Bitcoin price, network difficulty and electricity costs)"
+          },
+          "referral": {
+            "title": "Referral bonus",
+            "description": "Use our referral link and get exclusive benefits:",
+            "bonus": "5% extra TH on your first miner",
+            "condition": "Valid within 30 days of registration",
+            "support": "In addition to your bonus, this link allows us to receive a commission that directly supports Fast Minify development. It's a way to help us while enjoying your benefits!",
+            "link": "Referral link",
+            "code": "Referral code: WNJQTRC"
+          },
+          "disclaimer": "GoMining is not a guaranteed investment. Past performance does not guarantee future results. Bitcoin mining involves risks related to price volatility and network difficulty. Only invest what you can afford to lose.",
+          "cta": "Start mining"
+        }
       }
     },
     "thankyou": {
