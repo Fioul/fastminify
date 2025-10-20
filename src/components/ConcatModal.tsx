@@ -41,7 +41,7 @@ import {
   Download,
   Copy,
   Check
-} from 'lucide-react'
+} from '@/lib/icons'
 import { minifyJavaScript } from '@/lib/javascript-options'
 import { minifyCSSWithOptions } from '@/lib/css-options'
 
