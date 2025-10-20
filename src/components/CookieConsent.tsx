@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Card } from '@/components/ui/card'
-import { X, Settings, Check, X as XIcon } from 'lucide-react'
+import { X, Settings, Check, X as XIcon } from '@/lib/icons'
 
 interface CookieConsentProps {
   locale: string

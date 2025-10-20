@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import CodeEditor from '@/components/CodeEditor'
 import { useTranslations } from '@/hooks/useTranslations'
-import { Copy, Download, Maximize2, Eraser, Play, Undo2, Sparkles } from 'lucide-react'
+import { Copy, Download, Maximize2, Eraser, Play, Undo2, Sparkles } from '@/lib/icons'
 import ModalEditor from './ModalEditor'
 
 interface EditorSectionProps {

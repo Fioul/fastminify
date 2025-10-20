@@ -1,4 +1,4 @@
-import { Info } from "lucide-react"
+import { Info } from "@/lib/icons"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 interface TooltipInfoProps {

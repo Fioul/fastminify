@@ -87,6 +87,15 @@ export default async function RootLayout({
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <meta name="apple-mobile-web-app-title" content="Fast Minify" />
             <StructuredData locale="en" pageType="home" />
+            {/* Preload critical resources */}
+            <link rel="preload" href="/logo-black.svg" as="image" type="image/svg+xml" />
+            <link rel="preload" href="/logo-white.svg" as="image" type="image/svg+xml" />
+            {/* Preload critical fonts */}
+            <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+            <link rel="preload" href="/fonts/nunito-sans-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+            {/* Performance hints */}
+            <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+            <meta httpEquiv="x-dns-prefetch-control" content="on" />
         </head>
         <body
             className={cn(

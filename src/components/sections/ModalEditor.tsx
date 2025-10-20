@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import CodeEditor from '@/components/CodeEditor'
-import { Copy, Download, X, Eraser } from 'lucide-react'
+import { Copy, Download, X, Eraser } from '@/lib/icons'
 import { useTranslations } from '@/hooks/useTranslations'
 import React, { useEffect, useRef } from 'react'
 

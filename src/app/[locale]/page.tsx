@@ -7,7 +7,12 @@ import HeroSection from '@/components/sections/HeroSection'
 import Toolbar from '@/components/sections/Toolbar'
 import EditorSection from '@/components/sections/EditorSection'
 import ContentSections from '@/components/sections/ContentSections'
-import ConcatModal from '@/components/ConcatModal'
+import dynamic from 'next/dynamic'
+
+const ConcatModal = dynamic(() => import('@/components/ConcatModal'), {
+  ssr: false,
+  loading: () => null
+})
 
 interface PageProps {
     params: Promise<{ locale: string }>
