@@ -17,7 +17,9 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
 })
 
 // Configure self-hosted Monaco paths (served from /public/monaco)
-loader.config({ paths: { vs: '/monaco/vs' } })
+loader.config({ 
+  paths: { vs: '/monaco/vs' }
+})
 
 // Initialise Monaco de manière défensive pour éviter les erreurs silencieuses
 let monacoInitStarted = false
@@ -53,42 +55,52 @@ export default function CodeEditor({
   )
   const hasUpgradedRef = React.useRef(false)
 
-  // Charger Monaco en idle ou quand la zone devient visible, et aussi au clic si l'utilisateur souhaite accélérer
+  // Prod: charge uniquement sur interaction; Dev: idle/visibilité pour confort
   React.useEffect(() => {
-    // Idle callback
-    const ric: any = (window as any).requestIdleCallback
-    let idleId: any
-    if (typeof ric === 'function') {
-      idleId = ric(() => setShouldLoad(true), { timeout: 2000 })
+    const isProd = process.env.NODE_ENV === 'production'
+    let cleanup: (() => void) | null = null
+
+    if (isProd) {
+      const clickNow = () => setShouldLoad(true)
+      const node = containerRef.current
+      node?.addEventListener('pointerdown', clickNow, { once: true, passive: true })
+      cleanup = () => node?.removeEventListener('pointerdown', clickNow)
     } else {
-      const timeoutId = setTimeout(() => setShouldLoad(true), 1500)
-      idleId = { cancel: () => clearTimeout(timeoutId) }
-    }
-
-    // Intersection Observer: load when visible
-    const el = containerRef.current
-    let observer: IntersectionObserver | null = null
-    if (el && 'IntersectionObserver' in window) {
-      observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setShouldLoad(true)
-            observer?.disconnect()
-            break
-          }
-        }
-      }, { rootMargin: '100px' })
-      observer.observe(el)
-    }
-
-    return () => {
-      if (idleId && typeof (window as any).cancelIdleCallback === 'function') {
-        ;(window as any).cancelIdleCallback(idleId)
-      } else if (idleId && idleId.cancel) {
-        idleId.cancel()
+      const ric: any = (window as any).requestIdleCallback
+      let idleId: any
+      if (typeof ric === 'function') {
+        idleId = ric(() => setShouldLoad(true), { timeout: 2000 })
+      } else {
+        const timeoutId = setTimeout(() => setShouldLoad(true), 1500)
+        idleId = { cancel: () => clearTimeout(timeoutId) }
       }
-      observer?.disconnect()
+
+      const el = containerRef.current
+      let observer: IntersectionObserver | null = null
+      if (el && 'IntersectionObserver' in window) {
+        observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setShouldLoad(true)
+              observer?.disconnect()
+              break
+            }
+          }
+        }, { rootMargin: '100px' })
+        observer.observe(el)
+      }
+
+      cleanup = () => {
+        if (idleId && typeof (window as any).cancelIdleCallback === 'function') {
+          ;(window as any).cancelIdleCallback(idleId)
+        } else if (idleId && idleId.cancel) {
+          idleId.cancel()
+        }
+        observer?.disconnect()
+      }
     }
+
+    return () => cleanup?.()
   }, [])
 
   // Injecte la CSS de Monaco seulement au moment du chargement effectif
@@ -233,7 +245,13 @@ export default function CodeEditor({
     // Remove focus borders
     outline: 'none',
     // Remove selection borders
-    selectionHighlight: false
+    selectionHighlight: false,
+    // Désactiver les fonctionnalités qui nécessitent des workers
+    semanticHighlighting: { enabled: false },
+    colorDecorators: false,
+    codeLens: false,
+    occurrencesHighlight: 'off' as const,
+    wordHighlight: false
   }), [placeholder, readOnly, hasScrollableContent])
 
   // Theme mapping
@@ -257,10 +275,41 @@ export default function CodeEditor({
         onMount={(editor, monaco) => {
           try {
             editorRef.current = editor
+            
+            // Désactiver complètement les workers et les fonctionnalités avancées
+            if (monaco?.editor) {
+              try {
+                ;(window as any).MonacoEnvironment = {
+                  getWorker: function () {
+                    // Retourner un worker vide pour éviter les erreurs
+                    return new Worker('data:text/javascript,')
+                  }
+                }
+                
+                // Désactiver les fonctionnalités qui nécessitent des workers
+                const editor = monaco.editor
+                if (editor) {
+                  // Désactiver la coloration sémantique
+                  editor.setModelMarkers = () => {}
+                  
+                  // Désactiver les suggestions
+                  const languages = monaco.languages
+                  if (languages) {
+                    languages.registerCompletionItemProvider = () => ({ dispose: () => {} })
+                    languages.registerHoverProvider = () => ({ dispose: () => {} })
+                    languages.registerDocumentSymbolProvider = () => ({ dispose: () => {} })
+                  }
+                }
+              } catch (e) {
+                console.warn('Monaco worker configuration failed:', e)
+              }
+            }
+            
             // Défensif: vérifier que workers se résolvent
             if (!monacoInitStarted && monaco?.editor) {
               monacoInitStarted = true
             }
+            
             // Alléger le langage JS: désactiver la validation sémantique (grosse charge côté worker TS)
             try {
               // Typescript/JS defaults existent uniquement si le module TS est chargé
@@ -275,18 +324,21 @@ export default function CodeEditor({
                 target: 99 // ESNext
               })
             } catch (_) {}
+            
             // Upgrade au premier focus pour charger le langage réel
             const upgradeLanguage = () => {
               if (hasUpgradedRef.current) return
               hasUpgradedRef.current = true
               setCurrentLanguage(targetLanguage)
             }
+            
             // focus dans l'éditeur
             const disposable = editor.onDidFocusEditorText(upgradeLanguage)
             // fallback: premier input/click dans la zone
             const node = (editor as any).getDomNode?.() as HTMLElement | undefined
             const clickHandler = () => upgradeLanguage()
             node?.addEventListener('pointerdown', clickHandler, { once: true, passive: true })
+            
             // cleanup listeners
             ;(editor as any)._perfCleanup = () => {
               disposable?.dispose?.()
@@ -295,8 +347,7 @@ export default function CodeEditor({
           } catch (e) {
             console.error('Monaco initialization: error:', e)
           }
-        }
-        }
+        }}
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
       ) : (

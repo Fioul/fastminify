@@ -1,0 +1,20 @@
+{
+  "version": "0.54.0",
+  "languages": [
+    "javascript",
+    "css",
+    "json"
+  ],
+  "features": [
+    "core",
+    "json",
+    "css",
+    "typescript"
+  ],
+  "workers": {
+    "json": "/monaco/vs/assets/json.worker-DghZTZS7.js",
+    "css": "/monaco/vs/assets/css.worker-cO8rX8Iy.js",
+    "typescript": "/monaco/vs/assets/ts.worker-C4E4vgbE.js",
+    "editor": "/monaco/vs/assets/editor.worker-DM0G1eFj.js"
+  }
+}
