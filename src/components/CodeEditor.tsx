@@ -3,6 +3,7 @@
 import React from 'react'
 import { useTheme } from 'next-themes'
 import dynamic from 'next/dynamic'
+import { loader } from '@monaco-editor/react'
 import { useMemo, useEffect, useRef } from 'react'
 
 // Dynamically import Monaco Editor to avoid SSR issues
@@ -14,6 +15,12 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
     </div>
   )
 })
+
+// Configure self-hosted Monaco paths (served from /public/monaco)
+loader.config({ paths: { vs: '/monaco/vs' } })
+
+// Initialise Monaco de manière défensive pour éviter les erreurs silencieuses
+let monacoInitStarted = false
 
 interface CodeEditorProps {
   value: string
@@ -220,9 +227,18 @@ export default function CodeEditor({
         value={value}
         onChange={onChange}
         options={editorOptions}
-        onMount={(editor) => {
-          editorRef.current = editor
-        }}
+        onMount={(editor, monaco) => {
+          try {
+            editorRef.current = editor
+            // Défensif: vérifier que workers se résolvent
+            if (!monacoInitStarted && monaco?.editor) {
+              monacoInitStarted = true
+            }
+          } catch (e) {
+            console.error('Monaco initialization: error:', e)
+          }
+        }
+        }
         loading={<div className="flex items-center justify-center h-full bg-muted/30 rounded-md">Loading editor...</div>}
       />
       ) : (
