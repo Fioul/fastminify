@@ -14,6 +14,12 @@ module.exports = {
       hreflang: 'fr',
     },
   ],
+  additionalPaths: async (config) => [
+    // Routes françaises localisées
+    await config.transform(config, '/fr/a-propos'),
+    await config.transform(config, '/fr/mentions-legales'),
+    await config.transform(config, '/fr/confidentialite'),
+  ],
   transform: async (config, path) => {
     // Custom priority and changefreq for different pages
     const customConfig = {
