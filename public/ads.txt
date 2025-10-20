@@ -1,0 +1,4 @@
+# ads.txt file for fastminify.com
+# This file is used to authorize digital sellers to sell inventory
+# For Google AdSense
+google.com, pub-5768156413311714, DIRECT, f08c47fec0942fa0
