@@ -3,7 +3,17 @@ module.exports = {
   siteUrl: process.env.SITE_URL || 'https://fastminify.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: ['/api/*', '/logs/*', '/test-refactored', '/en/a-propos', '/en/mentions-legales', '/en/confidentialite'],
+  exclude: [
+    '/api/*', 
+    '/logs/*', 
+    '/test-refactored', 
+    '/en/a-propos', 
+    '/en/mentions-legales', 
+    '/en/confidentialite',
+    '/fr/about',
+    '/fr/legal', 
+    '/fr/privacy'
+  ],
   alternateRefs: [
     {
       href: 'https://fastminify.com/en',
