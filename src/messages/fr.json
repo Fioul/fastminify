@@ -120,6 +120,7 @@
   "navigation": {
     "home": "Minificateur de Code",
     "about": "À propos",
+    "documentation": "Documentation",
     "contact": "Contact"
   },
   "about": {
@@ -584,6 +585,87 @@
       "content": "Ces conditions peuvent être modifiées à tout moment. L'utilisation continue constitue une acceptation des modifications."
     },
     "footer": "L'utilisation de ce service implique l'acceptation de ces conditions."
+  },
+  "documentation": {
+    "title": "Documentation Technique",
+    "subtitle": "Guide complet pour comprendre la minification et la sérialisation avec des exemples de code pratiques",
+    "javascript": {
+      "title": "Minification JavaScript",
+      "description": "Utilisation de Terser pour optimiser et compresser le code JavaScript",
+      "package": {
+        "title": "Package utilisé",
+        "description": "Terser est un compresseur JavaScript moderne qui optimise la taille et les performances de votre code."
+      },
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "Code d'entrée",
+        "output": "Code minifié",
+        "inputCode": "function calculateTotal(items) {\n  let total = 0;\n  for (let i = 0; i < items.length; i++) {\n    total += items[i].price;\n  }\n  return total;\n}\n\nconst products = [\n  { name: 'Laptop', price: 999 },\n  { name: 'Mouse', price: 25 }\n];\n\nconsole.log('Total:', calculateTotal(products));",
+        "outputCode": "function calculateTotal(e){let t=0;for(let e=0;e<e.length;e++)t+=e[e].price;return t}const products=[{name:'Laptop',price:999},{name:'Mouse',price:25}];console.log('Total:',calculateTotal(products));"
+      },
+      "options": {
+        "title": "Options de minification",
+        "compress": {
+          "description": "Active la compression du code en supprimant les espaces, commentaires et optimisant les structures",
+          "example": {
+            "title": "Exemple avec compression",
+            "code": "if (condition === true) {\n  return false;\n} else {\n  return true;\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "return!condition"
+          }
+        },
+        "mangle": {
+          "description": "Renomme les variables et fonctions pour réduire la taille du code",
+          "example": {
+            "title": "Exemple avec mangle",
+            "code": "function calculateTotal(items) {\n  let total = 0;\n  return total;\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "function a(b){let c=0;return c}"
+          }
+        }
+      }
+    },
+    "css": {
+      "title": "Minification CSS",
+      "description": "Utilisation de CSSO pour optimiser et compresser les feuilles de style CSS",
+      "package": {
+        "title": "Package utilisé",
+        "description": "CSSO (CSS Optimizer) est un outil puissant pour optimiser les fichiers CSS en supprimant les redondances et en compressant le code."
+      },
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "CSS d'entrée",
+        "output": "CSS minifié",
+        "inputCode": ".container {\n  margin: 20px;\n  padding: 10px;\n  background-color: #ffffff;\n}\n\n.button {\n  color: #000000;\n  font-size: 16px;\n  border: 1px solid #cccccc;\n}",
+        "outputCode": ".container{margin:20px;padding:10px;background-color:#fff}.button{color:#000;font-size:16px;border:1px solid #ccc}"
+      }
+    },
+    "json": {
+      "title": "Minification JSON",
+      "description": "Compression des fichiers JSON en supprimant les espaces et caractères inutiles",
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "JSON d'entrée",
+        "output": "JSON minifié",
+        "inputCode": "{\n  \"name\": \"FastMinify\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A fast minifier tool\",\n  \"features\": [\n    \"JavaScript minification\",\n    \"CSS optimization\",\n    \"JSON compression\"\n  ]\n}",
+        "outputCode": "{\"name\":\"FastMinify\",\"version\":\"1.0.0\",\"description\":\"A fast minifier tool\",\"features\":[\"JavaScript minification\",\"CSS optimization\",\"JSON compression\"]}"
+      }
+    },
+    "php": {
+      "title": "Sérialisation PHP",
+      "description": "Utilisation de la fonction serialize() de PHP pour convertir les données en format binaire compact",
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "Code PHP d'entrée",
+        "output": "Données sérialisées",
+        "inputCode": "<?php\n$data = [\n  'name' => 'FastMinify',\n  'version' => '1.0.0',\n  'features' => ['minify', 'compress', 'optimize']\n];\n\n$serialized = serialize($data);\necho $serialized;",
+        "outputCode": "a:3:{s:4:\"name\";s:10:\"FastMinify\";s:7:\"version\";s:5:\"1.0.0\";s:8:\"features\";a:3:{i:0;s:5:\"minify\";i:1;s:8:\"compress\";i:2;s:8:\"optimize\";}}"
+      }
+    }
   },
   "notFound": {
     "title": "Oups ! Page Introuvable",
