@@ -4,11 +4,13 @@ export const localizedRoutes = {
     about: '/about',
     legal: '/legal',
     privacy: '/privacy',
+    contact: '/contact',
   },
   fr: {
     about: '/a-propos',
     legal: '/mentions-legales', 
     privacy: '/confidentialite',
+    contact: '/contact',
   },
 } as const
 

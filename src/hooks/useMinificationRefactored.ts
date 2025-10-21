@@ -5,8 +5,10 @@ import { useAutoDetect } from './useAutoDetect'
 import { useModalState } from './useModalState'
 import { useOptions } from './useOptions'
 import { useMinificationActions } from './useMinificationActions'
+import { useTranslations } from './useTranslations'
 
-export function useMinificationRefactored() {
+export function useMinificationRefactored(locale: string) {
+  const { t } = useTranslations(locale)
   const editorState = useEditorState()
   const autoDetect = useAutoDetect()
   const modalState = useModalState()
@@ -15,7 +17,8 @@ export function useMinificationRefactored() {
   const actions = useMinificationActions({
     ...editorState,
     ...autoDetect,
-    ...options
+    ...options,
+    t
   })
 
   return {

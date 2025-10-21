@@ -33,6 +33,7 @@ interface UseMinificationActionsProps {
   setStats: (stats: Stats | null) => void
   setLastOperation: (operation: OperationType) => void
   setIsLoading: (loading: boolean) => void
+  t: (key: string) => string
 }
 
 export function useMinificationActions({
@@ -57,6 +58,7 @@ export function useMinificationActions({
   setStats,
   setLastOperation,
   setIsLoading,
+  t
 }: UseMinificationActionsProps) {
 
   const handleLeftCodeChange = useCallback((value: string | undefined) => {
@@ -80,7 +82,7 @@ export function useMinificationActions({
   const handleCopy = useCallback(() => {
     if (rightCode) {
       navigator.clipboard.writeText(rightCode)
-      toast.success('Code copied to clipboard!')
+      toast.success(t('common.toast.codeCopied'))
     }
   }, [rightCode])
 
@@ -89,19 +91,19 @@ export function useMinificationActions({
     setRightCode('')
     setStats(null)
     setLastOperation(null)
-    toast.success('All code cleared!')
+    toast.success(t('common.toast.allCleared'))
   }, [setLeftCode, setRightCode, setStats, setLastOperation])
 
   const handleClearLeft = useCallback(() => {
     setLeftCode('')
-    toast.success('Left code cleared!')
+    toast.success(t('common.toast.leftCleared'))
   }, [setLeftCode])
 
   const handleClearRight = useCallback(() => {
     setRightCode('')
     setStats(null)
     setLastOperation(null)
-    toast.success('Right code cleared!')
+    toast.success(t('common.toast.rightCleared'))
   }, [setRightCode, setStats, setLastOperation])
 
   const handleDownload = useCallback(() => {
@@ -115,14 +117,14 @@ export function useMinificationActions({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-      toast.success('Code downloaded!')
+      toast.success(t('common.toast.codeDownloaded'))
     }
   }, [rightCode, rightType])
 
   const handleLeftCopy = useCallback(() => {
     if (leftCode) {
       navigator.clipboard.writeText(leftCode)
-      toast.success('Left code copied to clipboard!')
+      toast.success(t('common.toast.leftCodeCopied'))
     }
   }, [leftCode])
 
@@ -137,14 +139,14 @@ export function useMinificationActions({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-      toast.success('Left code downloaded!')
+      toast.success(t('common.toast.leftCodeDownloaded'))
     }
   }, [leftCode, leftType])
 
   const handleRightCopy = useCallback(() => {
     if (rightCode) {
       navigator.clipboard.writeText(rightCode)
-      toast.success('Right code copied to clipboard!')
+      toast.success(t('common.toast.rightCodeCopied'))
     }
   }, [rightCode])
 
@@ -159,14 +161,14 @@ export function useMinificationActions({
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
-      toast.success('Right code downloaded!')
+      toast.success(t('common.toast.rightCodeDownloaded'))
     }
   }, [rightCode, rightType])
 
   const processMinify = useCallback(async () => {
     const sourceCode = leftCode.trim()
     if (!sourceCode) {
-      toast.error('Please paste some code in the left editor first.')
+      toast.error(t('common.toast.pasteCodeFirst'))
       return
     }
 
@@ -187,7 +189,7 @@ export function useMinificationActions({
           'json': 'JSON',
           'php': 'PHP Serialize'
         }
-        toast.success(`Language auto-detected: ${languageNames[type]}`)
+        toast.success(t('common.toast.languageAutoDetected').replace('{language}', languageNames[type]))
       }
       
       if (!type) {
@@ -219,43 +221,43 @@ export function useMinificationActions({
       })
       setLastOperation('minify')
 
-      toast.success('Code minified successfully!')
+      toast.success(t('common.toast.minifiedSuccessfully'))
     } catch (error) {
       console.error(error)
       
       // Specific error messages based on type and error
-      let errorMessage = 'An error occurred during minification.'
+      let errorMessage = t('common.toast.minificationError')
       
       if (error instanceof Error) {
         if (error.message.includes('JSON')) {
           if (leftType === 'json') {
             // Messages d'erreur plus spécifiques pour JSON
             if (error.message.includes('Expected property name')) {
-              errorMessage = 'Invalid JSON: Property names must be quoted. Try using double quotes around property names.'
+              errorMessage = t('common.toast.invalidJsonProperty')
             } else if (error.message.includes('Unexpected token')) {
-              errorMessage = 'Invalid JSON: Unexpected character found. Check for missing commas, quotes, or brackets.'
+              errorMessage = t('common.toast.invalidJsonToken')
             } else if (error.message.includes('Expected double-quoted property name')) {
-              errorMessage = 'Invalid JSON: Property names must use double quotes, not single quotes.'
+              errorMessage = t('common.toast.invalidJsonQuotes')
             } else if (error.message.includes('Expected \',\' or \'}\'')) {
-              errorMessage = 'Invalid JSON: Missing comma or closing brace. Check your object structure.'
+              errorMessage = t('common.toast.invalidJsonComma')
             } else {
-              errorMessage = 'Invalid JSON syntax. Please check your JSON code and ensure it\'s properly formatted.'
+              errorMessage = t('common.toast.invalidJsonSyntax')
             }
             } else {
               if (leftType === 'php') {
-                errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+                errorMessage = t('common.toast.invalidDataFormat')
               } else {
-                errorMessage = `Invalid ${leftType?.toUpperCase() || 'unknown'} code. Please ensure the code matches the selected type.`
+                errorMessage = t('common.toast.invalidCodeType').replace('{type}', leftType?.toUpperCase() || 'unknown')
               }
             }
         } else if (error.message.includes('CSS')) {
-          errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
+          errorMessage = t('common.toast.invalidCssSyntax')
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
-          errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
+          errorMessage = t('common.toast.invalidJsSyntax')
         } else if (error.message.includes('PHP')) {
-          errorMessage = 'Invalid data for PHP serialization. Please provide valid JSON data, not PHP code.'
+          errorMessage = t('common.toast.invalidPhpData')
         } else {
-          errorMessage = `Minification failed: ${error.message}`
+          errorMessage = t('common.toast.minificationFailed').replace('{error}', error.message)
         }
       }
       
@@ -268,7 +270,7 @@ export function useMinificationActions({
   const processUnminify = useCallback(async () => {
     const sourceCode = rightCode.trim()
     if (!sourceCode) {
-      toast.error('Please paste some code in the right editor first.')
+      toast.error(t('common.toast.pasteRightCodeFirst'))
       return
     }
 
@@ -289,7 +291,7 @@ export function useMinificationActions({
           'json': 'JSON',
           'php': 'PHP Serialize'
         }
-        toast.success(`Language auto-detected: ${languageNames[type]}`)
+        toast.success(t('common.toast.languageAutoDetected').replace('{language}', languageNames[type]))
       }
       
       if (!type) {
@@ -316,32 +318,32 @@ export function useMinificationActions({
       })
       setLastOperation('unminify')
 
-      toast.success('Code unminified successfully!')
+      toast.success(t('common.toast.unminifiedSuccessfully'))
     } catch (error) {
       console.error(error)
       
       // Specific error messages based on type and error
-      let errorMessage = 'An error occurred during unminification.'
+      let errorMessage = t('common.toast.unminificationError')
       
       if (error instanceof Error) {
         if (error.message.includes('JSON')) {
           if (rightType === 'json') {
-            errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
+            errorMessage = t('common.toast.invalidJsonSyntax')
             } else {
               if (rightType === 'php') {
-                errorMessage = 'Invalid data format. Please provide valid JSON data for PHP serialization.'
+                errorMessage = t('common.toast.invalidDataFormat')
               } else {
-                errorMessage = `Invalid ${rightType?.toUpperCase() || 'unknown'} code. Please ensure the code matches the selected type.`
+                errorMessage = t('common.toast.invalidCodeType').replace('{type}', rightType?.toUpperCase() || 'unknown')
               }
             }
         } else if (error.message.includes('CSS')) {
-          errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
+          errorMessage = t('common.toast.invalidCssSyntax')
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
-          errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
+          errorMessage = t('common.toast.invalidJsSyntax')
         } else if (error.message.includes('PHP')) {
-          errorMessage = 'Invalid PHP serialized data. Please provide valid PHP serialized string for unserialization.'
+          errorMessage = t('common.toast.invalidPhpSerialized')
         } else {
-          errorMessage = `Unminification failed: ${error.message}`
+          errorMessage = t('common.toast.unminificationFailed').replace('{error}', error.message)
         }
       }
       
@@ -353,7 +355,7 @@ export function useMinificationActions({
 
   const processBeautify = useCallback(async () => {
     if (!leftCode.trim()) {
-      toast.error('Please enter some code to beautify.')
+      toast.error(t('common.toast.enterCodeToBeautify'))
       return
     }
 
@@ -374,7 +376,7 @@ export function useMinificationActions({
           'json': 'JSON',
           'php': 'PHP Serialize'
         }
-        toast.success(`Language auto-detected: ${languageNames[type]}`)
+        toast.success(t('common.toast.languageAutoDetected').replace('{language}', languageNames[type]))
       }
       
       if (!type) {
@@ -392,23 +394,23 @@ export function useMinificationActions({
       })
       setLastOperation('unminify') // Use 'unminify' for beautify operation
 
-      toast.success('Code beautified successfully!')
+      toast.success(t('common.toast.beautifiedSuccessfully'))
     } catch (error) {
       console.error(error)
       
-      let errorMessage = 'An error occurred during beautification.'
+      let errorMessage = t('common.toast.beautificationError')
       
       if (error instanceof Error) {
         if (error.message.includes('JSON')) {
-          errorMessage = 'Invalid JSON syntax. Please check your JSON code.'
+          errorMessage = t('common.toast.invalidJsonSyntax')
         } else if (error.message.includes('CSS')) {
-          errorMessage = 'Invalid CSS syntax. Please check your CSS code.'
+          errorMessage = t('common.toast.invalidCssSyntax')
         } else if (error.message.includes('JavaScript') || error.message.includes('JS')) {
-          errorMessage = 'Invalid JavaScript syntax. Please check your JavaScript code.'
+          errorMessage = t('common.toast.invalidJsSyntax')
         } else if (error.message.includes('PHP')) {
-          errorMessage = 'Invalid data for PHP beautification. Please provide valid JSON data.'
+          errorMessage = t('common.toast.invalidDataFormat')
         } else {
-          errorMessage = `Beautification failed: ${error.message}`
+          errorMessage = t('common.toast.beautificationFailed').replace('{error}', error.message)
         }
       }
       

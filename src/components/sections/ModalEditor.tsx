@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import CodeEditor from '@/components/CodeEditor'
 import { Copy, Download, X, Eraser } from '@/lib/icons'
 import { useTranslations } from '@/hooks/useTranslations'
@@ -109,40 +109,45 @@ export default function ModalEditor({
       >
         <DialogHeader className="px-6 py-4 border-b flex-shrink-0">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
+            <div>
+              <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground">
+                {t('common.editorModalDescription')}
+              </DialogDescription>
+            </div>
             <div className="flex gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onCopy}
                 disabled={!code.trim()}
-                className="h-8 px-3"
+                className="h-8 px-3 sm:px-3 px-2"
                 title={t('common.copyCode')}
               >
-                <Copy className="h-4 w-4 mr-2" />
-                {t('common.copy')}
+                <Copy className="h-4 w-4 sm:mr-2 mr-0" />
+                <span className="hidden sm:inline">{t('common.copy')}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onDownload}
                 disabled={!code.trim()}
-                className="h-8 px-3"
+                className="h-8 px-3 sm:px-3 px-2"
                 title={t('common.downloadCode')}
               >
-                <Download className="h-4 w-4 mr-2" />
-                {t('common.download')}
+                <Download className="h-4 w-4 sm:mr-2 mr-0" />
+                <span className="hidden sm:inline">{t('common.download')}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onClear}
                 disabled={!code.trim()}
-                className="h-8 px-3"
+                className="h-8 px-3 sm:px-3 px-2"
                 title={t('common.clearEditor')}
               >
-                <Eraser className="h-4 w-4 mr-2" />
-                {t('common.clear')}
+                <Eraser className="h-4 w-4 sm:mr-2 mr-0" />
+                <span className="hidden sm:inline">{t('common.clear')}</span>
               </Button>
               <Button
                 variant="ghost"

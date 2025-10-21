@@ -2,7 +2,7 @@
   "common": {
     "subtitle": "Online JavaScript, CSS & JSON Minifier",
     "description": "Minify your JavaScript, CSS and JSON code from left to right, unminify from right to left — free, fast, and private. Online minification tool with no registration required.",
-    "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. Our advanced minification tool processes JavaScript, CSS, JSON and PHP in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
+    "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. This advanced minification tool processes JavaScript, CSS and JSON in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
     "normalCode": "Normal Code",
     "minifiedCode": "Minified Code",
     "auto": "Auto",
@@ -35,6 +35,7 @@
     "copyCode": "Copy code",
     "downloadCode": "Download code",
     "openInModal": "Open in modal",
+    "editorModalDescription": "Full-screen code editor with copy, download and clear options",
     "copied": "Copied!",
     "selectFileType": "Select the type of files you want to concatenate",
     "concatenateFiles": "Concatenate Files",
@@ -61,7 +62,47 @@
     "concatenateAndMinify": "Concatenate & Minify {count} file{plural}",
     "concatenateAndMinifySingle": "Concatenate & Minify {count} file",
     "useResult": "Use Result",
-    "filesOrderHelp": "File order can be defined by drag and drop"
+    "filesOrderHelp": "File order can be defined by drag and drop",
+    "ariaLabels": {
+      "selectOption": "Select option",
+      "selectLanguage": "Select language",
+      "selectFileType": "Select file type"
+    },
+    "toast": {
+      "codeCopied": "Code copied to clipboard!",
+      "allCleared": "All code cleared!",
+      "leftCleared": "Left code cleared!",
+      "rightCleared": "Right code cleared!",
+      "codeDownloaded": "Code downloaded!",
+      "leftCodeCopied": "Left code copied!",
+      "leftCodeDownloaded": "Left code downloaded!",
+      "rightCodeCopied": "Right code copied!",
+      "rightCodeDownloaded": "Right code downloaded!",
+      "pasteCodeFirst": "Please paste some code in the left editor first.",
+      "pasteRightCodeFirst": "Please paste some code in the right editor first.",
+      "enterCodeToBeautify": "Please enter some code to beautify.",
+      "languageAutoDetected": "Language auto-detected: {language}",
+      "minifiedSuccessfully": "Code minified successfully!",
+      "unminifiedSuccessfully": "Code unminified successfully!",
+      "beautifiedSuccessfully": "Code beautified successfully!",
+      "minificationError": "An error occurred during minification.",
+      "unminificationError": "An error occurred during unminification.",
+      "beautificationError": "An error occurred during beautification.",
+      "invalidJsonProperty": "Invalid JSON: Property names must be quoted. Try using double quotes around property names.",
+      "invalidJsonToken": "Invalid JSON: Unexpected character found. Check for missing commas, quotes, or brackets.",
+      "invalidJsonQuotes": "Invalid JSON: Property names must use double quotes, not single quotes.",
+      "invalidJsonComma": "Invalid JSON: Missing comma or closing brace. Check your object structure.",
+      "invalidJsonSyntax": "Invalid JSON syntax. Please check your JSON code and ensure it's properly formatted.",
+      "invalidDataFormat": "Invalid data format. Please provide valid JSON data for PHP serialization.",
+      "invalidCodeType": "Invalid {type} code. Please ensure the code matches the selected type.",
+      "invalidCssSyntax": "Invalid CSS syntax. Please check your CSS code.",
+      "invalidJsSyntax": "Invalid JavaScript syntax. Please check your JavaScript code.",
+      "invalidPhpData": "Invalid data for PHP serialization. Please provide valid JSON data, not PHP code.",
+      "invalidPhpSerialized": "Invalid PHP serialized data. Please provide valid PHP serialized string for unserialization.",
+      "minificationFailed": "Minification failed: {error}",
+      "unminificationFailed": "Unminification failed: {error}",
+      "beautificationFailed": "Beautification failed: {error}"
+    }
   },
   "languages": {
     "javascript": "JavaScript",
@@ -193,7 +234,7 @@
   },
   "contact": {
     "title": "Contact Us",
-    "subtitle": "Found a bug? Have a suggestion? We'd love to hear from you!",
+    "subtitle": "Found a bug? Have a suggestion? I'd love to hear from you!",
     "sendMessage": "Send us a message",
     "name": "Name",
     "email": "Email",
@@ -202,7 +243,7 @@
     "message": "Message",
     "sendButton": "Send Message",
     "getInTouch": "Get in touch",
-    "getInTouchText": "We're always looking to improve FastMinify. Whether you've found a bug, have a feature request, or just want to say hello, we'd love to hear from you.",
+    "getInTouchText": "I'm constantly improving FastMinify. Whether you've found a bug, have a feature request, or just want to say hello, I'd love to hear from you.",
     "commonIssues": "Common issues",
     "minificationNotWorking": "Minification not working?",
     "minificationNotWorkingText": "Make sure your code is valid JavaScript or CSS. Check the browser console for errors.",
@@ -211,10 +252,10 @@
     "themeNotSaving": "Theme not saving?",
     "themeNotSavingText": "Check if your browser allows localStorage. Try refreshing the page.",
     "messageTypes": {
-      "bug": "Bug Report",
-      "feature": "Feature Request",
-      "question": "Question",
-      "other": "Other"
+      "contact": "Contact Request",
+      "feedback": "Feedback",
+      "improvement": "Improvement Idea",
+      "bug": "Bug Report"
     },
     "placeholders": {
       "name": "Your name",
@@ -224,7 +265,13 @@
     },
     "validation": {
       "required": "Please fill in all required fields.",
-      "success": "Thank you for your message! We'll get back to you soon."
+      "success": "Thank you for your message! I'll get back to you soon.",
+      "error": "An error occurred while sending the message."
+    },
+    "form": {
+      "description": "Fill out the form below and I'll get back to you quickly.",
+      "selectTypePlaceholder": "Select a message type",
+      "sending": "Sending..."
     }
   },
   "footer": {
@@ -347,15 +394,15 @@
         },
         {
           "question": "Can I unminify minified code?",
-          "answer": "Yes, our tool can unminify JavaScript and CSS minified code, although the result may not always be identical to the original code (comments and variable names are lost)."
+          "answer": "Yes, this tool can unminify JavaScript and CSS minified code, although the result may not always be identical to the original code (comments and variable names are lost)."
         },
         {
           "question": "Is my data secure?",
-          "answer": "Absolutely. All processing happens client-side in your browser. No data is sent to our servers, ensuring complete privacy."
+          "answer": "Absolutely. All processing happens client-side in your browser. No data is sent to servers, ensuring complete privacy."
         },
         {
           "question": "What file types can I minify?",
-          "answer": "We support JavaScript, CSS, JSON and PHP. Each file type has its own optimization options for maximum results."
+          "answer": "This tool supports JavaScript, CSS and JSON for minification, as well as PHP serialization. Each file type has its own optimization options for maximum results."
         },
         {
           "question": "Does minification really improve performance?",
@@ -382,11 +429,11 @@
     "lastUpdated": "Last updated: October 2025",
     "introduction": {
       "title": "Data Processing",
-      "content": "FastMinify processes your code locally in your browser. We do not store, collect, or transmit your code to our servers. This tool is designed to be completely private and secure."
+      "content": "FastMinify processes your code locally in your browser. No code is stored, collected, or transmitted to servers. This tool is designed to be completely private and secure."
     },
     "dataCollection": {
-      "title": "What We Collect",
-      "content": "We only collect anonymous usage data through:",
+      "title": "What Is Collected",
+      "content": "The site only collects anonymous usage data through:",
       "types": {
         "analytics": "Google Analytics (with your consent) - anonymous traffic statistics",
         "cookies": "Essential cookies for language preferences and functionality",
@@ -395,7 +442,7 @@
     },
     "cookies": {
       "title": "Cookies",
-      "content": "We use minimal cookies:",
+      "content": "The site uses minimal cookies:",
       "types": {
         "title": "Cookie types:",
         "essential": "Essential cookies for site functionality (always active)",
@@ -411,7 +458,7 @@
     },
     "googleServices": {
       "title": "Third-Party Services",
-      "content": "We use Google services:",
+      "content": "The site uses Google services:",
       "analytics": "Google Analytics: Anonymous traffic statistics (you can opt-out)",
       "adsense": "Google AdSense: Displays advertisements (no personal data collected)"
     },
@@ -450,7 +497,7 @@
     },
     "contact": {
       "title": "Questions",
-      "content": "For questions about this privacy policy, please contact us through our website."
+      "content": "For questions about this privacy policy, please contact me through the website."
     },
     "footer": "This privacy policy may be updated. Check back periodically for changes."
   },
@@ -502,7 +549,7 @@
       "items": [
         "Check the URL for typos (we all make mistakes!)",
         "Go back to the homepage and try again",
-        "Use our awesome minifier while you're here",
+        "Use this awesome minifier while you're here",
         "Take a deep breath and try again"
       ]
     },
@@ -517,7 +564,7 @@
   },
   "cookies": {
     "title": "Cookie Preferences",
-    "description": "We use cookies to enhance your experience and analyze site usage. You can customize your preferences below.",
+    "description": "This site uses cookies to enhance your experience and analyze site usage. You can customize your preferences below.",
     "privacyPolicy": "Privacy Policy",
     "legalNotice": "Legal Notice",
     "acceptAll": "Accept All",
@@ -533,7 +580,7 @@
       },
       "analytics": {
         "title": "Analytics Cookies",
-        "description": "Help us understand how visitors interact with our website by collecting anonymous information."
+        "description": "Help understand how visitors interact with the website by collecting anonymous information."
       },
       "advertising": {
         "title": "Advertising Cookies",

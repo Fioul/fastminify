@@ -45,11 +45,11 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
         },
         {
           question: 'Mes données sont-elles sécurisées ?',
-          answer: 'Absolument. Tout le traitement se fait dans votre navigateur. Aucune donnée n\'est envoyée vers nos serveurs.'
+          answer: 'Absolument. Tout le traitement se fait dans votre navigateur. Aucune donnée n\'est envoyée vers des serveurs.'
         },
         {
           question: 'Quels types de fichiers puis-je minifier ?',
-          answer: 'FastMinify supporte JavaScript, CSS et JSON. Vous pouvez aussi déminifier et beautifier du code.'
+          answer: 'FastMinify supporte JavaScript, CSS et JSON pour la minification, ainsi que la sérialisation PHP. Vous pouvez aussi déminifier et beautifier du code.'
         }
       ]
     },
@@ -82,11 +82,11 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
         },
         {
           question: 'Is my data secure?',
-          answer: 'Absolutely. All processing happens in your browser. No data is sent to our servers.'
+          answer: 'Absolutely. All processing happens in your browser. No data is sent to servers.'
         },
         {
           question: 'What file types can I minify?',
-          answer: 'FastMinify supports JavaScript, CSS and JSON. You can also unminify and beautify code.'
+          answer: 'FastMinify supports JavaScript, CSS and JSON for minification, as well as PHP serialization. You can also unminify and beautify code.'
         }
       ]
     }
@@ -268,8 +268,8 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       (isFrench ? "Politique de confidentialité - FastMinify" : "Privacy Policy - FastMinify") :
       (isFrench ? "Mentions légales - FastMinify" : "Legal Notice - FastMinify"),
     "description": pageType === 'privacy' ?
-      (isFrench ? "Politique de confidentialité de FastMinify. Découvrez comment nous protégeons vos données et respectons votre vie privée." :
-       "FastMinify privacy policy. Learn how we protect your data and respect your privacy.") :
+      (isFrench ? "Politique de confidentialité de FastMinify. Découvrez comment vos données sont protégées et votre vie privée respectée." :
+       "FastMinify privacy policy. Learn how your data is protected and privacy is respected.") :
       (isFrench ? "Mentions légales de FastMinify. Informations légales et conditions d'utilisation." :
        "FastMinify legal notice. Legal information and terms of use."),
     "url": currentUrl,

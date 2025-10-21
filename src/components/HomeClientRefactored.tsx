@@ -69,7 +69,7 @@ export default function HomeClientRefactored({ locale }: HomeClientRefactoredPro
     processMinify,
     processUnminify,
     processBeautify,
-  } = useMinificationRefactored()
+  } = useMinificationRefactored(locale)
 
   return (
     <>

@@ -2,7 +2,7 @@
   "common": {
     "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
     "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
-    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Notre outil de minification avancé traite JavaScript, CSS, JSON et PHP en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
+    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil de minification avancé traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -35,6 +35,7 @@
     "copyCode": "Copier le code",
     "downloadCode": "Télécharger le code",
     "openInModal": "Ouvrir dans une modal",
+    "editorModalDescription": "Éditeur de code en plein écran avec options de copie, téléchargement et effacement",
     "copied": "Copié !",
     "selectFileType": "Sélectionnez le type de fichiers que vous souhaitez concaténer",
     "concatenateFiles": "Concaténer des fichiers",
@@ -61,7 +62,47 @@
     "concatenateAndMinify": "Concaténer et minifier {count} fichier{plural}",
     "concatenateAndMinifySingle": "Concaténer et minifier {count} fichier",
     "useResult": "Utiliser le résultat",
-    "filesOrderHelp": "L'ordre des fichiers peut être défini en les glissant-déposant"
+    "filesOrderHelp": "L'ordre des fichiers peut être défini en les glissant-déposant",
+    "ariaLabels": {
+      "selectOption": "Sélectionner une option",
+      "selectLanguage": "Sélectionner le langage",
+      "selectFileType": "Sélectionner le type de fichier"
+    },
+    "toast": {
+      "codeCopied": "Code copié dans le presse-papiers !",
+      "allCleared": "Tout le code effacé !",
+      "leftCleared": "Code de gauche effacé !",
+      "rightCleared": "Code de droite effacé !",
+      "codeDownloaded": "Code téléchargé !",
+      "leftCodeCopied": "Code de gauche copié !",
+      "leftCodeDownloaded": "Code de gauche téléchargé !",
+      "rightCodeCopied": "Code de droite copié !",
+      "rightCodeDownloaded": "Code de droite téléchargé !",
+      "pasteCodeFirst": "Veuillez d'abord coller du code dans l'éditeur de gauche.",
+      "pasteRightCodeFirst": "Veuillez d'abord coller du code dans l'éditeur de droite.",
+      "enterCodeToBeautify": "Veuillez entrer du code à beautifier.",
+      "languageAutoDetected": "Langage auto-détecté : {language}",
+      "minifiedSuccessfully": "Code minifié avec succès !",
+      "unminifiedSuccessfully": "Code déminifié avec succès !",
+      "beautifiedSuccessfully": "Code beautifié avec succès !",
+      "minificationError": "Une erreur s'est produite lors de la minification.",
+      "unminificationError": "Une erreur s'est produite lors de la déminification.",
+      "beautificationError": "Une erreur s'est produite lors de la beautification.",
+      "invalidJsonProperty": "JSON invalide : Les noms de propriétés doivent être entre guillemets. Essayez d'utiliser des guillemets doubles autour des noms de propriétés.",
+      "invalidJsonToken": "JSON invalide : Caractère inattendu trouvé. Vérifiez les virgules, guillemets ou crochets manquants.",
+      "invalidJsonQuotes": "JSON invalide : Les noms de propriétés doivent utiliser des guillemets doubles, pas des guillemets simples.",
+      "invalidJsonComma": "JSON invalide : Virgule ou accolade fermante manquante. Vérifiez la structure de votre objet.",
+      "invalidJsonSyntax": "Syntaxe JSON invalide. Veuillez vérifier votre code JSON et vous assurer qu'il est correctement formaté.",
+      "invalidDataFormat": "Format de données invalide. Veuillez fournir des données JSON valides pour la sérialisation PHP.",
+      "invalidCodeType": "Code {type} invalide. Veuillez vous assurer que le code correspond au type sélectionné.",
+      "invalidCssSyntax": "Syntaxe CSS invalide. Veuillez vérifier votre code CSS.",
+      "invalidJsSyntax": "Syntaxe JavaScript invalide. Veuillez vérifier votre code JavaScript.",
+      "invalidPhpData": "Données invalides pour la sérialisation PHP. Veuillez fournir des données JSON valides, pas du code PHP.",
+      "invalidPhpSerialized": "Données PHP sérialisées invalides. Veuillez fournir une chaîne sérialisée PHP valide pour la désérialisation.",
+      "minificationFailed": "Échec de la minification : {error}",
+      "unminificationFailed": "Échec de la déminification : {error}",
+      "beautificationFailed": "Échec de la beautification : {error}"
+    }
   },
   "languages": {
     "javascript": "JavaScript",
@@ -238,7 +279,7 @@
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Vous avez trouvé un bug ? Une suggestion ? Nous aimerions vous entendre !",
+    "subtitle": "Vous avez trouvé un bug ? Une suggestion ? J'aimerais vous entendre !",
     "sendMessage": "Envoyez-nous un message",
     "name": "Nom",
     "email": "Email",
@@ -247,7 +288,7 @@
     "message": "Message",
     "sendButton": "Envoyer le message",
     "getInTouch": "Entrer en contact",
-    "getInTouchText": "Nous cherchons toujours à améliorer FastMinify. Que vous ayez trouvé un bug, une demande de fonctionnalité, ou que vous vouliez simplement dire bonjour, nous aimerions vous entendre.",
+    "getInTouchText": "J'améliore constamment FastMinify. Que vous ayez trouvé un bug, une demande de fonctionnalité, ou que vous vouliez simplement dire bonjour, j'aimerais vous entendre.",
     "commonIssues": "Problèmes courants",
     "minificationNotWorking": "La minification ne fonctionne pas ?",
     "minificationNotWorkingText": "Assurez-vous que votre code est un JavaScript ou CSS valide. Vérifiez la console du navigateur pour les erreurs.",
@@ -256,10 +297,10 @@
     "themeNotSaving": "Le thème ne se sauvegarde pas ?",
     "themeNotSavingText": "Vérifiez si votre navigateur autorise localStorage. Essayez de rafraîchir la page.",
     "messageTypes": {
-      "bug": "Rapport de bug",
-      "feature": "Demande de fonctionnalité",
-      "question": "Question",
-      "other": "Autre"
+      "contact": "Demande de contact",
+      "feedback": "Feedback",
+      "improvement": "Idée d'amélioration",
+      "bug": "Rapport de bug"
     },
     "placeholders": {
       "name": "Votre nom",
@@ -269,7 +310,13 @@
     },
     "validation": {
       "required": "Veuillez remplir tous les champs obligatoires.",
-      "success": "Merci pour votre message ! Nous vous répondrons bientôt."
+      "success": "Merci pour votre message ! Je vous répondrai bientôt.",
+      "error": "Une erreur est survenue lors de l'envoi du message."
+    },
+    "form": {
+      "description": "Remplissez le formulaire ci-dessous et je vous répondrai rapidement.",
+      "selectTypePlaceholder": "Sélectionnez un type de message",
+      "sending": "Envoi en cours..."
     }
   },
   "footer": {
@@ -344,11 +391,11 @@
     },
     "howItWorks": {
       "title": "Comment ça fonctionne ?",
-      "subtitle": "Notre outil de minification est conçu pour être simple, rapide et sécurisé.",
+      "subtitle": "Cet outil de minification est conçu pour être simple, rapide et sécurisé.",
       "steps": {
         "paste": {
           "title": "Collez votre code",
-          "description": "Copiez et collez votre code dans l'éditeur de gauche. Notre détection automatique reconnaît le langage."
+          "description": "Copiez et collez votre code dans l'éditeur de gauche. La détection automatique reconnaît le langage."
         },
         "configure": {
           "title": "Configurez les options",
@@ -392,15 +439,15 @@
         },
         {
           "question": "Puis-je déminifier du code minifié ?",
-          "answer": "Oui, notre outil peut déminifier du code JavaScript et CSS minifié, bien que le résultat ne soit pas toujours identique au code original (commentaires et noms de variables perdus)."
+          "answer": "Oui, cet outil peut déminifier du code JavaScript et CSS minifié, bien que le résultat ne soit pas toujours identique au code original (commentaires et noms de variables perdus)."
         },
         {
           "question": "Mes données sont-elles sécurisées ?",
-          "answer": "Absolument. Tout le traitement se fait côté client dans votre navigateur. Aucune donnée n'est envoyée à nos serveurs, garantissant une confidentialité totale."
+          "answer": "Absolument. Tout le traitement se fait côté client dans votre navigateur. Aucune donnée n'est envoyée aux serveurs, garantissant une confidentialité totale."
         },
         {
           "question": "Quels types de fichiers puis-je minifier ?",
-          "answer": "Nous supportons JavaScript, CSS, JSON et PHP. Chaque type de fichier a ses propres options d'optimisation pour des résultats maximaux."
+          "answer": "Cet outil supporte JavaScript, CSS et JSON pour la minification, ainsi que la sérialisation PHP. Chaque type de fichier a ses propres options d'optimisation pour des résultats maximaux."
         },
         {
           "question": "La minification améliore-t-elle vraiment les performances ?",
@@ -427,11 +474,11 @@
     "lastUpdated": "Dernière mise à jour : Octobre 2025",
     "introduction": {
       "title": "Traitement des Données",
-      "content": "FastMinify traite votre code localement dans votre navigateur. Nous ne stockons, ne collectons ni ne transmettons votre code vers nos serveurs. Cet outil est conçu pour être complètement privé et sécurisé."
+      "content": "FastMinify traite votre code localement dans votre navigateur. Aucun code n'est stocké, collecté ou transmis vers des serveurs. Cet outil est conçu pour être complètement privé et sécurisé."
     },
     "dataCollection": {
-      "title": "Ce Que Nous Collectons",
-      "content": "Nous ne collectons que des données d'utilisation anonymes via :",
+      "title": "Ce Qui Est Collecté",
+      "content": "Le site ne collecte que des données d'utilisation anonymes via :",
       "types": {
         "analytics": "Google Analytics (avec votre consentement) - statistiques de trafic anonymes",
         "cookies": "Cookies essentiels pour les préférences de langue et la fonctionnalité",
@@ -440,7 +487,7 @@
     },
     "cookies": {
       "title": "Cookies",
-      "content": "Nous utilisons des cookies minimaux :",
+      "content": "Le site utilise des cookies minimaux :",
       "types": {
         "title": "Types de cookies :",
         "essential": "Cookies essentiels pour le fonctionnement du site (toujours actifs)",
@@ -456,7 +503,7 @@
     },
     "googleServices": {
       "title": "Services Tiers",
-      "content": "Nous utilisons les services Google :",
+      "content": "Le site utilise les services Google :",
       "analytics": "Google Analytics : Statistiques de trafic anonymes (vous pouvez vous désabonner)",
       "adsense": "Google AdSense : Affiche des publicités (aucune donnée personnelle collectée)"
     },
@@ -495,7 +542,7 @@
     },
     "contact": {
       "title": "Questions",
-      "content": "Pour des questions sur cette politique de confidentialité, veuillez nous contacter via notre site web."
+      "content": "Pour des questions sur cette politique de confidentialité, veuillez me contacter via le site web."
     },
     "footer": "Cette politique de confidentialité peut être mise à jour. Consultez périodiquement pour les changements."
   },
@@ -530,11 +577,11 @@
     "cookies": {
       "title": "Cookies",
       "content": "Ce site utilise des cookies essentiels pour le fonctionnement et des cookies d'analyse optionnels. Vous pouvez gérer les préférences dans votre navigateur.",
-      "moreInfo": "Consultez notre Politique de Confidentialité pour plus de détails."
+      "moreInfo": "Consultez la Politique de Confidentialité pour plus de détails."
     },
     "modifications": {
       "title": "Modifications",
-      "content": "Nous pouvons modifier ces conditions à tout moment. L'utilisation continue constitue une acceptation des modifications."
+      "content": "Ces conditions peuvent être modifiées à tout moment. L'utilisation continue constitue une acceptation des modifications."
     },
     "footer": "L'utilisation de ce service implique l'acceptation de ces conditions."
   },
@@ -547,7 +594,7 @@
       "items": [
         "Vérifiez l'URL pour des fautes de frappe (on fait tous des erreurs !)",
         "Retournez à la page d'accueil et réessayez",
-        "Utilisez notre super minificateur pendant que vous y êtes",
+        "Utilisez ce super minificateur pendant que vous y êtes",
         "Prenez une grande inspiration et réessayez"
       ]
     },
@@ -562,7 +609,7 @@
   },
   "cookies": {
     "title": "Préférences des Cookies",
-    "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
+    "description": "Ce site utilise des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
     "privacyPolicy": "Politique de Confidentialité",
     "legalNotice": "Mentions Légales",
     "acceptAll": "Tout Accepter",
