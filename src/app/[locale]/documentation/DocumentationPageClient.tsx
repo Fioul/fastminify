@@ -77,7 +77,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   </div>
 
                   {/* Basic Example */}
-                  <div>
+                  <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.javascript.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
@@ -114,23 +114,25 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div>
-                            <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.example.title')}</h4>
-                            <CodeEditor
-                              value={t('documentation.javascript.options.compress.example.code')}
-                              language="javascript"
-                              readOnly
-                              height="100px"
-                            />
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.result.title')}</h4>
-                            <CodeEditor
-                              value={t('documentation.javascript.options.compress.result.code')}
-                              language="javascript"
-                              readOnly
-                              height="60px"
-                            />
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.compress.example.code')}
+                                language="javascript"
+                                readOnly
+                                height="120px"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.compress.result.code')}
+                                language="javascript"
+                                readOnly
+                                height="120px"
+                              />
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -144,23 +146,25 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div>
-                            <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.example.title')}</h4>
-                            <CodeEditor
-                              value={t('documentation.javascript.options.mangle.example.code')}
-                              language="javascript"
-                              readOnly
-                              height="100px"
-                            />
-                          </div>
-                          <div>
-                            <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.result.title')}</h4>
-                            <CodeEditor
-                              value={t('documentation.javascript.options.mangle.result.code')}
-                              language="javascript"
-                              readOnly
-                              height="60px"
-                            />
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.mangle.example.code')}
+                                language="javascript"
+                                readOnly
+                                height="120px"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.mangle.result.code')}
+                                language="javascript"
+                                readOnly
+                                height="120px"
+                              />
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -196,7 +200,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   </div>
 
                   {/* Basic Example */}
-                  <div>
+                  <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.css.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
@@ -236,7 +240,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div>
+                  <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.json.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
@@ -276,7 +280,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div>
+                  <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.php.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
