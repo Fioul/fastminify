@@ -656,7 +656,7 @@
       }
     },
     "php": {
-      "title": "Sérialisation PHP",
+      "title": "PHP Serialize",
       "description": "Utilisation de la fonction serialize() de PHP pour convertir les données en format binaire compact",
       "basicExample": {
         "title": "Exemple de base",

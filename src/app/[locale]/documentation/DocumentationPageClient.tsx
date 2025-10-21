@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CodeEditor from '@/components/CodeEditor'
 import { Copy, ExternalLink } from 'lucide-react'
+import { SiJavascript, SiCss3, SiJson, SiPhp } from 'react-icons/si'
 import { Button } from '@/components/ui/button'
 
 interface DocumentationPageClientProps {
@@ -16,10 +17,10 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
   const { t } = useTranslations(locale)
 
   const languages = [
-    { value: 'javascript', label: 'JavaScript', icon: '🟨' },
-    { value: 'css', label: 'CSS', icon: '🔵' },
-    { value: 'json', label: 'JSON', icon: '🟦' },
-    { value: 'php', label: 'PHP', icon: '🟣' }
+    { value: 'javascript', label: 'JavaScript', icon: SiJavascript },
+    { value: 'css', label: 'CSS', icon: SiCss3 },
+    { value: 'json', label: 'JSON', icon: SiJson },
+    { value: 'php', label: 'PHP Serialize', icon: SiPhp }
   ]
 
   return (
@@ -39,12 +40,15 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
           {/* Language Tabs */}
           <Tabs defaultValue="javascript" className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-8">
-              {languages.map((lang) => (
-                <TabsTrigger key={lang.value} value={lang.value} className="flex items-center gap-2">
-                  <span>{lang.icon}</span>
-                  {lang.label}
-                </TabsTrigger>
-              ))}
+              {languages.map((lang) => {
+                const IconComponent = lang.icon
+                return (
+                  <TabsTrigger key={lang.value} value={lang.value} className="flex items-center gap-2">
+                    <IconComponent className="h-4 w-4" />
+                    {lang.label}
+                  </TabsTrigger>
+                )
+              })}
             </TabsList>
 
             {/* JavaScript Documentation */}
@@ -52,7 +56,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <span>🟨</span>
+                    <SiJavascript className="h-5 w-5 text-yellow-500" />
                     {t('documentation.javascript.title')}
                   </CardTitle>
                   <CardDescription>
@@ -75,14 +79,14 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   {/* Basic Example */}
                   <div>
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.javascript.basicExample.title')}</h3>
-                    <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.input')}</h4>
                         <CodeEditor
                           value={t('documentation.javascript.basicExample.inputCode')}
                           language="javascript"
                           readOnly
-                          height="120px"
+                          height="200px"
                         />
                       </div>
                       <div>
@@ -91,7 +95,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           value={t('documentation.javascript.basicExample.outputCode')}
                           language="javascript"
                           readOnly
-                          height="80px"
+                          height="200px"
                         />
                       </div>
                     </div>
@@ -171,7 +175,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <span>🔵</span>
+                    <SiCss3 className="h-5 w-5 text-blue-500" />
                     {t('documentation.css.title')}
                   </CardTitle>
                   <CardDescription>
@@ -194,14 +198,14 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   {/* Basic Example */}
                   <div>
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.css.basicExample.title')}</h3>
-                    <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.css.basicExample.input')}</h4>
                         <CodeEditor
                           value={t('documentation.css.basicExample.inputCode')}
                           language="css"
                           readOnly
-                          height="120px"
+                          height="200px"
                         />
                       </div>
                       <div>
@@ -210,7 +214,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           value={t('documentation.css.basicExample.outputCode')}
                           language="css"
                           readOnly
-                          height="80px"
+                          height="200px"
                         />
                       </div>
                     </div>
@@ -224,7 +228,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <span>🟦</span>
+                    <SiJson className="h-5 w-5 text-blue-600" />
                     {t('documentation.json.title')}
                   </CardTitle>
                   <CardDescription>
@@ -234,14 +238,14 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   <div>
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.json.basicExample.title')}</h3>
-                    <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.json.basicExample.input')}</h4>
                         <CodeEditor
                           value={t('documentation.json.basicExample.inputCode')}
                           language="json"
                           readOnly
-                          height="120px"
+                          height="200px"
                         />
                       </div>
                       <div>
@@ -250,7 +254,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           value={t('documentation.json.basicExample.outputCode')}
                           language="json"
                           readOnly
-                          height="60px"
+                          height="200px"
                         />
                       </div>
                     </div>
@@ -264,7 +268,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <span>🟣</span>
+                    <SiPhp className="h-5 w-5 text-purple-500" />
                     {t('documentation.php.title')}
                   </CardTitle>
                   <CardDescription>
@@ -274,14 +278,14 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   <div>
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.php.basicExample.title')}</h3>
-                    <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.php.basicExample.input')}</h4>
                         <CodeEditor
                           value={t('documentation.php.basicExample.inputCode')}
                           language="php"
                           readOnly
-                          height="120px"
+                          height="200px"
                         />
                       </div>
                       <div>
@@ -290,7 +294,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           value={t('documentation.php.basicExample.outputCode')}
                           language="php"
                           readOnly
-                          height="80px"
+                          height="200px"
                         />
                       </div>
                     </div>

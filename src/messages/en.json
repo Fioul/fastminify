@@ -659,7 +659,7 @@
       }
     },
     "php": {
-      "title": "PHP Serialization",
+      "title": "PHP Serialize",
       "description": "Using PHP's serialize() function to convert data into compact binary format",
       "basicExample": {
         "title": "Basic example",
