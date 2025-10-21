@@ -97,57 +97,8 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    {t('contact.getInTouch')}
-                  </CardTitle>
-                  <CardDescription>
-                    {t('contact.getInTouchText')}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">
-                    {t('contact.commonIssues')}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <h4 className="font-medium mb-2">
-                      {t('contact.minificationNotWorking')}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('contact.minificationNotWorkingText')}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-2">
-                      {t('contact.codeNotCopying')}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('contact.codeNotCopyingText')}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-2">
-                      {t('contact.themeNotSaving')}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('contact.themeNotSavingText')}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Contact Form */}
+          {/* Contact Form */}
+          <div className="max-w-2xl mx-auto">
             <Card>
               <CardHeader>
                 <CardTitle>{t('contact.sendMessage')}</CardTitle>
