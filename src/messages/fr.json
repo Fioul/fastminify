@@ -2,6 +2,7 @@
   "common": {
     "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
     "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
+    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Notre outil de minification avancé traite JavaScript, CSS, JSON et PHP en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -296,29 +297,41 @@
     "rights": "Tous droits réservés.",
     "hosting": "Hébergé sur"
   },
-  "content": {
-    "hero": {
-      "badges": {
-        "free": "100% Gratuit",
-        "private": "Aucune donnée envoyée",
-        "instant": "Traitement instantané"
-      }
-    },
+    "content": {
+      "introduction": {
+        "title": "Pourquoi la minification est-elle essentielle ?",
+        "performance": {
+          "title": "Impact sur les performances",
+          "description": "La minification réduit significativement la taille de vos fichiers, accélérant le chargement de vos pages web. Une réduction de 30-70% de la taille des fichiers se traduit par des temps de chargement plus rapides et une meilleure expérience utilisateur."
+        },
+        "seo": {
+          "title": "Avantages SEO et économiques",
+          "description": "Les moteurs de recherche privilégient les sites rapides. La minification améliore votre classement SEO tout en réduisant la consommation de bande passante, générant des économies substantielles sur vos coûts d'hébergement."
+        }
+      },
+      "hero": {
+        "badges": {
+          "free": "100% Gratuit",
+          "private": "Aucune donnée envoyée",
+          "instant": "Traitement instantané"
+        }
+      },
     "whyMinify": {
       "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
       "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
+      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions.",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
-          "description": "La minification peut réduire la taille des fichiers JavaScript et CSS de 30 à 70%, améliorant significativement les temps de chargement."
+          "description": "La minification peut réduire la taille des fichiers JavaScript et CSS de 30 à 70%, améliorant significativement les temps de chargement. Cette optimisation est particulièrement cruciale pour les sites mobiles et les connexions lentes, où chaque kilobyte économisé compte."
         },
         "bandwidth": {
           "title": "Optimisation de bande passante",
-          "description": "Des fichiers plus petits signifient moins de transfert de données, réduisant les coûts de bande passante et améliorant l'expérience utilisateur sur les connexions lentes."
+          "description": "Des fichiers plus petits signifient moins de transfert de données, réduisant les coûts de bande passante et améliorant l'expérience utilisateur sur les connexions lentes. Pour un site avec 10 000 visiteurs par jour, cela peut représenter des économies substantielles sur l'hébergement."
         },
         "security": {
           "title": "Obfuscation du code",
-          "description": "Le code minifié est plus difficile à lire et à rétro-ingénierer, offrant un niveau de protection basique du code."
+          "description": "Le code minifié est plus difficile à lire et à rétro-ingénierer, offrant un niveau de protection basique du code. Bien que ce ne soit pas une sécurité absolue, cela décourage les tentatives de copie ou de modification malveillante."
         }
       }
     },
@@ -368,6 +381,36 @@
           "Compatible avec la compression <strong>GZIP</strong>"
         ]
       }
+    },
+    "faq": {
+      "title": "Questions fréquemment posées",
+      "subtitle": "Trouvez les réponses aux questions les plus courantes sur la minification de code.",
+      "questions": [
+        {
+          "question": "La minification casse-t-elle mon code ?",
+          "answer": "Non, la minification ne modifie que la présentation du code (espaces, commentaires, noms de variables) sans changer sa fonctionnalité. Votre code fonctionne exactement de la même manière."
+        },
+        {
+          "question": "Puis-je déminifier du code minifié ?",
+          "answer": "Oui, notre outil peut déminifier du code JavaScript et CSS minifié, bien que le résultat ne soit pas toujours identique au code original (commentaires et noms de variables perdus)."
+        },
+        {
+          "question": "Mes données sont-elles sécurisées ?",
+          "answer": "Absolument. Tout le traitement se fait côté client dans votre navigateur. Aucune donnée n'est envoyée à nos serveurs, garantissant une confidentialité totale."
+        },
+        {
+          "question": "Quels types de fichiers puis-je minifier ?",
+          "answer": "Nous supportons JavaScript, CSS, JSON et PHP. Chaque type de fichier a ses propres options d'optimisation pour des résultats maximaux."
+        },
+        {
+          "question": "La minification améliore-t-elle vraiment les performances ?",
+          "answer": "Oui, la minification peut réduire la taille des fichiers de 30 à 70%, ce qui se traduit par des temps de chargement plus rapides et une meilleure expérience utilisateur."
+        },
+        {
+          "question": "L'outil est-il vraiment gratuit ?",
+          "answer": "Oui, Fast Minify est 100% gratuit et sans inscription. Vous pouvez l'utiliser autant que vous le souhaitez sans aucune limitation."
+        }
+      ]
     },
     "codeExamples": {
       "title": "Exemples de minification",

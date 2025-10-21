@@ -19,6 +19,13 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           {t('content.whyMinify.subtitle')}
         </p>
+        <div className="max-w-4xl mx-auto mt-8">
+          <div className="bg-gray-50 dark:bg-gray-950 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+            <p className="text-base text-muted-foreground leading-relaxed">
+              {t('content.whyMinify.detailedExplanation')}
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* CODE EXAMPLES SECTION */}
@@ -262,6 +269,31 @@ function init() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section className="space-y-8 mt-24">
+        <div className="text-center space-y-4">
+          <h2 className="text-3xl font-bold text-foreground">
+            {t('content.faq.title')}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t('content.faq.subtitle')}
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {tArray('content.faq.questions').map((faq: any, index: number) => (
+            <div key={index} className="bg-gray-50 dark:bg-gray-950 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-lg font-semibold mb-3 text-foreground">
+                {faq.question}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {faq.answer}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     </div>
