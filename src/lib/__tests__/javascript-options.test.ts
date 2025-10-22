@@ -131,32 +131,6 @@ describe('JavaScript Minification', () => {
     })
   })
 
-  describe('Browser compatibility', () => {
-    test('should handle modern browser target', async () => {
-      const input = 'const arrow = () => "test";'
-      const options: JavaScriptOptions = { ...defaultJavaScriptOptions, browserSupport: 'modern' }
-      const result = await minifyJavaScript(input, options)
-      
-      expect(result).toBeDefined()
-      expect(result).toContain('=>')
-    })
-
-    test('should handle IE11+ target', async () => {
-      const input = 'const arrow = () => "test";'
-      const options: JavaScriptOptions = { ...defaultJavaScriptOptions, browserSupport: 'ie11' }
-      const result = await minifyJavaScript(input, options)
-      
-      expect(result).toBeDefined()
-    })
-
-    test('should handle IE9+ target', async () => {
-      const input = 'const arrow = () => "test";'
-      const options: JavaScriptOptions = { ...defaultJavaScriptOptions, browserSupport: 'ie9' }
-      const result = await minifyJavaScript(input, options)
-      
-      expect(result).toBeDefined()
-    })
-  })
 
   describe('Error handling', () => {
     test('should handle invalid JavaScript syntax', async () => {

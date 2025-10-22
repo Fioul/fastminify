@@ -608,6 +608,7 @@
         "ecmaVersion": {
           "title": "Version ECMAScript",
           "description": "Définit la version ECMAScript cible pour la minification (ES5, ES2015, ES2017, ES2020, ES2022)",
+          "examples": "Exemples par version ECMAScript :",
           "example": {
             "title": "Exemple avec ES2022",
             "code": "const data = { name: 'test' };\nconst { name } = data;\nconsole.log(name);"
@@ -620,25 +621,22 @@
         "compressionLevel": {
           "title": "Niveau de compression",
           "description": "Contrôle l'agressivité de la compression (conservative, normal, aggressive)",
+          "examples": "Exemples de compression :",
           "levels": {
             "conservative": "Conservateur - Compression minimale, plus sûr",
             "normal": "Normal - Équilibre entre taille et compatibilité",
             "aggressive": "Agressif - Compression maximale, peut casser certains codes"
           }
         },
-        "browserSupport": {
-          "title": "Support navigateur",
-          "description": "Définit le niveau de support des navigateurs (modern, IE11, IE9, all)",
-          "levels": {
-            "modern": "Moderne - Navigateurs récents uniquement",
-            "ie11": "Internet Explorer 11+",
-            "ie9": "Internet Explorer 9+",
-            "all": "Tous les navigateurs"
-          }
-        },
         "preserveClassNames": {
           "title": "Préserver les noms de classes",
           "description": "Conserve les noms de classes CSS dans les chaînes de caractères",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec preserveClassNames: true",
+          "withFalse": "Avec preserveClassNames: false",
+          "difference": "Différence",
+          "differenceText": "Les noms de classes CSS sont préservés dans les chaînes",
           "example": {
             "title": "Exemple avec préservation",
             "code": "element.className = 'my-class';"
@@ -651,6 +649,12 @@
         "preserveFunctionNames": {
           "title": "Préserver les noms de fonctions",
           "description": "Conserve les noms de fonctions pour le debugging",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec preserveFunctionNames: true",
+          "withFalse": "Avec preserveFunctionNames: false",
+          "difference": "Différence",
+          "differenceText": "Les noms de fonctions sont préservés pour le debugging",
           "example": {
             "title": "Exemple avec préservation",
             "code": "function myFunction() { return true; }"
@@ -663,6 +667,12 @@
         "removeConsole": {
           "title": "Supprimer console",
           "description": "Supprime tous les appels console.log, console.warn, etc.",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeConsole: true",
+          "withFalse": "Avec removeConsole: false",
+          "difference": "Différence",
+          "differenceText": "Tous les appels console.* sont supprimés",
           "example": {
             "title": "Exemple avec console",
             "code": "console.log('Debug info');\nreturn result;"
@@ -675,6 +685,12 @@
         "removeDebugger": {
           "title": "Supprimer debugger",
           "description": "Supprime les instructions debugger du code",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeDebugger: true",
+          "withFalse": "Avec removeDebugger: false",
+          "difference": "Différence",
+          "differenceText": "Les instructions debugger sont supprimées",
           "example": {
             "title": "Exemple avec debugger",
             "code": "if (condition) {\n  debugger;\n  return true;\n}"
@@ -711,18 +727,15 @@
             "aggressive": "Agressif - Optimisations avancées, peut affecter la compatibilité"
           }
         },
-        "browserSupport": {
-          "title": "Support navigateur",
-          "description": "Définit le niveau de support des navigateurs pour les optimisations CSS",
-          "levels": {
-            "modern": "Moderne - Navigateurs récents uniquement",
-            "ie11": "Internet Explorer 11+",
-            "ie9": "Internet Explorer 9+"
-          }
-        },
         "removeComments": {
           "title": "Supprimer les commentaires",
           "description": "Supprime tous les commentaires CSS du code",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeComments: true",
+          "withFalse": "Avec removeComments: false",
+          "difference": "Différence",
+          "differenceText": "Les commentaires CSS sont supprimés",
           "example": {
             "title": "Exemple avec commentaires",
             "code": "/* Header styles */\n.header {\n  color: red;\n}"
@@ -735,6 +748,12 @@
         "convertColors": {
           "title": "Convertir les couleurs",
           "description": "Convertit les couleurs vers leur format le plus court",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec convertColors: true",
+          "withFalse": "Avec convertColors: false",
+          "difference": "Différence",
+          "differenceText": "Les couleurs sont converties au format le plus court",
           "example": {
             "title": "Exemple avec couleurs",
             "code": ".element {\n  color: #ffffff;\n  background: rgb(255, 0, 0);\n}"
@@ -747,6 +766,12 @@
         "mergeRules": {
           "title": "Fusionner les règles",
           "description": "Fusionne les règles CSS identiques et adjacentes",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec mergeRules: true",
+          "withFalse": "Avec mergeRules: false",
+          "difference": "Différence",
+          "differenceText": "Les règles CSS identiques sont fusionnées",
           "example": {
             "title": "Exemple avec fusion",
             "code": "p { color: red; }\np { font-size: 16px; }"
@@ -759,6 +784,12 @@
         "minifySelectors": {
           "title": "Minifier les sélecteurs",
           "description": "Optimise les sélecteurs CSS pour réduire leur taille",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec minifySelectors: true",
+          "withFalse": "Avec minifySelectors: false",
+          "difference": "Différence",
+          "differenceText": "Les sélecteurs CSS sont optimisés",
           "example": {
             "title": "Exemple avec sélecteurs",
             "code": ".my-class { color: blue; }"
@@ -794,6 +825,12 @@
         "optimizeNumbers": {
           "title": "Optimiser les nombres",
           "description": "Optimise la représentation des nombres (supprime les zéros inutiles)",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec optimizeNumbers: true",
+          "withFalse": "Avec optimizeNumbers: false",
+          "difference": "Différence",
+          "differenceText": "Les nombres sont optimisés (zéros inutiles supprimés)",
           "example": {
             "title": "Exemple avec nombres",
             "code": "{\n  \"price\": 10.00,\n  \"count\": 0\n}"
@@ -806,6 +843,12 @@
         "removeNullValues": {
           "title": "Supprimer les valeurs null",
           "description": "Supprime les propriétés avec des valeurs null",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeNullValues: true",
+          "withFalse": "Avec removeNullValues: false",
+          "difference": "Différence",
+          "differenceText": "Les propriétés avec des valeurs null sont supprimées",
           "example": {
             "title": "Exemple avec null",
             "code": "{\n  \"name\": \"test\",\n  \"value\": null\n}"
@@ -818,6 +861,12 @@
         "removeEmptyArrays": {
           "title": "Supprimer les tableaux vides",
           "description": "Supprime les tableaux vides du JSON",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeEmptyArrays: true",
+          "withFalse": "Avec removeEmptyArrays: false",
+          "difference": "Différence",
+          "differenceText": "Les tableaux vides sont supprimés",
           "example": {
             "title": "Exemple avec tableaux vides",
             "code": "{\n  \"items\": [],\n  \"name\": \"test\"\n}"
@@ -830,6 +879,12 @@
         "sortObjectKeys": {
           "title": "Trier les clés d'objet",
           "description": "Trie les clés des objets par ordre alphabétique",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec sortObjectKeys: true",
+          "withFalse": "Avec sortObjectKeys: false",
+          "difference": "Différence",
+          "differenceText": "Les clés des objets sont triées par ordre alphabétique",
           "example": {
             "title": "Exemple avec tri",
             "code": "{\n  \"zebra\": 1,\n  \"apple\": 2,\n  \"banana\": 3\n}"
@@ -856,6 +911,12 @@
         "includeNullValues": {
           "title": "Inclure les valeurs null",
           "description": "Inclut les propriétés avec des valeurs null dans la sérialisation",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec includeNullValues: true",
+          "withFalse": "Avec includeNullValues: false",
+          "difference": "Différence",
+          "differenceText": "Les propriétés avec des valeurs null sont incluses dans la sérialisation",
           "example": {
             "title": "Exemple avec null",
             "code": "<?php\n$data = [\n  'name' => 'test',\n  'value' => null\n];\n$serialized = serialize($data);"
@@ -868,6 +929,12 @@
         "removeEmptyArrays": {
           "title": "Supprimer les tableaux vides",
           "description": "Supprime les tableaux vides avant la sérialisation",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeEmptyArrays: true",
+          "withFalse": "Avec removeEmptyArrays: false",
+          "difference": "Différence",
+          "differenceText": "Les tableaux vides sont supprimés avant la sérialisation",
           "example": {
             "title": "Exemple avec tableaux vides",
             "code": "<?php\n$data = [\n  'items' => [],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
@@ -880,6 +947,12 @@
         "removeEmptyObjects": {
           "title": "Supprimer les objets vides",
           "description": "Supprime les objets vides avant la sérialisation",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec removeEmptyObjects: true",
+          "withFalse": "Avec removeEmptyObjects: false",
+          "difference": "Différence",
+          "differenceText": "Les objets vides sont supprimés avant la sérialisation",
           "example": {
             "title": "Exemple avec objets vides",
             "code": "<?php\n$data = [\n  'config' => (object)[],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
@@ -892,6 +965,12 @@
         "sortKeys": {
           "title": "Trier les clés",
           "description": "Trie les clés des tableaux associatifs par ordre alphabétique",
+          "comparison": "Comparaison avec/sans l'option :",
+          "originalCode": "Code original",
+          "withTrue": "Avec sortKeys: true",
+          "withFalse": "Avec sortKeys: false",
+          "difference": "Différence",
+          "differenceText": "Les clés des tableaux sont triées par ordre alphabétique",
           "example": {
             "title": "Exemple avec tri",
             "code": "<?php\n$data = [\n  'zebra' => 1,\n  'apple' => 2,\n  'banana' => 3\n];\n$serialized = serialize($data);"

@@ -101,34 +101,6 @@ describe('CSS Options', () => {
     })
   })
 
-  describe('Browser support', () => {
-    test('should handle modern browsers', async () => {
-      const input = '.test { color: red; }'
-      const options: CSSOptions = { ...defaultCSSOptions, browserSupport: 'modern' }
-      const result = await minifyCSSWithOptions(input, options)
-      
-      expect(result).toBeDefined()
-      expect(result).toContain('.test{')
-    })
-
-    test('should handle IE11+', async () => {
-      const input = '.test { color: red; }'
-      const options: CSSOptions = { ...defaultCSSOptions, browserSupport: 'ie11' }
-      const result = await minifyCSSWithOptions(input, options)
-      
-      expect(result).toBeDefined()
-      expect(result).toContain('.test{')
-    })
-
-    test('should handle IE9+', async () => {
-      const input = '.test { color: red; }'
-      const options: CSSOptions = { ...defaultCSSOptions, browserSupport: 'ie9' }
-      const result = await minifyCSSWithOptions(input, options)
-      
-      expect(result).toBeDefined()
-      expect(result).toContain('.test{')
-    })
-  })
 
   describe('Comment removal', () => {
     test('should remove comments when enabled', async () => {

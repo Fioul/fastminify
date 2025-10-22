@@ -3,7 +3,6 @@ import { minify } from 'terser'
 export interface JavaScriptOptions {
   ecmaVersion: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022'
   compressionLevel: 'conservative' | 'normal' | 'aggressive'
-  browserSupport: 'modern' | 'ie11' | 'ie9' | 'all'
   preserveClassNames: boolean
   preserveFunctionNames: boolean
   removeConsole: boolean
@@ -13,7 +12,6 @@ export interface JavaScriptOptions {
 export const defaultJavaScriptOptions: JavaScriptOptions = {
   ecmaVersion: 'es2020',
   compressionLevel: 'normal',
-  browserSupport: 'modern',
   preserveClassNames: false,
   preserveFunctionNames: false,
   removeConsole: true,
@@ -64,24 +62,6 @@ export const compressionLevelMap = {
   }
 } as const
 
-export const browserSupportMap = {
-  'modern': {
-    safari10: false,
-    ie8: false
-  },
-  'ie11': {
-    safari10: false,
-    ie8: false
-  },
-  'ie9': {
-    safari10: false,
-    ie8: true
-  },
-  'all': {
-    safari10: true,
-    ie8: true
-  }
-} as const
 
 export async function minifyJavaScript(
   code: string, 
@@ -90,11 +70,9 @@ export async function minifyJavaScript(
   try {
     const ecmaVersion = ecmaVersionMap[options.ecmaVersion]
     const compressionConfig = compressionLevelMap[options.compressionLevel]
-    const browserConfig = browserSupportMap[options.browserSupport]
     
     const terserOptions = {
       ecma: ecmaVersion,
-      ...browserConfig,
       compress: {
         ...compressionConfig.compress,
         drop_console: options.removeConsole,

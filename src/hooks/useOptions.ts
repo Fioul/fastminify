@@ -7,7 +7,6 @@ export function useOptions() {
   const [jsOptions, setJsOptions] = useState<JavaScriptOptions>({
     ecmaVersion: 'es2022',
     compressionLevel: 'normal',
-    browserSupport: 'modern',
     preserveClassNames: false,
     preserveFunctionNames: false,
     removeConsole: false,

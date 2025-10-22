@@ -43,7 +43,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
               {languages.map((lang) => {
                 const IconComponent = lang.icon
                 return (
-                  <TabsTrigger key={lang.value} value={lang.value} className="flex items-center gap-2">
+                  <TabsTrigger key={lang.value} value={lang.value} className="flex items-center gap-2 cursor-pointer">
                     <IconComponent className="h-4 w-4" />
                     {lang.label}
                   </TabsTrigger>
@@ -86,12 +86,12 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           <pre className="whitespace-pre">{t('documentation.javascript.basicExample.inputCode')}</pre>
                         </div>
                       </div>
-                      <div>
-                        <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.output')}</h4>
-                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                          <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.basicExample.outputCode')}</pre>
-                        </div>
-                      </div>
+                              <div>
+                                <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.output')}</h4>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(t){let e=0;for(let o=0;o<t.length;o++)e+=t[o].price;return e}const products=[{name:"Laptop",price:999},{name:"Mouse",price:25}];console.log("Total:",calculateTotal(products));`}</pre>
+                                </div>
+                              </div>
                     </div>
                   </div>
 
@@ -109,10 +109,10 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                         </CardHeader>
                         <CardContent className="space-y-4">
                                   <div className="space-y-4">
-                                    <h4 className="font-medium text-sm">Exemples par version ECMAScript :</h4>
+                                    <h4 className="font-medium text-sm">{t('documentation.javascript.options.ecmaVersion.examples')}</h4>
                                     <div className="grid md:grid-cols-5 gap-4">
                                       <div className="md:col-span-2">
-                                        <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original (ES2022)</h5>
+                                        <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')} (ES2022)</h5>
                                         <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                           <pre className="whitespace-pre">{`const data = { name: 'test' };
 const { name } = data;
@@ -124,12 +124,6 @@ console.log(name);`}</pre>
                                           <h5 className="text-xs font-medium text-muted-foreground mb-2">ES2022</h5>
                                           <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                             <pre className="whitespace-pre-wrap break-all">{`const{name:data}=data;console.log(data)`}</pre>
-                                          </div>
-                                        </div>
-                                        <div>
-                                          <h5 className="text-xs font-medium text-muted-foreground mb-2">ES2015</h5>
-                                          <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                            <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
                                           </div>
                                         </div>
                                         <div>
@@ -170,10 +164,10 @@ console.log(name);`}</pre>
                           
                           {/* Code Examples */}
                           <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Exemples de compression :</h4>
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.compressionLevel.examples')}</h4>
                             <div className="grid md:grid-cols-5 gap-4">
                               <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
                                 <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                   <pre className="whitespace-pre">{`function calculateTotal(items) {
     let total = 0;
@@ -188,19 +182,19 @@ console.log(name);`}</pre>
                                 <div>
                                   <h5 className="text-xs font-medium text-muted-foreground mb-2">Conservative</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items){let total=0;for(let i=0;i<items.length;i++){total+=items[i].price}return total}`}</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items){let total=0;for(let i=0;i<items.length;i++)total+=items[i].price;return total}`}</pre>
                                   </div>
                                 </div>
                                 <div>
                                   <h5 className="text-xs font-medium text-muted-foreground mb-2">Normal</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items){let total=0;for(let i=0;i<items.length;i++){total+=items[i].price}return total}`}</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(t){let e=0;for(let l=0;l<t.length;l++)e+=t[l].price;return e}`}</pre>
                                   </div>
                                 </div>
                                 <div>
                                   <h5 className="text-xs font-medium text-muted-foreground mb-2">Aggressive</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(e){let t=0;for(let e=0;e<e.length;e++)t+=e[e].price;return t}`}</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{`function e(e){let t=0;for(let n=0;n<e.length;n++)t+=e[n].price;return t}`}</pre>
                                   </div>
                                 </div>
                               </div>
@@ -209,70 +203,6 @@ console.log(name);`}</pre>
                         </CardContent>
                       </Card>
 
-                      {/* Browser Support */}
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-base">{t('documentation.javascript.options.browserSupport.title')}</CardTitle>
-                          <CardDescription>
-                            {t('documentation.javascript.options.browserSupport.description')}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div className="grid gap-2 mb-6">
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">Modern</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.modern')}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">IE11</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.ie11')}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">IE9</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.ie9')}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">All</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.all')}</span>
-                            </div>
-                          </div>
-                          
-                          {/* Code Examples */}
-                          <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Exemples par support navigateur :</h4>
-                            <div className="grid md:grid-cols-5 gap-4">
-                              <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original (ES2022)</h5>
-                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                  <pre className="whitespace-pre">{`const data = { name: 'test' };
-const { name } = data;
-console.log(name);`}</pre>
-                                </div>
-                              </div>
-                              <div className="md:col-span-3 space-y-3">
-                                <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Modern (ES2022+)</h5>
-                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`const{name:data}=data;console.log(data)`}</pre>
-                                  </div>
-                                </div>
-                                <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">IE11 (ES2015+)</h5>
-                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
-                                  </div>
-                                </div>
-                                <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">IE9 (ES5)</h5>
-                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                                    <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
 
                       {/* Preserve Class Names */}
                       <Card>
@@ -284,10 +214,10 @@ console.log(name);`}</pre>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
                             <div className="grid md:grid-cols-5 gap-4">
                               <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
                                 <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                   <pre className="whitespace-pre">{`element.className = 'my-class';
 element.setAttribute('class', 'another-class');`}</pre>
@@ -295,21 +225,21 @@ element.setAttribute('class', 'another-class');`}</pre>
                               </div>
                               <div className="md:col-span-3 space-y-3">
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveClassNames: true</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.withTrue')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`element.className='my-class';element.setAttribute('class','another-class')`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveClassNames: false</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.withFalse')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`element.className='a';element.setAttribute('class','b')`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
                                   <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
-                                    <pre className="whitespace-pre-wrap break-all">Les noms de classes CSS sont préservés dans les chaînes</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.options.preserveClassNames.differenceText')}</pre>
                                   </div>
                                 </div>
                               </div>
@@ -328,10 +258,10 @@ element.setAttribute('class', 'another-class');`}</pre>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
                             <div className="grid md:grid-cols-5 gap-4">
                               <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
                                 <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                   <pre className="whitespace-pre">{`function myFunction() { 
     return true; 
@@ -341,21 +271,21 @@ const obj = { myMethod() { return false; } };`}</pre>
                               </div>
                               <div className="md:col-span-3 space-y-3">
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveFunctionNames: true</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveFunctionNames.withTrue')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`function myFunction(){return!0}const obj={myMethod(){return!1}}`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveFunctionNames: false</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveFunctionNames.withFalse')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`function a(){return!0}const obj={b(){return!1}}`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
                                   <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
-                                    <pre className="whitespace-pre-wrap break-all">Les noms de fonctions sont préservés pour le debugging</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.options.preserveFunctionNames.differenceText')}</pre>
                                   </div>
                                 </div>
                               </div>
@@ -374,10 +304,10 @@ const obj = { myMethod() { return false; } };`}</pre>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
                             <div className="grid md:grid-cols-5 gap-4">
                               <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
                                 <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                   <pre className="whitespace-pre">{`console.log('Debug info');
 console.warn('Warning message');
@@ -388,21 +318,21 @@ return result;`}</pre>
                               </div>
                               <div className="md:col-span-3 space-y-3">
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeConsole: true</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.removeConsole.withTrue')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`const result=calculateTotal(items);return result`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeConsole: false</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.removeConsole.withFalse')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`console.log('Debug info');console.warn('Warning message');const result=calculateTotal(items);console.log('Result:',result);return result`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
                                   <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
-                                    <pre className="whitespace-pre-wrap break-all">Tous les appels console.* sont supprimés</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.options.removeConsole.differenceText')}</pre>
                                   </div>
                                 </div>
                               </div>
@@ -421,10 +351,10 @@ return result;`}</pre>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-4">
-                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
                             <div className="grid md:grid-cols-5 gap-4">
                               <div className="md:col-span-2">
-                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
                                 <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                   <pre className="whitespace-pre">{`if (condition) {
     debugger;
@@ -438,21 +368,21 @@ function test() {
                               </div>
                               <div className="md:col-span-3 space-y-3">
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeDebugger: true</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.removeDebugger.withTrue')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`if(condition)return!0;function test(){return!1}`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeDebugger: false</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.removeDebugger.withFalse')}</h5>
                                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
                                     <pre className="whitespace-pre-wrap break-all">{`if(condition){debugger;return!0}function test(){debugger;return!1}`}</pre>
                                   </div>
                                 </div>
                                 <div>
-                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
                                   <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
-                                    <pre className="whitespace-pre-wrap break-all">Les instructions debugger sont supprimées</pre>
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.options.removeDebugger.differenceText')}</pre>
                                   </div>
                                 </div>
                               </div>
@@ -540,31 +470,6 @@ function test() {
                         </CardContent>
                       </Card>
 
-                      {/* Browser Support */}
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-base">{t('documentation.css.options.browserSupport.title')}</CardTitle>
-                          <CardDescription>
-                            {t('documentation.css.options.browserSupport.description')}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div className="grid gap-2">
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">Modern</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.modern')}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">IE11</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.ie11')}</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 border rounded-lg">
-                              <span className="font-medium">IE9</span>
-                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.ie9')}</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
 
                       {/* Remove Comments */}
                       <Card>
@@ -575,26 +480,42 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.removeComments.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.removeComments.example.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.removeComments.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.removeComments.result.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`/* Header styles */
+.header {
+    background: #fff;
+    padding: 20px;
+}
+
+/* Navigation */
+.nav { display: flex; }`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.removeComments.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`.header{background:#fff;padding:20px}.nav{display:flex}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.removeComments.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`/* Header styles */.header{background:#fff;padding:20px}/* Navigation */.nav{display:flex}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.css.options.removeComments.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -609,26 +530,39 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.convertColors.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.convertColors.example.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.convertColors.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.convertColors.result.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`.button {
+    background: #ff0000;
+    color: rgb(255, 255, 255);
+    border: 1px solid hsl(0, 100%, 50%);
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.convertColors.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`.button{background:red;color:#fff;border:1px solid red}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.convertColors.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`.button{background:#ff0000;color:rgb(255,255,255);border:1px solid hsl(0,100%,50%)}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.css.options.convertColors.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -643,26 +577,41 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.mergeRules.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.mergeRules.example.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.mergeRules.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.mergeRules.result.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`.header {
+    background: #fff;
+    padding: 20px;
+}
+.header {
+    margin: 10px;
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.mergeRules.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`.header{background:#fff;padding:20px;margin:10px}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.mergeRules.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`.header{background:#fff;padding:20px}.header{margin:10px}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.css.options.mergeRules.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -677,26 +626,41 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.minifySelectors.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.minifySelectors.example.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.css.options.minifySelectors.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.css.options.minifySelectors.result.code')}
-                                language="css"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`div.container > ul li:first-child {
+    color: red;
+}
+
+div.container > ul li:last-child {
+    color: blue;
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.minifySelectors.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`div.container>ul li:first-child{color:red}div.container>ul li:last-child{color:blue}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.css.options.minifySelectors.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`div.container > ul li:first-child{color:red}div.container > ul li:last-child{color:blue}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.css.options.minifySelectors.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -751,7 +715,7 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid gap-2">
+                          <div className="grid gap-2 mb-6">
                             <div className="flex items-center justify-between p-3 border rounded-lg">
                               <span className="font-medium">Conservative</span>
                               <span className="text-sm text-muted-foreground">{t('documentation.json.options.compressionLevel.levels.conservative')}</span>
@@ -763,6 +727,44 @@ function test() {
                             <div className="flex items-center justify-between p-3 border rounded-lg">
                               <span className="font-medium">Aggressive</span>
                               <span className="text-sm text-muted-foreground">{t('documentation.json.options.compressionLevel.levels.aggressive')}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Code Examples */}
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.compressionLevel.examples')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`{
+  "name": "test",
+  "value": 42,
+  "active": true,
+  "items": [1, 2, 3]
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Conservative</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","value":42,"active":true,"items":[1,2,3]}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Normal</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","value":42,"active":true,"items":[1,2,3]}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Aggressive</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","value":42,"active":!0,"items":[1,2,3]}`}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -777,26 +779,39 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.optimizeNumbers.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.optimizeNumbers.example.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.optimizeNumbers.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.optimizeNumbers.result.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`{
+  "price": 10.00,
+  "count": 0,
+  "rate": 1.0
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.optimizeNumbers.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"price":10,"count":0,"rate":1}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.optimizeNumbers.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"price":10.00,"count":0,"rate":1.0}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.json.options.optimizeNumbers.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -811,26 +826,40 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeNullValues.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.removeNullValues.example.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeNullValues.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.removeNullValues.result.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`{
+  "name": "test",
+  "value": null,
+  "active": true,
+  "count": null
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeNullValues.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","active":true}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeNullValues.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","value":null,"active":true,"count":null}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">Toutes les valeurs null sont supprimées</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -845,26 +874,40 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeEmptyArrays.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.removeEmptyArrays.example.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeEmptyArrays.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.removeEmptyArrays.result.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`{
+  "name": "test",
+  "items": [],
+  "active": true,
+  "tags": []
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeEmptyArrays.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","active":true}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeEmptyArrays.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"name":"test","items":[],"active":true,"tags":[]}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.json.options.removeEmptyArrays.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -879,26 +922,39 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.sortObjectKeys.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.sortObjectKeys.example.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.json.options.sortObjectKeys.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.json.options.sortObjectKeys.result.code')}
-                                language="json"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`{
+  "zebra": "striped",
+  "apple": "red",
+  "banana": "yellow"
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.sortObjectKeys.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"apple":"red","banana":"yellow","zebra":"striped"}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.sortObjectKeys.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`{"zebra":"striped","apple":"red","banana":"yellow"}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.json.options.sortObjectKeys.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -953,26 +1009,40 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.includeNullValues.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.includeNullValues.example.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.includeNullValues.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.includeNullValues.result.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`$data = [
+    'name' => 'test',
+    'value' => null,
+    'active' => true,
+    'count' => null
+];`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.includeNullValues.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:4:{s:4:"name";s:4:"test";s:5:"value";N;s:6:"active";b:1;s:5:"count";N;}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.includeNullValues.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:2:{s:4:"name";s:4:"test";s:6:"active";b:1;}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.php.options.includeNullValues.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -987,26 +1057,40 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyArrays.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.removeEmptyArrays.example.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyArrays.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.removeEmptyArrays.result.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`$data = [
+    'name' => 'test',
+    'items' => [],
+    'active' => true,
+    'tags' => []
+];`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeEmptyArrays.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:2:{s:4:"name";s:4:"test";s:6:"active";b:1;}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.json.options.removeEmptyArrays.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:4:{s:4:"name";s:4:"test";s:5:"items";a:0:{};s:6:"active";b:1;s:4:"tags";a:0:{}}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.json.options.removeEmptyArrays.differenceText')} de la sérialisation</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -1021,26 +1105,40 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyObjects.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.removeEmptyObjects.example.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyObjects.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.removeEmptyObjects.result.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`$data = [
+    'name' => 'test',
+    'config' => (object)[],
+    'active' => true,
+    'settings' => (object)[]
+];`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.removeEmptyObjects.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:2:{s:4:"name";s:4:"test";s:6:"active";b:1;}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.removeEmptyObjects.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:4:{s:4:"name";s:4:"test";s:6:"config";O:8:"stdClass":0:{};s:6:"active";b:1;s:8:"settings";O:8:"stdClass":0:{}}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.php.options.removeEmptyObjects.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -1055,26 +1153,39 @@ function test() {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.sortKeys.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.sortKeys.example.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.php.options.sortKeys.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.php.options.sortKeys.result.code')}
-                                language="php"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">{t('documentation.javascript.options.preserveClassNames.comparison')}</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.originalCode')}</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`$data = [
+    'zebra' => 'striped',
+    'apple' => 'red',
+    'banana' => 'yellow'
+];`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.sortKeys.withTrue')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:3:{s:5:"apple";s:3:"red";s:6:"banana";s:6:"yellow";s:5:"zebra";s:7:"striped";}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.php.options.sortKeys.withFalse')}</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`a:3:{s:5:"zebra";s:7:"striped";s:5:"apple";s:3:"red";s:6:"banana";s:6:"yellow";}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">{t('documentation.javascript.options.preserveClassNames.difference')}</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">{t('documentation.php.options.sortKeys.differenceText')}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>

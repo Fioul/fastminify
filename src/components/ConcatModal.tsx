@@ -212,7 +212,6 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
           minifiedContent = await minifyJavaScript(cleanedContent, {
             ecmaVersion: 'es2020',
             compressionLevel: 'normal',
-            browserSupport: 'modern',
             preserveClassNames: false,
             preserveFunctionNames: false,
             removeConsole: false,
@@ -221,7 +220,6 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
         } else {
           minifiedContent = await minifyCSSWithOptions(cleanedContent, {
             compressionLevel: 'normal',
-            browserSupport: 'modern',
             removeComments: true // Toujours supprimer les commentaires du contenu
           })
         }

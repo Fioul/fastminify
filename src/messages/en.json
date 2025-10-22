@@ -611,6 +611,7 @@
         "ecmaVersion": {
           "title": "ECMAScript Version",
           "description": "Defines the target ECMAScript version for minification (ES5, ES2015, ES2017, ES2020, ES2022)",
+          "examples": "Examples by ECMAScript version:",
           "example": {
             "title": "Example with ES2022",
             "code": "const data = { name: 'test' };\nconst { name } = data;\nconsole.log(name);"
@@ -623,25 +624,22 @@
         "compressionLevel": {
           "title": "Compression Level",
           "description": "Controls the aggressiveness of compression (conservative, normal, aggressive)",
+          "examples": "Compression examples:",
           "levels": {
             "conservative": "Conservative - Minimal compression, safer",
             "normal": "Normal - Balance between size and compatibility",
             "aggressive": "Aggressive - Maximum compression, may break some code"
           }
         },
-        "browserSupport": {
-          "title": "Browser Support",
-          "description": "Defines the level of browser support (modern, IE11, IE9, all)",
-          "levels": {
-            "modern": "Modern - Recent browsers only",
-            "ie11": "Internet Explorer 11+",
-            "ie9": "Internet Explorer 9+",
-            "all": "All browsers"
-          }
-        },
         "preserveClassNames": {
           "title": "Preserve Class Names",
           "description": "Preserves CSS class names in string literals",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With preserveClassNames: true",
+          "withFalse": "With preserveClassNames: false",
+          "difference": "Difference",
+          "differenceText": "CSS class names are preserved in strings",
           "example": {
             "title": "Example with preservation",
             "code": "element.className = 'my-class';"
@@ -654,6 +652,12 @@
         "preserveFunctionNames": {
           "title": "Preserve Function Names",
           "description": "Preserves function names for debugging",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With preserveFunctionNames: true",
+          "withFalse": "With preserveFunctionNames: false",
+          "difference": "Difference",
+          "differenceText": "Function names are preserved for debugging",
           "example": {
             "title": "Example with preservation",
             "code": "function myFunction() { return true; }"
@@ -666,6 +670,12 @@
         "removeConsole": {
           "title": "Remove Console",
           "description": "Removes all console.log, console.warn, etc. calls",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeConsole: true",
+          "withFalse": "With removeConsole: false",
+          "difference": "Difference",
+          "differenceText": "All console.* calls are removed",
           "example": {
             "title": "Example with console",
             "code": "console.log('Debug info');\nreturn result;"
@@ -678,6 +688,12 @@
         "removeDebugger": {
           "title": "Remove Debugger",
           "description": "Removes debugger statements from code",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeDebugger: true",
+          "withFalse": "With removeDebugger: false",
+          "difference": "Difference",
+          "differenceText": "Debugger statements are removed",
           "example": {
             "title": "Example with debugger",
             "code": "if (condition) {\n  debugger;\n  return true;\n}"
@@ -714,18 +730,15 @@
             "aggressive": "Aggressive - Advanced optimizations, may affect compatibility"
           }
         },
-        "browserSupport": {
-          "title": "Browser Support",
-          "description": "Defines the level of browser support for CSS optimizations",
-          "levels": {
-            "modern": "Modern - Recent browsers only",
-            "ie11": "Internet Explorer 11+",
-            "ie9": "Internet Explorer 9+"
-          }
-        },
         "removeComments": {
           "title": "Remove Comments",
           "description": "Removes all CSS comments from code",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeComments: true",
+          "withFalse": "With removeComments: false",
+          "difference": "Difference",
+          "differenceText": "CSS comments are removed",
           "example": {
             "title": "Example with comments",
             "code": "/* Header styles */\n.header {\n  color: red;\n}"
@@ -738,6 +751,12 @@
         "convertColors": {
           "title": "Convert Colors",
           "description": "Converts colors to their shortest format",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With convertColors: true",
+          "withFalse": "With convertColors: false",
+          "difference": "Difference",
+          "differenceText": "Colors are converted to shortest format",
           "example": {
             "title": "Example with colors",
             "code": ".element {\n  color: #ffffff;\n  background: rgb(255, 0, 0);\n}"
@@ -750,6 +769,12 @@
         "mergeRules": {
           "title": "Merge Rules",
           "description": "Merges identical and adjacent CSS rules",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With mergeRules: true",
+          "withFalse": "With mergeRules: false",
+          "difference": "Difference",
+          "differenceText": "Identical CSS rules are merged",
           "example": {
             "title": "Example with merging",
             "code": "p { color: red; }\np { font-size: 16px; }"
@@ -762,6 +787,12 @@
         "minifySelectors": {
           "title": "Minify Selectors",
           "description": "Optimizes CSS selectors to reduce their size",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With minifySelectors: true",
+          "withFalse": "With minifySelectors: false",
+          "difference": "Difference",
+          "differenceText": "CSS selectors are optimized",
           "example": {
             "title": "Example with selectors",
             "code": ".my-class { color: blue; }"
@@ -797,6 +828,12 @@
         "optimizeNumbers": {
           "title": "Optimize Numbers",
           "description": "Optimizes number representation (removes unnecessary zeros)",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With optimizeNumbers: true",
+          "withFalse": "With optimizeNumbers: false",
+          "difference": "Difference",
+          "differenceText": "Numbers are optimized (unnecessary zeros removed)",
           "example": {
             "title": "Example with numbers",
             "code": "{\n  \"price\": 10.00,\n  \"count\": 0\n}"
@@ -809,6 +846,12 @@
         "removeNullValues": {
           "title": "Remove Null Values",
           "description": "Removes properties with null values",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeNullValues: true",
+          "withFalse": "With removeNullValues: false",
+          "difference": "Difference",
+          "differenceText": "Properties with null values are removed",
           "example": {
             "title": "Example with null",
             "code": "{\n  \"name\": \"test\",\n  \"value\": null\n}"
@@ -821,6 +864,12 @@
         "removeEmptyArrays": {
           "title": "Remove Empty Arrays",
           "description": "Removes empty arrays from JSON",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeEmptyArrays: true",
+          "withFalse": "With removeEmptyArrays: false",
+          "difference": "Difference",
+          "differenceText": "Empty arrays are removed",
           "example": {
             "title": "Example with empty arrays",
             "code": "{\n  \"items\": [],\n  \"name\": \"test\"\n}"
@@ -833,6 +882,12 @@
         "sortObjectKeys": {
           "title": "Sort Object Keys",
           "description": "Sorts object keys alphabetically",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With sortObjectKeys: true",
+          "withFalse": "With sortObjectKeys: false",
+          "difference": "Difference",
+          "differenceText": "Object keys are sorted alphabetically",
           "example": {
             "title": "Example with sorting",
             "code": "{\n  \"zebra\": 1,\n  \"apple\": 2,\n  \"banana\": 3\n}"
@@ -859,6 +914,12 @@
         "includeNullValues": {
           "title": "Include Null Values",
           "description": "Includes properties with null values in serialization",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With includeNullValues: true",
+          "withFalse": "With includeNullValues: false",
+          "difference": "Difference",
+          "differenceText": "Properties with null values are included in serialization",
           "example": {
             "title": "Example with null",
             "code": "<?php\n$data = [\n  'name' => 'test',\n  'value' => null\n];\n$serialized = serialize($data);"
@@ -871,6 +932,12 @@
         "removeEmptyArrays": {
           "title": "Remove Empty Arrays",
           "description": "Removes empty arrays before serialization",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeEmptyArrays: true",
+          "withFalse": "With removeEmptyArrays: false",
+          "difference": "Difference",
+          "differenceText": "Empty arrays are removed before serialization",
           "example": {
             "title": "Example with empty arrays",
             "code": "<?php\n$data = [\n  'items' => [],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
@@ -883,6 +950,12 @@
         "removeEmptyObjects": {
           "title": "Remove Empty Objects",
           "description": "Removes empty objects before serialization",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With removeEmptyObjects: true",
+          "withFalse": "With removeEmptyObjects: false",
+          "difference": "Difference",
+          "differenceText": "Empty objects are removed before serialization",
           "example": {
             "title": "Example with empty objects",
             "code": "<?php\n$data = [\n  'config' => (object)[],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
@@ -895,6 +968,12 @@
         "sortKeys": {
           "title": "Sort Keys",
           "description": "Sorts associative array keys alphabetically",
+          "comparison": "Comparison with/without option:",
+          "originalCode": "Original code",
+          "withTrue": "With sortKeys: true",
+          "withFalse": "With sortKeys: false",
+          "difference": "Difference",
+          "differenceText": "Array keys are sorted alphabetically",
           "example": {
             "title": "Example with sorting",
             "code": "<?php\n$data = [\n  'zebra' => 1,\n  'apple' => 2,\n  'banana' => 3\n];\n$serialized = serialize($data);"

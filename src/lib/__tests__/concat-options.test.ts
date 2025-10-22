@@ -229,7 +229,6 @@ describe('Concatenation Options', () => {
       const minified = await minifyJavaScript(concatenated, {
         ecmaVersion: 'es2020',
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         preserveClassNames: false,
         preserveFunctionNames: false,
         removeConsole: false,
@@ -315,7 +314,6 @@ describe('Concatenation Options', () => {
       const concatenated = concatenateFiles(mockCSSFiles, true, true)
       const minified = await minifyCSSWithOptions(concatenated, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true
       })
       
@@ -331,7 +329,6 @@ describe('Concatenation Options', () => {
       const concatenated = concatenateFiles(mockCSSFiles, true, true)
       const minified = await minifyCSSWithOptions(concatenated, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: false
       })
       

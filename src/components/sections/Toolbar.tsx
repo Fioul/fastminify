@@ -81,7 +81,7 @@ export default function Toolbar({
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-2">
                 <Label className="text-sm font-medium">ECMAScript</Label>
-                <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility (IE9+), ES2022 = modern (recent browsers). Overrides Browser Support setting." />
+                <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility, ES2022 = modern browsers." />
                 <Select
                   value={jsOptions.ecmaVersion}
                   onValueChange={(value: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022') => 
@@ -117,27 +117,6 @@ export default function Toolbar({
                     <SelectItem value="conservative">Conservative</SelectItem>
                     <SelectItem value="normal">Normal</SelectItem>
                     <SelectItem value="aggressive">Aggressive</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Label className="text-sm font-medium">Browser</Label>
-                <TooltipInfo content="Browser compatibility. Modern = recent (Chrome, Firefox, Safari), IE11+ = Internet Explorer 11+, IE9+ = very old browsers. Can be overridden by ECMAScript setting." />
-                <Select
-                  value={jsOptions.browserSupport}
-                  onValueChange={(value: 'modern' | 'ie11' | 'ie9' | 'all') => 
-                    onJsOptionsChange({ ...jsOptions, browserSupport: value })
-                  }
-                >
-                  <SelectTrigger className="w-32 h-9 cursor-pointer">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="modern">Modern</SelectItem>
-                    <SelectItem value="ie11">IE11+</SelectItem>
-                    <SelectItem value="ie9">IE9+</SelectItem>
-                    <SelectItem value="all">All</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -223,26 +202,6 @@ export default function Toolbar({
                   <SelectItem value="conservative">Conservative</SelectItem>
                   <SelectItem value="normal">Normal</SelectItem>
                   <SelectItem value="aggressive">Aggressive</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Browser</Label>
-              <TooltipInfo content="CSS browser compatibility. Modern = recent browsers, IE11+ = Internet Explorer 11+, IE9+ = very old browsers (adds compatibility fixes)." />
-              <Select
-                value={cssOptions.browserSupport}
-                onValueChange={(value: 'modern' | 'ie11' | 'ie9') => 
-                  onCssOptionsChange({ ...cssOptions, browserSupport: value })
-                }
-              >
-                <SelectTrigger className="w-32 h-9 cursor-pointer">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="modern">Modern</SelectItem>
-                  <SelectItem value="ie11">IE11+</SelectItem>
-                  <SelectItem value="ie9">IE9+</SelectItem>
                 </SelectContent>
               </Select>
             </div>
