@@ -79,7 +79,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   {/* Basic Example */}
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.javascript.basicExample.title')}</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.input')}</h4>
                         <CodeEditor
@@ -102,67 +102,229 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   </div>
 
                   {/* Options */}
-                  <div>
+                  <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-4">{t('documentation.javascript.options.title')}</h3>
                     <div className="grid gap-6">
-                      {/* Compress Options */}
+                      {/* ECMAScript Version */}
                       <Card>
                         <CardHeader>
-                          <CardTitle className="text-base">compress</CardTitle>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.ecmaVersion.title')}</CardTitle>
                           <CardDescription>
-                            {t('documentation.javascript.options.compress.description')}
+                            {t('documentation.javascript.options.ecmaVersion.description')}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.example.title')}</h4>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.ecmaVersion.example.title')}</h4>
                               <CodeEditor
-                                value={t('documentation.javascript.options.compress.example.code')}
+                                value={t('documentation.javascript.options.ecmaVersion.example.code')}
                                 language="javascript"
                                 readOnly
                                 height="120px"
+                                className="mb-4"
                               />
                             </div>
                             <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.compress.result.title')}</h4>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.ecmaVersion.result.title')}</h4>
                               <CodeEditor
-                                value={t('documentation.javascript.options.compress.result.code')}
+                                value={t('documentation.javascript.options.ecmaVersion.result.code')}
                                 language="javascript"
                                 readOnly
                                 height="120px"
+                                className="mb-4"
                               />
                             </div>
                           </div>
                         </CardContent>
                       </Card>
 
-                      {/* Mangle Options */}
+                      {/* Compression Level */}
                       <Card>
                         <CardHeader>
-                          <CardTitle className="text-base">mangle</CardTitle>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.compressionLevel.title')}</CardTitle>
                           <CardDescription>
-                            {t('documentation.javascript.options.mangle.description')}
+                            {t('documentation.javascript.options.compressionLevel.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid gap-2">
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Conservative</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.compressionLevel.levels.conservative')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Normal</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.compressionLevel.levels.normal')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Aggressive</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.compressionLevel.levels.aggressive')}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Browser Support */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.browserSupport.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.javascript.options.browserSupport.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid gap-2">
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Modern</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.modern')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">IE11</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.ie11')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">IE9</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.ie9')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">All</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.all')}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Preserve Class Names */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.preserveClassNames.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.javascript.options.preserveClassNames.description')}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.example.title')}</h4>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveClassNames.example.title')}</h4>
                               <CodeEditor
-                                value={t('documentation.javascript.options.mangle.example.code')}
+                                value={t('documentation.javascript.options.preserveClassNames.example.code')}
                                 language="javascript"
                                 readOnly
-                                height="120px"
+                                height="80px"
+                                className="mb-4"
                               />
                             </div>
                             <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.mangle.result.title')}</h4>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveClassNames.result.title')}</h4>
                               <CodeEditor
-                                value={t('documentation.javascript.options.mangle.result.code')}
+                                value={t('documentation.javascript.options.preserveClassNames.result.code')}
                                 language="javascript"
                                 readOnly
-                                height="120px"
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Preserve Function Names */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.preserveFunctionNames.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.javascript.options.preserveFunctionNames.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveFunctionNames.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.preserveFunctionNames.example.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveFunctionNames.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.preserveFunctionNames.result.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Console */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.removeConsole.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.javascript.options.removeConsole.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeConsole.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.removeConsole.example.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeConsole.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.removeConsole.result.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Debugger */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.javascript.options.removeDebugger.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.javascript.options.removeDebugger.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeDebugger.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.removeDebugger.example.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeDebugger.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.javascript.options.removeDebugger.result.code')}
+                                language="javascript"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
                               />
                             </div>
                           </div>
@@ -223,6 +385,200 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                       </div>
                     </div>
                   </div>
+
+                  {/* Options */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold mb-4">{t('documentation.css.options.title')}</h3>
+                    <div className="grid gap-6">
+                      {/* Compression Level */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.compressionLevel.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.compressionLevel.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid gap-2">
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Conservative</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.compressionLevel.levels.conservative')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Normal</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.compressionLevel.levels.normal')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Aggressive</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.compressionLevel.levels.aggressive')}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Browser Support */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.browserSupport.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.browserSupport.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid gap-2">
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Modern</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.modern')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">IE11</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.ie11')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">IE9</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.css.options.browserSupport.levels.ie9')}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Comments */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.removeComments.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.removeComments.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.removeComments.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.removeComments.example.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.removeComments.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.removeComments.result.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Convert Colors */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.convertColors.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.convertColors.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.convertColors.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.convertColors.example.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.convertColors.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.convertColors.result.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Merge Rules */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.mergeRules.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.mergeRules.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.mergeRules.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.mergeRules.example.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.mergeRules.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.mergeRules.result.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Minify Selectors */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.css.options.minifySelectors.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.css.options.minifySelectors.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.minifySelectors.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.minifySelectors.example.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.css.options.minifySelectors.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.css.options.minifySelectors.result.code')}
+                                language="css"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -263,6 +619,174 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                       </div>
                     </div>
                   </div>
+
+                  {/* Options */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold mb-4">{t('documentation.json.options.title')}</h3>
+                    <div className="grid gap-6">
+                      {/* Compression Level */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.json.options.compressionLevel.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.json.options.compressionLevel.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid gap-2">
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Conservative</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.json.options.compressionLevel.levels.conservative')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Normal</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.json.options.compressionLevel.levels.normal')}</span>
+                            </div>
+                            <div className="flex items-center justify-between p-3 border rounded-lg">
+                              <span className="font-medium">Aggressive</span>
+                              <span className="text-sm text-muted-foreground">{t('documentation.json.options.compressionLevel.levels.aggressive')}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Optimize Numbers */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.json.options.optimizeNumbers.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.json.options.optimizeNumbers.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.optimizeNumbers.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.optimizeNumbers.example.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.optimizeNumbers.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.optimizeNumbers.result.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Null Values */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.json.options.removeNullValues.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.json.options.removeNullValues.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeNullValues.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.removeNullValues.example.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeNullValues.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.removeNullValues.result.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Empty Arrays */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.json.options.removeEmptyArrays.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.json.options.removeEmptyArrays.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeEmptyArrays.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.removeEmptyArrays.example.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.removeEmptyArrays.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.removeEmptyArrays.result.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Sort Object Keys */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.json.options.sortObjectKeys.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.json.options.sortObjectKeys.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.sortObjectKeys.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.sortObjectKeys.example.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.json.options.sortObjectKeys.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.json.options.sortObjectKeys.result.code')}
+                                language="json"
+                                readOnly
+                                height="80px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -301,6 +825,148 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           height="200px"
                         />
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Options */}
+                  <div className="mb-8">
+                    <h3 className="text-lg font-semibold mb-4">{t('documentation.php.options.title')}</h3>
+                    <div className="grid gap-6">
+                      {/* Include Null Values */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.php.options.includeNullValues.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.php.options.includeNullValues.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.includeNullValues.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.includeNullValues.example.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.includeNullValues.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.includeNullValues.result.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Empty Arrays */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.php.options.removeEmptyArrays.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.php.options.removeEmptyArrays.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyArrays.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.removeEmptyArrays.example.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyArrays.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.removeEmptyArrays.result.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Remove Empty Objects */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.php.options.removeEmptyObjects.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.php.options.removeEmptyObjects.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyObjects.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.removeEmptyObjects.example.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyObjects.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.removeEmptyObjects.result.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Sort Keys */}
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base">{t('documentation.php.options.sortKeys.title')}</CardTitle>
+                          <CardDescription>
+                            {t('documentation.php.options.sortKeys.description')}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.sortKeys.example.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.sortKeys.example.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-medium mb-2">{t('documentation.php.options.sortKeys.result.title')}</h4>
+                              <CodeEditor
+                                value={t('documentation.php.options.sortKeys.result.code')}
+                                language="php"
+                                readOnly
+                                height="120px"
+                                className="mb-4"
+                              />
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
                 </CardContent>

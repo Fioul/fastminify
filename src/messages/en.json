@@ -608,26 +608,83 @@
       },
       "options": {
         "title": "Minification options",
-        "compress": {
-          "description": "Enables code compression by removing spaces, comments and optimizing structures",
+        "ecmaVersion": {
+          "title": "ECMAScript Version",
+          "description": "Defines the target ECMAScript version for minification (ES5, ES2015, ES2017, ES2020, ES2022)",
           "example": {
-            "title": "Example with compression",
-            "code": "if (condition === true) {\n  return false;\n} else {\n  return true;\n}"
+            "title": "Example with ES2022",
+            "code": "const data = { name: 'test' };\nconst { name } = data;\nconsole.log(name);"
           },
           "result": {
             "title": "Result",
-            "code": "return!condition"
+            "code": "const{name:data}=data;console.log(data);"
           }
         },
-        "mangle": {
-          "description": "Renames variables and functions to reduce code size",
+        "compressionLevel": {
+          "title": "Compression Level",
+          "description": "Controls the aggressiveness of compression (conservative, normal, aggressive)",
+          "levels": {
+            "conservative": "Conservative - Minimal compression, safer",
+            "normal": "Normal - Balance between size and compatibility",
+            "aggressive": "Aggressive - Maximum compression, may break some code"
+          }
+        },
+        "browserSupport": {
+          "title": "Browser Support",
+          "description": "Defines the level of browser support (modern, IE11, IE9, all)",
+          "levels": {
+            "modern": "Modern - Recent browsers only",
+            "ie11": "Internet Explorer 11+",
+            "ie9": "Internet Explorer 9+",
+            "all": "All browsers"
+          }
+        },
+        "preserveClassNames": {
+          "title": "Preserve Class Names",
+          "description": "Preserves CSS class names in string literals",
           "example": {
-            "title": "Example with mangle",
-            "code": "function calculateTotal(items) {\n  let total = 0;\n  return total;\n}"
+            "title": "Example with preservation",
+            "code": "element.className = 'my-class';"
           },
           "result": {
             "title": "Result",
-            "code": "function a(b){let c=0;return c}"
+            "code": "element.className='my-class';"
+          }
+        },
+        "preserveFunctionNames": {
+          "title": "Preserve Function Names",
+          "description": "Preserves function names for debugging",
+          "example": {
+            "title": "Example with preservation",
+            "code": "function myFunction() { return true; }"
+          },
+          "result": {
+            "title": "Result",
+            "code": "function myFunction(){return!0}"
+          }
+        },
+        "removeConsole": {
+          "title": "Remove Console",
+          "description": "Removes all console.log, console.warn, etc. calls",
+          "example": {
+            "title": "Example with console",
+            "code": "console.log('Debug info');\nreturn result;"
+          },
+          "result": {
+            "title": "Result",
+            "code": "return result;"
+          }
+        },
+        "removeDebugger": {
+          "title": "Remove Debugger",
+          "description": "Removes debugger statements from code",
+          "example": {
+            "title": "Example with debugger",
+            "code": "if (condition) {\n  debugger;\n  return true;\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": "if(condition)return!0"
           }
         }
       }
@@ -645,6 +702,75 @@
         "output": "Minified CSS",
         "inputCode": ".container {\n  margin: 20px;\n  padding: 10px;\n  background-color: #ffffff;\n}\n\n.button {\n  color: #000000;\n  font-size: 16px;\n  border: 1px solid #cccccc;\n}",
         "outputCode": ".container{margin:20px;padding:10px;background-color:#fff}.button{color:#000;font-size:16px;border:1px solid #ccc}"
+      },
+      "options": {
+        "title": "Minification options",
+        "compressionLevel": {
+          "title": "Compression Level",
+          "description": "Controls the aggressiveness of CSS compression",
+          "levels": {
+            "conservative": "Conservative - Basic optimizations only",
+            "normal": "Normal - Balance between size and compatibility",
+            "aggressive": "Aggressive - Advanced optimizations, may affect compatibility"
+          }
+        },
+        "browserSupport": {
+          "title": "Browser Support",
+          "description": "Defines the level of browser support for CSS optimizations",
+          "levels": {
+            "modern": "Modern - Recent browsers only",
+            "ie11": "Internet Explorer 11+",
+            "ie9": "Internet Explorer 9+"
+          }
+        },
+        "removeComments": {
+          "title": "Remove Comments",
+          "description": "Removes all CSS comments from code",
+          "example": {
+            "title": "Example with comments",
+            "code": "/* Header styles */\n.header {\n  color: red;\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": ".header{color:red}"
+          }
+        },
+        "convertColors": {
+          "title": "Convert Colors",
+          "description": "Converts colors to their shortest format",
+          "example": {
+            "title": "Example with colors",
+            "code": ".element {\n  color: #ffffff;\n  background: rgb(255, 0, 0);\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": ".element{color:#fff;background:red}"
+          }
+        },
+        "mergeRules": {
+          "title": "Merge Rules",
+          "description": "Merges identical and adjacent CSS rules",
+          "example": {
+            "title": "Example with merging",
+            "code": "p { color: red; }\np { font-size: 16px; }"
+          },
+          "result": {
+            "title": "Result",
+            "code": "p{color:red;font-size:16px}"
+          }
+        },
+        "minifySelectors": {
+          "title": "Minify Selectors",
+          "description": "Optimizes CSS selectors to reduce their size",
+          "example": {
+            "title": "Example with selectors",
+            "code": ".my-class { color: blue; }"
+          },
+          "result": {
+            "title": "Result",
+            "code": ".my-class{color:blue}"
+          }
+        }
       }
     },
     "json": {
@@ -656,6 +782,66 @@
         "output": "Minified JSON",
         "inputCode": "{\n  \"name\": \"FastMinify\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A fast minifier tool\",\n  \"features\": [\n    \"JavaScript minification\",\n    \"CSS optimization\",\n    \"JSON compression\"\n  ]\n}",
         "outputCode": "{\"name\":\"FastMinify\",\"version\":\"1.0.0\",\"description\":\"A fast minifier tool\",\"features\":[\"JavaScript minification\",\"CSS optimization\",\"JSON compression\"]}"
+      },
+      "options": {
+        "title": "Minification options",
+        "compressionLevel": {
+          "title": "Compression Level",
+          "description": "Controls the aggressiveness of JSON compression",
+          "levels": {
+            "conservative": "Conservative - Whitespace removal only",
+            "normal": "Normal - Basic optimizations",
+            "aggressive": "Aggressive - Advanced optimizations and cleanup"
+          }
+        },
+        "optimizeNumbers": {
+          "title": "Optimize Numbers",
+          "description": "Optimizes number representation (removes unnecessary zeros)",
+          "example": {
+            "title": "Example with numbers",
+            "code": "{\n  \"price\": 10.00,\n  \"count\": 0\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": "{\"price\":10,\"count\":0}"
+          }
+        },
+        "removeNullValues": {
+          "title": "Remove Null Values",
+          "description": "Removes properties with null values",
+          "example": {
+            "title": "Example with null",
+            "code": "{\n  \"name\": \"test\",\n  \"value\": null\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": "{\"name\":\"test\"}"
+          }
+        },
+        "removeEmptyArrays": {
+          "title": "Remove Empty Arrays",
+          "description": "Removes empty arrays from JSON",
+          "example": {
+            "title": "Example with empty arrays",
+            "code": "{\n  \"items\": [],\n  \"name\": \"test\"\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": "{\"name\":\"test\"}"
+          }
+        },
+        "sortObjectKeys": {
+          "title": "Sort Object Keys",
+          "description": "Sorts object keys alphabetically",
+          "example": {
+            "title": "Example with sorting",
+            "code": "{\n  \"zebra\": 1,\n  \"apple\": 2,\n  \"banana\": 3\n}"
+          },
+          "result": {
+            "title": "Result",
+            "code": "{\"apple\":2,\"banana\":3,\"zebra\":1}"
+          }
+        }
       }
     },
     "php": {
@@ -667,6 +853,57 @@
         "output": "Serialized data",
         "inputCode": "<?php\n$data = [\n  'name' => 'FastMinify',\n  'version' => '1.0.0',\n  'features' => ['minify', 'compress', 'optimize']\n];\n\n$serialized = serialize($data);\necho $serialized;",
         "outputCode": "a:3:{s:4:\"name\";s:10:\"FastMinify\";s:7:\"version\";s:5:\"1.0.0\";s:8:\"features\";a:3:{i:0;s:5:\"minify\";i:1;s:8:\"compress\";i:2;s:8:\"optimize\";}}"
+      },
+      "options": {
+        "title": "Serialization options",
+        "includeNullValues": {
+          "title": "Include Null Values",
+          "description": "Includes properties with null values in serialization",
+          "example": {
+            "title": "Example with null",
+            "code": "<?php\n$data = [\n  'name' => 'test',\n  'value' => null\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Result",
+            "code": "a:2:{s:4:\"name\";s:4:\"test\";s:5:\"value\";N;}"
+          }
+        },
+        "removeEmptyArrays": {
+          "title": "Remove Empty Arrays",
+          "description": "Removes empty arrays before serialization",
+          "example": {
+            "title": "Example with empty arrays",
+            "code": "<?php\n$data = [\n  'items' => [],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Result",
+            "code": "a:1:{s:4:\"name\";s:4:\"test\";}"
+          }
+        },
+        "removeEmptyObjects": {
+          "title": "Remove Empty Objects",
+          "description": "Removes empty objects before serialization",
+          "example": {
+            "title": "Example with empty objects",
+            "code": "<?php\n$data = [\n  'config' => (object)[],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Result",
+            "code": "a:1:{s:4:\"name\";s:4:\"test\";}"
+          }
+        },
+        "sortKeys": {
+          "title": "Sort Keys",
+          "description": "Sorts associative array keys alphabetically",
+          "example": {
+            "title": "Example with sorting",
+            "code": "<?php\n$data = [\n  'zebra' => 1,\n  'apple' => 2,\n  'banana' => 3\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Result",
+            "code": "a:3:{s:5:\"apple\";i:2;s:6:\"banana\";i:3;s:5:\"zebra\";i:1;}"
+          }
+        }
       }
     }
   }

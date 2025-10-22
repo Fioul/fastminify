@@ -55,6 +55,22 @@ export default function CodeEditor({
   )
   const hasUpgradedRef = React.useRef(false)
 
+  // Détecter le contenu scrollable
+  React.useEffect(() => {
+    if (value) {
+      const lines = value.split('\n').length
+      const lineHeight = 20 // Hauteur approximative d'une ligne
+      const padding = 32 // Padding top + bottom
+      const contentHeight = lines * lineHeight + padding
+      
+      // Si le contenu dépasse la hauteur de l'éditeur, il est scrollable
+      const editorHeight = parseInt(height.replace('px', '')) || 200
+      setHasScrollableContent(contentHeight > editorHeight)
+    } else {
+      setHasScrollableContent(false)
+    }
+  }, [value, height])
+
   // Prod: charge uniquement sur interaction; Dev: idle/visibilité pour confort
   React.useEffect(() => {
     const isProd = process.env.NODE_ENV === 'production'
