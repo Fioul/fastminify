@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
     // Envoi de l'email
     const { data, error } = await resend.emails.send({
-      from: 'FastMinify <noreply@fastminify.com>',
+      from: 'FastMinify <onboarding@resend.dev>', // Email de test Resend
       to: [process.env.CONTACT_EMAIL || 'contact@fastminify.com'],
       subject: `[${messageTypeLabel}] ${subject}`,
       html: `

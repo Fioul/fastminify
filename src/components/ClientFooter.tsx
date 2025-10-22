@@ -40,12 +40,6 @@ const ClientFooter = memo(function ClientFooter() {
               {/* Legal Menu - Right aligned, vertical on mobile */}
               <div className="flex flex-col items-center md:items-end gap-2">
                 <Link
-                  href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'contact')}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {t('footer.support.contact')}
-                </Link>
-                <Link
                   href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'privacy')}
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >

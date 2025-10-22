@@ -29,10 +29,12 @@ module.exports = {
     await config.transform(config, '/fr/a-propos'),
     await config.transform(config, '/fr/mentions-legales'),
     await config.transform(config, '/fr/confidentialite'),
+    await config.transform(config, '/fr/documentation'),
     // Routes anglaises localisées
     await config.transform(config, '/en/about'),
     await config.transform(config, '/en/legal'),
     await config.transform(config, '/en/privacy'),
+    await config.transform(config, '/en/documentation'),
   ],
   transform: async (config, path) => {
     // Custom priority and changefreq for different pages
@@ -51,6 +53,12 @@ module.exports = {
 
     // About page gets high priority
     if (path.includes('/about')) {
+      customConfig.priority = 0.8
+      customConfig.changefreq = 'monthly'
+    }
+
+    // Documentation page gets high priority
+    if (path.includes('/documentation')) {
       customConfig.priority = 0.8
       customConfig.changefreq = 'monthly'
     }
