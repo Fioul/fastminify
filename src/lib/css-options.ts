@@ -2,16 +2,12 @@ export interface CSSOptions {
   // Niveau de compression
   compressionLevel: 'conservative' | 'normal' | 'aggressive'
   
-  // Support navigateur
-  browserSupport: 'modern' | 'ie11' | 'ie9'
-  
   // Optimisations principales (seulement les options réellement implémentées)
   removeComments: boolean
 }
 
 export const defaultCSSOptions: CSSOptions = {
   compressionLevel: 'normal',
-  browserSupport: 'modern',
   removeComments: true
 }
 
@@ -31,10 +27,7 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
     // Configuration CSSO basée sur les options
     let cssoOptions = {
       restructure: options.compressionLevel === 'aggressive',
-      comments: !options.removeComments, // Respecter l'option removeComments
-      usage: {
-        force: options.browserSupport === 'ie9'
-      }
+      comments: !options.removeComments // Respecter l'option removeComments
     }
     
     // Appliquer des options spécifiques selon le niveau de compression
@@ -61,14 +54,6 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
       }
     }
     
-    // Appliquer des options spécifiques selon le support navigateur
-    if (options.browserSupport === 'ie9') {
-      cssoOptions.usage = { force: true }
-    } else if (options.browserSupport === 'ie11') {
-      cssoOptions.usage = { force: false }
-    } else if (options.browserSupport === 'modern') {
-      cssoOptions.usage = { force: false }
-    }
     
     let result = csso.minify(code, cssoOptions)
     
@@ -103,20 +88,6 @@ export async function minifyCSSWithOptions(code: string, options: CSSOptions = d
         .trim()
     }
     
-    // Post-traitement selon le support navigateur
-    if (options.browserSupport === 'ie9') {
-      // IE9 : éviter certaines propriétés modernes
-      minifiedCSS = minifiedCSS
-        .replace(/border-radius/g, '-webkit-border-radius')
-        .replace(/box-shadow/g, '-webkit-box-shadow')
-        .replace(/transform/g, '-webkit-transform')
-        .replace(/transition/g, '-webkit-transition')
-    } else if (options.browserSupport === 'ie11') {
-      // IE11 : ajouter des préfixes pour certaines propriétés
-      minifiedCSS = minifiedCSS
-        .replace(/flex/g, '-ms-flex')
-        .replace(/grid/g, '-ms-grid')
-    }
     
     // Si removeComments est false, on doit restaurer les commentaires
     if (!options.removeComments) {

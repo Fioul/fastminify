@@ -2,7 +2,6 @@
 export interface JavaScriptOptions {
   ecmaVersion: 'es5' | 'es2015' | 'es2017' | 'es2020' | 'es2022'
   compressionLevel: 'conservative' | 'normal' | 'aggressive'
-  browserSupport: 'modern' | 'ie11' | 'ie9' | 'all'
   preserveClassNames: boolean
   preserveFunctionNames: boolean
   removeConsole: boolean
@@ -12,7 +11,6 @@ export interface JavaScriptOptions {
 // CSS options interface
 export interface CSSOptions {
   compressionLevel: 'conservative' | 'normal' | 'aggressive'
-  browserSupport: 'modern' | 'ie11' | 'ie9'
   removeComments: boolean
   convertColors: boolean
   mergeRules: boolean

@@ -574,7 +574,6 @@ const customJestConfig = {
       const minified = await minifyJavaScript(beautified, {
         ecmaVersion: 'es2022',
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         preserveClassNames: false,
         preserveFunctionNames: false,
         removeConsole: false,
@@ -597,7 +596,6 @@ const customJestConfig = {
       const minified = await minifyJavaScript(originalCode, {
         ecmaVersion: 'es2022',
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         preserveClassNames: false,
         preserveFunctionNames: false,
         removeConsole: false,
@@ -614,7 +612,6 @@ const customJestConfig = {
       const reminified = await minifyJavaScript(unminified, {
         ecmaVersion: 'es2022',
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         preserveClassNames: false,
         preserveFunctionNames: false,
         removeConsole: false,
@@ -634,9 +631,7 @@ const customJestConfig = {
       // Step 2: Minify
       const minified = await minifyCSSWithOptions(beautified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -680,9 +675,7 @@ const customJestConfig = {
       // Step 1: Minify
       const minified = await minifyCSSWithOptions(originalCode, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -699,9 +692,7 @@ const customJestConfig = {
       // Step 3: Reminify
       const reminified = await minifyCSSWithOptions(unminified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -720,9 +711,7 @@ const customJestConfig = {
       // Step 2: Minify
       const minified = await minifyCSSWithOptions(beautified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -739,9 +728,7 @@ const customJestConfig = {
       // Step 4: Reminify
       const reminified = await minifyCSSWithOptions(unminified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -788,9 +775,7 @@ const customJestConfig = {
       // Step 2: Minify
       const minified = await minifyCSSWithOptions(beautified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -808,9 +793,7 @@ const customJestConfig = {
       // Step 4: Reminify
       const reminified = await minifyCSSWithOptions(unminified, {
         compressionLevel: 'normal',
-        browserSupport: 'modern',
         removeComments: true,
-        convertColors: true,
         mergeRules: true,
         minifySelectors: true
       })
@@ -1053,7 +1036,6 @@ const customJestConfig = {
       // Step 2: Minify
       const minified = await minifyJSONWithOptions(beautified, {
         compressionLevel: 'normal',
-        removeWhitespace: true,
         sortKeys: false,
         validateBeforeMinify: true,
         fixCommonErrors: false,
@@ -1070,7 +1052,6 @@ const customJestConfig = {
       // Step 1: Minify
       const minified = await minifyJSONWithOptions(originalCode, {
         compressionLevel: 'normal',
-        removeWhitespace: true,
         sortKeys: false,
         validateBeforeMinify: true,
         fixCommonErrors: false,
@@ -1089,7 +1070,6 @@ const customJestConfig = {
       // Step 3: Reminify
       const reminified = await minifyJSONWithOptions(unminified, {
         compressionLevel: 'normal',
-        removeWhitespace: true,
         sortKeys: false,
         validateBeforeMinify: true,
         fixCommonErrors: false,
@@ -1111,7 +1091,6 @@ const customJestConfig = {
       // Step 2: Minify
       const minified = await minifyJSONWithOptions(beautified, {
         compressionLevel: 'normal',
-        removeWhitespace: true,
         sortKeys: false,
         validateBeforeMinify: true,
         fixCommonErrors: false,
@@ -1130,7 +1109,6 @@ const customJestConfig = {
       // Step 4: Reminify
       const reminified = await minifyJSONWithOptions(unminified, {
         compressionLevel: 'normal',
-        removeWhitespace: true,
         sortKeys: false,
         validateBeforeMinify: true,
         fixCommonErrors: false,

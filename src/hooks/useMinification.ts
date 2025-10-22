@@ -39,7 +39,6 @@ export function useMinification() {
   const [jsOptions, setJsOptions] = useState<JavaScriptOptions>({
     ecmaVersion: 'es2022',
     compressionLevel: 'normal',
-    browserSupport: 'modern',
     preserveClassNames: false,
     preserveFunctionNames: false,
     removeConsole: false,
@@ -48,7 +47,6 @@ export function useMinification() {
   
   const [cssOptions, setCssOptions] = useState<CSSOptions>({
     compressionLevel: 'normal',
-    browserSupport: 'modern',
     removeComments: true,
     convertColors: true,
     mergeRules: true,

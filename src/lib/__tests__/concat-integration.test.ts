@@ -36,7 +36,6 @@ async function processFiles(
     minified = await minifyJavaScript(concatenated, {
       ecmaVersion: 'es2020',
       compressionLevel: 'normal',
-      browserSupport: 'modern',
       preserveClassNames: false,
       preserveFunctionNames: false,
       removeConsole: false,
@@ -45,7 +44,6 @@ async function processFiles(
   } else {
     minified = await minifyCSSWithOptions(concatenated, {
       compressionLevel: 'normal',
-      browserSupport: 'modern',
       removeComments: !addComments // Only remove comments if addComments is false
     })
   }

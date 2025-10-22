@@ -105,7 +105,6 @@ export function useConcatFiles() {
         minified = await minifyJavaScript(concatenated, {
           ecmaVersion: 'es2022',
           compressionLevel: 'normal',
-          browserSupport: 'modern',
           preserveClassNames: false,
           preserveFunctionNames: false,
           removeConsole: false,

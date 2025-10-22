@@ -74,10 +74,6 @@ export default function OptionsSection({
     { value: 'es2022', label: 'ES2022' },
   ]
 
-  const browserSupport = [
-    { value: 'legacy', label: t('options.legacy') },
-    { value: 'modern', label: t('options.modern') },
-  ]
 
   return (
     <div className="space-y-4">
@@ -204,26 +200,6 @@ export default function OptionsSection({
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-sm">{t('options.browserSupport')}</Label>
-                <Select
-                  value={jsOptions.browserSupport}
-                  onValueChange={(value: 'legacy' | 'modern') =>
-                    onJsOptionsChange({ ...jsOptions, browserSupport: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {browserSupport.map((support) => (
-                      <SelectItem key={support.value} value={support.value}>
-                        {support.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
 
             <div className="space-y-3">
