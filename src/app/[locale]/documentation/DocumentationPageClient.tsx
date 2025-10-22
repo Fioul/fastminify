@@ -114,7 +114,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.javascript.options.ecmaVersion.example.title')}</h4>
                               <CodeEditor
@@ -204,7 +204,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveClassNames.example.title')}</h4>
                               <CodeEditor
@@ -238,7 +238,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveFunctionNames.example.title')}</h4>
                               <CodeEditor
@@ -272,7 +272,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeConsole.example.title')}</h4>
                               <CodeEditor
@@ -306,7 +306,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeDebugger.example.title')}</h4>
                               <CodeEditor
@@ -364,7 +364,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                   {/* Basic Example */}
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.css.basicExample.title')}</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.css.basicExample.input')}</h4>
                         <CodeEditor
@@ -451,7 +451,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.css.options.removeComments.example.title')}</h4>
                               <CodeEditor
@@ -485,7 +485,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.css.options.convertColors.example.title')}</h4>
                               <CodeEditor
@@ -519,7 +519,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.css.options.mergeRules.example.title')}</h4>
                               <CodeEditor
@@ -553,7 +553,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.css.options.minifySelectors.example.title')}</h4>
                               <CodeEditor
@@ -598,7 +598,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.json.basicExample.title')}</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.json.basicExample.input')}</h4>
                         <CodeEditor
@@ -659,7 +659,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.json.options.optimizeNumbers.example.title')}</h4>
                               <CodeEditor
@@ -693,7 +693,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.json.options.removeNullValues.example.title')}</h4>
                               <CodeEditor
@@ -727,7 +727,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.json.options.removeEmptyArrays.example.title')}</h4>
                               <CodeEditor
@@ -761,7 +761,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.json.options.sortObjectKeys.example.title')}</h4>
                               <CodeEditor
@@ -806,7 +806,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">{t('documentation.php.basicExample.title')}</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.php.basicExample.input')}</h4>
                         <CodeEditor
@@ -841,7 +841,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.php.options.includeNullValues.example.title')}</h4>
                               <CodeEditor
@@ -875,7 +875,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyArrays.example.title')}</h4>
                               <CodeEditor
@@ -909,7 +909,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.php.options.removeEmptyObjects.example.title')}</h4>
                               <CodeEditor
@@ -943,7 +943,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-4 mb-8">
                             <div>
                               <h4 className="font-medium mb-2">{t('documentation.php.options.sortKeys.example.title')}</h4>
                               <CodeEditor
