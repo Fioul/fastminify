@@ -108,28 +108,39 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.ecmaVersion.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.ecmaVersion.example.code')}
-                                language="javascript"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.ecmaVersion.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.ecmaVersion.result.code')}
-                                language="javascript"
-                                readOnly
-                                height="120px"
-                                className="mb-4"
-                              />
-                            </div>
-                          </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-medium text-sm">Exemples par version ECMAScript :</h4>
+                                    <div className="grid md:grid-cols-5 gap-4">
+                                      <div className="md:col-span-2">
+                                        <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original (ES2022)</h5>
+                                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                          <pre className="whitespace-pre">{`const data = { name: 'test' };
+const { name } = data;
+console.log(name);`}</pre>
+                                        </div>
+                                      </div>
+                                      <div className="md:col-span-3 space-y-3">
+                                        <div>
+                                          <h5 className="text-xs font-medium text-muted-foreground mb-2">ES2022</h5>
+                                          <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                            <pre className="whitespace-pre-wrap break-all">{`const{name:data}=data;console.log(data)`}</pre>
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <h5 className="text-xs font-medium text-muted-foreground mb-2">ES2015</h5>
+                                          <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                            <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <h5 className="text-xs font-medium text-muted-foreground mb-2">ES5</h5>
+                                          <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                            <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                         </CardContent>
                       </Card>
 
@@ -142,7 +153,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid gap-2">
+                          <div className="grid gap-2 mb-6">
                             <div className="flex items-center justify-between p-3 border rounded-lg">
                               <span className="font-medium">Conservative</span>
                               <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.compressionLevel.levels.conservative')}</span>
@@ -154,6 +165,45 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                             <div className="flex items-center justify-between p-3 border rounded-lg">
                               <span className="font-medium">Aggressive</span>
                               <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.compressionLevel.levels.aggressive')}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Code Examples */}
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Exemples de compression :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`function calculateTotal(items) {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+        total += items[i].price;
+    }
+    return total;
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Conservative</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items){let total=0;for(let i=0;i<items.length;i++){total+=items[i].price}return total}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Normal</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(items){let total=0;for(let i=0;i<items.length;i++){total+=items[i].price}return total}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Aggressive</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(e){let t=0;for(let e=0;e<e.length;e++)t+=e[e].price;return t}`}</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -168,7 +218,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid gap-2">
+                          <div className="grid gap-2 mb-6">
                             <div className="flex items-center justify-between p-3 border rounded-lg">
                               <span className="font-medium">Modern</span>
                               <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.modern')}</span>
@@ -186,6 +236,41 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                               <span className="text-sm text-muted-foreground">{t('documentation.javascript.options.browserSupport.levels.all')}</span>
                             </div>
                           </div>
+                          
+                          {/* Code Examples */}
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Exemples par support navigateur :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original (ES2022)</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`const data = { name: 'test' };
+const { name } = data;
+console.log(name);`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Modern (ES2022+)</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`const{name:data}=data;console.log(data)`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">IE11 (ES2015+)</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">IE9 (ES5)</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`var data={name:'test'};var name=data.name;console.log(name)`}</pre>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </CardContent>
                       </Card>
 
@@ -198,26 +283,36 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveClassNames.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.preserveClassNames.example.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveClassNames.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.preserveClassNames.result.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`element.className = 'my-class';
+element.setAttribute('class', 'another-class');`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveClassNames: true</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`element.className='my-class';element.setAttribute('class','another-class')`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveClassNames: false</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`element.className='a';element.setAttribute('class','b')`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">Les noms de classes CSS sont préservés dans les chaînes</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -232,26 +327,38 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveFunctionNames.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.preserveFunctionNames.example.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.preserveFunctionNames.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.preserveFunctionNames.result.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`function myFunction() { 
+    return true; 
+}
+const obj = { myMethod() { return false; } };`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveFunctionNames: true</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`function myFunction(){return!0}const obj={myMethod(){return!1}}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec preserveFunctionNames: false</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`function a(){return!0}const obj={b(){return!1}}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">Les noms de fonctions sont préservés pour le debugging</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -266,26 +373,39 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeConsole.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.removeConsole.example.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeConsole.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.removeConsole.result.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`console.log('Debug info');
+console.warn('Warning message');
+const result = calculateTotal(items);
+console.log('Result:', result);
+return result;`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeConsole: true</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`const result=calculateTotal(items);return result`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeConsole: false</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`console.log('Debug info');console.warn('Warning message');const result=calculateTotal(items);console.log('Result:',result);return result`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">Tous les appels console.* sont supprimés</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -300,26 +420,42 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          <div className="grid md:grid-cols-2 gap-4 mb-8">
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeDebugger.example.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.removeDebugger.example.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{t('documentation.javascript.options.removeDebugger.result.title')}</h4>
-                              <CodeEditor
-                                value={t('documentation.javascript.options.removeDebugger.result.code')}
-                                language="javascript"
-                                readOnly
-                                height="80px"
-                                className="mb-4"
-                              />
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-sm">Comparaison avec/sans l'option :</h4>
+                            <div className="grid md:grid-cols-5 gap-4">
+                              <div className="md:col-span-2">
+                                <h5 className="text-xs font-medium text-muted-foreground mb-2">Code original</h5>
+                                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                  <pre className="whitespace-pre">{`if (condition) {
+    debugger;
+    return true;
+}
+function test() {
+    debugger;
+    return false;
+}`}</pre>
+                                </div>
+                              </div>
+                              <div className="md:col-span-3 space-y-3">
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeDebugger: true</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`if(condition)return!0;function test(){return!1}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Avec removeDebugger: false</h5>
+                                  <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-3 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                                    <pre className="whitespace-pre-wrap break-all">{`if(condition){debugger;return!0}function test(){debugger;return!1}`}</pre>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h5 className="text-xs font-medium text-muted-foreground mb-2">Différence</h5>
+                                  <div className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border border-orange-200 dark:border-orange-700 p-3 rounded-lg font-mono text-xs leading-relaxed">
+                                    <pre className="whitespace-pre-wrap break-all">Les instructions debugger sont supprimées</pre>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
