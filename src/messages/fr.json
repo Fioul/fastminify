@@ -2,6 +2,7 @@
   "common": {
     "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
     "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
+    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil de minification avancé traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -34,6 +35,7 @@
     "copyCode": "Copier le code",
     "downloadCode": "Télécharger le code",
     "openInModal": "Ouvrir dans une modal",
+    "editorModalDescription": "Éditeur de code en plein écran avec options de copie, téléchargement et effacement",
     "copied": "Copié !",
     "selectFileType": "Sélectionnez le type de fichiers que vous souhaitez concaténer",
     "concatenateFiles": "Concaténer des fichiers",
@@ -60,7 +62,47 @@
     "concatenateAndMinify": "Concaténer et minifier {count} fichier{plural}",
     "concatenateAndMinifySingle": "Concaténer et minifier {count} fichier",
     "useResult": "Utiliser le résultat",
-    "filesOrderHelp": "L'ordre des fichiers peut être défini en les glissant-déposant"
+    "filesOrderHelp": "L'ordre des fichiers peut être défini en les glissant-déposant",
+    "ariaLabels": {
+      "selectOption": "Sélectionner une option",
+      "selectLanguage": "Sélectionner le langage",
+      "selectFileType": "Sélectionner le type de fichier"
+    },
+    "toast": {
+      "codeCopied": "Code copié dans le presse-papiers !",
+      "allCleared": "Tout le code effacé !",
+      "leftCleared": "Code de gauche effacé !",
+      "rightCleared": "Code de droite effacé !",
+      "codeDownloaded": "Code téléchargé !",
+      "leftCodeCopied": "Code de gauche copié !",
+      "leftCodeDownloaded": "Code de gauche téléchargé !",
+      "rightCodeCopied": "Code de droite copié !",
+      "rightCodeDownloaded": "Code de droite téléchargé !",
+      "pasteCodeFirst": "Veuillez d'abord coller du code dans l'éditeur de gauche.",
+      "pasteRightCodeFirst": "Veuillez d'abord coller du code dans l'éditeur de droite.",
+      "enterCodeToBeautify": "Veuillez entrer du code à beautifier.",
+      "languageAutoDetected": "Langage auto-détecté : {language}",
+      "minifiedSuccessfully": "Code minifié avec succès !",
+      "unminifiedSuccessfully": "Code déminifié avec succès !",
+      "beautifiedSuccessfully": "Code beautifié avec succès !",
+      "minificationError": "Une erreur s'est produite lors de la minification.",
+      "unminificationError": "Une erreur s'est produite lors de la déminification.",
+      "beautificationError": "Une erreur s'est produite lors de la beautification.",
+      "invalidJsonProperty": "JSON invalide : Les noms de propriétés doivent être entre guillemets. Essayez d'utiliser des guillemets doubles autour des noms de propriétés.",
+      "invalidJsonToken": "JSON invalide : Caractère inattendu trouvé. Vérifiez les virgules, guillemets ou crochets manquants.",
+      "invalidJsonQuotes": "JSON invalide : Les noms de propriétés doivent utiliser des guillemets doubles, pas des guillemets simples.",
+      "invalidJsonComma": "JSON invalide : Virgule ou accolade fermante manquante. Vérifiez la structure de votre objet.",
+      "invalidJsonSyntax": "Syntaxe JSON invalide. Veuillez vérifier votre code JSON et vous assurer qu'il est correctement formaté.",
+      "invalidDataFormat": "Format de données invalide. Veuillez fournir des données JSON valides pour la sérialisation PHP.",
+      "invalidCodeType": "Code {type} invalide. Veuillez vous assurer que le code correspond au type sélectionné.",
+      "invalidCssSyntax": "Syntaxe CSS invalide. Veuillez vérifier votre code CSS.",
+      "invalidJsSyntax": "Syntaxe JavaScript invalide. Veuillez vérifier votre code JavaScript.",
+      "invalidPhpData": "Données invalides pour la sérialisation PHP. Veuillez fournir des données JSON valides, pas du code PHP.",
+      "invalidPhpSerialized": "Données PHP sérialisées invalides. Veuillez fournir une chaîne sérialisée PHP valide pour la désérialisation.",
+      "minificationFailed": "Échec de la minification : {error}",
+      "unminificationFailed": "Échec de la déminification : {error}",
+      "beautificationFailed": "Échec de la beautification : {error}"
+    }
   },
   "languages": {
     "javascript": "JavaScript",
@@ -78,6 +120,7 @@
   "navigation": {
     "home": "Minificateur de Code",
     "about": "À propos",
+    "documentation": "Documentation",
     "contact": "Contact"
   },
   "about": {
@@ -237,8 +280,8 @@
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Vous avez trouvé un bug ? Une suggestion ? Nous aimerions vous entendre !",
-    "sendMessage": "Envoyez-nous un message",
+    "subtitle": "Vous avez trouvé un bug ? Une suggestion ? J'aimerais vous entendre !",
+    "sendMessage": "Contactez-nous",
     "name": "Nom",
     "email": "Email",
     "typeOfMessage": "Type de message",
@@ -246,7 +289,7 @@
     "message": "Message",
     "sendButton": "Envoyer le message",
     "getInTouch": "Entrer en contact",
-    "getInTouchText": "Nous cherchons toujours à améliorer FastMinify. Que vous ayez trouvé un bug, une demande de fonctionnalité, ou que vous vouliez simplement dire bonjour, nous aimerions vous entendre.",
+    "getInTouchText": "J'améliore constamment FastMinify. Que vous ayez trouvé un bug, une demande de fonctionnalité, ou que vous vouliez simplement dire bonjour, j'aimerais vous entendre.",
     "commonIssues": "Problèmes courants",
     "minificationNotWorking": "La minification ne fonctionne pas ?",
     "minificationNotWorkingText": "Assurez-vous que votre code est un JavaScript ou CSS valide. Vérifiez la console du navigateur pour les erreurs.",
@@ -255,10 +298,10 @@
     "themeNotSaving": "Le thème ne se sauvegarde pas ?",
     "themeNotSavingText": "Vérifiez si votre navigateur autorise localStorage. Essayez de rafraîchir la page.",
     "messageTypes": {
-      "bug": "Rapport de bug",
-      "feature": "Demande de fonctionnalité",
-      "question": "Question",
-      "other": "Autre"
+      "contact": "Demande de contact",
+      "feedback": "Feedback",
+      "improvement": "Idée d'amélioration",
+      "bug": "Rapport de bug"
     },
     "placeholders": {
       "name": "Votre nom",
@@ -268,7 +311,13 @@
     },
     "validation": {
       "required": "Veuillez remplir tous les champs obligatoires.",
-      "success": "Merci pour votre message ! Nous vous répondrons bientôt."
+      "success": "Merci pour votre message ! Je vous répondrai bientôt.",
+      "error": "Une erreur est survenue lors de l'envoi du message."
+    },
+    "form": {
+      "description": "Remplissez le formulaire ci-dessous et je vous répondrai rapidement.",
+      "selectTypePlaceholder": "Sélectionnez un type de message",
+      "sending": "Envoi en cours..."
     }
   },
   "footer": {
@@ -296,29 +345,41 @@
     "rights": "Tous droits réservés.",
     "hosting": "Hébergé sur"
   },
-  "content": {
-    "hero": {
-      "badges": {
-        "free": "100% Gratuit",
-        "private": "Aucune donnée envoyée",
-        "instant": "Traitement instantané"
-      }
-    },
+    "content": {
+      "introduction": {
+        "title": "Pourquoi la minification est-elle essentielle ?",
+        "performance": {
+          "title": "Impact sur les performances",
+          "description": "La minification réduit significativement la taille de vos fichiers, accélérant le chargement de vos pages web. Une réduction de 30-70% de la taille des fichiers se traduit par des temps de chargement plus rapides et une meilleure expérience utilisateur."
+        },
+        "seo": {
+          "title": "Avantages SEO et économiques",
+          "description": "Les moteurs de recherche privilégient les sites rapides. La minification améliore votre classement SEO tout en réduisant la consommation de bande passante, générant des économies substantielles sur vos coûts d'hébergement."
+        }
+      },
+      "hero": {
+        "badges": {
+          "free": "100% Gratuit",
+          "private": "Aucune donnée envoyée",
+          "instant": "Traitement instantané"
+        }
+      },
     "whyMinify": {
       "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
       "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
+      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions.",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
-          "description": "La minification peut réduire la taille des fichiers JavaScript et CSS de 30 à 70%, améliorant significativement les temps de chargement."
+          "description": "La minification peut réduire la taille des fichiers JavaScript et CSS de 30 à 70%, améliorant significativement les temps de chargement. Cette optimisation est particulièrement cruciale pour les sites mobiles et les connexions lentes, où chaque kilobyte économisé compte."
         },
         "bandwidth": {
           "title": "Optimisation de bande passante",
-          "description": "Des fichiers plus petits signifient moins de transfert de données, réduisant les coûts de bande passante et améliorant l'expérience utilisateur sur les connexions lentes."
+          "description": "Des fichiers plus petits signifient moins de transfert de données, réduisant les coûts de bande passante et améliorant l'expérience utilisateur sur les connexions lentes. Pour un site avec 10 000 visiteurs par jour, cela peut représenter des économies substantielles sur l'hébergement."
         },
         "security": {
           "title": "Obfuscation du code",
-          "description": "Le code minifié est plus difficile à lire et à rétro-ingénierer, offrant un niveau de protection basique du code."
+          "description": "Le code minifié est plus difficile à lire et à rétro-ingénierer, offrant un niveau de protection basique du code. Bien que ce ne soit pas une sécurité absolue, cela décourage les tentatives de copie ou de modification malveillante."
         }
       }
     },
@@ -331,11 +392,11 @@
     },
     "howItWorks": {
       "title": "Comment ça fonctionne ?",
-      "subtitle": "Notre outil de minification est conçu pour être simple, rapide et sécurisé.",
+      "subtitle": "Cet outil de minification est conçu pour être simple, rapide et sécurisé.",
       "steps": {
         "paste": {
           "title": "Collez votre code",
-          "description": "Copiez et collez votre code dans l'éditeur de gauche. Notre détection automatique reconnaît le langage."
+          "description": "Copiez et collez votre code dans l'éditeur de gauche. La détection automatique reconnaît le langage."
         },
         "configure": {
           "title": "Configurez les options",
@@ -369,6 +430,36 @@
         ]
       }
     },
+    "faq": {
+      "title": "Questions fréquemment posées",
+      "subtitle": "Trouvez les réponses aux questions les plus courantes sur la minification de code.",
+      "questions": [
+        {
+          "question": "La minification casse-t-elle mon code ?",
+          "answer": "Non, la minification ne modifie que la présentation du code (espaces, commentaires, noms de variables) sans changer sa fonctionnalité. Votre code fonctionne exactement de la même manière."
+        },
+        {
+          "question": "Puis-je déminifier du code minifié ?",
+          "answer": "Oui, cet outil peut déminifier du code JavaScript et CSS minifié, bien que le résultat ne soit pas toujours identique au code original (commentaires et noms de variables perdus)."
+        },
+        {
+          "question": "Mes données sont-elles sécurisées ?",
+          "answer": "Absolument. Tout le traitement se fait côté client dans votre navigateur. Aucune donnée n'est envoyée aux serveurs, garantissant une confidentialité totale."
+        },
+        {
+          "question": "Quels types de fichiers puis-je minifier ?",
+          "answer": "Cet outil supporte JavaScript, CSS et JSON pour la minification, ainsi que la sérialisation PHP. Chaque type de fichier a ses propres options d'optimisation pour des résultats maximaux."
+        },
+        {
+          "question": "La minification améliore-t-elle vraiment les performances ?",
+          "answer": "Oui, la minification peut réduire la taille des fichiers de 30 à 70%, ce qui se traduit par des temps de chargement plus rapides et une meilleure expérience utilisateur."
+        },
+        {
+          "question": "L'outil est-il vraiment gratuit ?",
+          "answer": "Oui, Fast Minify est 100% gratuit et sans inscription. Vous pouvez l'utiliser autant que vous le souhaitez sans aucune limitation."
+        }
+      ]
+    },
     "codeExamples": {
       "title": "Exemples de minification",
       "subtitle": "Découvrez comment la minification transforme votre code pour optimiser les performances.",
@@ -384,11 +475,11 @@
     "lastUpdated": "Dernière mise à jour : Octobre 2025",
     "introduction": {
       "title": "Traitement des Données",
-      "content": "FastMinify traite votre code localement dans votre navigateur. Nous ne stockons, ne collectons ni ne transmettons votre code vers nos serveurs. Cet outil est conçu pour être complètement privé et sécurisé."
+      "content": "FastMinify traite votre code localement dans votre navigateur. Aucun code n'est stocké, collecté ou transmis vers des serveurs. Cet outil est conçu pour être complètement privé et sécurisé."
     },
     "dataCollection": {
-      "title": "Ce Que Nous Collectons",
-      "content": "Nous ne collectons que des données d'utilisation anonymes via :",
+      "title": "Ce Qui Est Collecté",
+      "content": "Le site ne collecte que des données d'utilisation anonymes via :",
       "types": {
         "analytics": "Google Analytics (avec votre consentement) - statistiques de trafic anonymes",
         "cookies": "Cookies essentiels pour les préférences de langue et la fonctionnalité",
@@ -397,7 +488,7 @@
     },
     "cookies": {
       "title": "Cookies",
-      "content": "Nous utilisons des cookies minimaux :",
+      "content": "Le site utilise des cookies minimaux :",
       "types": {
         "title": "Types de cookies :",
         "essential": "Cookies essentiels pour le fonctionnement du site (toujours actifs)",
@@ -413,7 +504,7 @@
     },
     "googleServices": {
       "title": "Services Tiers",
-      "content": "Nous utilisons les services Google :",
+      "content": "Le site utilise les services Google :",
       "analytics": "Google Analytics : Statistiques de trafic anonymes (vous pouvez vous désabonner)",
       "adsense": "Google AdSense : Affiche des publicités (aucune donnée personnelle collectée)"
     },
@@ -452,7 +543,7 @@
     },
     "contact": {
       "title": "Questions",
-      "content": "Pour des questions sur cette politique de confidentialité, veuillez nous contacter via notre site web."
+      "content": "Pour des questions sur cette politique de confidentialité, veuillez me contacter via le site web."
     },
     "footer": "Cette politique de confidentialité peut être mise à jour. Consultez périodiquement pour les changements."
   },
@@ -487,13 +578,331 @@
     "cookies": {
       "title": "Cookies",
       "content": "Ce site utilise des cookies essentiels pour le fonctionnement et des cookies d'analyse optionnels. Vous pouvez gérer les préférences dans votre navigateur.",
-      "moreInfo": "Consultez notre Politique de Confidentialité pour plus de détails."
+      "moreInfo": "Consultez la Politique de Confidentialité pour plus de détails."
     },
     "modifications": {
       "title": "Modifications",
-      "content": "Nous pouvons modifier ces conditions à tout moment. L'utilisation continue constitue une acceptation des modifications."
+      "content": "Ces conditions peuvent être modifiées à tout moment. L'utilisation continue constitue une acceptation des modifications."
     },
     "footer": "L'utilisation de ce service implique l'acceptation de ces conditions."
+  },
+  "documentation": {
+    "title": "Documentation Technique",
+    "subtitle": "Guide complet pour comprendre la minification et la sérialisation avec des exemples de code pratiques",
+    "javascript": {
+      "title": "Minification JavaScript",
+      "description": "Utilisation de Terser pour optimiser et compresser le code JavaScript",
+      "package": {
+        "title": "Package utilisé",
+        "description": "Terser est un compresseur JavaScript moderne qui optimise la taille et les performances de votre code."
+      },
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "Code d'entrée",
+        "output": "Code minifié",
+        "inputCode": "function calculateTotal(items) {\n  let total = 0;\n  for (let i = 0; i < items.length; i++) {\n    total += items[i].price;\n  }\n  return total;\n}\n\nconst products = [\n  { name: 'Laptop', price: 999 },\n  { name: 'Mouse', price: 25 }\n];\n\nconsole.log('Total:', calculateTotal(products));",
+        "outputCode": "function calculateTotal(e){let t=0;for(let e=0;e<e.length;e++)t+=e[e].price;return t}const products=[{name:'Laptop',price:999},{name:'Mouse',price:25}];console.log('Total:',calculateTotal(products));"
+      },
+      "options": {
+        "title": "Options de minification",
+        "ecmaVersion": {
+          "title": "Version ECMAScript",
+          "description": "Définit la version ECMAScript cible pour la minification (ES5, ES2015, ES2017, ES2020, ES2022)",
+          "example": {
+            "title": "Exemple avec ES2022",
+            "code": "const data = { name: 'test' };\nconst { name } = data;\nconsole.log(name);"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "const{name:data}=data;console.log(data);"
+          }
+        },
+        "compressionLevel": {
+          "title": "Niveau de compression",
+          "description": "Contrôle l'agressivité de la compression (conservative, normal, aggressive)",
+          "levels": {
+            "conservative": "Conservateur - Compression minimale, plus sûr",
+            "normal": "Normal - Équilibre entre taille et compatibilité",
+            "aggressive": "Agressif - Compression maximale, peut casser certains codes"
+          }
+        },
+        "browserSupport": {
+          "title": "Support navigateur",
+          "description": "Définit le niveau de support des navigateurs (modern, IE11, IE9, all)",
+          "levels": {
+            "modern": "Moderne - Navigateurs récents uniquement",
+            "ie11": "Internet Explorer 11+",
+            "ie9": "Internet Explorer 9+",
+            "all": "Tous les navigateurs"
+          }
+        },
+        "preserveClassNames": {
+          "title": "Préserver les noms de classes",
+          "description": "Conserve les noms de classes CSS dans les chaînes de caractères",
+          "example": {
+            "title": "Exemple avec préservation",
+            "code": "element.className = 'my-class';"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "element.className='my-class';"
+          }
+        },
+        "preserveFunctionNames": {
+          "title": "Préserver les noms de fonctions",
+          "description": "Conserve les noms de fonctions pour le debugging",
+          "example": {
+            "title": "Exemple avec préservation",
+            "code": "function myFunction() { return true; }"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "function myFunction(){return!0}"
+          }
+        },
+        "removeConsole": {
+          "title": "Supprimer console",
+          "description": "Supprime tous les appels console.log, console.warn, etc.",
+          "example": {
+            "title": "Exemple avec console",
+            "code": "console.log('Debug info');\nreturn result;"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "return result;"
+          }
+        },
+        "removeDebugger": {
+          "title": "Supprimer debugger",
+          "description": "Supprime les instructions debugger du code",
+          "example": {
+            "title": "Exemple avec debugger",
+            "code": "if (condition) {\n  debugger;\n  return true;\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "if(condition)return!0"
+          }
+        }
+      }
+    },
+    "css": {
+      "title": "Minification CSS",
+      "description": "Utilisation de CSSO pour optimiser et compresser les feuilles de style CSS",
+      "package": {
+        "title": "Package utilisé",
+        "description": "CSSO (CSS Optimizer) est un outil puissant pour optimiser les fichiers CSS en supprimant les redondances et en compressant le code."
+      },
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "CSS d'entrée",
+        "output": "CSS minifié",
+        "inputCode": ".container {\n  margin: 20px;\n  padding: 10px;\n  background-color: #ffffff;\n}\n\n.button {\n  color: #000000;\n  font-size: 16px;\n  border: 1px solid #cccccc;\n}",
+        "outputCode": ".container{margin:20px;padding:10px;background-color:#fff}.button{color:#000;font-size:16px;border:1px solid #ccc}"
+      },
+      "options": {
+        "title": "Options de minification",
+        "compressionLevel": {
+          "title": "Niveau de compression",
+          "description": "Contrôle l'agressivité de la compression CSS",
+          "levels": {
+            "conservative": "Conservateur - Optimisations de base uniquement",
+            "normal": "Normal - Équilibre entre taille et compatibilité",
+            "aggressive": "Agressif - Optimisations avancées, peut affecter la compatibilité"
+          }
+        },
+        "browserSupport": {
+          "title": "Support navigateur",
+          "description": "Définit le niveau de support des navigateurs pour les optimisations CSS",
+          "levels": {
+            "modern": "Moderne - Navigateurs récents uniquement",
+            "ie11": "Internet Explorer 11+",
+            "ie9": "Internet Explorer 9+"
+          }
+        },
+        "removeComments": {
+          "title": "Supprimer les commentaires",
+          "description": "Supprime tous les commentaires CSS du code",
+          "example": {
+            "title": "Exemple avec commentaires",
+            "code": "/* Header styles */\n.header {\n  color: red;\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": ".header{color:red}"
+          }
+        },
+        "convertColors": {
+          "title": "Convertir les couleurs",
+          "description": "Convertit les couleurs vers leur format le plus court",
+          "example": {
+            "title": "Exemple avec couleurs",
+            "code": ".element {\n  color: #ffffff;\n  background: rgb(255, 0, 0);\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": ".element{color:#fff;background:red}"
+          }
+        },
+        "mergeRules": {
+          "title": "Fusionner les règles",
+          "description": "Fusionne les règles CSS identiques et adjacentes",
+          "example": {
+            "title": "Exemple avec fusion",
+            "code": "p { color: red; }\np { font-size: 16px; }"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "p{color:red;font-size:16px}"
+          }
+        },
+        "minifySelectors": {
+          "title": "Minifier les sélecteurs",
+          "description": "Optimise les sélecteurs CSS pour réduire leur taille",
+          "example": {
+            "title": "Exemple avec sélecteurs",
+            "code": ".my-class { color: blue; }"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": ".my-class{color:blue}"
+          }
+        }
+      }
+    },
+    "json": {
+      "title": "Minification JSON",
+      "description": "Compression des fichiers JSON en supprimant les espaces et caractères inutiles",
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "JSON d'entrée",
+        "output": "JSON minifié",
+        "inputCode": "{\n  \"name\": \"FastMinify\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A fast minifier tool\",\n  \"features\": [\n    \"JavaScript minification\",\n    \"CSS optimization\",\n    \"JSON compression\"\n  ]\n}",
+        "outputCode": "{\"name\":\"FastMinify\",\"version\":\"1.0.0\",\"description\":\"A fast minifier tool\",\"features\":[\"JavaScript minification\",\"CSS optimization\",\"JSON compression\"]}"
+      },
+      "options": {
+        "title": "Options de minification",
+        "compressionLevel": {
+          "title": "Niveau de compression",
+          "description": "Contrôle l'agressivité de la compression JSON",
+          "levels": {
+            "conservative": "Conservateur - Suppression des espaces uniquement",
+            "normal": "Normal - Optimisations de base",
+            "aggressive": "Agressif - Optimisations avancées et nettoyage"
+          }
+        },
+        "optimizeNumbers": {
+          "title": "Optimiser les nombres",
+          "description": "Optimise la représentation des nombres (supprime les zéros inutiles)",
+          "example": {
+            "title": "Exemple avec nombres",
+            "code": "{\n  \"price\": 10.00,\n  \"count\": 0\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "{\"price\":10,\"count\":0}"
+          }
+        },
+        "removeNullValues": {
+          "title": "Supprimer les valeurs null",
+          "description": "Supprime les propriétés avec des valeurs null",
+          "example": {
+            "title": "Exemple avec null",
+            "code": "{\n  \"name\": \"test\",\n  \"value\": null\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "{\"name\":\"test\"}"
+          }
+        },
+        "removeEmptyArrays": {
+          "title": "Supprimer les tableaux vides",
+          "description": "Supprime les tableaux vides du JSON",
+          "example": {
+            "title": "Exemple avec tableaux vides",
+            "code": "{\n  \"items\": [],\n  \"name\": \"test\"\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "{\"name\":\"test\"}"
+          }
+        },
+        "sortObjectKeys": {
+          "title": "Trier les clés d'objet",
+          "description": "Trie les clés des objets par ordre alphabétique",
+          "example": {
+            "title": "Exemple avec tri",
+            "code": "{\n  \"zebra\": 1,\n  \"apple\": 2,\n  \"banana\": 3\n}"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "{\"apple\":2,\"banana\":3,\"zebra\":1}"
+          }
+        }
+      }
+    },
+    "php": {
+      "title": "PHP Serialize",
+      "description": "Utilisation de la fonction serialize() de PHP pour convertir les données en format binaire compact",
+      "basicExample": {
+        "title": "Exemple de base",
+        "input": "Code PHP d'entrée",
+        "output": "Données sérialisées",
+        "inputCode": "<?php\n$data = [\n  'name' => 'FastMinify',\n  'version' => '1.0.0',\n  'features' => ['minify', 'compress', 'optimize']\n];\n\n$serialized = serialize($data);\necho $serialized;",
+        "outputCode": "a:3:{s:4:\"name\";s:10:\"FastMinify\";s:7:\"version\";s:5:\"1.0.0\";s:8:\"features\";a:3:{i:0;s:5:\"minify\";i:1;s:8:\"compress\";i:2;s:8:\"optimize\";}}"
+      },
+      "options": {
+        "title": "Options de sérialisation",
+        "includeNullValues": {
+          "title": "Inclure les valeurs null",
+          "description": "Inclut les propriétés avec des valeurs null dans la sérialisation",
+          "example": {
+            "title": "Exemple avec null",
+            "code": "<?php\n$data = [\n  'name' => 'test',\n  'value' => null\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "a:2:{s:4:\"name\";s:4:\"test\";s:5:\"value\";N;}"
+          }
+        },
+        "removeEmptyArrays": {
+          "title": "Supprimer les tableaux vides",
+          "description": "Supprime les tableaux vides avant la sérialisation",
+          "example": {
+            "title": "Exemple avec tableaux vides",
+            "code": "<?php\n$data = [\n  'items' => [],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "a:1:{s:4:\"name\";s:4:\"test\";}"
+          }
+        },
+        "removeEmptyObjects": {
+          "title": "Supprimer les objets vides",
+          "description": "Supprime les objets vides avant la sérialisation",
+          "example": {
+            "title": "Exemple avec objets vides",
+            "code": "<?php\n$data = [\n  'config' => (object)[],\n  'name' => 'test'\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "a:1:{s:4:\"name\";s:4:\"test\";}"
+          }
+        },
+        "sortKeys": {
+          "title": "Trier les clés",
+          "description": "Trie les clés des tableaux associatifs par ordre alphabétique",
+          "example": {
+            "title": "Exemple avec tri",
+            "code": "<?php\n$data = [\n  'zebra' => 1,\n  'apple' => 2,\n  'banana' => 3\n];\n$serialized = serialize($data);"
+          },
+          "result": {
+            "title": "Résultat",
+            "code": "a:3:{s:5:\"apple\";i:2;s:6:\"banana\";i:3;s:5:\"zebra\";i:1;}"
+          }
+        }
+      }
+    }
   },
   "notFound": {
     "title": "Oups ! Page Introuvable",
@@ -504,7 +913,7 @@
       "items": [
         "Vérifiez l'URL pour des fautes de frappe (on fait tous des erreurs !)",
         "Retournez à la page d'accueil et réessayez",
-        "Utilisez notre super minificateur pendant que vous y êtes",
+        "Utilisez ce super minificateur pendant que vous y êtes",
         "Prenez une grande inspiration et réessayez"
       ]
     },
@@ -519,7 +928,7 @@
   },
   "cookies": {
     "title": "Préférences des Cookies",
-    "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
+    "description": "Ce site utilise des cookies pour améliorer votre expérience et analyser l'utilisation du site. Vous pouvez personnaliser vos préférences ci-dessous.",
     "privacyPolicy": "Politique de Confidentialité",
     "legalNotice": "Mentions Légales",
     "acceptAll": "Tout Accepter",

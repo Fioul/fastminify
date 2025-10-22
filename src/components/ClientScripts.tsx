@@ -32,30 +32,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       consent = null
     }
 
-    const scheduleLoad = () => {
-      const run = () => interacted && loadGTM()
+    // Charger GTM immédiatement - GTM gère le consentement via Consent Mode V2
+    // C'est conforme RGPD car GTM ne collecte pas de données sans consentement
+    const loadGTMImmediately = () => {
       const ric: any = (window as any).requestIdleCallback
       if (typeof ric === 'function') {
-        ric(run, { timeout: 4000 })
+        ric(loadGTM, { timeout: 1000 })
       } else {
-        setTimeout(run, 2500)
+        setTimeout(loadGTM, 500)
       }
     }
 
-    if (consent && consent.analytics) {
-      scheduleLoad()
-    } else {
-      // attend l'évènement de consentement
-      const handler = (e: Event) => {
-        const detail = (e as CustomEvent).detail as { analytics: boolean }
-        if (detail?.analytics) {
-          scheduleLoad()
-          window.removeEventListener('cookie-consent-update', handler as EventListener)
-        }
-      }
-      window.addEventListener('cookie-consent-update', handler as EventListener)
-      return () => window.removeEventListener('cookie-consent-update', handler as EventListener)
-    }
+    loadGTMImmediately()
   }, [])
 
   return null

@@ -26,22 +26,24 @@ let monacoInitStarted = false
 
 interface CodeEditorProps {
   value: string
-  onChange: (value: string | undefined) => void
-  language: 'javascript' | 'css' | 'html' | 'json'
+  onChange?: (value: string | undefined) => void
+  language: 'javascript' | 'css' | 'html' | 'json' | 'php'
   placeholder?: string
   height?: string
   readOnly?: boolean
   'data-testid'?: string
+  className?: string
 }
 
 export default function CodeEditor({
   value,
-  onChange,
+  onChange = () => {},
   language,
   placeholder = 'Paste or drop your code here...',
   height = '600px',
   readOnly = false,
-  'data-testid': dataTestId
+  'data-testid': dataTestId,
+  className = ''
 }: CodeEditorProps) {
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
@@ -54,6 +56,22 @@ export default function CodeEditor({
     'plaintext'
   )
   const hasUpgradedRef = React.useRef(false)
+
+  // Détecter le contenu scrollable
+  React.useEffect(() => {
+    if (value) {
+      const lines = value.split('\n').length
+      const lineHeight = 20 // Hauteur approximative d'une ligne
+      const padding = 32 // Padding top + bottom
+      const contentHeight = lines * lineHeight + padding
+      
+      // Si le contenu dépasse la hauteur de l'éditeur, il est scrollable
+      const editorHeight = parseInt(height.replace('px', '')) || 200
+      setHasScrollableContent(contentHeight > editorHeight)
+    } else {
+      setHasScrollableContent(false)
+    }
+  }, [value, height])
 
   // Prod: charge uniquement sur interaction; Dev: idle/visibilité pour confort
   React.useEffect(() => {
@@ -260,7 +278,7 @@ export default function CodeEditor({
   return (
     <div
       ref={containerRef}
-      className="w-full h-full border rounded-md overflow-hidden"
+      className={`w-full h-full border rounded-md overflow-hidden ${className}`}
       data-testid={dataTestId}
     >
       {shouldLoad ? (
@@ -328,7 +346,8 @@ export default function CodeEditor({
             const upgradeLanguage = () => {
               if (hasUpgradedRef.current) return
               hasUpgradedRef.current = true
-              setCurrentLanguage(targetLanguage)
+              const finalLanguage = language === 'html' ? 'plaintext' : language
+              setCurrentLanguage(finalLanguage as 'plaintext' | 'javascript' | 'css' | 'json')
             }
             
             // focus dans l'éditeur
