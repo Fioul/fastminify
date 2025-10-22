@@ -346,7 +346,8 @@ export default function CodeEditor({
             const upgradeLanguage = () => {
               if (hasUpgradedRef.current) return
               hasUpgradedRef.current = true
-              setCurrentLanguage(targetLanguage)
+              const finalLanguage = language === 'html' ? 'plaintext' : language
+              setCurrentLanguage(finalLanguage as 'plaintext' | 'javascript' | 'css' | 'json')
             }
             
             // focus dans l'éditeur
