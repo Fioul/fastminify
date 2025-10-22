@@ -26,22 +26,24 @@ let monacoInitStarted = false
 
 interface CodeEditorProps {
   value: string
-  onChange: (value: string | undefined) => void
-  language: 'javascript' | 'css' | 'html' | 'json'
+  onChange?: (value: string | undefined) => void
+  language: 'javascript' | 'css' | 'html' | 'json' | 'php'
   placeholder?: string
   height?: string
   readOnly?: boolean
   'data-testid'?: string
+  className?: string
 }
 
 export default function CodeEditor({
   value,
-  onChange,
+  onChange = () => {},
   language,
   placeholder = 'Paste or drop your code here...',
   height = '600px',
   readOnly = false,
-  'data-testid': dataTestId
+  'data-testid': dataTestId,
+  className = ''
 }: CodeEditorProps) {
   const { theme } = useTheme()
   const editorRef = useRef<unknown>(null)
@@ -276,7 +278,7 @@ export default function CodeEditor({
   return (
     <div
       ref={containerRef}
-      className="w-full h-full border rounded-md overflow-hidden"
+      className={`w-full h-full border rounded-md overflow-hidden ${className}`}
       data-testid={dataTestId}
     >
       {shouldLoad ? (
