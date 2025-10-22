@@ -66,10 +66,10 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   {/* Package Information */}
                   <div>
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.javascript.package.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.javascript.package.title')}</h3>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">Terser</Badge>
-                      <Badge variant="outline">v5.24.0</Badge>
+                      <Badge className="bg-orange-500 hover:bg-orange-600 text-white font-medium">Terser</Badge>
+                      <Badge className="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-700">v5.24.0</Badge>
                     </div>
                     <p className="text-sm text-muted-foreground mb-4">
                       {t('documentation.javascript.package.description')}
@@ -78,32 +78,26 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
 
                   {/* Basic Example */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.javascript.basicExample.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.javascript.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.input')}</h4>
-                        <CodeEditor
-                          value={t('documentation.javascript.basicExample.inputCode')}
-                          language="javascript"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre">{t('documentation.javascript.basicExample.inputCode')}</pre>
+                        </div>
                       </div>
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.javascript.basicExample.output')}</h4>
-                        <CodeEditor
-                          value={t('documentation.javascript.basicExample.outputCode')}
-                          language="javascript"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre-wrap break-all">{t('documentation.javascript.basicExample.outputCode')}</pre>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Options */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-4">{t('documentation.javascript.options.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-4">{t('documentation.javascript.options.title')}</h3>
                     <div className="grid gap-6">
                       {/* ECMAScript Version */}
                       <Card>
@@ -351,10 +345,10 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 <CardContent className="space-y-6">
                   {/* Package Information */}
                   <div>
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.css.package.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.css.package.title')}</h3>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">CSSO</Badge>
-                      <Badge variant="outline">v7.0.0</Badge>
+                      <Badge className="bg-orange-500 hover:bg-orange-600 text-white font-medium">CSSO</Badge>
+                      <Badge className="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-700">v7.0.0</Badge>
                     </div>
                     <p className="text-sm text-muted-foreground mb-4">
                       {t('documentation.css.package.description')}
@@ -363,32 +357,26 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
 
                   {/* Basic Example */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.css.basicExample.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.css.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.css.basicExample.input')}</h4>
-                        <CodeEditor
-                          value={t('documentation.css.basicExample.inputCode')}
-                          language="css"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre">{t('documentation.css.basicExample.inputCode')}</pre>
+                        </div>
                       </div>
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.css.basicExample.output')}</h4>
-                        <CodeEditor
-                          value={t('documentation.css.basicExample.outputCode')}
-                          language="css"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre-wrap break-all">{t('documentation.css.basicExample.outputCode')}</pre>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Options */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-4">{t('documentation.css.options.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-4">{t('documentation.css.options.title')}</h3>
                     <div className="grid gap-6">
                       {/* Compression Level */}
                       <Card>
@@ -597,32 +585,26 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.json.basicExample.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.json.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.json.basicExample.input')}</h4>
-                        <CodeEditor
-                          value={t('documentation.json.basicExample.inputCode')}
-                          language="json"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre">{t('documentation.json.basicExample.inputCode')}</pre>
+                        </div>
                       </div>
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.json.basicExample.output')}</h4>
-                        <CodeEditor
-                          value={t('documentation.json.basicExample.outputCode')}
-                          language="json"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre-wrap break-all">{t('documentation.json.basicExample.outputCode')}</pre>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Options */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-4">{t('documentation.json.options.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-4">{t('documentation.json.options.title')}</h3>
                     <div className="grid gap-6">
                       {/* Compression Level */}
                       <Card>
@@ -805,32 +787,26 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-3">{t('documentation.php.basicExample.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-3">{t('documentation.php.basicExample.title')}</h3>
                     <div className="grid md:grid-cols-2 gap-4 mb-16">
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.php.basicExample.input')}</h4>
-                        <CodeEditor
-                          value={t('documentation.php.basicExample.inputCode')}
-                          language="php"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre">{t('documentation.php.basicExample.inputCode')}</pre>
+                        </div>
                       </div>
                       <div>
                         <h4 className="font-medium mb-2">{t('documentation.php.basicExample.output')}</h4>
-                        <CodeEditor
-                          value={t('documentation.php.basicExample.outputCode')}
-                          language="php"
-                          readOnly
-                          height="200px"
-                        />
+                        <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
+                          <pre className="whitespace-pre-wrap break-all">{t('documentation.php.basicExample.outputCode')}</pre>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Options */}
                   <div className="mb-8">
-                    <h3 className="text-lg font-semibold mb-4">{t('documentation.php.options.title')}</h3>
+                    <h3 className="text-lg font-semibold border-l-4 border-primary pl-3 mb-4">{t('documentation.php.options.title')}</h3>
                     <div className="grid gap-6">
                       {/* Include Null Values */}
                       <Card>
