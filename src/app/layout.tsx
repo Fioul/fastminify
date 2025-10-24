@@ -111,7 +111,6 @@ export default async function RootLayout({
             <FaviconHead />
             <meta name="google-adsense-account" content="ca-pub-5768156413311714" />
             <meta name="apple-mobile-web-app-title" content="Fast Minify" />
-            <StructuredData locale="en" pageType="home" />
             {/* Preload critical resources - only if used immediately */}
             {/* Logos are loaded dynamically by Logo component, no preload needed */}
             {/* Preload critical fonts */}
