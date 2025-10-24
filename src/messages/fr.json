@@ -1,8 +1,8 @@
 {
   "common": {
-    "subtitle": "Minificateur JavaScript, CSS & JSON en ligne",
-    "description": "Minifiez votre code JavaScript, CSS et JSON de gauche à droite, déminifiez de droite à gauche — gratuit, rapide et privé. Outil de minification en ligne sans inscription.",
-    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil de minification avancé traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
+    "subtitle": "Minifier, Déminifier & Beautifier JavaScript, CSS & JSON en ligne",
+    "description": "Minifiez, déminifiez et beautifiez votre code JavaScript, CSS et JSON instantanément — gratuit, rapide et privé. Outil de minification, déminification et beautification en ligne sans inscription.",
+    "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil avancé de minification, déminification et beautification traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
     "minifiedCode": "Code Minifié",
     "auto": "Auto",
@@ -125,20 +125,20 @@
   },
   "about": {
     "title": "À propos de FastMinify",
-    "subtitle": "Le minificateur en ligne le plus rapide et fiable pour JavaScript et CSS",
+    "subtitle": "L'outil en ligne le plus rapide et fiable pour minifier, déminifier et beautifier JavaScript, CSS et JSON",
     "whatIs": "Qu'est-ce que FastMinify ?",
-    "whatIsText": "FastMinify est un outil en ligne gratuit et axé sur la confidentialité conçu pour minifier instantanément le code JavaScript et CSS. Construit avec des technologies web modernes, il fournit une minification rapide et fiable sans compromettre la confidentialité de vos données.",
+    "whatIsText": "FastMinify est un outil en ligne gratuit et axé sur la confidentialité conçu pour minifier, déminifier et beautifier instantanément le code JavaScript, CSS et JSON. Construit avec des technologies web modernes, il fournit une minification, déminification et beautification rapides et fiables sans compromettre la confidentialité de vos données.",
     "whyChoose": "Pourquoi choisir FastMinify ?",
     "features": {
       "clientSide": "100% Côté client : Votre code ne quitte jamais votre navigateur",
-      "lightningFast": "Ultra rapide : La minification se fait instantanément dans votre navigateur",
+      "lightningFast": "Ultra rapide : La minification, déminification et beautification se font instantanément dans votre navigateur",
       "privacyFirst": "Confidentialité d'abord : Aucune collecte de données, aucun suivi, aucun téléchargement",
       "modernUI": "Interface moderne : Design propre et réactif avec support du mode sombre",
       "advancedOptions": "Options avancées : Modes Safe/Aggressive et compatibilité ES5/ES6+",
       "freeForever": "Gratuit pour toujours : Aucune inscription requise, aucun coût caché"
     },
     "howItWorks": "Comment ça marche",
-    "howItWorksText": "FastMinify utilise des bibliothèques de minification standard de l'industrie (Terser pour JavaScript, CSSO pour CSS) fonctionnant directement dans votre navigateur. Cela signifie :",
+    "howItWorksText": "FastMinify utilise des bibliothèques de minification, déminification et beautification standard de l'industrie (Terser pour JavaScript, CSSO pour CSS) fonctionnant directement dans votre navigateur. Cela signifie :",
     "howItWorksList": {
       "noServer": "Aucun traitement serveur requis",
       "noUploads": "Aucun téléchargement de fichiers",

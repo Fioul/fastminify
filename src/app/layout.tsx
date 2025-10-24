@@ -24,23 +24,48 @@ const nunitoSans = Nunito_Sans({
 
 // SEO / Meta configuration
 export const metadata: Metadata = {
-    title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier Tool',
+    title: 'FastMinify — Minify, Unminify & Beautify JavaScript, CSS & JSON Online',
     description:
-        'Minify JavaScript, CSS and JSON code online instantly with our free tool. Reduce file size, improve loading times, and optimize web performance. No registration required.',
+        'Minify, unminify and beautify JavaScript, CSS and JSON code online instantly. Free tool for code optimization, unminification and beautification. No registration required.',
     keywords: [
+        // Minify (33%)
         'minify javascript',
         'minify css',
         'minify json',
         'javascript minifier',
         'css minifier',
         'json minifier',
-        'online minifier',
         'minify js online',
         'minify css online',
         'minify json online',
         'free javascript minifier',
         'free css minifier',
         'free json minifier',
+        // Unminify (33%)
+        'unminify javascript',
+        'unminify css',
+        'unminify json',
+        'javascript unminifier',
+        'css unminifier',
+        'json unminifier',
+        'unminify js online',
+        'unminify css online',
+        'unminify json online',
+        'code unminifier',
+        'unminify code',
+        // Beautify (33%)
+        'beautify javascript',
+        'beautify css',
+        'beautify json',
+        'javascript beautifier',
+        'css beautifier',
+        'json beautifier',
+        'beautify js online',
+        'beautify css online',
+        'beautify json online',
+        'code beautifier',
+        'beautify code',
+        // Génériques
         'online tool',
         'web performance',
         'code optimization',
@@ -59,9 +84,9 @@ export const metadata: Metadata = {
         },
     },
     openGraph: {
-        title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier Tool',
+        title: 'FastMinify — Minify, Unminify & Beautify JavaScript, CSS & JSON Online',
         description:
-            'Minify JavaScript, CSS and JSON code online instantly. Free tool to reduce file size and improve web performance. No registration required.',
+            'Minify, unminify and beautify JavaScript, CSS and JSON code online instantly. Free tool for code optimization, unminification and beautification. No registration required.',
         url: 'https://fastminify.com',
         siteName: 'FastMinify',
         locale: 'en_US',
@@ -69,8 +94,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'FastMinify — Free Online JavaScript, CSS & JSON Minifier',
-        description: 'Minify JavaScript, CSS and JSON code online instantly. Free, fast, and private!',
+        title: 'FastMinify — Minify, Unminify & Beautify JavaScript, CSS & JSON',
+        description: 'Minify, unminify and beautify JavaScript, CSS and JSON code online instantly. Free, fast, and private!',
     },
 }
 

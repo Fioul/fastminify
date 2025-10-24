@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import ContactPageClient from './ContactPageClient'
 import StructuredData from '@/components/StructuredData'
+import { generateSEOMetadata } from '@/lib/seo'
 
 interface ContactPageProps {
   params: Promise<{ locale: string }>
@@ -10,7 +11,9 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
   const { locale } = await params
   
   if (locale === 'fr') {
-    return {
+    return generateSEOMetadata({
+      locale,
+      pageType: 'contact',
       title: 'Contact — FastMinify Minificateur JavaScript, CSS & JSON',
       description: 'Contactez le développeur de FastMinify pour toute question, suggestion ou rapport de bug. Je suis là pour vous aider à optimiser votre code.',
       keywords: [
@@ -23,10 +26,12 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
         'contact développeur',
         'aide outil minification'
       ]
-    }
+    })
   }
   
-  return {
+  return generateSEOMetadata({
+    locale,
+    pageType: 'contact',
     title: 'Contact — FastMinify JavaScript, CSS & JSON Minifier',
     description: 'Contact the FastMinify developer for any questions, suggestions or bug reports. I\'m here to help you optimize your code.',
     keywords: [
@@ -39,7 +44,7 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
       'developer contact',
       'minification tool help'
     ]
-  }
+  })
 }
 
 // Server component that renders the client component
