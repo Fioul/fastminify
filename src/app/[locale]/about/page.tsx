@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import AboutPageClient from './AboutPageClient'
 import StructuredData from '@/components/StructuredData'
+import { generateSEOMetadata } from '@/lib/seo'
 
 interface AboutPageProps {
   params: Promise<{ locale: string }>
@@ -10,7 +11,9 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
   const { locale } = await params
   
   if (locale === 'fr') {
-    return {
+    return generateSEOMetadata({
+      locale,
+      pageType: 'about',
       title: 'À propos de FastMinify — Minificateur JavaScript, CSS & JSON en ligne',
       description: 'Découvrez FastMinify, le minificateur JavaScript, CSS et JSON en ligne le plus rapide et fiable. Outil gratuit, privé et sécurisé pour optimiser votre code.',
       keywords: [
@@ -27,10 +30,12 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
         'privé',
         'sécurisé'
       ]
-    }
+    })
   }
   
-  return {
+  return generateSEOMetadata({
+    locale,
+    pageType: 'about',
     title: 'About FastMinify — Online JavaScript, CSS & JSON Minifier Tool',
     description: 'Learn about FastMinify, the fastest and most reliable online JavaScript, CSS and JSON minifier. Free, private, and secure tool to optimize your code.',
     keywords: [
@@ -47,7 +52,7 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       'private',
       'secure'
     ]
-  }
+  })
 }
 
 // Server component that renders the client component

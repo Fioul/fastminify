@@ -4,7 +4,7 @@ import React from 'react'
 
 interface StructuredDataProps {
   locale: string
-  pageType?: 'home' | 'about' | 'privacy' | 'legal'
+  pageType?: 'home' | 'about' | 'privacy' | 'legal' | 'contact' | 'documentation'
 }
 
 export default function StructuredData({ locale, pageType = 'home' }: StructuredDataProps) {
@@ -12,7 +12,26 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
   
   // Base URL
   const baseUrl = 'https://fastminify.com'
-  const currentUrl = `${baseUrl}/${locale === 'fr' ? 'fr' : 'en'}${pageType !== 'home' ? `/${pageType}` : ''}`
+  
+  // Generate correct URL based on pageType and locale
+  const getPageUrl = (pageType: string, locale: string) => {
+    const routeMap = {
+      about: locale === 'fr' ? '/a-propos' : '/about',
+      legal: locale === 'fr' ? '/mentions-legales' : '/legal',
+      privacy: locale === 'fr' ? '/confidentialite' : '/privacy',
+      contact: '/contact',
+      documentation: '/documentation',
+    }
+    
+    if (pageType === 'home') {
+      return `${baseUrl}/${locale}`
+    }
+    
+    const route = routeMap[pageType as keyof typeof routeMap]
+    return route ? `${baseUrl}/${locale}${route}` : `${baseUrl}/${locale}`
+  }
+  
+  const currentUrl = getPageUrl(pageType, locale)
   
   // Translations
   const translations = {
@@ -132,7 +151,8 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     },
     "inLanguage": isFrench ? "fr" : "en",
     "isAccessibleForFree": true,
-    "license": "https://opensource.org/licenses/MIT"
+    "license": "https://opensource.org/licenses/MIT",
+    "screenshot": `${baseUrl}/screenshot.png`
   }
   
   // WebSite Schema
@@ -147,6 +167,28 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       "@type": "Organization",
       "name": "FastMinify",
       "url": baseUrl
+    }
+  }
+
+  // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FastMinify",
+    "url": baseUrl,
+    "logo": `${baseUrl}/logo-black.svg`,
+    "description": isFrench ? 
+      "Minificateur JavaScript, CSS et JSON en ligne gratuit, rapide et privé. Minifiez, déminifiez et beautifiez votre code instantanément." :
+      "Free online JavaScript, CSS and JSON minifier, unminifier and beautifier. Minify, unminify and beautify your code instantly with our fast and private tool.",
+    "foundingDate": "2024-12-01",
+    "founder": {
+      "@type": "Person",
+      "name": "FastMinify Developer"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/contact`
     }
   }
   
@@ -165,17 +207,27 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
       {
         "@type": "SiteNavigationElement", 
         "name": isFrench ? "À propos" : "About",
-        "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/about`
+        "url": getPageUrl('about', locale)
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": isFrench ? "Contact" : "Contact",
+        "url": getPageUrl('contact', locale)
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": isFrench ? "Documentation" : "Documentation",
+        "url": getPageUrl('documentation', locale)
       },
       {
         "@type": "SiteNavigationElement",
         "name": isFrench ? "Confidentialité" : "Privacy", 
-        "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/privacy`
+        "url": getPageUrl('privacy', locale)
       },
       {
         "@type": "SiteNavigationElement",
         "name": isFrench ? "Mentions légales" : "Legal",
-        "url": `${baseUrl}/${isFrench ? 'fr' : 'en'}/legal`
+        "url": getPageUrl('legal', locale)
       }
     ]
   }
@@ -281,16 +333,70 @@ export default function StructuredData({ locale, pageType = 'home' }: Structured
     "inLanguage": isFrench ? "fr" : "en",
     "dateModified": new Date().toISOString().split('T')[0]
   } : null
+
+  // ContactPage Schema
+  const contactPageSchema = pageType === 'contact' ? {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": isFrench ? "Contact - FastMinify" : "Contact - FastMinify",
+    "description": isFrench ? 
+      "Contactez le développeur de FastMinify pour toute question, suggestion ou rapport de bug. Je suis là pour vous aider à optimiser votre code." :
+      "Contact the FastMinify developer for any questions, suggestions or bug reports. I'm here to help you optimize your code.",
+    "url": currentUrl,
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl,
+      "description": t.appDescription
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl
+    },
+    "inLanguage": isFrench ? "fr" : "en",
+    "dateModified": new Date().toISOString().split('T')[0]
+  } : null
+
+  // DocumentationPage Schema
+  const documentationPageSchema = pageType === 'documentation' ? {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": isFrench ? "Documentation Technique - FastMinify" : "Technical Documentation - FastMinify",
+    "description": isFrench ? 
+      "Documentation technique complète pour la minification JavaScript, CSS, JSON et la sérialisation PHP. Exemples de code, options et configurations." :
+      "Complete technical documentation for JavaScript, CSS, JSON minification and PHP serialization. Code examples, options and configurations.",
+    "url": currentUrl,
+    "about": {
+      "@type": "WebApplication",
+      "name": "FastMinify",
+      "description": t.appDescription,
+      "url": baseUrl,
+      "applicationCategory": "DeveloperApplication"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FastMinify",
+      "url": baseUrl
+    },
+    "inLanguage": isFrench ? "fr" : "en",
+    "dateModified": new Date().toISOString().split('T')[0],
+    "articleSection": "Technical Documentation",
+    "wordCount": "2000"
+  } : null
   
   // Combine all schemas
   const schemas = [
     webApplicationSchema,
     webSiteSchema,
+    organizationSchema,
     siteNavigationSchema,
     ...(howToSchema ? [howToSchema] : []),
     ...(pageType === 'home' ? [faqSchema] : []),
     ...(aboutPageSchema ? [aboutPageSchema] : []),
-    ...(webPageSchema ? [webPageSchema] : [])
+    ...(webPageSchema ? [webPageSchema] : []),
+    ...(contactPageSchema ? [contactPageSchema] : []),
+    ...(documentationPageSchema ? [documentationPageSchema] : [])
   ]
   
   return (
