@@ -1,8 +1,8 @@
 {
   "common": {
-    "subtitle": "Online JavaScript, CSS & JSON Minifier",
-    "description": "Minify your JavaScript, CSS and JSON code from left to right, unminify from right to left — free, fast, and private. Online minification tool with no registration required.",
-    "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. This advanced minification tool processes JavaScript, CSS and JSON in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
+    "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON Online",
+    "description": "Minify, unminify and beautify your JavaScript, CSS and JSON code instantly — free, fast, and private. Online minification, unminification and beautification tool with no registration required.",
+    "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. This advanced minification, unminification and beautification tool processes JavaScript, CSS and JSON in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
     "normalCode": "Normal Code",
     "minifiedCode": "Minified Code",
     "auto": "Auto",
@@ -125,7 +125,7 @@
   },
   "about": {
     "title": "About FastMinify",
-    "subtitle": "The fastest, most reliable online minifier for JavaScript and CSS",
+    "subtitle": "The fastest, most reliable online tool to minify, unminify and beautify JavaScript, CSS and JSON",
     "technologies": {
       "title": "Technologies used",
       "subtitle": "FastMinify is built with the most modern and performant web technologies",
