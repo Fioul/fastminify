@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArticleContent } from '@/components/blog/ArticleContent'
 import { ArticleHeader } from '@/components/blog/ArticleHeader'
-import { ArticleNavigation } from '@/components/blog/ArticleNavigation'
 import ArticleStructuredData from '@/components/blog/ArticleStructuredData'
+import RelatedArticles from '@/components/blog/RelatedArticles'
 import { getBlogArticle, getBlogArticles } from '@/lib/blog'
 
 type Props = {
@@ -84,9 +84,7 @@ export default async function BlogArticlePage({ params }: Props) {
   }
 
   const allArticles = await getBlogArticles(params.locale)
-  const currentIndex = allArticles.findIndex(a => a.slug === params.slug)
-  const previousArticle = currentIndex > 0 ? allArticles[currentIndex - 1] : null
-  const nextArticle = currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null
+  const currentIndex = allArticles.findIndex(a => a.id === article.id)
 
   return (
     <>
@@ -100,10 +98,12 @@ export default async function BlogArticlePage({ params }: Props) {
               <ArticleContent article={article} />
             </div>
             
+            
             <div className="mt-12">
-              <ArticleNavigation 
-                previousArticle={previousArticle}
-                nextArticle={nextArticle}
+              <RelatedArticles 
+                articles={allArticles}
+                currentArticleId={article.id}
+                locale={params.locale}
               />
             </div>
           </div>

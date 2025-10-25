@@ -21,7 +21,8 @@ export async function getBlogArticle(slug: string, locale: string): Promise<(Blo
     if (typeof a.slug === 'string') {
       return a.slug === slug
     }
-    return a.slug[locale as keyof typeof a.slug] === slug || a.slug.en === slug
+    // Chercher dans tous les slugs (fr et en) pour trouver l'article
+    return a.slug.fr === slug || a.slug.en === slug
   })
   
   if (!article) {
@@ -33,7 +34,7 @@ export async function getBlogArticle(slug: string, locale: string): Promise<(Blo
     
     return {
       id: article.id,
-      slug: typeof article.slug === 'string' ? article.slug : article.slug[locale as keyof typeof article.slug] || article.slug.en,
+      slug: typeof article.slug === 'string' ? article.slug : article.slug,
       title: article.title[locale as keyof typeof article.title] || article.title.en,
       excerpt: article.excerpt[locale as keyof typeof article.excerpt] || article.excerpt.en,
       category: article.category[locale as keyof typeof article.category] || article.category.en,

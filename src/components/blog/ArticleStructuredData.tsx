@@ -71,7 +71,50 @@ export default function ArticleStructuredData({ article, locale }: ArticleStruct
           "item": articleUrl
         }
       ]
-    }
+    },
+    // Ajout de données structurées HowTo pour les tutoriels
+    ...(article.category.toLowerCase().includes('tutorial') || article.category.toLowerCase().includes('tutoriel') ? {
+      "about": {
+        "@type": "HowTo",
+        "name": article.title,
+        "description": article.excerpt,
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": locale === 'fr' ? "Introduction" : "Introduction",
+            "text": article.excerpt
+          }
+        ]
+      }
+    } : {}),
+    // Ajout de FAQ si c'est un guide
+    ...(article.title.toLowerCase().includes('guide') || article.title.toLowerCase().includes('complet') ? {
+      "mainEntity": {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": locale === 'fr' ? "Qu'est-ce que la minification JavaScript ?" : "What is JavaScript minification?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": locale === 'fr' 
+                ? "La minification JavaScript est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité."
+                : "JavaScript minification is the process of removing unnecessary characters from source code without changing its functionality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": locale === 'fr' ? "Pourquoi minifier le JavaScript ?" : "Why minify JavaScript?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": locale === 'fr'
+                ? "La minification réduit la taille des fichiers, améliore les temps de chargement et optimise les performances web."
+                : "Minification reduces file sizes, improves loading times and optimizes web performance."
+            }
+          }
+        ]
+      }
+    } : {})
   }
 
   return (

@@ -58,8 +58,10 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     <div className="mb-6">
                       <img 
                         src={section.image} 
-                        alt={section.imageAlt || ''} 
+                        alt={section.imageAlt || section.title || 'Article image'} 
                         className="w-full h-32 md:h-40 object-cover rounded-lg shadow-md"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   )}
@@ -142,8 +144,10 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     <div className="mb-6">
                       <img 
                         src={section.image} 
-                        alt={section.imageAlt || ''} 
+                        alt={section.imageAlt || section.title || 'Article image'} 
                         className="w-full h-32 md:h-40 object-cover rounded-lg shadow-md"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   )}
@@ -303,8 +307,10 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     <div className="mb-6">
                       <img 
                         src={section.image} 
-                        alt={section.imageAlt || ''} 
+                        alt={section.imageAlt || section.title || 'Article image'} 
                         className="w-full h-32 md:h-40 object-cover rounded-lg shadow-md"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   )}

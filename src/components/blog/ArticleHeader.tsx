@@ -20,9 +20,9 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
     <div>
       <div className="mb-6">
         <Button variant="ghost" asChild className="mb-4">
-          <Link href="/blog" className="flex items-center gap-2">
+          <Link href={`/${locale}/blog`} className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
-            Retour au blog
+            {locale === 'fr' ? 'Retour au blog' : 'Back to blog'}
           </Link>
         </Button>
       </div>
@@ -33,12 +33,14 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
             src={article.heroImage} 
             alt={article.title}
             className="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg"
+            loading="eager"
+            decoding="async"
           />
         </div>
       )}
       
       <div className="flex items-center gap-2 mb-4">
-        <Badge variant="secondary">{article.category}</Badge>
+        <Badge variant="default" className="bg-primary text-primary-foreground">{article.category}</Badge>
       </div>
       
       <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
@@ -62,7 +64,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       
       <div className="flex flex-wrap gap-2">
         {article.tags.map((tag) => (
-          <Badge key={tag} variant="outline">
+          <Badge key={tag} variant="secondary" className="text-xs bg-muted text-muted-foreground border">
             {tag}
           </Badge>
         ))}

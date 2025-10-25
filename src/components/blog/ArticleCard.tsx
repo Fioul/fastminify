@@ -17,7 +17,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   const locale = params.locale as string
   
   return (
-    <Link href={`/blog/${article.slug}`} className="block h-full">
+    <Link href={`/${locale}/blog/${typeof article.slug === 'string' ? article.slug : article.slug[locale as keyof typeof article.slug]}`} className="block h-full">
       <Card className="h-full hover:shadow-lg transition-shadow duration-200 overflow-hidden p-0 group cursor-pointer">
         {article.heroImage && (
           <div className="aspect-video overflow-hidden">
@@ -25,12 +25,14 @@ export function ArticleCard({ article }: ArticleCardProps) {
               src={article.heroImage} 
               alt={article.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         )}
         <CardHeader className="p-3 pb-1">
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="secondary">{article.category}</Badge>
+            <Badge variant="default" className="bg-primary text-primary-foreground">{article.category}</Badge>
           </div>
           <h3 className="text-xl font-semibold line-clamp-2 group-hover:text-primary transition-colors mb-1">
             {article.title}
@@ -54,12 +56,12 @@ export function ArticleCard({ article }: ArticleCardProps) {
           
           <div className="flex flex-wrap gap-1 mt-2 mb-2">
             {article.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
+              <Badge key={tag} variant="secondary" className="text-xs bg-muted text-muted-foreground border">
                 {tag}
               </Badge>
             ))}
             {article.tags.length > 3 && (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="secondary" className="text-xs bg-muted text-muted-foreground border">
                 +{article.tags.length - 3}
               </Badge>
             )}
