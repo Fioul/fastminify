@@ -38,8 +38,7 @@ export default function ArticleStructuredData({ article, locale }: ArticleStruct
       "@type": "ImageObject",
       "url": article.heroImage,
       "width": 1200,
-      "height": 630,
-      "alt": article.title
+      "height": 630
     } : undefined,
     "keywords": article.tags.join(', '),
     "articleSection": article.category,
@@ -48,29 +47,6 @@ export default function ArticleStructuredData({ article, locale }: ArticleStruct
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": articleUrl
-    },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": locale === 'fr' ? "Accueil" : "Home",
-          "item": `https://fastminify.com/${locale}`
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": locale === 'fr' ? "Blog" : "Blog",
-          "item": `https://fastminify.com/${locale}/blog`
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": article.title,
-          "item": articleUrl
-        }
-      ]
     },
     // Ajout de données structurées HowTo pour les tutoriels
     ...(article.category.toLowerCase().includes('tutorial') || article.category.toLowerCase().includes('tutoriel') ? {

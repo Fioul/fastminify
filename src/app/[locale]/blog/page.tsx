@@ -1,9 +1,8 @@
 import { Metadata } from 'next'
 import { ArticleList } from '@/components/blog/ArticleList'
-import { CategoryFilter } from '@/components/blog/CategoryFilter'
 import { BlogHeader } from '@/components/blog/BlogHeader'
 import BlogStructuredData from '@/components/blog/BlogStructuredData'
-import { getBlogArticles, getBlogCategories } from '@/lib/blog'
+import { getBlogArticles } from '@/lib/blog'
 import { useTranslations } from '@/hooks/useTranslations'
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
@@ -37,10 +36,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       description: t('blog.meta.description'),
     },
     alternates: {
-      canonical: `/${params.locale}/blog`,
+      canonical: `https://fastminify.com/${params.locale}/blog`,
       languages: {
-        'fr': '/fr/blog',
-        'en': '/en/blog',
+        'fr': 'https://fastminify.com/fr/blog',
+        'en': 'https://fastminify.com/en/blog',
       },
     },
   }
@@ -48,7 +47,6 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 export default async function BlogPage({ params }: { params: { locale: string } }) {
   const articles = await getBlogArticles(params.locale)
-  const categories = await getBlogCategories(params.locale)
 
   return (
     <>
@@ -58,9 +56,6 @@ export default async function BlogPage({ params }: { params: { locale: string } 
           <div className="max-w-6xl mx-auto">
             <BlogHeader />
             
-            <div className="mt-8">
-              <CategoryFilter categories={categories} />
-            </div>
             
             <div className="mt-8">
               <ArticleList articles={articles} />
