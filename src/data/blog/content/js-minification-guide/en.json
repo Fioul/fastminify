@@ -1,0 +1,177 @@
+{
+  "title": "Complete Guide to JavaScript Minification: Techniques and Best Practices",
+  "excerpt": "Learn everything about JavaScript minification: techniques, tools, best practices and impact on web performance.",
+  "content": {
+    "introduction": {
+      "title": "Why minify your JavaScript?",
+      "text": "JavaScript minification isn't just a technical optimization. It's a crucial element that directly impacts user experience, SEO, and infrastructure costs. In this article, we'll explore the real benefits of minification and show you how to implement professional solutions with Terser and UglifyJS.",
+      "benefits": [
+        "60-80% reduction in JavaScript file sizes",
+        "200-500ms improvement in First Contentful Paint (FCP)",
+        "Significant savings on bandwidth and CDN costs",
+        "Better ranking in Google's Core Web Vitals",
+        "Optimized user experience, especially on mobile"
+      ]
+    },
+    "realWorldImpact": {
+      "title": "Real-world performance impact",
+      "sections": [
+        {
+          "title": "Concrete performance metrics",
+          "description": "Here are real optimization data from an e-commerce project:",
+          "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop&crop=center",
+          "imageAlt": "Chart showing performance improvement after JavaScript minification",
+          "metrics": {
+            "before": {
+              "fileSize": "2.3 MB",
+              "loadTime": "3.2s",
+              "bounceRate": "68%",
+              "conversionRate": "2.1%"
+            },
+            "after": {
+              "fileSize": "580 KB",
+              "loadTime": "1.8s", 
+              "bounceRate": "42%",
+              "conversionRate": "3.7%"
+            }
+          }
+        },
+        {
+          "title": "SEO impact",
+          "description": "Google uses Core Web Vitals as a ranking factor. Minification directly improves these metrics:",
+          "vitals": [
+            "LCP (Largest Contentful Paint): -40% on average",
+            "FID (First Input Delay): -60% thanks to less parsing",
+            "CLS (Cumulative Layout Shift): Reduced reflows",
+            "TTI (Time to Interactive): -35% waiting time"
+          ]
+        }
+      ]
+    },
+    "terserSetup": {
+      "title": "Setting up Terser",
+      "sections": [
+        {
+          "title": "Basic installation and configuration",
+          "description": "Terser is UglifyJS's successor, faster with better ES6+ support.",
+          "steps": [
+            {
+              "title": "Installation",
+              "code": "npm install --save-dev terser"
+            },
+            {
+              "title": "Basic configuration",
+              "code": "const terser = require('terser');\n\nconst result = await terser.minify(code, {\n  compress: {\n    drop_console: true,\n    drop_debugger: true,\n    pure_funcs: ['console.log']\n  },\n  mangle: {\n    toplevel: true\n  }\n});"
+            },
+            {
+              "title": "Custom NPM script",
+              "code": "// package.json\n{\n  \"scripts\": {\n    \"build:js\": \"terser src/js/*.js -o dist/bundle.min.js\",\n    \"build:prod\": \"npm run build:js && npm run build:css\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "title": "Advanced configuration for production",
+          "description": "Optimal configuration for production environment with source maps and advanced optimizations.",
+          "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=500&fit=crop&crop=center",
+          "imageAlt": "Terser configuration interface with advanced options",
+          "code": {
+            "config": "const terserConfig = {\n  compress: {\n    arguments: true,\n    booleans_as_integers: true,\n    drop_console: true,\n    drop_debugger: true,\n    ecma: 2020,\n    keep_infinity: true,\n    passes: 3,\n    pure_funcs: ['console.log', 'console.info'],\n    unsafe: true,\n    unsafe_arrows: true,\n    unsafe_comps: true,\n    unsafe_math: true\n  },\n  mangle: {\n    toplevel: true,\n    properties: {\n      regex: /^_/\n    }\n  },\n  format: {\n    comments: false,\n    ecma: 2020\n  },\n  sourceMap: {\n    filename: 'bundle.min.js',\n    url: 'bundle.min.js.map'\n  }\n};",
+            "usage": "const fs = require('fs');\nconst terser = require('terser');\n\nasync function minifyFile(inputPath, outputPath) {\n  const code = fs.readFileSync(inputPath, 'utf8');\n  const result = await terser.minify(code, terserConfig);\n  \n  fs.writeFileSync(outputPath, result.code);\n  if (result.map) {\n    fs.writeFileSync(outputPath + '.map', result.map);\n  }\n  \n  console.log(`Minified: ${inputPath} -> ${outputPath}`);\n  console.log(`Size reduction: ${((code.length - result.code.length) / code.length * 100).toFixed(1)}%`);\n}"
+          }
+        }
+      ]
+    },
+    "uglifySetup": {
+      "title": "Alternative with UglifyJS",
+      "sections": [
+        {
+          "title": "Installation and usage",
+          "description": "UglifyJS remains a viable option, especially for older projects.",
+          "steps": [
+            {
+              "title": "Installation",
+              "code": "npm install --save-dev uglify-js"
+            },
+            {
+              "title": "UglifyJS configuration",
+              "code": "const UglifyJS = require('uglify-js');\n\nconst result = UglifyJS.minify(code, {\n  compress: {\n    drop_console: true,\n    drop_debugger: true,\n    pure_funcs: ['console.log']\n  },\n  mangle: true,\n  output: {\n    comments: false\n  }\n});"
+            }
+          ]
+        }
+      ]
+    },
+    "webpackIntegration": {
+      "title": "Webpack Integration",
+      "sections": [
+        {
+          "title": "Webpack configuration with Terser",
+          "description": "Professional integration in a modern Webpack workflow.",
+          "code": {
+            "webpackConfig": "const TerserPlugin = require('terser-webpack-plugin');\n\nmodule.exports = {\n  mode: 'production',\n  optimization: {\n    minimize: true,\n    minimizer: [\n      new TerserPlugin({\n        terserOptions: {\n          compress: {\n            drop_console: true,\n            drop_debugger: true,\n            pure_funcs: ['console.log']\n          },\n          mangle: {\n            toplevel: true\n          }\n        },\n        extractComments: false\n      })\n    ]\n  }\n};",
+            "packageJson": "{\n  \"scripts\": {\n    \"build\": \"webpack --mode=production\",\n    \"build:analyze\": \"webpack-bundle-analyzer dist/static/js/*.js\"\n  },\n  \"devDependencies\": {\n    \"terser-webpack-plugin\": \"^5.3.0\",\n    \"webpack-bundle-analyzer\": \"^4.9.0\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    "advancedTechniques": {
+      "title": "Advanced techniques",
+      "sections": [
+        {
+          "title": "Tree Shaking and Dead Code Elimination",
+          "description": "Eliminate dead code and optimize imports for maximum minification.",
+          "techniques": [
+            "Use specific ES6 imports: `import { specificFunction } from 'library'`",
+            "Avoid wildcard imports: `import * as utils from 'utils'`",
+            "Configure Webpack for tree shaking",
+            "Use pure function annotations"
+          ]
+        },
+        {
+          "title": "Polyfill optimization",
+          "description": "Minimize the impact of polyfills on bundle size.",
+          "code": {
+            "before": "import 'core-js/stable';\nimport 'regenerator-runtime/runtime';\n// 50KB of loaded polyfills",
+            "after": "// Conditional polyfills\nif (!Array.prototype.includes) {\n  // Specific polyfill - 2KB\n}\n// On-demand loading"
+          }
+        }
+      ]
+    },
+    "monitoring": {
+      "title": "Monitoring and metrics",
+      "sections": [
+        {
+          "title": "Measurement tools",
+          "description": "Monitor the impact of your optimizations with these tools:",
+          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
+          "imageAlt": "Webpack Bundle Analyzer screenshot showing module sizes",
+          "tools": [
+            "Lighthouse: Complete performance audit",
+            "WebPageTest: Detailed loading tests",
+            "Bundle Analyzer: Bundle size visualization",
+            "Core Web Vitals: Real-time Google metrics"
+          ]
+        },
+        {
+          "title": "Automatic alerts",
+          "description": "Set up alerts to maintain performance.",
+          "code": "// .github/workflows/performance.yml\nname: Performance Check\non: [push]\n\njobs:\n  lighthouse:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v2\n      - name: Lighthouse CI\n        run: |\n          npm install -g @lhci/cli\n          lhci autorun --upload.target=temporary-public-storage"
+        }
+      ]
+    },
+    "conclusion": {
+      "title": "Conclusion",
+      "text": "JavaScript minification isn't an option, it's a necessity. With the right practices and tools, you can significantly reduce your file sizes while improving user experience and SEO.",
+      "recommendations": [
+        "Implement Terser in your build workflow",
+        "Set up automatic performance alerts",
+        "Regularly measure impact on Core Web Vitals",
+        "Test on different devices and connections",
+        "Document your optimizations for the team"
+      ]
+    }
+  },
+  "meta": {
+    "keywords": "javascript minification, terser, uglifyjs, web performance, core web vitals, bundle optimization",
+    "description": "Complete guide to implementing JavaScript minification with Terser and UglifyJS. Advanced techniques, Webpack configuration and performance monitoring."
+  }
+}

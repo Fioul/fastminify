@@ -1,0 +1,44 @@
+{
+  "articles": [
+    {
+      "id": "js-minification-guide",
+      "slug": {
+        "fr": "guide-complet-minification-javascript",
+        "en": "complete-javascript-minification-guide"
+      },
+      "title": {
+        "fr": "Guide complet de la minification JavaScript : Techniques et bonnes pratiques",
+        "en": "Complete Guide to JavaScript Minification: Techniques and Best Practices"
+      },
+      "excerpt": {
+        "fr": "Découvrez tout ce qu'il faut savoir sur la minification JavaScript : techniques, outils, bonnes pratiques et impact sur les performances web.",
+        "en": "Learn everything about JavaScript minification: techniques, tools, best practices and impact on web performance."
+      },
+      "category": {
+        "fr": "Tutoriels",
+        "en": "Tutorials"
+      },
+      "tags": ["javascript", "minification", "performance", "optimisation"],
+      "publishedAt": "2025-10-25",
+      "readingTime": {
+        "fr": "8 min de lecture",
+        "en": "8 min read"
+      },
+      "featured": true,
+      "heroImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=400&fit=crop&crop=center"
+    }
+  ],
+  "categories": [
+    {
+      "id": "tutorials",
+      "name": {
+        "fr": "Tutoriels",
+        "en": "Tutorials"
+      },
+      "description": {
+        "fr": "Guides pratiques et tutoriels pour optimiser votre code",
+        "en": "Practical guides and tutorials to optimize your code"
+      }
+    }
+  ]
+}
