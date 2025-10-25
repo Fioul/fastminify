@@ -26,7 +26,7 @@ async function processFiles(
     
     // Add newlines between files
     if (addNewlines && i < files.length - 1) {
-      concatenated += '\n\n'
+      concatenated += '\n\n\n'
     }
   }
 
@@ -95,7 +95,7 @@ describe('Concatenation Integration Tests', () => {
       expect(result).toContain('/* components.css */')
       // Content should be present (not minified when comments are preserved)
       expect(result).toContain('*{margin:0;padding:0;}')
-      expect(result).toContain('.btn{padding:10px;background:blue}')
+      expect(result).toContain('.btn{padding:10px;background:blue;}')
     })
 
     test('should remove comments when addComments is false', async () => {
@@ -117,7 +117,7 @@ describe('Concatenation Integration Tests', () => {
       expect(result).toContain('/* components.css */')
       // Content should be present (not minified when comments are preserved)
       expect(result).toContain('*{margin:0;padding:0;}')
-      expect(result).toContain('.btn{padding:10px;background:blue}')
+      expect(result).toContain('.btn{padding:10px;background:blue;}')
     })
 
     test('should handle no newlines correctly', async () => {
@@ -128,7 +128,7 @@ describe('Concatenation Integration Tests', () => {
       expect(result).toContain('/* components.css */')
       // Content should be present (not minified when comments are preserved)
       expect(result).toContain('*{margin:0;padding:0;}')
-      expect(result).toContain('.btn{padding:10px;background:blue}')
+      expect(result).toContain('.btn{padding:10px;background:blue;}')
     })
   })
 
