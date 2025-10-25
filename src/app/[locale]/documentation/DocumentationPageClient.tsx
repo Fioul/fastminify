@@ -29,7 +29,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold tracking-tight mb-4">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
               {t('documentation.title')}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

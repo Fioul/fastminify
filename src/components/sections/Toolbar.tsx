@@ -80,7 +80,7 @@ export default function Toolbar({
             {/* Première ligne : ECMAScript, Compression, Browser */}
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-2">
-                <Label className="text-sm font-medium">ECMAScript</Label>
+                <span className="text-sm font-medium">ECMAScript</span>
                 <TooltipInfo content="Target JavaScript version. ES5 = legacy compatibility, ES2022 = modern browsers." />
                 <Select
                   value={jsOptions.ecmaVersion}
@@ -102,7 +102,7 @@ export default function Toolbar({
               </div>
               
               <div className="flex items-center gap-2">
-                <Label className="text-sm font-medium">Compression</Label>
+                <span className="text-sm font-medium">Compression</span>
                 <TooltipInfo content="Optimization level. Conservative = safe and readable, Normal = balanced, Aggressive = maximum compression." />
                 <Select
                   value={jsOptions.compressionLevel}
@@ -187,7 +187,7 @@ export default function Toolbar({
         return (
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Compression</Label>
+              <span className="text-sm font-medium">Compression</span>
               <TooltipInfo content="CSS optimization level. Conservative = minimal compression, Normal = balanced, Aggressive = maximum compression with restructuring." />
               <Select
                 value={cssOptions.compressionLevel}
@@ -226,7 +226,7 @@ export default function Toolbar({
         return (
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Compression</Label>
+              <span className="text-sm font-medium">Compression</span>
               <TooltipInfo content="JSON optimization level. Conservative = safe, Normal = balanced, Aggressive = maximum compression." />
               <Select
                 value={jsonOptions.compressionLevel}

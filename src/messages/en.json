@@ -1,4 +1,18 @@
 {
+  "blog": {
+    "title": "FastMinify Blog",
+    "description": "Discover our guides and tutorials to optimize your web performance with JavaScript, CSS and JSON minification.",
+    "meta": {
+      "title": "FastMinify Blog - JavaScript, CSS & JSON Minification Guides and Tutorials",
+      "description": "Learn minification best practices with our detailed guides. Optimize JavaScript, CSS and JSON for better web performance. Free tutorials and advanced techniques."
+    },
+    "relatedArticles": "Related Articles",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "readingTime": "Reading time",
+    "category": "Category",
+    "tags": "Tags"
+  },
   "common": {
     "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON Online",
     "description": "Minify, unminify and beautify your JavaScript, CSS and JSON code instantly — free, fast, and private. Online minification, unminification and beautification tool with no registration required.",
@@ -119,6 +133,7 @@
   },
   "navigation": {
     "home": "Code Minifier",
+    "blog": "Blog",
     "about": "About",
     "documentation": "Documentation",
     "contact": "Contact"

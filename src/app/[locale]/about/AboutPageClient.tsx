@@ -19,7 +19,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
         
         {/* HERO SECTION */}
         <div className="text-center space-y-4 mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             {t('about.title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

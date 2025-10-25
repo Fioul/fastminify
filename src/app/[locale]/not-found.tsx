@@ -7,13 +7,15 @@ import { Button } from '@/components/ui/button'
 import { Home } from '@/lib/icons'
 import Header from '@/components/Header'
 import { FaCode, FaRocket, FaBolt, FaMagic } from '@/lib/icons'
+import { useParams } from 'next/navigation'
 
 interface NotFoundProps {
-  params: Promise<{ locale: string }>
+  params?: Promise<{ locale: string }>
 }
 
 export default function NotFound({ params }: NotFoundProps) {
-  const { locale } = React.use(params)
+  const urlParams = useParams()
+  const locale = (urlParams?.locale as string) || 'fr'
   const { t, tArray } = useTranslations(locale)
   
   console.log('404 Page - Locale:', locale)

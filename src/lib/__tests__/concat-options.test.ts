@@ -125,8 +125,8 @@ function concatenateFiles(
         // Both options enabled: 2 newlines before comment
         concatenated += '\n\n'
       } else if (addNewlines) {
-        // Only spacing option: 2 newlines between files
-        concatenated += '\n\n'
+        // Only spacing option: 1 newline before file
+        concatenated += '\n'
       }
     }
     
@@ -144,11 +144,14 @@ function concatenateFiles(
     
     // Add newline after file content
     if (i < files.length - 1) {
-      if (addComments) {
-        // If we have comments, add a newline after content
+      if (addComments && addNewlines) {
+        // Both options enabled: no newlines after content (already handled before comment)
+        // Do nothing
+      } else if (addComments) {
+        // Only comments: 1 newline after content
         concatenated += '\n'
       } else if (addNewlines) {
-        // If only spacing, add 2 newlines
+        // Only spacing: 2 newlines after file
         concatenated += '\n\n'
       }
     }

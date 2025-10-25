@@ -338,7 +338,7 @@ export default function ConcatModal({ isOpen, onClose, onResult, locale }: Conca
             <div className="space-y-6">
           {/* File Type Selection */}
           <div className="flex items-center gap-4">
-            <Label className="text-sm font-medium">{t('common.fileType')}</Label>
+            <span className="text-sm font-medium">{t('common.fileType')}</span>
             <Select value={fileType} onValueChange={handleFileTypeChange}>
               <SelectTrigger className="w-32">
                 <SelectValue />

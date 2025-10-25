@@ -196,7 +196,7 @@ export default function EditorSection({
       <div>
         <div className="h-[350px] flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <Label className="text-sm font-medium">{t('common.normalCode')}</Label>
+            <span className="text-sm font-medium">{t('common.normalCode')}</span>
             <div className="flex gap-1">
               <Button
                 variant="default"
@@ -334,7 +334,7 @@ export default function EditorSection({
                 {getUnminifyButtonText()}
               </Button>
             </div>
-            <Label className="text-sm font-medium">{t('common.minifiedCode')}</Label>
+            <span className="text-sm font-medium">{t('common.minifiedCode')}</span>
           </div>
           <CodeEditor
             value={rightCode}
