@@ -132,10 +132,12 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
                     <Label htmlFor="name">{t('contact.name')} *</Label>
                     <Input
                       id="name"
+                      name="name"
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       placeholder={t('contact.placeholders.name')}
+                      autoComplete="name"
                       required
                     />
                   </div>
@@ -145,10 +147,12 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
                     <Label htmlFor="email">{t('contact.email')} *</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
                       placeholder={t('contact.placeholders.email')}
+                      autoComplete="email"
                       required
                     />
                   </div>
@@ -157,11 +161,16 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
                   <div className="space-y-2">
                     <Label htmlFor="type">{t('contact.typeOfMessage')} *</Label>
                     <Select
+                      name="type"
                       value={formData.type}
                       onValueChange={(value) => handleInputChange('type', value)}
+                      autoComplete="off"
                       required
                     >
-                      <SelectTrigger ariaLabel={t('common.ariaLabels.selectOption')}>
+                      <SelectTrigger 
+                        id="type"
+                        ariaLabel={t('common.ariaLabels.selectOption')}
+                      >
                         <SelectValue placeholder={t('contact.form.selectTypePlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
@@ -179,10 +188,12 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
                     <Label htmlFor="subject">{t('contact.subject')} *</Label>
                     <Input
                       id="subject"
+                      name="subject"
                       type="text"
                       value={formData.subject}
                       onChange={(e) => handleInputChange('subject', e.target.value)}
                       placeholder={t('contact.placeholders.subject')}
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -192,9 +203,11 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
                     <Label htmlFor="message">{t('contact.message')} *</Label>
                     <Textarea
                       id="message"
+                      name="message"
                       value={formData.message}
                       onChange={(e) => handleInputChange('message', e.target.value)}
                       placeholder={t('contact.placeholders.message')}
+                      autoComplete="off"
                       rows={6}
                       required
                     />
