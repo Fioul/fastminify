@@ -86,6 +86,7 @@ export default async function BlogArticlePage({ params }: Props) {
 
   const allArticles = await getBlogArticles(params.locale)
   const currentIndex = allArticles.findIndex(a => a.id === article.id)
+  const articleUrl = `/${params.locale}/blog/${params.slug}`
 
   return (
     <>
