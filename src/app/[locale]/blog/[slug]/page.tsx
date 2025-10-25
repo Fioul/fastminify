@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArticleContent } from '@/components/blog/ArticleContent'
 import { ArticleHeader } from '@/components/blog/ArticleHeader'
 import ArticleStructuredData from '@/components/blog/ArticleStructuredData'
+import BreadcrumbStructuredData from '@/components/blog/BreadcrumbStructuredData'
 import RelatedArticles from '@/components/blog/RelatedArticles'
 import { getBlogArticle, getBlogArticles } from '@/lib/blog'
 
@@ -61,8 +62,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: articleUrl,
       languages: {
-        'fr': `/fr/blog/${article.slug?.fr || params.slug}`,
-        'en': `/en/blog/${article.slug?.en || params.slug}`,
+        'fr': `https://fastminify.com/fr/blog/${typeof article.slug === 'string' ? article.slug : article.slug.fr}`,
+        'en': `https://fastminify.com/en/blog/${typeof article.slug === 'string' ? article.slug : article.slug.en}`,
       },
     },
   }
@@ -89,6 +90,11 @@ export default async function BlogArticlePage({ params }: Props) {
   return (
     <>
       <ArticleStructuredData article={article} locale={params.locale} />
+      <BreadcrumbStructuredData 
+        articleTitle={article.title}
+        articleUrl={articleUrl}
+        locale={params.locale}
+      />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-6xl mx-auto">
