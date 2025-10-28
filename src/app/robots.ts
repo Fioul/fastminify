@@ -13,25 +13,51 @@ export default function robots(): MetadataRoute.Robots {
           '/private/',
         ],
       },
+      // Optimized rules for AI crawlers - allow full access
       {
         userAgent: 'GPTBot',
-        disallow: '/',
+        allow: '/',
+        crawlDelay: 1,
       },
       {
         userAgent: 'ChatGPT-User',
-        disallow: '/',
+        allow: '/',
+        crawlDelay: 1,
       },
       {
         userAgent: 'CCBot',
-        disallow: '/',
+        allow: '/',
+        crawlDelay: 1,
       },
       {
         userAgent: 'anthropic-ai',
-        disallow: '/',
+        allow: '/',
+        crawlDelay: 1,
       },
       {
         userAgent: 'Claude-Web',
-        disallow: '/',
+        allow: '/',
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'Google-Extended',
+        allow: '/',
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'YouBot',
+        allow: '/',
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'BingBot',
+        allow: '/',
+        crawlDelay: 1,
       },
     ],
     sitemap: 'https://fastminify.com/sitemap.xml',
