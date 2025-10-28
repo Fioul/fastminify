@@ -26,6 +26,33 @@
       },
       "featured": true,
       "heroImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=400&fit=crop&crop=center"
+    },
+    {
+      "id": "css-minification-guide",
+      "slug": {
+        "fr": "guide-complet-minification-css",
+        "en": "complete-css-minification-guide"
+      },
+      "title": {
+        "fr": "Guide complet de la minification CSS : Optimisation et performances web",
+        "en": "Complete Guide to CSS Minification: Optimization and Web Performance"
+      },
+      "excerpt": {
+        "fr": "Maîtrisez la minification CSS avec CSSO et PurifyCSS. Techniques avancées, intégration Webpack et optimisation des performances pour des sites ultra-rapides.",
+        "en": "Master CSS minification with CSSO and PurifyCSS. Advanced techniques, Webpack integration and performance optimization for ultra-fast websites."
+      },
+      "category": {
+        "fr": "Tutoriels",
+        "en": "Tutorials"
+      },
+      "tags": ["css", "minification", "performance", "optimisation", "csso"],
+      "publishedAt": "2025-01-27",
+      "readingTime": {
+        "fr": "9 min de lecture",
+        "en": "9 min read"
+      },
+      "featured": true,
+      "heroImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=400&fit=crop&crop=center"
     }
   ],
   "categories": [

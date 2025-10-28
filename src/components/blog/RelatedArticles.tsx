@@ -32,7 +32,7 @@ export default function RelatedArticles({ articles, currentArticleId, locale }: 
           const slug = typeof article.slug === 'string' ? article.slug : article.slug[locale]
           return (
             <Link key={article.id} href={`/${locale}/blog/${slug}`} className="block">
-              <Card className="h-full hover:shadow-lg transition-shadow duration-200 group">
+              <Card className="h-full hover:shadow-lg transition-shadow duration-200 group p-0">
                 {article.heroImage && (
                   <div className="aspect-video overflow-hidden rounded-t-lg">
                     <img 
