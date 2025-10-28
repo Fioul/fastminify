@@ -14,7 +14,7 @@
     "tags": "Mots-clés"
   },
   "common": {
-    "subtitle": "Minifier, Déminifier & Beautifier JavaScript, CSS & JSON en ligne",
+    "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON en ligne",
     "description": "Minifiez, déminifiez et beautifiez votre code JavaScript, CSS et JSON instantanément — gratuit, rapide et privé. Outil de minification, déminification et beautification en ligne sans inscription.",
     "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil avancé de minification, déminification et beautification traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
@@ -140,7 +140,7 @@
   },
   "about": {
     "title": "À propos de FastMinify",
-    "subtitle": "L'outil en ligne le plus rapide et fiable pour minifier, déminifier et beautifier JavaScript, CSS et JSON",
+    "subtitle": "Compresseur / décompresseur de code en ligne",
     "whatIs": "Qu'est-ce que FastMinify ?",
     "whatIsText": "FastMinify est un outil en ligne gratuit et axé sur la confidentialité conçu pour minifier, déminifier et beautifier instantanément le code JavaScript, CSS et JSON. Construit avec des technologies web modernes, il fournit une minification, déminification et beautification rapides et fiables sans compromettre la confidentialité de vos données.",
     "whyChoose": "Pourquoi choisir FastMinify ?",
@@ -235,6 +235,7 @@
       "subtitle": "Chaque type de code utilise des algorithmes spécialisés pour une compression optimale",
       "javascript": {
         "title": "JavaScript",
+        "appliedOptimizations": "Optimisations appliquées :",
         "optimizations": [
           "Suppression des espaces et commentaires",
           "Minification des noms de variables",
@@ -245,6 +246,7 @@
       },
       "css": {
         "title": "CSS",
+        "appliedOptimizations": "Optimisations appliquées :",
         "optimizations": [
           "Suppression des espaces inutiles",
           "Conversion des couleurs (blue → #0000ff)",
@@ -294,8 +296,8 @@
     }
   },
   "contact": {
-    "title": "Contactez-nous",
-    "subtitle": "Vous avez trouvé un bug ? Une suggestion ? J'aimerais vous entendre !",
+    "title": "Contact",
+    "subtitle": "Une question ? Une suggestion ? N'hésitez pas à me contacter !",
     "sendMessage": "Contactez-nous",
     "name": "Nom",
     "email": "Email",
@@ -382,7 +384,7 @@
     "whyMinify": {
       "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
       "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
-      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions.",
+      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions. <a href=\"/{locale}/a-propos\" class=\"text-primary hover:underline font-medium\">Découvrir notre approche et nos algorithmes →</a>",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
@@ -403,7 +405,14 @@
       "javascript": "JavaScript",
       "css": "CSS",
       "json": "JSON",
-      "php": "PHP Serialization"
+      "php": "PHP Serialization",
+      "description": "Cliquez sur chaque langage pour en savoir plus sur ses options d'optimisation spécifiques.",
+      "links": {
+        "javascript": "<a href=\"/{locale}/documentation#javascript\" class=\"block h-full group\" aria-label=\"Documentation JavaScript\">",
+        "css": "<a href=\"/{locale}/documentation#css\" class=\"block h-full group\" aria-label=\"Documentation CSS\">",
+        "json": "<a href=\"/{locale}/documentation#json\" class=\"block h-full group\" aria-label=\"Documentation JSON\">",
+        "php": "<a href=\"/{locale}/documentation#php\" class=\"block h-full group\" aria-label=\"Documentation PHP\">"
+      }
     },
     "howItWorks": {
       "title": "Comment ça fonctionne ?",
@@ -415,7 +424,7 @@
         },
         "configure": {
           "title": "Configurez les options",
-          "description": "Personnalisez la minification selon vos besoins : compatibilité, compression, optimisations."
+          "description": "Personnalisez la minification selon vos besoins : compatibilité, compression, optimisations. <a href=\"/{locale}/documentation\" class=\"text-primary hover:underline font-medium\">Voir toutes les options disponibles →</a>"
         },
         "getResult": {
           "title": "Récupérez le résultat",
@@ -443,7 +452,9 @@
           "Optimise les <strong>expressions</strong>",
           "Compatible avec la compression <strong>GZIP</strong>"
         ]
-      }
+      },
+      "cta": "<a href=\"/{locale}/blog\" class=\"inline-block mt-4 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors\">Lire nos derniers guides →</a>",
+      "contactLink": "<a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Nous contacter →</a>"
     },
     "faq": {
       "title": "Questions fréquemment posées",
@@ -473,7 +484,8 @@
           "question": "L'outil est-il vraiment gratuit ?",
           "answer": "Oui, Fast Minify est 100% gratuit et sans inscription. Vous pouvez l'utiliser autant que vous le souhaitez sans aucune limitation."
         }
-      ]
+      ],
+      "contactFooter": "Des questions supplémentaires ? <a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Contactez-nous →</a>"
     },
     "codeExamples": {
       "title": "Exemples de minification",
@@ -603,7 +615,25 @@
   },
   "documentation": {
     "title": "Documentation Technique",
-    "subtitle": "Guide complet pour comprendre la minification et la sérialisation avec des exemples de code pratiques",
+    "subtitle": "Guide détaillé des packages utilisés pour effectuer les conversions et de toutes les options disponibles ainsi que de leur impact sur le processus de conversion",
+    "header": {
+      "tryTool": "Essayer notre outil de minification",
+      "readGuides": "Lire nos guides"
+    },
+    "packages": {
+      "tryMinification": "Essayer la minification {language}",
+      "optimizationGuide": "Guide d'optimisation {language}"
+    },
+    "examples": {
+      "testExample": "Tester cet exemple {language}"
+    },
+    "nextSteps": {
+      "title": "Prêt à optimiser votre code ?",
+      "description": "Maintenant que vous comprenez nos outils et options, il est temps de les mettre en pratique.",
+      "startMinifying": "Commencer à minifier votre code",
+      "readGuides": "Lire les guides d'optimisation",
+      "learnApproach": "Découvrir notre approche"
+    },
     "javascript": {
       "title": "Minification JavaScript",
       "description": "Utilisation de Terser pour optimiser et compresser le code JavaScript",

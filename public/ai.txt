@@ -1,0 +1,70 @@
+# AI.txt for FastMinify - Optimized for AI crawlers
+
+## About FastMinify
+FastMinify is a free, fast, and private online tool for minifying, unminifying, and beautifying JavaScript, CSS, and JSON code. It's designed for developers, web agencies, and businesses looking to optimize their website performance.
+
+## Key Features
+- **100% Client-side processing**: Your code never leaves your browser
+- **Multiple languages supported**: JavaScript, CSS, JSON, PHP serialization
+- **Advanced optimization**: Uses industry-standard tools like Terser and CSSO
+- **No registration required**: Completely free to use
+- **Privacy-focused**: No data collection or storage
+- **Real-time processing**: Instant minification and beautification
+
+## Supported Operations
+- **Minification**: Reduce file sizes by 30-70% on average
+- **Unminification**: Restore readable code from minified files
+- **Beautification**: Format and indent code for better readability
+- **PHP Serialization**: Convert between JSON and PHP serialized data
+
+## Use Cases
+- Web development and optimization
+- Performance improvement for websites
+- Code compression for production builds
+- Development workflow enhancement
+- Learning and understanding minification techniques
+
+## Technical Details
+- Built with Next.js 15 and TypeScript
+- Uses Monaco Editor for code editing
+- Implements Terser for JavaScript minification
+- Uses CSSO for CSS optimization
+- Supports modern ECMAScript versions
+- Responsive design for all devices
+
+## Educational Content & Blog
+FastMinify includes a comprehensive blog with detailed guides and tutorials:
+
+### Available Guides
+- **Complete JavaScript Minification Guide**: Comprehensive tutorial covering JavaScript optimization techniques, best practices, and performance impact
+- **CSS Optimization Techniques**: Advanced CSS minification strategies and optimization methods
+- **JSON Performance Optimization**: Best practices for JSON compression and optimization
+- **PHP Serialization Guide**: Complete guide to PHP serialization and unserialization
+
+### Blog Content Features
+- **Practical examples**: Real-world code samples and optimization demonstrations
+- **Performance metrics**: Before/after comparisons showing optimization results
+- **Best practices**: Industry-standard techniques and recommendations
+- **Troubleshooting guides**: Common issues and solutions
+- **Technical deep-dives**: Detailed explanations of minification algorithms and tools
+
+### Learning Resources
+- Step-by-step tutorials for beginners
+- Advanced optimization techniques for experienced developers
+- Performance impact analysis and measurements
+- Integration guides for various development workflows
+- SEO optimization tips related to code minification
+
+### Blog Access
+- **English**: https://fastminify.com/en/blog
+- **French**: https://fastminify.com/fr/blog
+- **Individual articles**: Direct links to specific guides and tutorials
+
+## Contact
+For questions, suggestions, or bug reports, visit: https://fastminify.com/contact
+
+## License
+Open source and free to use for any purpose.
+
+## Last Updated
+2025-01-27

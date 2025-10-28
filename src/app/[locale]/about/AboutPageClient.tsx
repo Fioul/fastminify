@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { useTranslations } from '@/hooks/useTranslations'
 import { SiNextdotjs, SiTypescript, SiTailwindcss } from '@/lib/icons'
 import { getVersion } from '@/lib/version'
@@ -43,7 +44,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <SiNextdotjs className="w-8 h-8 text-gray-600 dark:text-gray-400" />
               </div>
@@ -51,9 +52,9 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.nextjs.description')}
               </p>
-            </div>
+            </a>
             
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://terser.org" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 512 512">
                   <g>
@@ -71,9 +72,9 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.terser.description')}
               </p>
-            </div>
+            </a>
             
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://github.com/css/csso" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -83,9 +84,9 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.csso.description')}
               </p>
-            </div>
+            </a>
             
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://microsoft.github.io/monaco-editor/" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <svg className="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
@@ -95,9 +96,9 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.monaco.description')}
               </p>
-            </div>
+            </a>
             
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://www.typescriptlang.org" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <SiTypescript className="w-8 h-8 text-gray-600 dark:text-gray-400" />
               </div>
@@ -105,9 +106,9 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.typescript.description')}
               </p>
-            </div>
+            </a>
             
-            <div className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+            <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className="text-center space-y-4 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors">
               <div className="w-12 h-12 flex items-center justify-center mx-auto">
                 <SiTailwindcss className="w-8 h-8 text-gray-600 dark:text-gray-400" />
               </div>
@@ -115,7 +116,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
               <p className="text-muted-foreground text-sm">
                 {t('about.technologies.tailwind.description')}
               </p>
-            </div>
+            </a>
           </div>
         </section>
 
@@ -182,7 +183,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                 </h3>
                 <div className="space-y-3">
                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg">
-                    <h4 className="font-medium mb-2">Optimisations appliquées :</h4>
+                    <h4 className="font-medium mb-2">{t('about.algorithms.javascript.appliedOptimizations')}</h4>
                     <ul className="text-sm space-y-1 text-muted-foreground">
                       {tArray('about.algorithms.javascript.optimizations').map((item: string, index: number) => (
                         <li key={index}>• {item}</li>
@@ -198,7 +199,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                 </h3>
                 <div className="space-y-3">
                   <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg">
-                    <h4 className="font-medium mb-2">Optimisations appliquées :</h4>
+                    <h4 className="font-medium mb-2">{t('about.algorithms.css.appliedOptimizations')}</h4>
                     <ul className="text-sm space-y-1 text-muted-foreground">
                       {tArray('about.algorithms.css.optimizations').map((item: string, index: number) => (
                         <li key={index}>• {item}</li>
@@ -306,6 +307,42 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* NEXT STEPS SECTION */}
+        <section className="max-w-5xl mx-auto mt-16">
+          <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 space-y-6 border border-primary/20">
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl font-bold text-foreground">
+                {locale === 'fr' ? 'Prochaine étape' : 'Next steps'}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                {locale === 'fr' ?
+                  'Mettez tout de suite en pratique avec notre outil, explorez les guides et les options.' :
+                  'Put this into practice now with our tool, explore guides and options.'}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href={`/${locale}`}
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                >
+                  {locale === 'fr' ? 'Commencer à minifier' : 'Start minifying'}
+                </Link>
+                <Link 
+                  href={`/${locale}/blog`}
+                  className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
+                >
+                  {locale === 'fr' ? 'Lire les guides' : 'Read guides'}
+                </Link>
+                <Link 
+                  href={`/${locale}/documentation`}
+                  className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
+                >
+                  {locale === 'fr' ? 'Voir la documentation' : 'See documentation'}
+                </Link>
               </div>
             </div>
           </div>

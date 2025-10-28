@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     return generateSEOMetadata({
       locale,
       pageType: 'about',
-      title: 'À propos de FastMinify — Minifier, Déminifier & Beautifier JavaScript, CSS & JSON',
-      description: 'Découvrez FastMinify, l\'outil en ligne le plus rapide et fiable pour minifier, déminifier et beautifier JavaScript, CSS et JSON. Gratuit, privé et sécurisé.',
+      title: 'À propos de FastMinify — Compresseur / Décompresseur de Code en Ligne',
+      description: 'Découvrez FastMinify, le compresseur et décompresseur de code en ligne pour JavaScript, CSS et JSON. Gratuit, privé et sécurisé.',
       keywords: [
         'minify javascript',
         'minify css',
@@ -48,8 +48,8 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
   return generateSEOMetadata({
     locale,
     pageType: 'about',
-    title: 'About FastMinify — Minify, Unminify & Beautify JavaScript, CSS & JSON Online',
-    description: 'Learn about FastMinify, the fastest and most reliable online tool to minify, unminify and beautify JavaScript, CSS and JSON. Free, private, and secure.',
+      title: 'About FastMinify — Online Code Compressor / Uncompressor',
+      description: 'Learn about FastMinify, the online code compressor and uncompressor for JavaScript, CSS and JSON. Free, private, and secure.',
     keywords: [
       'minify javascript',
       'minify css',

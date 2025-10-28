@@ -30,11 +30,41 @@ const ClientFooter = memo(function ClientFooter() {
           <div className="flex flex-col gap-6">
             {/* Main footer content */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              {/* Logo */}
-              <div className="flex-shrink-0">
-                <Link href={`/${currentLocale}`} aria-label={t('navigation.home')}>
-                  <Logo size="lg" />
-                </Link>
+              {/* Logo and Quick Links */}
+              <div className="flex flex-col gap-4">
+                <div className="flex-shrink-0">
+                  <Link href={`/${currentLocale}`} aria-label={t('navigation.home')}>
+                    <Logo size="lg" />
+                  </Link>
+                </div>
+                
+                {/* Quick Navigation Links */}
+                <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                  <Link
+                    href={`/${currentLocale}/documentation`}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t('navigation.documentation')}
+                  </Link>
+                  <Link
+                    href={`/${currentLocale}/blog`}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t('navigation.blog')}
+                  </Link>
+                  <Link
+                    href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'about')}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t('navigation.about')}
+                  </Link>
+                  <Link
+                    href={`/${currentLocale}/contact`}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t('navigation.contact')}
+                  </Link>
+                </div>
               </div>
 
               {/* Legal Menu - Right aligned, vertical on mobile */}

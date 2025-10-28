@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from '@/hooks/useTranslations'
+import Link from 'next/link'
 
 interface ContentSectionsProps {
   locale: string
@@ -21,9 +22,10 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
         </p>
         <div className="max-w-4xl mx-auto mt-8">
           <div className="bg-gray-50 dark:bg-gray-950 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-            <p className="text-base text-muted-foreground leading-relaxed">
-              {t('content.whyMinify.detailedExplanation')}
-            </p>
+            <p 
+              className="text-base text-muted-foreground leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: t('content.whyMinify.detailedExplanation').replace(/{locale}/g, locale) }}
+            />
           </div>
         </div>
       </section>
@@ -158,31 +160,36 @@ function init() {
         <h2 className="text-3xl font-bold text-foreground">
           {t('content.languages.title')}
         </h2>
+        {t('content.languages.description') && (
+          <p className="text-sm text-muted-foreground">
+            {t('content.languages.description')}
+          </p>
+        )}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+          <Link href={`/${locale}/documentation#javascript`} className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 transition-all hover:border-primary cursor-pointer">
             <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-yellow-600">JS</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.javascript')}</span>
-          </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+          </Link>
+          <Link href={`/${locale}/documentation#css`} className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 transition-all hover:border-primary cursor-pointer">
             <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-blue-600">CSS</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.css')}</span>
-          </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+          </Link>
+          <Link href={`/${locale}/documentation#json`} className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 transition-all hover:border-primary cursor-pointer">
             <div className="w-12 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-green-600">JSON</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.json')}</span>
-          </div>
-          <div className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700">
+          </Link>
+          <Link href={`/${locale}/documentation#php`} className="flex flex-col items-center space-y-3 p-6 rounded-lg bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 transition-all hover:border-primary cursor-pointer">
             <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
               <span className="text-sm font-bold text-purple-600">PHP</span>
             </div>
             <span className="text-sm font-medium text-center px-2">{t('content.languages.php')}</span>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -213,9 +220,10 @@ function init() {
               <span className="text-2xl font-bold text-gray-700 dark:text-gray-300">2</span>
             </div>
             <h3 className="text-xl font-semibold">{t('content.howItWorks.steps.configure.title')}</h3>
-            <p className="text-muted-foreground">
-              {t('content.howItWorks.steps.configure.description')}
-            </p>
+            <p 
+              className="text-muted-foreground" 
+              dangerouslySetInnerHTML={{ __html: t('content.howItWorks.steps.configure.description').replace(/{locale}/g, locale) }}
+            />
           </div>
           
           <div className="text-center space-y-4">
@@ -270,6 +278,9 @@ function init() {
             </ul>
           </div>
         </div>
+        {t('content.seoOptimization.cta') && (
+          <div className="text-center mt-6" dangerouslySetInnerHTML={{ __html: t('content.seoOptimization.cta').replace(/{locale}/g, locale) }} />
+        )}
       </section>
 
       {/* FAQ SECTION */}
@@ -295,6 +306,9 @@ function init() {
             </div>
           ))}
         </div>
+        {t('content.faq.contactFooter') && (
+          <div className="text-center mt-8" dangerouslySetInnerHTML={{ __html: t('content.faq.contactFooter').replace(/{locale}/g, locale) }} />
+        )}
       </section>
     </div>
   )

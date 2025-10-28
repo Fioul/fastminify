@@ -140,7 +140,7 @@
   },
   "about": {
     "title": "About FastMinify",
-    "subtitle": "The fastest, most reliable online tool to minify, unminify and beautify JavaScript, CSS and JSON",
+    "subtitle": "Online code compressor / uncompressor",
     "technologies": {
       "title": "Technologies used",
       "subtitle": "FastMinify is built with the most modern and performant web technologies",
@@ -190,6 +190,7 @@
       "subtitle": "Each code type uses specialized algorithms for optimal compression",
       "javascript": {
         "title": "JavaScript",
+        "appliedOptimizations": "Applied optimizations:",
         "optimizations": [
           "Remove spaces and comments",
           "Minify variable names",
@@ -200,6 +201,7 @@
       },
       "css": {
         "title": "CSS",
+        "appliedOptimizations": "Applied optimizations:",
         "optimizations": [
           "Remove unnecessary spaces",
           "Convert colors (blue → #0000ff)",
@@ -249,7 +251,7 @@
     }
   },
   "contact": {
-    "title": "Contact Us",
+    "title": "Contact",
     "subtitle": "Found a bug? Have a suggestion? I'd love to hear from you!",
     "sendMessage": "Contact us",
     "name": "Name",
@@ -337,7 +339,7 @@
     "whyMinify": {
       "title": "What is JavaScript and CSS code minification?",
       "subtitle": "JavaScript and CSS code minification is the process of removing unnecessary characters from source code without changing its functionality. This includes whitespace, comments, and shortening variable names to optimize web performance.",
-      "detailedExplanation": "In modern web development, every millisecond counts. Minification transforms your readable code into an optimized version that loads faster, consumes less bandwidth, and improves user experience. It's an essential practice for high-traffic sites, web applications, and e-commerce projects where performance directly impacts conversions.",
+      "detailedExplanation": "In modern web development, every millisecond counts. Minification transforms your readable code into an optimized version that loads faster, consumes less bandwidth, and improves user experience. It's an essential practice for high-traffic sites, web applications, and e-commerce projects where performance directly impacts conversions. <a href=\"/{locale}/about\" class=\"text-primary hover:underline font-medium\">Discover our approach and algorithms →</a>",
       "benefits": {
         "performance": {
           "title": "File size reduction",
@@ -358,7 +360,14 @@
       "javascript": "JavaScript",
       "css": "CSS",
       "json": "JSON",
-      "php": "PHP Serialization"
+      "php": "PHP Serialization",
+      "description": "Click on each language to learn more about its specific optimization options.",
+      "links": {
+        "javascript": "<a href=\"/{locale}/documentation#javascript\" class=\"block h-full group\" aria-label=\"JavaScript documentation\">",
+        "css": "<a href=\"/{locale}/documentation#css\" class=\"block h-full group\" aria-label=\"CSS documentation\">",
+        "json": "<a href=\"/{locale}/documentation#json\" class=\"block h-full group\" aria-label=\"JSON documentation\">",
+        "php": "<a href=\"/{locale}/documentation#php\" class=\"block h-full group\" aria-label=\"PHP documentation\">"
+      }
     },
     "howItWorks": {
       "title": "How does it work?",
@@ -370,7 +379,7 @@
         },
         "configure": {
           "title": "Configure options",
-          "description": "Customize minification according to your needs: compatibility, compression, optimizations."
+          "description": "Customize minification according to your needs: compatibility, compression, optimizations. <a href=\"/{locale}/documentation\" class=\"text-primary hover:underline font-medium\">See all available options →</a>"
         },
         "getResult": {
           "title": "Get the result",
@@ -398,7 +407,9 @@
           "Optimizes <strong>expressions</strong>",
           "<strong>GZIP</strong> compression compatible"
         ]
-      }
+      },
+      "cta": "<a href=\"/{locale}/blog\" class=\"inline-block mt-4 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors\">Read our latest guides →</a>",
+      "contactLink": "<a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Contact us →</a>"
     },
     "faq": {
       "title": "Frequently Asked Questions",
@@ -428,7 +439,8 @@
           "question": "Is the tool really free?",
           "answer": "Yes, Fast Minify is 100% free and requires no registration. You can use it as much as you want without any limitations."
         }
-      ]
+      ],
+      "contactFooter": "Still have questions? <a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Contact us →</a>"
     },
     "codeExamples": {
       "title": "Minification examples",
@@ -606,7 +618,25 @@
   },
   "documentation": {
     "title": "Technical Documentation",
-    "subtitle": "Complete guide to understand minification and serialization with practical code examples",
+    "subtitle": "Detailed guide to the packages used for conversions and all available options with explanations of their impact on the conversion process",
+    "header": {
+      "tryTool": "Try our minification tool",
+      "readGuides": "Read our guides"
+    },
+    "packages": {
+      "tryMinification": "Try {language} minification",
+      "optimizationGuide": "{language} optimization guide"
+    },
+    "examples": {
+      "testExample": "Test this {language} example"
+    },
+    "nextSteps": {
+      "title": "Ready to optimize your code?",
+      "description": "Now that you understand our tools and options, it's time to put them into practice.",
+      "startMinifying": "Start minifying your code",
+      "readGuides": "Read optimization guides",
+      "learnApproach": "Learn about our approach"
+    },
     "javascript": {
       "title": "JavaScript Minification",
       "description": "Using Terser to optimize and compress JavaScript code",
