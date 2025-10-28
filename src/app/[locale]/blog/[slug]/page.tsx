@@ -21,20 +21,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const articleUrl = `https://fastminify.com/${params.locale}/blog/${params.slug}`
-  const imageUrl = article.heroImage || 'https://fastminify.com/og-image.jpg'
+  const imageUrl = article.heroImage?.startsWith('http') 
+    ? article.heroImage 
+    : `https://fastminify.com${article.heroImage || '/og-image.jpg'}`
 
   return {
     title: article.title,
     description: article.excerpt,
     keywords: [
       ...article.tags,
-      'minification javascript',
+      article.tags.includes('css') ? 'minification css' : 'minification javascript',
       'optimisation web',
       'performance web',
       'tutoriel',
       'guide',
       'fastminify'
     ],
+    authors: [{ name: 'FastMinify', url: 'https://fastminify.com' }],
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
@@ -42,14 +56,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: articleUrl,
       siteName: 'FastMinify',
       publishedTime: article.publishedAt,
+      modifiedTime: article.publishedAt,
       authors: ['FastMinify'],
       tags: article.tags,
+      locale: params.locale === 'fr' ? 'fr_FR' : 'en_US',
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
           alt: article.title,
+          type: 'image/jpeg',
         },
       ],
     },
@@ -58,6 +75,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: article.title,
       description: article.excerpt,
       images: [imageUrl],
+      creator: '@fastminify',
+      site: '@fastminify',
     },
     alternates: {
       canonical: articleUrl,

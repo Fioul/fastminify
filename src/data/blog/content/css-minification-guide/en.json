@@ -1,0 +1,186 @@
+{
+  "title": "Complete Guide to CSS Minification: Optimization and Web Performance",
+  "excerpt": "Master CSS minification with CSSO and PurifyCSS. Advanced techniques, Webpack integration and performance optimization for ultra-fast websites.",
+  "content": {
+    "introduction": {
+      "title": "Why minify your CSS?",
+      "text": "CSS minification is often overlooked in favor of JavaScript, but it represents enormous optimization potential. In modern web development, every kilobyte saved on stylesheets translates to measurable performance gains. This article guides you through CSS minification best practices with CSSO, PurifyCSS and advanced optimization techniques.",
+      "benefits": [
+        "40-70% reduction in CSS file sizes",
+        "150-400ms improvement in First Contentful Paint (FCP)",
+        "Substantial savings on bandwidth and CDN costs",
+        "Better score in Google's Core Web Vitals",
+        "Optimized user experience, especially on mobile"
+      ]
+    },
+    "realWorldImpact": {
+      "title": "Real-world performance impact",
+      "sections": [
+        {
+          "title": "Concrete performance metrics",
+          "description": "Here are real CSS optimization data from an e-commerce site:",
+          "image": "/images/blog/css-minification-content.jpg",
+          "imageAlt": "CSS code on screen showing performance optimization",
+          "metrics": {
+            "before": {
+              "fileSize": "1.8 MB",
+              "loadTime": "2.8s",
+              "bounceRate": "65%",
+              "conversionRate": "2.3%"
+            },
+            "after": {
+              "fileSize": "420 KB",
+              "loadTime": "1.4s", 
+              "bounceRate": "38%",
+              "conversionRate": "4.1%"
+            }
+          }
+        },
+        {
+          "title": "SEO impact",
+          "description": "Google uses Core Web Vitals as a ranking factor. CSS minification directly improves these metrics:",
+          "vitals": [
+            "LCP (Largest Contentful Paint): -35% on average",
+            "FID (First Input Delay): -45% thanks to less CSS parsing",
+            "CLS (Cumulative Layout Shift): Reduced reflows",
+            "TTI (Time to Interactive): -30% waiting time"
+          ]
+        }
+      ]
+    },
+    "cssoSetup": {
+      "title": "Setting up CSSO",
+      "sections": [
+        {
+          "title": "Basic installation and configuration",
+          "description": "CSSO (CSS Optimizer) is the reference tool for modern CSS minification, with advanced support for CSS specifications.",
+          "steps": [
+            {
+              "title": "Installation",
+              "code": "npm install --save-dev csso-cli"
+            },
+            {
+              "title": "Basic configuration",
+              "code": "const csso = require('csso');\n\nconst result = csso.minify(css, {\n  restructure: true,\n  comments: false,\n  usage: {\n    tags: ['div', 'span', 'p'],\n    ids: ['header', 'footer'],\n    classes: ['btn', 'card', 'modal']\n  }\n});"
+            },
+            {
+              "title": "Custom NPM script",
+              "code": "// package.json\n{\n  \"scripts\": {\n    \"build:css\": \"csso src/css/*.css -o dist/styles.min.css\",\n    \"build:prod\": \"npm run build:css && npm run build:js\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "title": "Advanced configuration for production",
+          "description": "Optimal configuration for production environment with restructuring and advanced optimizations.",
+          "image": "/images/blog/css-minification-content.jpg",
+          "imageAlt": "CSSO configuration interface with advanced options",
+          "code": {
+            "config": "const cssoConfig = {\n  restructure: true,\n  comments: false,\n  usage: {\n    tags: ['div', 'span', 'p', 'a', 'img', 'h1', 'h2', 'h3'],\n    ids: ['header', 'footer', 'main', 'sidebar'],\n    classes: ['btn', 'card', 'modal', 'nav', 'container'],\n    properties: ['color', 'background', 'margin', 'padding']\n  },\n  minifySelectors: true,\n  mergeRules: true,\n  removeUnused: true,\n  optimizeShorthand: true\n};",
+            "usage": "const fs = require('fs');\nconst csso = require('csso');\n\nasync function minifyCSS(inputPath, outputPath) {\n  const css = fs.readFileSync(inputPath, 'utf8');\n  const result = csso.minify(css, cssoConfig);\n  \n  fs.writeFileSync(outputPath, result.css);\n  \n  console.log(`Minified: ${inputPath} -> ${outputPath}`);\n  console.log(`Size reduction: ${((css.length - result.css.length) / css.length * 100).toFixed(1)}%`);\n  console.log(`Optimizations applied: ${result.stats.optimizations}`);\n}"
+          }
+        }
+      ]
+    },
+    "purifycssSetup": {
+      "title": "Unused CSS elimination with PurifyCSS",
+      "sections": [
+        {
+          "title": "Installation and usage",
+          "description": "PurifyCSS identifies and removes unused CSS, drastically reducing file sizes.",
+          "steps": [
+            {
+              "title": "Installation",
+              "code": "npm install --save-dev purify-css"
+            },
+            {
+              "title": "PurifyCSS configuration",
+              "code": "const PurifyCSS = require('purify-css');\n\nconst purifyResult = new PurifyCSS().purify(\n  ['./src/**/*.html', './src/**/*.js'],\n  ['./src/css/*.css'],\n  {\n    minify: true,\n    info: true,\n    rejected: true\n  }\n);"
+            }
+          ]
+        }
+      ]
+    },
+    "webpackIntegration": {
+      "title": "Webpack Integration",
+      "sections": [
+        {
+          "title": "Webpack configuration with CSSO",
+          "description": "Professional integration in a modern Webpack workflow with CSS optimizations.",
+          "code": {
+            "webpackConfig": "const MiniCssExtractPlugin = require('mini-css-extract-plugin');\nconst CssMinimizerPlugin = require('css-minimizer-webpack-plugin');\n\nmodule.exports = {\n  mode: 'production',\n  module: {\n    rules: [\n      {\n        test: /\\.css$/,\n        use: [\n          MiniCssExtractPlugin.loader,\n          'css-loader',\n          'postcss-loader'\n        ]\n      }\n    ]\n  },\n  plugins: [\n    new MiniCssExtractPlugin({\n      filename: 'styles.[contenthash].min.css'\n    })\n  ],\n  optimization: {\n    minimizer: [\n      new CssMinimizerPlugin({\n        minimizerOptions: {\n          preset: [\n            'default',\n            {\n              discardComments: { removeAll: true },\n              normalizeWhitespace: true,\n              mergeLonghand: true,\n              mergeRules: true\n            }\n          ]\n        }\n      })\n    ]\n  }\n};",
+            "packageJson": "{\n  \"scripts\": {\n    \"build\": \"webpack --mode=production\",\n    \"build:analyze\": \"webpack-bundle-analyzer dist/static/css/*.css\"\n  },\n  \"devDependencies\": {\n    \"css-minimizer-webpack-plugin\": \"^5.0.0\",\n    \"mini-css-extract-plugin\": \"^2.7.0\",\n    \"postcss-loader\": \"^7.3.0\"\n  }\n}"
+          }
+        }
+      ]
+    },
+    "advancedTechniques": {
+      "title": "Advanced techniques",
+      "sections": [
+        {
+          "title": "Critical CSS and Above-the-fold",
+          "description": "Optimize critical styles loading to improve First Contentful Paint.",
+          "techniques": [
+            "Extract critical CSS with Critical CSS",
+            "Load non-critical CSS asynchronously",
+            "Use media queries to defer loading",
+            "Implement CSS inlining for critical styles"
+          ]
+        },
+        {
+          "title": "CSS selector optimization",
+          "description": "Reduce selector complexity to improve rendering performance.",
+          "code": {
+            "before": "/* Complex and slow selectors */\n.container .row .col-md-6 .card .card-body .card-title {\n  color: #333;\n}\n\n/* Redundant selectors */\n.btn-primary, .btn.btn-primary, button.btn-primary {\n  background: blue;\n}",
+            "after": "/* Optimized selectors */\n.card-title {\n  color: #333;\n}\n\n.btn-primary {\n  background: blue;\n}"
+          }
+        },
+        {
+          "title": "CSS property optimization",
+          "description": "Use the most efficient CSS properties and avoid redundancies.",
+          "code": {
+            "before": "/* Redundant properties */\n.element {\n  margin-top: 10px;\n  margin-right: 10px;\n  margin-bottom: 10px;\n  margin-left: 10px;\n  padding-top: 5px;\n  padding-right: 5px;\n  padding-bottom: 5px;\n  padding-left: 5px;\n}",
+            "after": "/* Optimized properties */\n.element {\n  margin: 10px;\n  padding: 5px;\n}"
+          }
+        }
+      ]
+    },
+    "monitoring": {
+      "title": "Monitoring and metrics",
+      "sections": [
+        {
+          "title": "CSS measurement tools",
+          "description": "Monitor the impact of your CSS optimizations with these specialized tools:",
+          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop&crop=center",
+          "imageAlt": "CSS analysis tools screenshot showing performance metrics",
+          "tools": [
+            "Lighthouse: Complete CSS performance audit",
+            "WebPageTest: Detailed stylesheet loading analysis",
+            "CSS Stats: Stylesheet complexity analysis",
+            "Critical CSS Generator: Automatic critical CSS generation"
+          ]
+        },
+        {
+          "title": "Automatic CSS alerts",
+          "description": "Set up alerts to maintain CSS performance.",
+          "code": "// .github/workflows/css-performance.yml\nname: CSS Performance Check\non: [push]\n\njobs:\n  css-audit:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v2\n      - name: CSS Performance Audit\n        run: |\n          npm install -g lighthouse\n          lighthouse https://your-site.com --only-categories=performance --output=json --output-path=./lighthouse-report.json\n          node -e \"const report = require('./lighthouse-report.json'); console.log('CSS Performance Score:', report.categories.performance.score * 100);\""
+        }
+      ]
+    },
+    "conclusion": {
+      "title": "Conclusion",
+      "text": "CSS minification is an essential element of modern web optimization. With CSSO, PurifyCSS and the advanced techniques presented, you can significantly reduce your stylesheet sizes while improving user experience and SEO.",
+      "recommendations": [
+        "Implement CSSO in your build workflow",
+        "Use PurifyCSS to eliminate unused CSS",
+        "Set up automatic CSS performance alerts",
+        "Regularly measure impact on Core Web Vitals",
+        "Test on different devices and connections",
+        "Document your CSS optimizations for the team"
+      ]
+    }
+  },
+  "meta": {
+    "keywords": "css minification, csso, purifycss, web performance, core web vitals, css optimization, critical css",
+    "description": "Complete guide to implementing CSS minification with CSSO and PurifyCSS. Advanced techniques, Webpack configuration and CSS performance monitoring."
+  }
+}
