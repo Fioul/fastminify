@@ -1,5 +1,6 @@
 'use client'
 
+import { CodeBlockGrid } from '@/components/ui/codeblock-grid'
 import { CodeBlock } from '@/components/ui/codeblock'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -165,7 +166,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                       </div>
                     ))}
                     {section.code && (
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <CodeBlockGrid layout="vertical">
                         <div>
                           <h4 className="font-semibold mb-2">Configuration</h4>
                         <CodeBlock>
@@ -178,7 +179,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                           <code>{section.code.usage}</code>
                         </CodeBlock>
                         </div>
-                      </div>
+                      </CodeBlockGrid>
                     )}
                   </div>
                 </CardContent>
@@ -229,7 +230,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   <p className="text-muted-foreground">{section.description}</p>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <CodeBlockGrid layout="vertical">
                     <div>
                       <h4 className="font-semibold mb-2">Configuration Webpack</h4>
                       <CodeBlock>
@@ -242,7 +243,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                         <code>{section.code?.packageJson}</code>
                       </CodeBlock>
                     </div>
-                  </div>
+                  </CodeBlockGrid>
                 </CardContent>
               </Card>
             ))}
@@ -273,7 +274,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     </div>
                   )}
                   {section.code && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <CodeBlockGrid layout="horizontal">
                       <div>
                         <h4 className="font-semibold mb-2 text-black">{locale === 'fr' ? 'Avant' : 'Before'}</h4>
                         <CodeBlock>
@@ -286,7 +287,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                           <code>{section.code.after}</code>
                         </CodeBlock>
                       </div>
-                    </div>
+                    </CodeBlockGrid>
                   )}
                 </CardContent>
               </Card>

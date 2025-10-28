@@ -1,5 +1,7 @@
 'use client'
 
+import { CodeBlockGrid } from '@/components/ui/codeblock-grid'
+import { CodeBlock } from '@/components/ui/codeblock'
 import { useTranslations } from '@/hooks/useTranslations'
 import Link from 'next/link'
 
@@ -48,10 +50,11 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
               {t('content.codeExamples.javascript')}
             </h3>
             <div className="space-y-4">
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                  <pre className="whitespace-pre">{`function calculateTotal(items) {
+              <CodeBlockGrid layout="horizontal">
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
+                  <CodeBlock>
+                    <code>{`function calculateTotal(items) {
     let total = 0;
     
     for (let i = 0; i < items.length; i++) {
@@ -63,15 +66,16 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
 
 function init() {
     calculateTotal();
-}`}</pre>
+}`}</code>
+                  </CodeBlock>
                 </div>
-              </div>
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
-                  <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(t){let l=0;for(let n=0;n<t.length;n++)l+=t[n].price*t[n].quantity;return l}function init(){calculateTotal()}`}</pre>
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
+                  <CodeBlock>
+                    <code>{`function calculateTotal(t){let l=0;for(let n=0;n<t.length;n++)l+=t[n].price*t[n].quantity;return l}function init(){calculateTotal()}`}</code>
+                  </CodeBlock>
                 </div>
-              </div>
+              </CodeBlockGrid>
             </div>
           </div>
           
@@ -81,10 +85,11 @@ function init() {
               {t('content.codeExamples.css')}
             </h3>
             <div className="space-y-4">
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed overflow-x-auto">
-                  <pre className="whitespace-pre">{`.header {
+              <CodeBlockGrid layout="horizontal">
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
+                  <CodeBlock>
+                    <code>{`.header {
     background-color: #ffffff;
     padding: 20px;
     margin-bottom: 10px;
@@ -96,15 +101,16 @@ function init() {
     font-size: 24px;
     font-weight: bold;
     color: #333333;
-}`}</pre>
+}`}</code>
+                  </CodeBlock>
                 </div>
-              </div>
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
-                <div className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 p-4 rounded-lg font-mono text-xs leading-relaxed">
-                  <pre className="whitespace-pre-wrap break-all">{`.header{background-color:#fff;padding:20px;margin-bottom:10px;border-radius:5px;color:#333}.header .title{font-size:24px;font-weight:700;color:#333}`}</pre>
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.minifiedCode')}</h4>
+                  <CodeBlock>
+                    <code>{`.header{background-color:#fff;padding:20px;margin-bottom:10px;border-radius:5px;color:#333}.header .title{font-size:24px;font-weight:700;color:#333}`}</code>
+                  </CodeBlock>
                 </div>
-              </div>
+              </CodeBlockGrid>
             </div>
           </div>
         </div>

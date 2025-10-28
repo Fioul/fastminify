@@ -8,9 +8,10 @@ interface CodeBlockProps {
   children: React.ReactNode
   className?: string
   language?: string
+  layout?: 'vertical' | 'horizontal'
 }
 
-export function CodeBlock({ children, className, language }: CodeBlockProps) {
+export function CodeBlock({ children, className, language, layout = 'vertical' }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
   const codeRef = useRef<HTMLDivElement>(null)
 
@@ -34,7 +35,8 @@ export function CodeBlock({ children, className, language }: CodeBlockProps) {
   return (
     <div 
       className={cn(
-        "relative group bg-muted rounded-lg overflow-hidden",
+        "relative group bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden",
+        layout === 'horizontal' ? "inline-block max-w-full" : "w-full",
         className
       )}
     >
@@ -59,7 +61,7 @@ export function CodeBlock({ children, className, language }: CodeBlockProps) {
       </button>
 
       {/* Code content */}
-      <div ref={codeRef} className="p-4 overflow-x-auto text-sm">
+      <div ref={codeRef} className="p-4 overflow-x-auto font-mono text-xs leading-relaxed whitespace-pre">
         {children}
       </div>
     </div>
