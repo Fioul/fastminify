@@ -251,7 +251,7 @@
     }
   },
   "contact": {
-    "title": "Contact Us",
+    "title": "Contact",
     "subtitle": "Found a bug? Have a suggestion? I'd love to hear from you!",
     "sendMessage": "Contact us",
     "name": "Name",
@@ -619,6 +619,24 @@
   "documentation": {
     "title": "Technical Documentation",
     "subtitle": "Detailed guide to the packages used for conversions and all available options with explanations of their impact on the conversion process",
+    "header": {
+      "tryTool": "Try our minification tool",
+      "readGuides": "Read our guides"
+    },
+    "packages": {
+      "tryMinification": "Try {language} minification",
+      "optimizationGuide": "{language} optimization guide"
+    },
+    "examples": {
+      "testExample": "Test this {language} example"
+    },
+    "nextSteps": {
+      "title": "Ready to optimize your code?",
+      "description": "Now that you understand our tools and options, it's time to put them into practice.",
+      "startMinifying": "Start minifying your code",
+      "readGuides": "Read optimization guides",
+      "learnApproach": "Learn about our approach"
+    },
     "javascript": {
       "title": "JavaScript Minification",
       "description": "Using Terser to optimize and compress JavaScript code",

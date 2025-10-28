@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { minifyJavaScript } from '@/lib/javascript-options'
 import { minifyCSSWithOptions } from '@/lib/css-options'
@@ -20,6 +21,8 @@ import {
 } from '@/lib/types'
 
 export function useMinification() {
+  const searchParams = useSearchParams()
+  
   const [leftCode, setLeftCode] = useState('')
   const [rightCode, setRightCode] = useState('')
   const [stats, setStats] = useState<Stats | null>(null)
@@ -33,6 +36,32 @@ export function useMinification() {
   const [lastOperation, setLastOperation] = useState<OperationType>(null)
   const [leftModalOpen, setLeftModalOpen] = useState(false)
   const [rightModalOpen, setRightModalOpen] = useState(false)
+
+  // Handle URL parameters for pre-filling editor
+  useEffect(() => {
+    const codeParam = searchParams.get('code')
+    const langParam = searchParams.get('lang')
+    
+    if (codeParam && langParam) {
+      const decodedCode = decodeURIComponent(codeParam)
+      setLeftCode(decodedCode)
+      
+      // Map language parameter to LanguageType
+      const langMap: Record<string, LanguageType> = {
+        'javascript': 'js',
+        'css': 'css',
+        'json': 'json',
+        'php': 'php'
+      }
+      
+      const mappedLang = langMap[langParam]
+      if (mappedLang) {
+        setLeftType(mappedLang)
+        setAutoDetectLeft(false)
+        setLeftTypeManuallySet(true)
+      }
+    }
+  }, [searchParams])
 
 
   // Options configuration

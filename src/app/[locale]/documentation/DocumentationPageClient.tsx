@@ -10,6 +10,7 @@ import { SiJavascript, SiCss3, SiJson, SiPhp } from 'react-icons/si'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface DocumentationPageClientProps {
   locale: string
@@ -114,6 +115,35 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
                                   <pre className="whitespace-pre-wrap break-all">{`function calculateTotal(t){let e=0;for(let o=0;o<t.length;o++)e+=t[o].price;return e}const products=[{name:"Laptop",price:999},{name:"Mouse",price:25}];console.log("Total:",calculateTotal(products));`}</pre>
                                 </div>
                               </div>
+                    </div>
+                    <div className="text-center mt-6">
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link 
+                          href={`/${locale}?code=${encodeURIComponent(`function calculateTotal(items) {
+  let total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price;
+  }
+  return total;
+}
+
+const products = [
+  { name: "Laptop", price: 999 },
+  { name: "Mouse", price: 25 }
+];
+
+console.log("Total:", calculateTotal(products));`)}&lang=javascript`}
+                          className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                        >
+                          {t('documentation.examples.testExample').replace('{language}', 'JavaScript')}
+                        </Link>
+                        <Link 
+                          href={`/${locale}/blog/${locale === 'fr' ? 'guide-complet-minification-javascript' : 'complete-javascript-minification-guide'}`}
+                          className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
+                        >
+                          {t('documentation.packages.optimizationGuide').replace('{language}', 'JavaScript')}
+                        </Link>
+                      </div>
                     </div>
                   </div>
 
@@ -460,6 +490,32 @@ function test() {
                         </div>
                       </div>
                     </div>
+                    <div className="text-center mt-6">
+                      <Link 
+                        href={`/${locale}?code=${encodeURIComponent(`/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+.header {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  color: #333333;
+  font-size: 1.5rem;
+  font-weight: bold;
+}`)}&lang=css`}
+                        className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        {t('documentation.examples.testExample').replace('{language}', 'CSS')}
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Options */}
@@ -721,6 +777,35 @@ div.container > ul li:last-child {
                           <pre className="whitespace-pre-wrap break-all">{t('documentation.json.basicExample.outputCode')}</pre>
                         </div>
                       </div>
+                    </div>
+                    <div className="text-center mt-6">
+                      <Link 
+                        href={`/${locale}?code=${encodeURIComponent(`{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A sample project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.0.0",
+    "jest": "^29.0.0"
+  },
+  "keywords": ["javascript", "react", "webpack"],
+  "author": "John Doe",
+  "license": "MIT"
+}`)}&lang=json`}
+                        className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        {t('documentation.examples.testExample').replace('{language}', 'JSON')}
+                      </Link>
                     </div>
                   </div>
 
@@ -1016,6 +1101,24 @@ div.container > ul li:last-child {
                         </div>
                       </div>
                     </div>
+                    <div className="text-center mt-6">
+                      <Link 
+                        href={`/${locale}?code=${encodeURIComponent(`{
+  "name": "John Doe",
+  "age": 30,
+  "email": "john@example.com",
+  "hobbies": ["reading", "swimming", "coding"],
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "country": "USA"
+  }
+}`)}&lang=php`}
+                        className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        {t('documentation.examples.testExample').replace('{language}', 'PHP')}
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Options */}
@@ -1218,6 +1321,38 @@ div.container > ul li:last-child {
               </Card>
             </TabsContent>
           </Tabs>
+
+          {/* Next Steps Section */}
+          <div className="mt-16 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 border border-primary/20">
+            <div className="text-center space-y-6">
+              <h2 className="text-2xl font-bold text-foreground">
+                {t('documentation.nextSteps.title')}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                {t('documentation.nextSteps.description')}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href={`/${locale}`}
+                  className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors text-lg"
+                >
+                  {t('documentation.nextSteps.startMinifying')}
+                </Link>
+                <Link 
+                  href={`/${locale}/blog`}
+                  className="inline-flex items-center px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors text-lg"
+                >
+                  {t('documentation.nextSteps.readGuides')}
+                </Link>
+                <Link 
+                  href={`/${locale}/about`}
+                  className="inline-flex items-center px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors text-lg"
+                >
+                  {t('documentation.nextSteps.learnApproach')}
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
