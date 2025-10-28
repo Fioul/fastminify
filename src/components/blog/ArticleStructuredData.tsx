@@ -70,22 +70,34 @@ export default function ArticleStructuredData({ article, locale }: ArticleStruct
         "mainEntity": [
           {
             "@type": "Question",
-            "name": locale === 'fr' ? "Qu'est-ce que la minification JavaScript ?" : "What is JavaScript minification?",
+            "name": article.tags.includes('css') 
+              ? (locale === 'fr' ? "Qu'est-ce que la minification CSS ?" : "What is CSS minification?")
+              : (locale === 'fr' ? "Qu'est-ce que la minification JavaScript ?" : "What is JavaScript minification?"),
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": locale === 'fr' 
-                ? "La minification JavaScript est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité."
-                : "JavaScript minification is the process of removing unnecessary characters from source code without changing its functionality."
+              "text": article.tags.includes('css')
+                ? (locale === 'fr' 
+                    ? "La minification CSS est le processus de suppression des caractères inutiles des feuilles de style sans changer leur fonctionnalité."
+                    : "CSS minification is the process of removing unnecessary characters from stylesheets without changing their functionality.")
+                : (locale === 'fr' 
+                    ? "La minification JavaScript est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité."
+                    : "JavaScript minification is the process of removing unnecessary characters from source code without changing its functionality.")
             }
           },
           {
             "@type": "Question",
-            "name": locale === 'fr' ? "Pourquoi minifier le JavaScript ?" : "Why minify JavaScript?",
+            "name": article.tags.includes('css')
+              ? (locale === 'fr' ? "Pourquoi minifier le CSS ?" : "Why minify CSS?")
+              : (locale === 'fr' ? "Pourquoi minifier le JavaScript ?" : "Why minify JavaScript?"),
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": locale === 'fr'
-                ? "La minification réduit la taille des fichiers, améliore les temps de chargement et optimise les performances web."
-                : "Minification reduces file sizes, improves loading times and optimizes web performance."
+              "text": article.tags.includes('css')
+                ? (locale === 'fr'
+                    ? "La minification CSS réduit la taille des fichiers, améliore les temps de chargement et optimise les performances web."
+                    : "CSS minification reduces file sizes, improves loading times and optimizes web performance.")
+                : (locale === 'fr'
+                    ? "La minification réduit la taille des fichiers, améliore les temps de chargement et optimise les performances web."
+                    : "Minification reduces file sizes, improves loading times and optimizes web performance.")
             }
           }
         ]
