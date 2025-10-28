@@ -46,13 +46,13 @@
         "en": "Tutorials"
       },
       "tags": ["css", "minification", "performance", "optimisation", "csso"],
-      "publishedAt": "2025-01-27",
+      "publishedAt": "2025-10-29",
       "readingTime": {
         "fr": "9 min de lecture",
         "en": "9 min read"
       },
       "featured": true,
-      "heroImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=400&fit=crop&crop=center"
+      "heroImage": "/images/blog/css-minification-hero.jpg"
     }
   ],
   "categories": [

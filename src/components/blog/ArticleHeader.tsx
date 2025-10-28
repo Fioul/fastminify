@@ -1,5 +1,6 @@
 'use client'
 
+import { ImageCredits } from '@/components/ui/image-credits'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, Clock, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'

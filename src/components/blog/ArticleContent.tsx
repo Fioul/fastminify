@@ -1,5 +1,6 @@
 'use client'
 
+import { CodeBlock } from '@/components/ui/codeblock'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -158,24 +159,24 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     {section.steps?.map((step, stepIndex) => (
                       <div key={stepIndex}>
                         <h4 className="font-semibold mb-2">{step.title}</h4>
-                        <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                        <CodeBlock>
                           <code>{step.code}</code>
-                        </pre>
+                        </CodeBlock>
                       </div>
                     ))}
                     {section.code && (
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div>
                           <h4 className="font-semibold mb-2">Configuration</h4>
-                          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                            <code>{section.code.config}</code>
-                          </pre>
+                        <CodeBlock>
+                          <code>{section.code.config}</code>
+                        </CodeBlock>
                         </div>
                         <div>
                           <h4 className="font-semibold mb-2">{locale === 'fr' ? 'Utilisation' : 'Usage'}</h4>
-                          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-                            <code>{section.code.usage}</code>
-                          </pre>
+                        <CodeBlock>
+                          <code>{section.code.usage}</code>
+                        </CodeBlock>
                         </div>
                       </div>
                     )}
@@ -203,9 +204,9 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     {section.steps?.map((step, stepIndex) => (
                       <div key={stepIndex}>
                         <h4 className="font-semibold mb-2">{step.title}</h4>
-                        <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                        <CodeBlock>
                           <code>{step.code}</code>
-                        </pre>
+                        </CodeBlock>
                       </div>
                     ))}
                   </div>
@@ -231,15 +232,15 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold mb-2">Configuration Webpack</h4>
-                      <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                      <CodeBlock>
                         <code>{section.code?.webpackConfig}</code>
-                      </pre>
+                      </CodeBlock>
                     </div>
                     <div>
                       <h4 className="font-semibold mb-2">package.json</h4>
-                      <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                      <CodeBlock>
                         <code>{section.code?.packageJson}</code>
-                      </pre>
+                      </CodeBlock>
                     </div>
                   </div>
                 </CardContent>
@@ -275,15 +276,15 @@ export function ArticleContent({ article }: ArticleContentProps) {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       <div>
                         <h4 className="font-semibold mb-2 text-black">{locale === 'fr' ? 'Avant' : 'Before'}</h4>
-                        <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                        <CodeBlock>
                           <code>{section.code.before}</code>
-                        </pre>
+                        </CodeBlock>
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2 text-black">{locale === 'fr' ? 'Après' : 'After'}</h4>
-                        <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                        <CodeBlock>
                           <code>{section.code.after}</code>
-                        </pre>
+                        </CodeBlock>
                       </div>
                     </div>
                   )}
@@ -330,9 +331,9 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   {section.code && (
                     <div>
                       <h4 className="font-semibold mb-2">Configuration GitHub Actions</h4>
-                      <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+                      <CodeBlock>
                         <code>{section.code}</code>
-                      </pre>
+                      </CodeBlock>
                     </div>
                   )}
                 </CardContent>

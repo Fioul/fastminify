@@ -19,7 +19,7 @@
         {
           "title": "Concrete performance metrics",
           "description": "Here are real CSS optimization data from an e-commerce site:",
-          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop&crop=center",
+          "image": "/images/blog/css-minification-content.jpg",
           "imageAlt": "CSS code on screen showing performance optimization",
           "metrics": {
             "before": {
@@ -72,7 +72,7 @@
         {
           "title": "Advanced configuration for production",
           "description": "Optimal configuration for production environment with restructuring and advanced optimizations.",
-          "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=500&fit=crop&crop=center",
+          "image": "/images/blog/css-minification-content.jpg",
           "imageAlt": "CSSO configuration interface with advanced options",
           "code": {
             "config": "const cssoConfig = {\n  restructure: true,\n  comments: false,\n  usage: {\n    tags: ['div', 'span', 'p', 'a', 'img', 'h1', 'h2', 'h3'],\n    ids: ['header', 'footer', 'main', 'sidebar'],\n    classes: ['btn', 'card', 'modal', 'nav', 'container'],\n    properties: ['color', 'background', 'margin', 'padding']\n  },\n  minifySelectors: true,\n  mergeRules: true,\n  removeUnused: true,\n  optimizeShorthand: true\n};",
