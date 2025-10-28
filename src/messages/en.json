@@ -15,7 +15,6 @@
   },
   "common": {
     "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON Online",
-    "heroSubtitle": "Simply paste your code and let our system automatically detect the language",
     "description": "Minify, unminify and beautify your JavaScript, CSS and JSON code instantly — free, fast, and private. Online minification, unminification and beautification tool with no registration required.",
     "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. This advanced minification, unminification and beautification tool processes JavaScript, CSS and JSON in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
     "normalCode": "Normal Code",
@@ -141,7 +140,7 @@
   },
   "about": {
     "title": "About FastMinify",
-    "subtitle": "The fastest, most reliable online tool to minify, unminify and beautify JavaScript, CSS and JSON",
+    "subtitle": "Online code compressor / uncompressor",
     "technologies": {
       "title": "Technologies used",
       "subtitle": "FastMinify is built with the most modern and performant web technologies",
@@ -191,6 +190,7 @@
       "subtitle": "Each code type uses specialized algorithms for optimal compression",
       "javascript": {
         "title": "JavaScript",
+        "appliedOptimizations": "Applied optimizations:",
         "optimizations": [
           "Remove spaces and comments",
           "Minify variable names",
@@ -201,6 +201,7 @@
       },
       "css": {
         "title": "CSS",
+        "appliedOptimizations": "Applied optimizations:",
         "optimizations": [
           "Remove unnecessary spaces",
           "Convert colors (blue → #0000ff)",

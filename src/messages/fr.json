@@ -14,8 +14,7 @@
     "tags": "Mots-clés"
   },
   "common": {
-    "subtitle": "Minifier, Déminifier & Beautifier JavaScript, CSS & JSON en ligne",
-    "heroSubtitle": "Collez simplement votre code, notre système détectera automatiquement le langage",
+    "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON en ligne",
     "description": "Minifiez, déminifiez et beautifiez votre code JavaScript, CSS et JSON instantanément — gratuit, rapide et privé. Outil de minification, déminification et beautification en ligne sans inscription.",
     "extendedDescription": "Optimisez les performances de votre site web en réduisant la taille de vos fichiers de 30 à 70% en moyenne. Cet outil avancé de minification, déminification et beautification traite JavaScript, CSS et JSON en temps réel, sans compromettre la sécurité de vos données. Idéal pour les développeurs, agences web et entreprises souhaitant améliorer leur SEO et l'expérience utilisateur.",
     "normalCode": "Code Normal",
@@ -141,7 +140,7 @@
   },
   "about": {
     "title": "À propos de FastMinify",
-    "subtitle": "L'outil en ligne le plus rapide et fiable pour minifier, déminifier et beautifier JavaScript, CSS et JSON",
+    "subtitle": "Compresseur / décompresseur de code en ligne",
     "whatIs": "Qu'est-ce que FastMinify ?",
     "whatIsText": "FastMinify est un outil en ligne gratuit et axé sur la confidentialité conçu pour minifier, déminifier et beautifier instantanément le code JavaScript, CSS et JSON. Construit avec des technologies web modernes, il fournit une minification, déminification et beautification rapides et fiables sans compromettre la confidentialité de vos données.",
     "whyChoose": "Pourquoi choisir FastMinify ?",
@@ -236,6 +235,7 @@
       "subtitle": "Chaque type de code utilise des algorithmes spécialisés pour une compression optimale",
       "javascript": {
         "title": "JavaScript",
+        "appliedOptimizations": "Optimisations appliquées :",
         "optimizations": [
           "Suppression des espaces et commentaires",
           "Minification des noms de variables",
@@ -246,6 +246,7 @@
       },
       "css": {
         "title": "CSS",
+        "appliedOptimizations": "Optimisations appliquées :",
         "optimizations": [
           "Suppression des espaces inutiles",
           "Conversion des couleurs (blue → #0000ff)",
