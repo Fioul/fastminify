@@ -1,12 +1,14 @@
 'use client'
 
+import { BlogArticle } from '@/types/blog'
+
 interface BreadcrumbStructuredDataProps {
-  articleTitle: string
-  articleUrl: string
+  article: BlogArticle
   locale: string
 }
 
-export default function BreadcrumbStructuredData({ articleTitle, articleUrl, locale }: BreadcrumbStructuredDataProps) {
+export default function BreadcrumbStructuredData({ article, locale }: BreadcrumbStructuredDataProps) {
+  const articleUrl = `https://fastminify.com/${locale}/blog/${typeof article.slug === 'string' ? article.slug : article.slug[locale]}`
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -26,7 +28,7 @@ export default function BreadcrumbStructuredData({ articleTitle, articleUrl, loc
       {
         "@type": "ListItem",
         "position": 3,
-        "name": articleTitle,
+        "name": article.title,
         "item": articleUrl
       }
     ]

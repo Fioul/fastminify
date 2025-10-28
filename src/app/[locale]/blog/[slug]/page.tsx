@@ -86,14 +86,12 @@ export default async function BlogArticlePage({ params }: Props) {
 
   const allArticles = await getBlogArticles(params.locale)
   const currentIndex = allArticles.findIndex(a => a.id === article.id)
-  const articleUrl = `/${params.locale}/blog/${params.slug}`
 
   return (
     <>
       <ArticleStructuredData article={article} locale={params.locale} />
       <BreadcrumbStructuredData 
-        articleTitle={article.title}
-        articleUrl={articleUrl}
+        article={article}
         locale={params.locale}
       />
       <div className="min-h-screen bg-background">
