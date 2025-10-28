@@ -15,6 +15,7 @@
   },
   "common": {
     "subtitle": "Minify, Unminify & Beautify JavaScript, CSS & JSON Online",
+    "heroSubtitle": "Simply paste your code and let our system automatically detect the language",
     "description": "Minify, unminify and beautify your JavaScript, CSS and JSON code instantly — free, fast, and private. Online minification, unminification and beautification tool with no registration required.",
     "extendedDescription": "Optimize your website performance by reducing your file sizes by 30 to 70% on average. This advanced minification, unminification and beautification tool processes JavaScript, CSS and JSON in real-time, without compromising your data security. Perfect for developers, web agencies and businesses looking to improve their SEO and user experience.",
     "normalCode": "Normal Code",
