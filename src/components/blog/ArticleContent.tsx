@@ -73,7 +73,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   {section.metrics && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div className="space-y-4">
-                        <h4 className="font-semibold text-black">{locale === 'fr' ? 'Avant optimisation' : 'Before optimization'}</h4>
+                        <h4 className="font-semibold">{locale === 'fr' ? 'Avant optimisation' : 'Before optimization'}</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span>{locale === 'fr' ? 'Taille des fichiers :' : 'File size:'}</span>
@@ -94,7 +94,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                         </div>
                       </div>
                       <div className="space-y-4">
-                        <h4 className="font-semibold text-black">{locale === 'fr' ? 'Après optimisation' : 'After optimization'}</h4>
+                        <h4 className="font-semibold">{locale === 'fr' ? 'Après optimisation' : 'After optimization'}</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span>{locale === 'fr' ? 'Taille des fichiers :' : 'File size:'}</span>
@@ -276,13 +276,13 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   {section.code && (
                     <CodeBlockGrid layout="horizontal">
                       <div>
-                        <h4 className="font-semibold mb-2 text-black">{locale === 'fr' ? 'Avant' : 'Before'}</h4>
+                        <h4 className="font-semibold mb-2">{locale === 'fr' ? 'Avant' : 'Before'}</h4>
                         <CodeBlock>
                           <code>{section.code.before}</code>
                         </CodeBlock>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2 text-black">{locale === 'fr' ? 'Après' : 'After'}</h4>
+                        <h4 className="font-semibold mb-2">{locale === 'fr' ? 'Après' : 'After'}</h4>
                         <CodeBlock>
                           <code>{section.code.after}</code>
                         </CodeBlock>

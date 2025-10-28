@@ -50,7 +50,7 @@ export default function ContentSections({ locale }: ContentSectionsProps) {
               {t('content.codeExamples.javascript')}
             </h3>
             <div className="space-y-4">
-              <CodeBlockGrid layout="horizontal">
+              <CodeBlockGrid layout="vertical">
                 <div>
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
                   <CodeBlock>
@@ -85,7 +85,7 @@ function init() {
               {t('content.codeExamples.css')}
             </h3>
             <div className="space-y-4">
-              <CodeBlockGrid layout="horizontal">
+              <CodeBlockGrid layout="vertical">
                 <div>
                   <h4 className="text-sm font-medium text-muted-foreground mb-2">{t('content.codeExamples.originalCode')}</h4>
                   <CodeBlock>
