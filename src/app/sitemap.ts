@@ -8,13 +8,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlesFr = await getBlogArticles('fr')
   const articlesEn = await getBlogArticles('en')
   
-  // Articles de blog détaillés
-  const blogPages: MetadataRoute.Sitemap = []
+  // Générer les articles de blog détaillés dans l'ordre chronologique (plus récent en premier)
+  const blogDetailPages: MetadataRoute.Sitemap = []
   
-  // Articles français
-  for (const article of articlesFr) {
+  // Articles français (triés par date de publication décroissante)
+  const sortedArticlesFr = articlesFr.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  for (const article of sortedArticlesFr) {
     const slug = typeof article.slug === 'string' ? article.slug : article.slug.fr
-    blogPages.push({
+    blogDetailPages.push({
       url: `${baseUrl}/fr/blog/${slug}`,
       lastModified: new Date(article.publishedAt),
       changeFrequency: 'monthly',
@@ -22,10 +23,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
   
-  // Articles anglais
-  for (const article of articlesEn) {
+  // Articles anglais (triés par date de publication décroissante)
+  const sortedArticlesEn = articlesEn.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  for (const article of sortedArticlesEn) {
     const slug = typeof article.slug === 'string' ? article.slug : article.slug.en
-    blogPages.push({
+    blogDetailPages.push({
       url: `${baseUrl}/en/blog/${slug}`,
       lastModified: new Date(article.publishedAt),
       changeFrequency: 'monthly',
@@ -34,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   
   // Pages dans l'ordre demandé : Code minifier, Documentation, Blog, About, Contact
-  const orderedPages: MetadataRoute.Sitemap = [
+  const mainPages: MetadataRoute.Sitemap = [
     // 1. Code minifier (accueil)
     {
       url: `${baseUrl}/en`,
@@ -76,7 +78,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
-    
+  ]
+  
+  // Pages secondaires
+  const secondaryPages: MetadataRoute.Sitemap = [
     // 4. About
     {
       url: `${baseUrl}/en/about`,
@@ -132,6 +137,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
   
-  // Combiner dans l'ordre : pages principales, puis articles de blog détaillés
-  return [...orderedPages, ...blogPages]
+  // Ordre final : pages principales, articles de blog détaillés, puis pages secondaires
+  return [...mainPages, ...blogDetailPages, ...secondaryPages]
 }
