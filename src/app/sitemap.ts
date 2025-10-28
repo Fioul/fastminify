@@ -8,24 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlesFr = await getBlogArticles('fr')
   const articlesEn = await getBlogArticles('en')
   
-  // Pages statiques - ordre personnalisé
-  const staticPages: MetadataRoute.Sitemap = [
-    // Accueil
-    {
-      url: `${baseUrl}/en`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/fr`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-  ]
-  
-  // Articles de blog - juste après les pages d'accueil
+  // Articles de blog détaillés
   const blogPages: MetadataRoute.Sitemap = []
   
   // Articles français
@@ -50,35 +33,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   }
   
-  // Autres pages statiques
-  const otherPages: MetadataRoute.Sitemap = [
-    // Blog
+  // Pages dans l'ordre demandé : Code minifier, Documentation, Blog, About, Contact
+  const orderedPages: MetadataRoute.Sitemap = [
+    // 1. Code minifier (accueil)
     {
-      url: `${baseUrl}/en/blog`,
+      url: `${baseUrl}/en`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
     },
     {
-      url: `${baseUrl}/fr/blog`,
+      url: `${baseUrl}/fr`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
+      changeFrequency: 'daily' as const,
+      priority: 1.0,
     },
-    // About
-    {
-      url: `${baseUrl}/en/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/fr/a-propos`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    // Documentation
+    
+    // 2. Documentation
     {
       url: `${baseUrl}/en/documentation`,
       lastModified: new Date(),
@@ -91,7 +62,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
-    // Contact
+    
+    // 3. Blog (index)
+    {
+      url: `${baseUrl}/en/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/fr/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    
+    // 4. About
+    {
+      url: `${baseUrl}/en/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/fr/a-propos`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    
+    // 5. Contact
     {
       url: `${baseUrl}/en/contact`,
       lastModified: new Date(),
@@ -104,7 +104,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     },
-    // Privacy
+    
+    // Pages légales (priorité plus faible)
     {
       url: `${baseUrl}/en/privacy`,
       lastModified: new Date(),
@@ -117,7 +118,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
-    // Legal
     {
       url: `${baseUrl}/en/legal`,
       lastModified: new Date(),
@@ -132,27 +132,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
   
-  // Séparer les pages blog index des autres pages statiques
-  const blogIndexPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/en/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/fr/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-  ]
-  
-  // Filtrer les pages blog des autres pages
-  const filteredOtherPages = otherPages.filter(
-    page => !page.url.includes('/blog')
-  )
-  
-  // Combiner dans l'ordre : accueil, pages blog index, articles de blog détaillés, autres pages
-  return [...staticPages, ...blogIndexPages, ...blogPages, ...filteredOtherPages]
+  // Combiner dans l'ordre : pages principales, puis articles de blog détaillés
+  return [...orderedPages, ...blogPages]
 }

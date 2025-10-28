@@ -41,16 +41,16 @@ const ClientFooter = memo(function ClientFooter() {
                 {/* Quick Navigation Links */}
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                   <Link
-                    href={`/${currentLocale}/blog`}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {t('navigation.blog')}
-                  </Link>
-                  <Link
                     href={`/${currentLocale}/documentation`}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {t('navigation.documentation')}
+                  </Link>
+                  <Link
+                    href={`/${currentLocale}/blog`}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {t('navigation.blog')}
                   </Link>
                   <Link
                     href={getLocalizedUrl(currentLocale as 'en' | 'fr', 'about')}

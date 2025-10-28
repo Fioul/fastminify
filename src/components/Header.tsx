@@ -40,9 +40,9 @@ const Header = memo(function Header({ locale = 'en' }: HeaderProps) {
   // Navigation items configuration
   const navItems = [
     { href: `/${locale}`, label: t('navigation.home') },
+    { href: getLocalizedUrl(locale as 'en' | 'fr', 'documentation'), label: t('navigation.documentation') },
     { href: `/${locale}/blog`, label: t('navigation.blog') },
     { href: getLocalizedUrl(locale as 'en' | 'fr', 'about'), label: t('navigation.about') },
-    { href: getLocalizedUrl(locale as 'en' | 'fr', 'documentation'), label: t('navigation.documentation') },
     { href: getLocalizedUrl(locale as 'en' | 'fr', 'contact'), label: t('navigation.contact') },
   ]
 

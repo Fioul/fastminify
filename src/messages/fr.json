@@ -384,7 +384,7 @@
     "whyMinify": {
       "title": "Qu'est-ce que la minification de code JavaScript et CSS ?",
       "subtitle": "La minification de code JavaScript et CSS est le processus de suppression des caractères inutiles du code source sans changer sa fonctionnalité. Cela inclut les espaces, les commentaires et le raccourcissement des noms de variables pour optimiser les performances web.",
-      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions.",
+      "detailedExplanation": "Dans le développement web moderne, chaque milliseconde compte. La minification transforme votre code lisible en une version optimisée qui charge plus rapidement, consomme moins de bande passante et améliore l'expérience utilisateur. C'est une pratique essentielle pour les sites à fort trafic, les applications web et les projets e-commerce où la performance impacte directement les conversions. <a href=\"/{locale}/a-propos\" class=\"text-primary hover:underline font-medium\">Découvrir notre approche et nos algorithmes →</a>",
       "benefits": {
         "performance": {
           "title": "Réduction de taille",
@@ -405,7 +405,14 @@
       "javascript": "JavaScript",
       "css": "CSS",
       "json": "JSON",
-      "php": "PHP Serialization"
+      "php": "PHP Serialization",
+      "description": "Cliquez sur chaque langage pour en savoir plus sur ses options d'optimisation spécifiques.",
+      "links": {
+        "javascript": "<a href=\"/{locale}/documentation#javascript\" class=\"block h-full group\" aria-label=\"Documentation JavaScript\">",
+        "css": "<a href=\"/{locale}/documentation#css\" class=\"block h-full group\" aria-label=\"Documentation CSS\">",
+        "json": "<a href=\"/{locale}/documentation#json\" class=\"block h-full group\" aria-label=\"Documentation JSON\">",
+        "php": "<a href=\"/{locale}/documentation#php\" class=\"block h-full group\" aria-label=\"Documentation PHP\">"
+      }
     },
     "howItWorks": {
       "title": "Comment ça fonctionne ?",
@@ -417,7 +424,7 @@
         },
         "configure": {
           "title": "Configurez les options",
-          "description": "Personnalisez la minification selon vos besoins : compatibilité, compression, optimisations."
+          "description": "Personnalisez la minification selon vos besoins : compatibilité, compression, optimisations. <a href=\"/{locale}/documentation\" class=\"text-primary hover:underline font-medium\">Voir toutes les options disponibles →</a>"
         },
         "getResult": {
           "title": "Récupérez le résultat",
@@ -445,7 +452,9 @@
           "Optimise les <strong>expressions</strong>",
           "Compatible avec la compression <strong>GZIP</strong>"
         ]
-      }
+      },
+      "cta": "<a href=\"/{locale}/blog\" class=\"inline-block mt-4 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors\">Lire nos derniers guides →</a>",
+      "contactLink": "<a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Nous contacter →</a>"
     },
     "faq": {
       "title": "Questions fréquemment posées",
@@ -475,7 +484,8 @@
           "question": "L'outil est-il vraiment gratuit ?",
           "answer": "Oui, Fast Minify est 100% gratuit et sans inscription. Vous pouvez l'utiliser autant que vous le souhaitez sans aucune limitation."
         }
-      ]
+      ],
+      "contactFooter": "Des questions supplémentaires ? <a href=\"/{locale}/contact\" class=\"text-primary hover:underline font-medium\">Contactez-nous →</a>"
     },
     "codeExamples": {
       "title": "Exemples de minification",
@@ -605,7 +615,7 @@
   },
   "documentation": {
     "title": "Documentation Technique",
-    "subtitle": "Guide complet pour comprendre la minification et la sérialisation avec des exemples de code pratiques",
+    "subtitle": "Guide détaillé des packages utilisés pour effectuer les conversions et de toutes les options disponibles ainsi que de leur impact sur le processus de conversion",
     "javascript": {
       "title": "Minification JavaScript",
       "description": "Utilisation de Terser pour optimiser et compresser le code JavaScript",

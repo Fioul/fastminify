@@ -8,6 +8,8 @@ import CodeEditor from '@/components/CodeEditor'
 import { Copy, ExternalLink } from 'lucide-react'
 import { SiJavascript, SiCss3, SiJson, SiPhp } from 'react-icons/si'
 import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface DocumentationPageClientProps {
   locale: string
@@ -15,6 +17,26 @@ interface DocumentationPageClientProps {
 
 export default function DocumentationPageClient({ locale }: DocumentationPageClientProps) {
   const { t } = useTranslations(locale)
+  const router = useRouter()
+  const [activeTab, setActiveTab] = useState('javascript')
+
+  // Détecter l'ancre dans l'URL au chargement
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1) // Enlever le #
+      if (hash && ['javascript', 'css', 'json', 'php'].includes(hash)) {
+        setActiveTab(hash)
+      }
+    }
+  }, [])
+
+  // Gérer le changement d'onglet et mettre à jour l'URL
+  const handleTabChange = (value: string) => {
+    setActiveTab(value)
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `#${value}`)
+    }
+  }
 
   const languages = [
     { value: 'javascript', label: 'JavaScript', icon: SiJavascript },
@@ -38,7 +60,7 @@ export default function DocumentationPageClient({ locale }: DocumentationPageCli
           </div>
 
           {/* Language Tabs */}
-          <Tabs defaultValue="javascript" className="w-full">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
             <TabsList className="grid w-full grid-cols-4 mb-8">
               {languages.map((lang) => {
                 const IconComponent = lang.icon
