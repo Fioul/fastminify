@@ -1,6 +1,6 @@
 // Server shell: seul l'éditeur et la toolbar restent côté client
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Metadata } from 'next'
 import HeroSection from '@/components/sections/HeroSection'
 import HomeClient from '@/components/HomeClient'
@@ -141,7 +141,9 @@ export default async function Page({ params }: PageProps) {
                     <HeroSection locale={locale} />
 
                     {/* Contenu interactif côté client */}
-                    <HomeClient locale={locale} />
+                    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-muted-foreground">Loading...</div></div>}>
+                        <HomeClient locale={locale} />
+                    </Suspense>
 
                     {/* INTRODUCTION SECTION */}
                     <div className="max-w-4xl mx-auto mb-16 mt-16">
