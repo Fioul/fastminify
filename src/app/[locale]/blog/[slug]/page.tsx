@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  const articleUrl = `/${params.locale}/blog/${params.slug}`
+  const articleUrl = `https://fastminify.com/${params.locale}/blog/${params.slug}`
   const imageUrl = article.heroImage || 'https://fastminify.com/og-image.jpg'
 
   return {
