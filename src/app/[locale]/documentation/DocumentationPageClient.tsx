@@ -1323,8 +1323,8 @@ div.container > ul li:last-child {
           </Tabs>
 
           {/* Next Steps Section */}
-          <div className="mt-16 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 border border-primary/20">
-            <div className="text-center space-y-6">
+          <div className="mt-16 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl p-8 space-y-6 border border-primary/20">
+            <div className="text-center space-y-4">
               <h2 className="text-2xl font-bold text-foreground">
                 {t('documentation.nextSteps.title')}
               </h2>
@@ -1334,19 +1334,19 @@ div.container > ul li:last-child {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href={`/${locale}`}
-                  className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors text-lg"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
                 >
                   {t('documentation.nextSteps.startMinifying')}
                 </Link>
                 <Link 
                   href={`/${locale}/blog`}
-                  className="inline-flex items-center px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors text-lg"
+                  className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
                 >
                   {t('documentation.nextSteps.readGuides')}
                 </Link>
                 <Link 
                   href={`/${locale}/about`}
-                  className="inline-flex items-center px-8 py-4 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors text-lg"
+                  className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
                 >
                   {t('documentation.nextSteps.learnApproach')}
                 </Link>
