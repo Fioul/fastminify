@@ -16,7 +16,28 @@ export interface SEOConfig {
  */
 export function generateSEOMetadata(config: SEOConfig): Metadata {
   const baseUrl = 'https://fastminify.com'
-  const canonicalUrl = config.canonicalUrl || `${baseUrl}/${config.locale}`
+  
+  // Construire l'URL canonique correcte
+  let canonicalUrl = config.canonicalUrl
+  if (!canonicalUrl) {
+    let path = `/${config.locale}`
+    
+    if (config.pageType && config.pageType !== 'home') {
+      const routeMap = {
+        about: config.locale === 'fr' ? '/a-propos' : '/about',
+        legal: config.locale === 'fr' ? '/mentions-legales' : '/legal',
+        privacy: config.locale === 'fr' ? '/confidentialite' : '/privacy',
+        contact: '/contact',
+        documentation: '/documentation',
+      }
+      
+      if (routeMap[config.pageType as keyof typeof routeMap]) {
+        path += routeMap[config.pageType as keyof typeof routeMap]
+      }
+    }
+    
+    canonicalUrl = `${baseUrl}${path}`
+  }
   
   // URLs alternatives pour hreflang
   const alternateUrls = config.alternateUrls || generateAlternateUrls(config.locale, config.pageType)
