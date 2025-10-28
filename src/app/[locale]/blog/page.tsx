@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       title: t('blog.meta.title'),
       description: t('blog.meta.description'),
       type: 'website',
-      url: `/${params.locale}/blog`,
+      url: `https://fastminify.com/${params.locale}/blog`,
       siteName: 'FastMinify',
     },
     twitter: {

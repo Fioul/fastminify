@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  const articleUrl = `/${params.locale}/blog/${params.slug}`
+  const articleUrl = `https://fastminify.com/${params.locale}/blog/${params.slug}`
   const imageUrl = article.heroImage || 'https://fastminify.com/og-image.jpg'
 
   return {
@@ -86,14 +86,12 @@ export default async function BlogArticlePage({ params }: Props) {
 
   const allArticles = await getBlogArticles(params.locale)
   const currentIndex = allArticles.findIndex(a => a.id === article.id)
-  const articleUrl = `/${params.locale}/blog/${params.slug}`
 
   return (
     <>
       <ArticleStructuredData article={article} locale={params.locale} />
       <BreadcrumbStructuredData 
-        articleTitle={article.title}
-        articleUrl={articleUrl}
+        article={article}
         locale={params.locale}
       />
       <div className="min-h-screen bg-background">

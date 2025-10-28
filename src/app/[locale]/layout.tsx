@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 import CookieConsent from '@/components/CookieConsent'
-import SEOHead from '@/components/SEOHead'
 
 interface LocaleLayoutProps {
   children: React.ReactNode
@@ -21,7 +20,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <SEOHead locale={locale} />
       <Header locale={locale} />
       <div className="pt-16">
         {children}

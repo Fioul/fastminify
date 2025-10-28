@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { CheckCircle, Info, Lightbulb, AlertTriangle, TrendingUp, Clock, Zap } from 'lucide-react'
 import { BlogArticle, BlogContent } from '@/types/blog'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 interface ArticleContentProps {
   article: BlogArticle & { content: BlogContent }
@@ -14,9 +15,11 @@ interface ArticleContentProps {
 
 export function ArticleContent({ article }: ArticleContentProps) {
   const { content } = article
+  const params = useParams()
+  const locale = params.locale as string
 
   if (!content?.content) {
-    return <div>Contenu non disponible</div>
+    return <div>{locale === 'fr' ? 'Contenu non disponible' : 'Content not available'}</div>
   }
 
   const { introduction, realWorldImpact, terserSetup, uglifySetup, webpackIntegration, advancedTechniques, monitoring, conclusion } = content.content
@@ -68,43 +71,43 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   {section.metrics && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div className="space-y-4">
-                        <h4 className="font-semibold text-red-600">Avant optimisation</h4>
+                        <h4 className="font-semibold text-red-600">{locale === 'fr' ? 'Avant optimisation' : 'Before optimization'}</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between">
-                            <span>Taille des fichiers :</span>
+                            <span>{locale === 'fr' ? 'Taille des fichiers :' : 'File size:'}</span>
                             <span className="font-mono">{section.metrics.before.fileSize}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Temps de chargement :</span>
+                            <span>{locale === 'fr' ? 'Temps de chargement :' : 'Load time:'}</span>
                             <span className="font-mono">{section.metrics.before.loadTime}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Taux de rebond :</span>
+                            <span>{locale === 'fr' ? 'Taux de rebond :' : 'Bounce rate:'}</span>
                             <span className="font-mono">{section.metrics.before.bounceRate}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Taux de conversion :</span>
+                            <span>{locale === 'fr' ? 'Taux de conversion :' : 'Conversion rate:'}</span>
                             <span className="font-mono">{section.metrics.before.conversionRate}</span>
                           </div>
                         </div>
                       </div>
                       <div className="space-y-4">
-                        <h4 className="font-semibold text-green-600">Après optimisation</h4>
+                        <h4 className="font-semibold text-green-600">{locale === 'fr' ? 'Après optimisation' : 'After optimization'}</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between">
-                            <span>Taille des fichiers :</span>
+                            <span>{locale === 'fr' ? 'Taille des fichiers :' : 'File size:'}</span>
                             <span className="font-mono">{section.metrics.after.fileSize}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Temps de chargement :</span>
+                            <span>{locale === 'fr' ? 'Temps de chargement :' : 'Load time:'}</span>
                             <span className="font-mono">{section.metrics.after.loadTime}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Taux de rebond :</span>
+                            <span>{locale === 'fr' ? 'Taux de rebond :' : 'Bounce rate:'}</span>
                             <span className="font-mono">{section.metrics.after.bounceRate}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Taux de conversion :</span>
+                            <span>{locale === 'fr' ? 'Taux de conversion :' : 'Conversion rate:'}</span>
                             <span className="font-mono">{section.metrics.after.conversionRate}</span>
                           </div>
                         </div>
@@ -169,7 +172,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                           </pre>
                         </div>
                         <div>
-                          <h4 className="font-semibold mb-2">Utilisation</h4>
+                          <h4 className="font-semibold mb-2">{locale === 'fr' ? 'Utilisation' : 'Usage'}</h4>
                           <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
                             <code>{section.code.usage}</code>
                           </pre>
@@ -271,13 +274,13 @@ export function ArticleContent({ article }: ArticleContentProps) {
                   {section.code && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold mb-2 text-red-600">❌ Avant</h4>
+                        <h4 className="font-semibold mb-2 text-red-600">❌ {locale === 'fr' ? 'Avant' : 'Before'}</h4>
                         <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
                           <code>{section.code.before}</code>
                         </pre>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2 text-green-600">✅ Après</h4>
+                        <h4 className="font-semibold mb-2 text-green-600">✅ {locale === 'fr' ? 'Après' : 'After'}</h4>
                         <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
                           <code>{section.code.after}</code>
                         </pre>

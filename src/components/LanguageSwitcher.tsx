@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { useCurrentArticle } from '@/hooks/useCurrentArticle'
 
 interface LanguageSwitcherProps {
   currentLocale: string
@@ -10,13 +11,24 @@ interface LanguageSwitcherProps {
 export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const { article } = useCurrentArticle()
 
   const switchLanguage = (newLocale: string) => {
     // Sauvegarder la langue dans localStorage ET dans un cookie
     localStorage.setItem('preferred-language', newLocale)
     document.cookie = `preferred-language=${newLocale}; path=/; max-age=31536000` // 1 an
     
-    // Remplacer la locale dans le pathname
+    // Si on est sur une page d'article de blog et qu'on a les données de l'article
+    const blogArticleMatch = pathname.match(/^\/[a-z]{2}\/blog\/(.+)$/)
+    if (blogArticleMatch && article) {
+      // Utiliser le slug correspondant à la nouvelle langue
+      const newSlug = typeof article.slug === 'string' ? article.slug : article.slug[newLocale]
+      const newPath = `/${newLocale}/blog/${newSlug}`
+      router.push(newPath)
+      return
+    }
+    
+    // Pour les autres pages, remplacer simplement la locale
     const newPath = pathname.replace(/^\/[a-z]{2}/, `/${newLocale}`)
     router.push(newPath)
   }
